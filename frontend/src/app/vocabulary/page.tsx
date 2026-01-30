@@ -249,7 +249,10 @@ export default function VocabularyPage() {
   const cleanWord = (word: string) => word.replace(/:/g, '').trim()
 
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-32">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" />
+
       {/* Level Up Animation */}
       {showLevelUp && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
@@ -267,8 +270,8 @@ export default function VocabularyPage() {
         </div>
       )}
 
-      {/* Header - Fixed */}
-      <header className="fixed top-0 left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4 pt-safe">
+      {/* Header - Fixed at 30px from top */}
+      <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: '30px' }}>
         <div className="flex items-center justify-between">
           <Link href="/" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -316,8 +319,8 @@ export default function VocabularyPage() {
         </div>
       </header>
 
-      {/* Spacer for fixed header */}
-      <div className="h-48" />
+      {/* Spacer for fixed header (30px top + header height) */}
+      <div className="h-52" />
 
       {/* Mode Selector */}
       <div className="px-6 py-4">

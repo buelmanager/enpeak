@@ -384,8 +384,11 @@ export default function ScenarioRoleplayPage() {
 
   return (
     <main className="min-h-screen bg-[#faf9f7] flex flex-col">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-white flex-shrink-0" />
+
       {/* Header */}
-      <header className="bg-white border-b border-[#f0f0f0] px-4 py-3 flex items-center justify-between" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}>
+      <header className="bg-white border-b border-[#f0f0f0] px-4 py-3 flex items-center justify-between flex-shrink-0">
         <button onClick={() => router.push('/conversations')} className="p-2 -ml-2">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />

@@ -28,7 +28,7 @@ const CATEGORIES: Category[] = [
     name: 'Daily Life',
     name_ko: '일상 생활',
     icon: 'sun',
-    color: 'bg-yellow-500',
+    color: 'bg-[#1a1a1a]',
     scenarios: [
       { id: 'morning_routine', title: 'Morning Routine', title_ko: '아침 일과', description: '아침에 일어나서 하는 일상 대화', difficulty: 'beginner', duration: '5분' },
       { id: 'grocery_shopping', title: 'Grocery Shopping', title_ko: '장보기', description: '마트에서 물건 사기', difficulty: 'beginner', duration: '5분' },
@@ -45,7 +45,7 @@ const CATEGORIES: Category[] = [
     name: 'Restaurant & Food',
     name_ko: '음식점 & 음식',
     icon: 'utensils',
-    color: 'bg-orange-500',
+    color: 'bg-[#3a3a3a]',
     scenarios: [
       { id: 'cafe_order', title: 'Ordering at a Cafe', title_ko: '카페 주문', description: '카페에서 음료 주문하기', difficulty: 'beginner', duration: '5분' },
       { id: 'restaurant_reservation', title: 'Making Reservation', title_ko: '예약하기', description: '레스토랑 예약하기', difficulty: 'beginner', duration: '5분' },
@@ -64,7 +64,7 @@ const CATEGORIES: Category[] = [
     name: 'Travel',
     name_ko: '여행',
     icon: 'plane',
-    color: 'bg-blue-500',
+    color: 'bg-[#4a4a4a]',
     scenarios: [
       { id: 'airport_checkin', title: 'Airport Check-in', title_ko: '공항 체크인', description: '공항에서 체크인하기', difficulty: 'beginner', duration: '7분' },
       { id: 'immigration', title: 'Immigration', title_ko: '입국 심사', description: '입국 심사 통과하기', difficulty: 'intermediate', duration: '5분' },
@@ -85,7 +85,7 @@ const CATEGORIES: Category[] = [
     name: 'Shopping',
     name_ko: '쇼핑',
     icon: 'shopping-bag',
-    color: 'bg-pink-500',
+    color: 'bg-[#5a5a5a]',
     scenarios: [
       { id: 'clothing_store', title: 'Clothing Store', title_ko: '옷 가게', description: '옷 쇼핑하기', difficulty: 'beginner', duration: '7분' },
       { id: 'trying_on', title: 'Trying On Clothes', title_ko: '옷 입어보기', description: '피팅룸에서 옷 입어보기', difficulty: 'beginner', duration: '5분' },
@@ -102,7 +102,7 @@ const CATEGORIES: Category[] = [
     name: 'Business & Work',
     name_ko: '비즈니스 & 업무',
     icon: 'briefcase',
-    color: 'bg-gray-700',
+    color: 'bg-[#6a6a6a]',
     scenarios: [
       { id: 'job_interview', title: 'Job Interview', title_ko: '면접', description: '영어 면접 보기', difficulty: 'advanced', duration: '15분' },
       { id: 'self_introduction', title: 'Self Introduction', title_ko: '자기소개', description: '비즈니스 자기소개', difficulty: 'intermediate', duration: '5분' },
@@ -123,7 +123,7 @@ const CATEGORIES: Category[] = [
     name: 'Health & Medical',
     name_ko: '건강 & 의료',
     icon: 'heart',
-    color: 'bg-red-500',
+    color: 'bg-[#2a2a2a]',
     scenarios: [
       { id: 'doctor_appointment', title: 'Doctor Appointment', title_ko: '병원 예약', description: '병원 예약하기', difficulty: 'beginner', duration: '5분' },
       { id: 'describing_symptoms', title: 'Describing Symptoms', title_ko: '증상 설명', description: '증상 설명하기', difficulty: 'intermediate', duration: '7분' },
@@ -140,7 +140,7 @@ const CATEGORIES: Category[] = [
     name: 'Social & Friends',
     name_ko: '사교 & 친구',
     icon: 'users',
-    color: 'bg-purple-500',
+    color: 'bg-[#3a3a3a]',
     scenarios: [
       { id: 'making_friends', title: 'Making Friends', title_ko: '친구 사귀기', description: '새로운 친구 만들기', difficulty: 'beginner', duration: '7분' },
       { id: 'party_invitation', title: 'Party Invitation', title_ko: '파티 초대', description: '파티에 초대하기/받기', difficulty: 'beginner', duration: '5분' },
@@ -159,7 +159,7 @@ const CATEGORIES: Category[] = [
     name: 'Entertainment',
     name_ko: '엔터테인먼트',
     icon: 'film',
-    color: 'bg-indigo-500',
+    color: 'bg-[#4a4a4a]',
     scenarios: [
       { id: 'movie_tickets', title: 'Buying Movie Tickets', title_ko: '영화표 구매', description: '영화표 예매하기', difficulty: 'beginner', duration: '5분' },
       { id: 'movie_discussion', title: 'Discussing Movies', title_ko: '영화 토론', description: '영화에 대해 이야기하기', difficulty: 'intermediate', duration: '10분' },
@@ -176,7 +176,7 @@ const CATEGORIES: Category[] = [
     name: 'Education',
     name_ko: '교육',
     icon: 'graduation-cap',
-    color: 'bg-teal-500',
+    color: 'bg-[#5a5a5a]',
     scenarios: [
       { id: 'class_registration', title: 'Class Registration', title_ko: '수강 신청', description: '수업 등록하기', difficulty: 'beginner', duration: '5분' },
       { id: 'asking_teacher', title: 'Asking the Teacher', title_ko: '선생님께 질문', description: '수업 중 질문하기', difficulty: 'beginner', duration: '5분' },
@@ -193,7 +193,7 @@ const CATEGORIES: Category[] = [
     name: 'Housing',
     name_ko: '주거',
     icon: 'home',
-    color: 'bg-emerald-500',
+    color: 'bg-[#6a6a6a]',
     scenarios: [
       { id: 'apartment_hunting', title: 'Apartment Hunting', title_ko: '집 구하기', description: '아파트 찾기', difficulty: 'intermediate', duration: '10분' },
       { id: 'viewing_apartment', title: 'Viewing Apartment', title_ko: '집 보기', description: '집 둘러보기', difficulty: 'intermediate', duration: '7분' },
@@ -210,7 +210,7 @@ const CATEGORIES: Category[] = [
     name: 'Banking & Finance',
     name_ko: '은행 & 금융',
     icon: 'credit-card',
-    color: 'bg-green-600',
+    color: 'bg-[#2a2a2a]',
     scenarios: [
       { id: 'opening_account', title: 'Opening Account', title_ko: '계좌 개설', description: '은행 계좌 개설하기', difficulty: 'intermediate', duration: '10분' },
       { id: 'atm_help', title: 'ATM Assistance', title_ko: 'ATM 도움', description: 'ATM 사용 도움 요청', difficulty: 'beginner', duration: '5분' },
@@ -225,7 +225,7 @@ const CATEGORIES: Category[] = [
     name: 'Services',
     name_ko: '서비스',
     icon: 'wrench',
-    color: 'bg-amber-500',
+    color: 'bg-[#4a4a4a]',
     scenarios: [
       { id: 'haircut', title: 'Getting a Haircut', title_ko: '미용실', description: '미용실에서 대화', difficulty: 'beginner', duration: '7분' },
       { id: 'dry_cleaning', title: 'Dry Cleaning', title_ko: '세탁소', description: '세탁소 이용하기', difficulty: 'beginner', duration: '5분' },
@@ -292,9 +292,12 @@ export default function ConversationsPage() {
   const totalScenarios = CATEGORIES.reduce((acc, cat) => acc + cat.scenarios.length, 0)
 
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28 pt-safe">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4 mt-safe">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-32">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" />
+
+      {/* Header - Fixed at 30px from top */}
+      <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: '30px' }}>
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-xl font-medium">상황별 회화</h1>
@@ -319,6 +322,9 @@ export default function ConversationsPage() {
           />
         </div>
       </header>
+
+      {/* Spacer for fixed header */}
+      <div className="h-40" />
 
       <div className="px-6 py-4">
         {selectedCategory ? (

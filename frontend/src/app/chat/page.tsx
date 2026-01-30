@@ -6,8 +6,11 @@ import ChatWindow from '@/components/ChatWindow'
 export default function ChatPage() {
   return (
     <main className="h-screen bg-[#faf9f7] text-[#1a1a1a] flex flex-col">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-[#faf9f7] flex-shrink-0" />
+
       {/* Header */}
-      <header className="bg-[#faf9f7] border-b border-[#f0f0f0] flex-shrink-0 pt-safe">
+      <header className="bg-[#faf9f7] border-b border-[#f0f0f0] flex-shrink-0">
         <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-[#8a8a8a] hover:text-[#1a1a1a] transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -35,8 +35,11 @@ export default function MyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f7] pt-safe">
-      <div className="px-6 py-8 pb-24">
+    <div className="min-h-screen bg-[#faf9f7] pb-32">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-[#faf9f7]" />
+
+      <div className="px-6 py-8">
         <h1 className="text-2xl font-bold text-[#1a1a1a] mb-8">My</h1>
 
         <div className="space-y-4">

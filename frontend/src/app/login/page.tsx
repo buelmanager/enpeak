@@ -64,8 +64,11 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] flex flex-col">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-[#faf9f7] flex-shrink-0" />
+
       {/* Header */}
-      <header className="px-6 pt-14 pb-8">
+      <header className="px-6 pt-6 pb-8">
         <Link href="/" className="inline-flex items-center gap-2 text-[#8a8a8a] text-sm">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />

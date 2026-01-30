@@ -19,7 +19,7 @@ export default function BottomNav() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0] pb-safe">
+    <nav className="fixed left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]" style={{ bottom: '30px' }}>
       <div className="flex items-center justify-around py-3">
         {navItems.map(item => (
           <Link

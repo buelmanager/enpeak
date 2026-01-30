@@ -69,9 +69,12 @@ const getDifficultyStyle = (difficulty: string) => {
 
 export default function RoleplayPage() {
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28 pt-safe">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-32">
+      {/* Top safe area - 30px */}
+      <div className="h-[30px] bg-[#faf9f7]" />
+
       {/* Header */}
-      <header className="px-6 pt-12 pb-8">
+      <header className="px-6 pt-6 pb-8">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-[#8a8a8a] text-sm tracking-wide">Practice</p>
