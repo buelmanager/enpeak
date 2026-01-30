@@ -309,9 +309,12 @@ function CommunityContent() {
       i === idx ? { ...m, isTranslating: true } : m
     ))
 
-    // 번역 요청
+    // 번역 요청 - /api/translate 시도, 실패시 /api/chat 사용
     try {
-      const response = await fetch(`${API_BASE}/api/translate`, {
+      let translation = ''
+
+      // 먼저 번역 전용 API 시도
+      const translateResponse = await fetch(`${API_BASE}/api/translate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -320,10 +323,29 @@ function CommunityContent() {
         }),
       })
 
-      if (response.ok) {
-        const data = await response.json()
+      if (translateResponse.ok) {
+        const data = await translateResponse.json()
+        translation = data.translation
+      } else {
+        // 폴백: /api/chat 사용
+        const chatResponse = await fetch(`${API_BASE}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: `[TRANSLATE] "${msg.content}"`,
+          }),
+        })
+        if (chatResponse.ok) {
+          const data = await chatResponse.json()
+          // 응답에서 한국어만 추출 시도
+          const koreanMatch = data.message.match(/[가-힣\s.,!?]+/g)
+          translation = koreanMatch ? koreanMatch.join(' ').trim() : data.message
+        }
+      }
+
+      if (translation) {
         setMessages(prev => prev.map((m, i) =>
-          i === idx ? { ...m, translation: data.translation, showTranslation: true, isTranslating: false } : m
+          i === idx ? { ...m, translation, showTranslation: true, isTranslating: false } : m
         ))
       } else {
         setMessages(prev => prev.map((m, i) =>
