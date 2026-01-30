@@ -7,7 +7,12 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "cleanUrls": true,
     "rewrites": [
+      {
+        "source": "/community/**",
+        "destination": "/community.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"

@@ -93,7 +93,10 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
         {isUser && betterExpressions.length > 0 && showBetterExpressions && (
           <div className="mt-2 mr-1">
             <div className="flex items-center gap-1 mb-1">
-              <span className="text-[10px] text-[#8a8a8a] tracking-wide">💡 이렇게도 말해보세요</span>
+              <svg className="w-3.5 h-3.5 text-[#8a8a8a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              <span className="text-[10px] text-[#8a8a8a] tracking-wide">이렇게도 말해보세요</span>
               <button
                 onClick={() => setShowBetterExpressions(false)}
                 className="text-[#c5c5c5] hover:text-[#8a8a8a]"
@@ -149,7 +152,9 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
         {message.learningTip && (
           <div className="mt-2 px-3 py-2 bg-[#f5f5f5] border border-[#e5e5e5] rounded-lg">
             <div className="flex items-start gap-2">
-              <span className="text-[#8a8a8a] mt-0.5 text-sm">💡</span>
+              <svg className="w-4 h-4 text-[#8a8a8a] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
               <p className="text-xs text-[#666]">{message.learningTip}</p>
             </div>
           </div>

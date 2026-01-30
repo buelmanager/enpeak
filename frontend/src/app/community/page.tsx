@@ -36,6 +36,8 @@ interface RoleplaySession {
 interface Message {
   role: 'user' | 'assistant'
   content: string
+  translation?: string
+  showTranslation?: boolean
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
@@ -279,6 +281,38 @@ function CommunityContent() {
     setInputText(suggestion)
   }
 
+  const translateMessage = async (idx: number) => {
+    const msg = messages[idx]
+    if (msg.translation) {
+      // 이미 번역이 있으면 토글
+      setMessages(prev => prev.map((m, i) =>
+        i === idx ? { ...m, showTranslation: !m.showTranslation } : m
+      ))
+      return
+    }
+
+    // 번역 요청
+    try {
+      const response = await fetch(`${API_BASE}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Translate this English sentence to Korean. Output ONLY the Korean translation, nothing else: "${msg.content}"`,
+          context: 'translation'
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setMessages(prev => prev.map((m, i) =>
+          i === idx ? { ...m, translation: data.response, showTranslation: true } : m
+        ))
+      }
+    } catch (error) {
+      console.error('Translation failed:', error)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
       {/* Toast */}
@@ -432,22 +466,57 @@ function CommunityContent() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
-            {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+            {messages.map((msg, idx) => {
+              const isLastAssistant = msg.role === 'assistant' && idx === messages.length - 1
+              return (
                 <div
-                  className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm ${
-                    msg.role === 'user'
-                      ? 'bg-[#1a1a1a] text-white rounded-br-md'
-                      : 'bg-white border border-[#f0f0f0] rounded-bl-md'
-                  }`}
+                  key={idx}
+                  className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                 >
-                  {msg.content}
+                  <div
+                    className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm ${
+                      msg.role === 'user'
+                        ? 'bg-[#1a1a1a] text-white rounded-br-md'
+                        : 'bg-white border border-[#f0f0f0] rounded-bl-md'
+                    }`}
+                  >
+                    {msg.content}
+                    {msg.showTranslation && msg.translation && (
+                      <div className={`mt-2 pt-2 border-t text-xs ${
+                        msg.role === 'user' ? 'border-white/20 text-white/80' : 'border-[#e5e5e5] text-[#666]'
+                      }`}>
+                        {msg.translation}
+                      </div>
+                    )}
+                  </div>
+                  {/* 번역 버튼 */}
+                  <button
+                    onClick={() => translateMessage(idx)}
+                    className={`mt-1 px-2 py-0.5 text-[10px] rounded transition-colors ${
+                      msg.showTranslation && msg.translation
+                        ? 'text-blue-600 bg-blue-50'
+                        : 'text-[#8a8a8a] hover:text-[#1a1a1a] hover:bg-[#f5f5f5]'
+                    }`}
+                  >
+                    {msg.showTranslation && msg.translation ? '번역 숨기기' : '번역'}
+                  </button>
+                  {/* 추천 응답 - 마지막 AI 메시지 바로 아래 */}
+                  {isLastAssistant && !isRoleplayLoading && roleplaySession?.suggestedResponses && roleplaySession.suggestedResponses.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {roleplaySession.suggestedResponses.map((suggestion, sIdx) => (
+                        <button
+                          key={sIdx}
+                          onClick={() => useSuggestion(suggestion)}
+                          className="px-3 py-1.5 bg-[#f5f5f5] border border-[#e5e5e5] rounded-full text-xs hover:bg-white hover:border-[#1a1a1a] transition-colors"
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              )
+            })}
             {isRoleplayLoading && messages.length > 0 && (
               <div className="flex justify-start">
                 <div className="bg-white border border-[#f0f0f0] rounded-2xl rounded-bl-md px-4 py-3">
@@ -461,21 +530,6 @@ function CommunityContent() {
             )}
             <div ref={messagesEndRef} />
           </div>
-
-          {/* Suggested Responses */}
-          {roleplaySession?.suggestedResponses && roleplaySession.suggestedResponses.length > 0 && (
-            <div className="px-4 py-2 flex gap-2 overflow-x-auto">
-              {roleplaySession.suggestedResponses.map((suggestion, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => useSuggestion(suggestion)}
-                  className="px-3 py-1.5 bg-white border border-[#e5e5e5] rounded-full text-xs whitespace-nowrap hover:bg-[#f5f5f5] transition-colors"
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
-          )}
 
           {/* Completion Message */}
           {roleplaySession?.isComplete && (
