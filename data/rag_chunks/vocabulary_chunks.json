@@ -1,0 +1,6857 @@
+[
+  {
+    "id": "vocab_hello",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hello: 안녕하세요",
+    "word": "hello",
+    "meaning": "안녕하세요",
+    "example": "Hello, how are you?",
+    "metadata": {
+      "level": "A1",
+      "pos": "interjection"
+    }
+  },
+  {
+    "id": "vocab_goodbye",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "goodbye: 안녕히 가세요",
+    "word": "goodbye",
+    "meaning": "안녕히 가세요",
+    "example": "Goodbye, see you tomorrow!",
+    "metadata": {
+      "level": "A1",
+      "pos": "interjection"
+    }
+  },
+  {
+    "id": "vocab_please",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "please: 제발, 부디",
+    "word": "please",
+    "meaning": "제발, 부디",
+    "example": "Please help me.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_thank you",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "thank you: 감사합니다",
+    "word": "thank you",
+    "meaning": "감사합니다",
+    "example": "Thank you very much.",
+    "metadata": {
+      "level": "A1",
+      "pos": "phrase"
+    }
+  },
+  {
+    "id": "vocab_sorry",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sorry: 미안합니다",
+    "word": "sorry",
+    "meaning": "미안합니다",
+    "example": "I'm sorry for being late.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_yes",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "yes: 네",
+    "word": "yes",
+    "meaning": "네",
+    "example": "Yes, I understand.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_no",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "no: 아니요",
+    "word": "no",
+    "meaning": "아니요",
+    "example": "No, thank you.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_one",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "one: 하나, 1",
+    "word": "one",
+    "meaning": "하나, 1",
+    "example": "I have one sister.",
+    "metadata": {
+      "level": "A1",
+      "pos": "number"
+    }
+  },
+  {
+    "id": "vocab_two",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "two: 둘, 2",
+    "word": "two",
+    "meaning": "둘, 2",
+    "example": "Two coffees, please.",
+    "metadata": {
+      "level": "A1",
+      "pos": "number"
+    }
+  },
+  {
+    "id": "vocab_three",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "three: 셋, 3",
+    "word": "three",
+    "meaning": "셋, 3",
+    "example": "I waited three hours.",
+    "metadata": {
+      "level": "A1",
+      "pos": "number"
+    }
+  },
+  {
+    "id": "vocab_ten",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ten: 열, 10",
+    "word": "ten",
+    "meaning": "열, 10",
+    "example": "It costs ten dollars.",
+    "metadata": {
+      "level": "A1",
+      "pos": "number"
+    }
+  },
+  {
+    "id": "vocab_hundred",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hundred: 백, 100",
+    "word": "hundred",
+    "meaning": "백, 100",
+    "example": "There are a hundred people.",
+    "metadata": {
+      "level": "A1",
+      "pos": "number"
+    }
+  },
+  {
+    "id": "vocab_today",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "today: 오늘",
+    "word": "today",
+    "meaning": "오늘",
+    "example": "I'm busy today.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_tomorrow",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "tomorrow: 내일",
+    "word": "tomorrow",
+    "meaning": "내일",
+    "example": "See you tomorrow.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_yesterday",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "yesterday: 어제",
+    "word": "yesterday",
+    "meaning": "어제",
+    "example": "I went there yesterday.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_now",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "now: 지금",
+    "word": "now",
+    "meaning": "지금",
+    "example": "I'm eating now.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_morning",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "morning: 아침",
+    "word": "morning",
+    "meaning": "아침",
+    "example": "Good morning!",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_night",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "night: 밤",
+    "word": "night",
+    "meaning": "밤",
+    "example": "Good night!",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_week",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "week: 주",
+    "word": "week",
+    "meaning": "주",
+    "example": "I'll call you next week.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_month",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "month: 달, 월",
+    "word": "month",
+    "meaning": "달, 월",
+    "example": "This month is very busy.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_year",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "year: 년, 해",
+    "word": "year",
+    "meaning": "년, 해",
+    "example": "Happy New Year!",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_man",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "man: 남자",
+    "word": "man",
+    "meaning": "남자",
+    "example": "The man is tall.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_woman",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "woman: 여자",
+    "word": "woman",
+    "meaning": "여자",
+    "example": "The woman is kind.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_child",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "child: 아이",
+    "word": "child",
+    "meaning": "아이",
+    "example": "The child is playing.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_friend",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "friend: 친구",
+    "word": "friend",
+    "meaning": "친구",
+    "example": "She is my friend.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_family",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "family: 가족",
+    "word": "family",
+    "meaning": "가족",
+    "example": "I love my family.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_mother",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "mother: 어머니",
+    "word": "mother",
+    "meaning": "어머니",
+    "example": "My mother cooks well.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_father",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "father: 아버지",
+    "word": "father",
+    "meaning": "아버지",
+    "example": "My father works hard.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_brother",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "brother: 형제",
+    "word": "brother",
+    "meaning": "형제",
+    "example": "I have one brother.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_sister",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sister: 자매",
+    "word": "sister",
+    "meaning": "자매",
+    "example": "My sister is older.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_home",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "home: 집",
+    "word": "home",
+    "meaning": "집",
+    "example": "I'm going home.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_school",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "school: 학교",
+    "word": "school",
+    "meaning": "학교",
+    "example": "I go to school.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_work",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "work: 일, 직장",
+    "word": "work",
+    "meaning": "일, 직장",
+    "example": "I'm at work now.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_shop",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "shop: 가게",
+    "word": "shop",
+    "meaning": "가게",
+    "example": "The shop is closed.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_restaurant",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "restaurant: 레스토랑",
+    "word": "restaurant",
+    "meaning": "레스토랑",
+    "example": "Let's go to a restaurant.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_hospital",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hospital: 병원",
+    "word": "hospital",
+    "meaning": "병원",
+    "example": "He's in the hospital.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_station",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "station: 역",
+    "word": "station",
+    "meaning": "역",
+    "example": "Where is the station?",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_airport",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "airport: 공항",
+    "word": "airport",
+    "meaning": "공항",
+    "example": "I'm at the airport.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_hotel",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hotel: 호텔",
+    "word": "hotel",
+    "meaning": "호텔",
+    "example": "I booked a hotel.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_water",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "water: 물",
+    "word": "water",
+    "meaning": "물",
+    "example": "Can I have some water?",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_coffee",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "coffee: 커피",
+    "word": "coffee",
+    "meaning": "커피",
+    "example": "I'd like a coffee.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_tea",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "tea: 차",
+    "word": "tea",
+    "meaning": "차",
+    "example": "Do you want tea?",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_food",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "food: 음식",
+    "word": "food",
+    "meaning": "음식",
+    "example": "The food is delicious.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_bread",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "bread: 빵",
+    "word": "bread",
+    "meaning": "빵",
+    "example": "I eat bread for breakfast.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_rice",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "rice: 밥, 쌀",
+    "word": "rice",
+    "meaning": "밥, 쌀",
+    "example": "I like rice.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_meat",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "meat: 고기",
+    "word": "meat",
+    "meaning": "고기",
+    "example": "I don't eat meat.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_fruit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "fruit: 과일",
+    "word": "fruit",
+    "meaning": "과일",
+    "example": "I love fruit.",
+    "metadata": {
+      "level": "A1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_be",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "be: ~이다",
+    "word": "be",
+    "meaning": "~이다",
+    "example": "I am happy.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_have",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "have: 가지다",
+    "word": "have",
+    "meaning": "가지다",
+    "example": "I have a car.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_do",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "do: 하다",
+    "word": "do",
+    "meaning": "하다",
+    "example": "What do you do?",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_go",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "go: 가다",
+    "word": "go",
+    "meaning": "가다",
+    "example": "I go to work.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_come",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "come: 오다",
+    "word": "come",
+    "meaning": "오다",
+    "example": "Please come here.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_see",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "see: 보다",
+    "word": "see",
+    "meaning": "보다",
+    "example": "I see you.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_eat",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "eat: 먹다",
+    "word": "eat",
+    "meaning": "먹다",
+    "example": "I eat breakfast.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_drink",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "drink: 마시다",
+    "word": "drink",
+    "meaning": "마시다",
+    "example": "I drink water.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_want",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "want: 원하다",
+    "word": "want",
+    "meaning": "원하다",
+    "example": "I want coffee.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_like",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "like: 좋아하다",
+    "word": "like",
+    "meaning": "좋아하다",
+    "example": "I like pizza.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_need",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "need: 필요하다",
+    "word": "need",
+    "meaning": "필요하다",
+    "example": "I need help.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_know",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "know: 알다",
+    "word": "know",
+    "meaning": "알다",
+    "example": "I know him.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_think",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "think: 생각하다",
+    "word": "think",
+    "meaning": "생각하다",
+    "example": "I think so.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_make",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "make: 만들다",
+    "word": "make",
+    "meaning": "만들다",
+    "example": "I make coffee.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_take",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "take: 가져가다",
+    "word": "take",
+    "meaning": "가져가다",
+    "example": "Take this.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_give",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "give: 주다",
+    "word": "give",
+    "meaning": "주다",
+    "example": "Give me water.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_buy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "buy: 사다",
+    "word": "buy",
+    "meaning": "사다",
+    "example": "I buy food.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_work",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "work: 일하다",
+    "word": "work",
+    "meaning": "일하다",
+    "example": "I work here.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_live",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "live: 살다",
+    "word": "live",
+    "meaning": "살다",
+    "example": "I live in Seoul.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_speak",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "speak: 말하다",
+    "word": "speak",
+    "meaning": "말하다",
+    "example": "I speak English.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_read",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "read: 읽다",
+    "word": "read",
+    "meaning": "읽다",
+    "example": "I read books.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_write",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "write: 쓰다",
+    "word": "write",
+    "meaning": "쓰다",
+    "example": "I write emails.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_listen",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "listen: 듣다",
+    "word": "listen",
+    "meaning": "듣다",
+    "example": "Listen to me.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_help",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "help: 돕다",
+    "word": "help",
+    "meaning": "돕다",
+    "example": "Can you help me?",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_open",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "open: 열다",
+    "word": "open",
+    "meaning": "열다",
+    "example": "Open the door.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_close",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "close: 닫다",
+    "word": "close",
+    "meaning": "닫다",
+    "example": "Close the window.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_wait",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "wait: 기다리다",
+    "word": "wait",
+    "meaning": "기다리다",
+    "example": "Please wait here.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_ask",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ask: 묻다",
+    "word": "ask",
+    "meaning": "묻다",
+    "example": "Can I ask you?",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_call",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "call: 전화하다",
+    "word": "call",
+    "meaning": "전화하다",
+    "example": "I'll call you.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_pay",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "pay: 지불하다",
+    "word": "pay",
+    "meaning": "지불하다",
+    "example": "I'll pay by card.",
+    "metadata": {
+      "level": "A1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_good",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "good: 좋은",
+    "word": "good",
+    "meaning": "좋은",
+    "example": "This is good.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_bad",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "bad: 나쁜",
+    "word": "bad",
+    "meaning": "나쁜",
+    "example": "That's bad news.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_big",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "big: 큰",
+    "word": "big",
+    "meaning": "큰",
+    "example": "It's a big house.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_small",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "small: 작은",
+    "word": "small",
+    "meaning": "작은",
+    "example": "I want a small one.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_new",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "new: 새로운",
+    "word": "new",
+    "meaning": "새로운",
+    "example": "This is new.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_old",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "old: 오래된",
+    "word": "old",
+    "meaning": "오래된",
+    "example": "It's an old building.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_hot",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hot: 뜨거운",
+    "word": "hot",
+    "meaning": "뜨거운",
+    "example": "The coffee is hot.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_cold",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cold: 차가운",
+    "word": "cold",
+    "meaning": "차가운",
+    "example": "It's cold today.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_happy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "happy: 행복한",
+    "word": "happy",
+    "meaning": "행복한",
+    "example": "I'm happy.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_tired",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "tired: 피곤한",
+    "word": "tired",
+    "meaning": "피곤한",
+    "example": "I'm tired.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_hungry",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hungry: 배고픈",
+    "word": "hungry",
+    "meaning": "배고픈",
+    "example": "I'm hungry.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_busy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "busy: 바쁜",
+    "word": "busy",
+    "meaning": "바쁜",
+    "example": "I'm busy now.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_free",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "free: 자유로운, 무료",
+    "word": "free",
+    "meaning": "자유로운, 무료",
+    "example": "Are you free today?",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_easy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "easy: 쉬운",
+    "word": "easy",
+    "meaning": "쉬운",
+    "example": "It's easy.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_difficult",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "difficult: 어려운",
+    "word": "difficult",
+    "meaning": "어려운",
+    "example": "It's difficult.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_expensive",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "expensive: 비싼",
+    "word": "expensive",
+    "meaning": "비싼",
+    "example": "It's expensive.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_cheap",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cheap: 싼",
+    "word": "cheap",
+    "meaning": "싼",
+    "example": "It's cheap.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_near",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "near: 가까운",
+    "word": "near",
+    "meaning": "가까운",
+    "example": "It's near here.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_far",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "far: 먼",
+    "word": "far",
+    "meaning": "먼",
+    "example": "It's far from here.",
+    "metadata": {
+      "level": "A1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_what",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "what: 무엇",
+    "word": "what",
+    "meaning": "무엇",
+    "example": "What is this?",
+    "metadata": {
+      "level": "A1",
+      "pos": "pronoun"
+    }
+  },
+  {
+    "id": "vocab_where",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "where: 어디",
+    "word": "where",
+    "meaning": "어디",
+    "example": "Where are you?",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_when",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "when: 언제",
+    "word": "when",
+    "meaning": "언제",
+    "example": "When is it?",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_who",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "who: 누구",
+    "word": "who",
+    "meaning": "누구",
+    "example": "Who is he?",
+    "metadata": {
+      "level": "A1",
+      "pos": "pronoun"
+    }
+  },
+  {
+    "id": "vocab_why",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "why: 왜",
+    "word": "why",
+    "meaning": "왜",
+    "example": "Why not?",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_how",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "how: 어떻게",
+    "word": "how",
+    "meaning": "어떻게",
+    "example": "How are you?",
+    "metadata": {
+      "level": "A1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_how much",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "how much: 얼마",
+    "word": "how much",
+    "meaning": "얼마",
+    "example": "How much is it?",
+    "metadata": {
+      "level": "A1",
+      "pos": "phrase"
+    }
+  },
+  {
+    "id": "vocab_how many",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "how many: 몇 개",
+    "word": "how many",
+    "meaning": "몇 개",
+    "example": "How many do you want?",
+    "metadata": {
+      "level": "A1",
+      "pos": "phrase"
+    }
+  },
+  {
+    "id": "vocab_remember",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "remember: 기억하다",
+    "word": "remember",
+    "meaning": "기억하다",
+    "example": "I remember you.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_forget",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "forget: 잊다",
+    "word": "forget",
+    "meaning": "잊다",
+    "example": "Don't forget!",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_understand",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "understand: 이해하다",
+    "word": "understand",
+    "meaning": "이해하다",
+    "example": "I understand.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_learn",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "learn: 배우다",
+    "word": "learn",
+    "meaning": "배우다",
+    "example": "I'm learning English.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_teach",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "teach: 가르치다",
+    "word": "teach",
+    "meaning": "가르치다",
+    "example": "She teaches math.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_try",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "try: 노력하다",
+    "word": "try",
+    "meaning": "노력하다",
+    "example": "I'll try again.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_start",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "start: 시작하다",
+    "word": "start",
+    "meaning": "시작하다",
+    "example": "Let's start now.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_finish",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "finish: 끝내다",
+    "word": "finish",
+    "meaning": "끝내다",
+    "example": "I finished my work.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_stop",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "stop: 멈추다",
+    "word": "stop",
+    "meaning": "멈추다",
+    "example": "Please stop here.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_continue",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "continue: 계속하다",
+    "word": "continue",
+    "meaning": "계속하다",
+    "example": "Please continue.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_change",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "change: 바꾸다",
+    "word": "change",
+    "meaning": "바꾸다",
+    "example": "I want to change this.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_choose",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "choose: 선택하다",
+    "word": "choose",
+    "meaning": "선택하다",
+    "example": "Please choose one.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_decide",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "decide: 결정하다",
+    "word": "decide",
+    "meaning": "결정하다",
+    "example": "I can't decide.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_hope",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "hope: 희망하다",
+    "word": "hope",
+    "meaning": "희망하다",
+    "example": "I hope so.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_believe",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "believe: 믿다",
+    "word": "believe",
+    "meaning": "믿다",
+    "example": "I believe you.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_feel",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "feel: 느끼다",
+    "word": "feel",
+    "meaning": "느끼다",
+    "example": "I feel good.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_meet",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "meet: 만나다",
+    "word": "meet",
+    "meaning": "만나다",
+    "example": "Nice to meet you.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_visit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "visit: 방문하다",
+    "word": "visit",
+    "meaning": "방문하다",
+    "example": "I visited Seoul.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_travel",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "travel: 여행하다",
+    "word": "travel",
+    "meaning": "여행하다",
+    "example": "I like to travel.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_stay",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "stay: 머무르다",
+    "word": "stay",
+    "meaning": "머무르다",
+    "example": "I'll stay here.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_leave",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "leave: 떠나다",
+    "word": "leave",
+    "meaning": "떠나다",
+    "example": "I have to leave.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_arrive",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "arrive: 도착하다",
+    "word": "arrive",
+    "meaning": "도착하다",
+    "example": "When do you arrive?",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_return",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "return: 돌아오다",
+    "word": "return",
+    "meaning": "돌아오다",
+    "example": "I'll return tomorrow.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_send",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "send: 보내다",
+    "word": "send",
+    "meaning": "보내다",
+    "example": "Please send me the file.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_receive",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "receive: 받다",
+    "word": "receive",
+    "meaning": "받다",
+    "example": "I received your email.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_bring",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "bring: 가져오다",
+    "word": "bring",
+    "meaning": "가져오다",
+    "example": "Bring your ID.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_carry",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "carry: 운반하다",
+    "word": "carry",
+    "meaning": "운반하다",
+    "example": "I'll carry this.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_wear",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "wear: 입다",
+    "word": "wear",
+    "meaning": "입다",
+    "example": "I wear a suit.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_spend",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "spend: 쓰다(돈/시간)",
+    "word": "spend",
+    "meaning": "쓰다(돈/시간)",
+    "example": "I spend money on books.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_save",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "save: 저축하다",
+    "word": "save",
+    "meaning": "저축하다",
+    "example": "I save money every month.",
+    "metadata": {
+      "level": "A2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_job",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "job: 직업",
+    "word": "job",
+    "meaning": "직업",
+    "example": "I got a new job.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_company",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "company: 회사",
+    "word": "company",
+    "meaning": "회사",
+    "example": "I work for a big company.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_office",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "office: 사무실",
+    "word": "office",
+    "meaning": "사무실",
+    "example": "I'm in the office.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_meeting",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "meeting: 회의",
+    "word": "meeting",
+    "meaning": "회의",
+    "example": "I have a meeting.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_project",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "project: 프로젝트",
+    "word": "project",
+    "meaning": "프로젝트",
+    "example": "The project is done.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_boss",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "boss: 상사",
+    "word": "boss",
+    "meaning": "상사",
+    "example": "My boss is nice.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_colleague",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "colleague: 동료",
+    "word": "colleague",
+    "meaning": "동료",
+    "example": "She's my colleague.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_customer",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "customer: 고객",
+    "word": "customer",
+    "meaning": "고객",
+    "example": "The customer is waiting.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_salary",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "salary: 월급",
+    "word": "salary",
+    "meaning": "월급",
+    "example": "I got my salary.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_price",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "price: 가격",
+    "word": "price",
+    "meaning": "가격",
+    "example": "What's the price?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_discount",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "discount: 할인",
+    "word": "discount",
+    "meaning": "할인",
+    "example": "Is there a discount?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_sale",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sale: 세일",
+    "word": "sale",
+    "meaning": "세일",
+    "example": "It's on sale.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_size",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "size: 크기",
+    "word": "size",
+    "meaning": "크기",
+    "example": "What size do you need?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_color",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "color: 색상",
+    "word": "color",
+    "meaning": "색상",
+    "example": "What color do you want?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_receipt",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "receipt: 영수증",
+    "word": "receipt",
+    "meaning": "영수증",
+    "example": "Can I have the receipt?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_cash",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cash: 현금",
+    "word": "cash",
+    "meaning": "현금",
+    "example": "I'll pay by cash.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_card",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "card: 카드",
+    "word": "card",
+    "meaning": "카드",
+    "example": "Do you take cards?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_ticket",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ticket: 표",
+    "word": "ticket",
+    "meaning": "표",
+    "example": "I need a ticket.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_bus",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "bus: 버스",
+    "word": "bus",
+    "meaning": "버스",
+    "example": "I take the bus.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_train",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "train: 기차",
+    "word": "train",
+    "meaning": "기차",
+    "example": "The train is late.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_subway",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "subway: 지하철",
+    "word": "subway",
+    "meaning": "지하철",
+    "example": "Take the subway.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_taxi",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "taxi: 택시",
+    "word": "taxi",
+    "meaning": "택시",
+    "example": "Call a taxi.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_car",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "car: 자동차",
+    "word": "car",
+    "meaning": "자동차",
+    "example": "I drive a car.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_flight",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "flight: 비행기편",
+    "word": "flight",
+    "meaning": "비행기편",
+    "example": "My flight is delayed.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_seat",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "seat: 좌석",
+    "word": "seat",
+    "meaning": "좌석",
+    "example": "Is this seat taken?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_doctor",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "doctor: 의사",
+    "word": "doctor",
+    "meaning": "의사",
+    "example": "I need to see a doctor.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_medicine",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "medicine: 약",
+    "word": "medicine",
+    "meaning": "약",
+    "example": "Take this medicine.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_sick",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sick: 아픈",
+    "word": "sick",
+    "meaning": "아픈",
+    "example": "I feel sick.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_pain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "pain: 통증",
+    "word": "pain",
+    "meaning": "통증",
+    "example": "I have pain here.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_headache",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "headache: 두통",
+    "word": "headache",
+    "meaning": "두통",
+    "example": "I have a headache.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_fever",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "fever: 열",
+    "word": "fever",
+    "meaning": "열",
+    "example": "I have a fever.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_cold",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cold: 감기",
+    "word": "cold",
+    "meaning": "감기",
+    "example": "I caught a cold.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_weather",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "weather: 날씨",
+    "word": "weather",
+    "meaning": "날씨",
+    "example": "How's the weather?",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_sunny",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sunny: 맑은",
+    "word": "sunny",
+    "meaning": "맑은",
+    "example": "It's sunny today.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_cloudy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cloudy: 흐린",
+    "word": "cloudy",
+    "meaning": "흐린",
+    "example": "It's cloudy.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_rainy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "rainy: 비오는",
+    "word": "rainy",
+    "meaning": "비오는",
+    "example": "It's rainy today.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_windy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "windy: 바람부는",
+    "word": "windy",
+    "meaning": "바람부는",
+    "example": "It's windy outside.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_snow",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "snow: 눈",
+    "word": "snow",
+    "meaning": "눈",
+    "example": "There's snow outside.",
+    "metadata": {
+      "level": "A2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_excited",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "excited: 신난",
+    "word": "excited",
+    "meaning": "신난",
+    "example": "I'm so excited!",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_worried",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "worried: 걱정되는",
+    "word": "worried",
+    "meaning": "걱정되는",
+    "example": "I'm worried about it.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_surprised",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "surprised: 놀란",
+    "word": "surprised",
+    "meaning": "놀란",
+    "example": "I was surprised.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_angry",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "angry: 화난",
+    "word": "angry",
+    "meaning": "화난",
+    "example": "Don't be angry.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_nervous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "nervous: 긴장한",
+    "word": "nervous",
+    "meaning": "긴장한",
+    "example": "I'm nervous.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_comfortable",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "comfortable: 편안한",
+    "word": "comfortable",
+    "meaning": "편안한",
+    "example": "Make yourself comfortable.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_safe",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "safe: 안전한",
+    "word": "safe",
+    "meaning": "안전한",
+    "example": "It's safe here.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_dangerous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "dangerous: 위험한",
+    "word": "dangerous",
+    "meaning": "위험한",
+    "example": "It's dangerous.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_always",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "always: 항상",
+    "word": "always",
+    "meaning": "항상",
+    "example": "I always wake up early.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_usually",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "usually: 보통",
+    "word": "usually",
+    "meaning": "보통",
+    "example": "I usually eat at home.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_sometimes",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sometimes: 가끔",
+    "word": "sometimes",
+    "meaning": "가끔",
+    "example": "I sometimes go there.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_never",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "never: 절대 ~않다",
+    "word": "never",
+    "meaning": "절대 ~않다",
+    "example": "I never smoke.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_already",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "already: 이미",
+    "word": "already",
+    "meaning": "이미",
+    "example": "I already finished.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_still",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "still: 아직",
+    "word": "still",
+    "meaning": "아직",
+    "example": "I'm still working.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_just",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "just: 방금",
+    "word": "just",
+    "meaning": "방금",
+    "example": "I just arrived.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_soon",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "soon: 곧",
+    "word": "soon",
+    "meaning": "곧",
+    "example": "I'll be there soon.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_again",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "again: 다시",
+    "word": "again",
+    "meaning": "다시",
+    "example": "Try again.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_together",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "together: 함께",
+    "word": "together",
+    "meaning": "함께",
+    "example": "Let's go together.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_alone",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "alone: 혼자",
+    "word": "alone",
+    "meaning": "혼자",
+    "example": "I live alone.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_quickly",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "quickly: 빨리",
+    "word": "quickly",
+    "meaning": "빨리",
+    "example": "Come quickly!",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_slowly",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "slowly: 천천히",
+    "word": "slowly",
+    "meaning": "천천히",
+    "example": "Please speak slowly.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_carefully",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "carefully: 조심히",
+    "word": "carefully",
+    "meaning": "조심히",
+    "example": "Drive carefully.",
+    "metadata": {
+      "level": "A2",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_experience",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "experience: 경험",
+    "word": "experience",
+    "meaning": "경험",
+    "example": "I have experience in marketing.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_opportunity",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "opportunity: 기회",
+    "word": "opportunity",
+    "meaning": "기회",
+    "example": "This is a great opportunity.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_situation",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "situation: 상황",
+    "word": "situation",
+    "meaning": "상황",
+    "example": "The situation is complicated.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_relationship",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "relationship: 관계",
+    "word": "relationship",
+    "meaning": "관계",
+    "example": "We have a good relationship.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_environment",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "environment: 환경",
+    "word": "environment",
+    "meaning": "환경",
+    "example": "Protect the environment.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_society",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "society: 사회",
+    "word": "society",
+    "meaning": "사회",
+    "example": "We live in a modern society.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_culture",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "culture: 문화",
+    "word": "culture",
+    "meaning": "문화",
+    "example": "I love Korean culture.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_technology",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "technology: 기술",
+    "word": "technology",
+    "meaning": "기술",
+    "example": "Technology is changing fast.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_education",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "education: 교육",
+    "word": "education",
+    "meaning": "교육",
+    "example": "Education is important.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_government",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "government: 정부",
+    "word": "government",
+    "meaning": "정부",
+    "example": "The government announced new policies.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_economy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "economy: 경제",
+    "word": "economy",
+    "meaning": "경제",
+    "example": "The economy is growing.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_development",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "development: 발전",
+    "word": "development",
+    "meaning": "발전",
+    "example": "Economic development is important.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_research",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "research: 연구",
+    "word": "research",
+    "meaning": "연구",
+    "example": "I do research in AI.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_knowledge",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "knowledge: 지식",
+    "word": "knowledge",
+    "meaning": "지식",
+    "example": "Knowledge is power.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_information",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "information: 정보",
+    "word": "information",
+    "meaning": "정보",
+    "example": "I need more information.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_solution",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "solution: 해결책",
+    "word": "solution",
+    "meaning": "해결책",
+    "example": "We found a solution.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_problem",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "problem: 문제",
+    "word": "problem",
+    "meaning": "문제",
+    "example": "There's a problem.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_issue",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "issue: 이슈, 문제",
+    "word": "issue",
+    "meaning": "이슈, 문제",
+    "example": "This is an important issue.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_advantage",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "advantage: 장점",
+    "word": "advantage",
+    "meaning": "장점",
+    "example": "What's the advantage?",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_disadvantage",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "disadvantage: 단점",
+    "word": "disadvantage",
+    "meaning": "단점",
+    "example": "There are some disadvantages.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_benefit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "benefit: 이점, 혜택",
+    "word": "benefit",
+    "meaning": "이점, 혜택",
+    "example": "What are the benefits?",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_risk",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "risk: 위험",
+    "word": "risk",
+    "meaning": "위험",
+    "example": "There's a risk involved.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_success",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "success: 성공",
+    "word": "success",
+    "meaning": "성공",
+    "example": "Success takes time.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_failure",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "failure: 실패",
+    "word": "failure",
+    "meaning": "실패",
+    "example": "Failure is part of learning.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_goal",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "goal: 목표",
+    "word": "goal",
+    "meaning": "목표",
+    "example": "What's your goal?",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_plan",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "plan: 계획",
+    "word": "plan",
+    "meaning": "계획",
+    "example": "What's the plan?",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_decision",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "decision: 결정",
+    "word": "decision",
+    "meaning": "결정",
+    "example": "It's your decision.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_choice",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "choice: 선택",
+    "word": "choice",
+    "meaning": "선택",
+    "example": "You have a choice.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_opinion",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "opinion: 의견",
+    "word": "opinion",
+    "meaning": "의견",
+    "example": "In my opinion...",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_idea",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "idea: 아이디어",
+    "word": "idea",
+    "meaning": "아이디어",
+    "example": "That's a good idea.",
+    "metadata": {
+      "level": "B1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_achieve",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "achieve: 달성하다",
+    "word": "achieve",
+    "meaning": "달성하다",
+    "example": "We achieved our goal.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_improve",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "improve: 개선하다",
+    "word": "improve",
+    "meaning": "개선하다",
+    "example": "We need to improve.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_develop",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "develop: 개발하다",
+    "word": "develop",
+    "meaning": "개발하다",
+    "example": "We're developing a new product.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_create",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "create: 창조하다",
+    "word": "create",
+    "meaning": "창조하다",
+    "example": "Let's create something new.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_produce",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "produce: 생산하다",
+    "word": "produce",
+    "meaning": "생산하다",
+    "example": "We produce quality products.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_provide",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "provide: 제공하다",
+    "word": "provide",
+    "meaning": "제공하다",
+    "example": "We provide excellent service.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_offer",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "offer: 제안하다",
+    "word": "offer",
+    "meaning": "제안하다",
+    "example": "I can offer you a discount.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_suggest",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "suggest: 제안하다",
+    "word": "suggest",
+    "meaning": "제안하다",
+    "example": "I suggest we wait.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_recommend",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "recommend: 추천하다",
+    "word": "recommend",
+    "meaning": "추천하다",
+    "example": "I recommend this book.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_accept",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "accept: 수락하다",
+    "word": "accept",
+    "meaning": "수락하다",
+    "example": "I accept your offer.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_refuse",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "refuse: 거절하다",
+    "word": "refuse",
+    "meaning": "거절하다",
+    "example": "I have to refuse.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_agree",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "agree: 동의하다",
+    "word": "agree",
+    "meaning": "동의하다",
+    "example": "I agree with you.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_disagree",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "disagree: 동의하지 않다",
+    "word": "disagree",
+    "meaning": "동의하지 않다",
+    "example": "I disagree.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_support",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "support: 지원하다",
+    "word": "support",
+    "meaning": "지원하다",
+    "example": "I support your idea.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_manage",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "manage: 관리하다",
+    "word": "manage",
+    "meaning": "관리하다",
+    "example": "I manage a team.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_organize",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "organize: 조직하다",
+    "word": "organize",
+    "meaning": "조직하다",
+    "example": "I organize events.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_prepare",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "prepare: 준비하다",
+    "word": "prepare",
+    "meaning": "준비하다",
+    "example": "I'm preparing for the meeting.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_attend",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "attend: 참석하다",
+    "word": "attend",
+    "meaning": "참석하다",
+    "example": "I'll attend the meeting.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_discuss",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "discuss: 논의하다",
+    "word": "discuss",
+    "meaning": "논의하다",
+    "example": "Let's discuss this later.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_explain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "explain: 설명하다",
+    "word": "explain",
+    "meaning": "설명하다",
+    "example": "Can you explain?",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_describe",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "describe: 묘사하다",
+    "word": "describe",
+    "meaning": "묘사하다",
+    "example": "Describe the situation.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_compare",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "compare: 비교하다",
+    "word": "compare",
+    "meaning": "비교하다",
+    "example": "Let's compare prices.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_consider",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "consider: 고려하다",
+    "word": "consider",
+    "meaning": "고려하다",
+    "example": "I'll consider your offer.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_expect",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "expect: 기대하다",
+    "word": "expect",
+    "meaning": "기대하다",
+    "example": "I expect good results.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_require",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "require: 요구하다",
+    "word": "require",
+    "meaning": "요구하다",
+    "example": "This requires more time.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_include",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "include: 포함하다",
+    "word": "include",
+    "meaning": "포함하다",
+    "example": "The price includes tax.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_contain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "contain: 포함하다",
+    "word": "contain",
+    "meaning": "포함하다",
+    "example": "This contains sugar.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_involve",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "involve: 포함하다",
+    "word": "involve",
+    "meaning": "포함하다",
+    "example": "The project involves many people.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_affect",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "affect: 영향을 미치다",
+    "word": "affect",
+    "meaning": "영향을 미치다",
+    "example": "This will affect everyone.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_influence",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "influence: 영향을 주다",
+    "word": "influence",
+    "meaning": "영향을 주다",
+    "example": "Music influenced my life.",
+    "metadata": {
+      "level": "B1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_important",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "important: 중요한",
+    "word": "important",
+    "meaning": "중요한",
+    "example": "This is important.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_necessary",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "necessary: 필요한",
+    "word": "necessary",
+    "meaning": "필요한",
+    "example": "It's necessary to study.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_possible",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "possible: 가능한",
+    "word": "possible",
+    "meaning": "가능한",
+    "example": "Is it possible?",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_impossible",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "impossible: 불가능한",
+    "word": "impossible",
+    "meaning": "불가능한",
+    "example": "Nothing is impossible.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_available",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "available: 이용 가능한",
+    "word": "available",
+    "meaning": "이용 가능한",
+    "example": "Is it available?",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_responsible",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "responsible: 책임 있는",
+    "word": "responsible",
+    "meaning": "책임 있는",
+    "example": "I'm responsible for this.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_successful",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "successful: 성공적인",
+    "word": "successful",
+    "meaning": "성공적인",
+    "example": "The event was successful.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_popular",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "popular: 인기 있는",
+    "word": "popular",
+    "meaning": "인기 있는",
+    "example": "It's very popular.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_similar",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "similar: 비슷한",
+    "word": "similar",
+    "meaning": "비슷한",
+    "example": "They look similar.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_different",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "different: 다른",
+    "word": "different",
+    "meaning": "다른",
+    "example": "This is different.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_specific",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "specific: 구체적인",
+    "word": "specific",
+    "meaning": "구체적인",
+    "example": "Be more specific.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_general",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "general: 일반적인",
+    "word": "general",
+    "meaning": "일반적인",
+    "example": "In general, I agree.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_common",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "common: 흔한",
+    "word": "common",
+    "meaning": "흔한",
+    "example": "It's a common problem.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_rare",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "rare: 드문",
+    "word": "rare",
+    "meaning": "드문",
+    "example": "It's a rare opportunity.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_simple",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "simple: 간단한",
+    "word": "simple",
+    "meaning": "간단한",
+    "example": "The answer is simple.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_complex",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "complex: 복잡한",
+    "word": "complex",
+    "meaning": "복잡한",
+    "example": "It's a complex issue.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_recent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "recent: 최근의",
+    "word": "recent",
+    "meaning": "최근의",
+    "example": "Recent studies show...",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_previous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "previous: 이전의",
+    "word": "previous",
+    "meaning": "이전의",
+    "example": "In my previous job...",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_current",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "current: 현재의",
+    "word": "current",
+    "meaning": "현재의",
+    "example": "My current situation...",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_main",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "main: 주요한",
+    "word": "main",
+    "meaning": "주요한",
+    "example": "The main reason is...",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_entire",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "entire: 전체의",
+    "word": "entire",
+    "meaning": "전체의",
+    "example": "The entire team worked hard.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_various",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "various: 다양한",
+    "word": "various",
+    "meaning": "다양한",
+    "example": "There are various options.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_certain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "certain: 확실한",
+    "word": "certain",
+    "meaning": "확실한",
+    "example": "I'm certain about it.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_likely",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "likely: 아마",
+    "word": "likely",
+    "meaning": "아마",
+    "example": "It's likely to rain.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_unlikely",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "unlikely: ~할 것 같지 않은",
+    "word": "unlikely",
+    "meaning": "~할 것 같지 않은",
+    "example": "It's unlikely to happen.",
+    "metadata": {
+      "level": "B1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_analysis",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "analysis: 분석",
+    "word": "analysis",
+    "meaning": "분석",
+    "example": "We need a detailed analysis.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_approach",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "approach: 접근법",
+    "word": "approach",
+    "meaning": "접근법",
+    "example": "We need a new approach.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_aspect",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "aspect: 측면",
+    "word": "aspect",
+    "meaning": "측면",
+    "example": "Consider every aspect.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_assessment",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "assessment: 평가",
+    "word": "assessment",
+    "meaning": "평가",
+    "example": "We conducted an assessment.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_assumption",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "assumption: 가정",
+    "word": "assumption",
+    "meaning": "가정",
+    "example": "That's a wrong assumption.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_authority",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "authority: 권위, 당국",
+    "word": "authority",
+    "meaning": "권위, 당국",
+    "example": "He's an authority on the subject.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_capacity",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "capacity: 용량, 능력",
+    "word": "capacity",
+    "meaning": "용량, 능력",
+    "example": "The room has a capacity of 100.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_category",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "category: 범주",
+    "word": "category",
+    "meaning": "범주",
+    "example": "What category does it fall into?",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_circumstance",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "circumstance: 상황",
+    "word": "circumstance",
+    "meaning": "상황",
+    "example": "Under the circumstances...",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_concept",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "concept: 개념",
+    "word": "concept",
+    "meaning": "개념",
+    "example": "It's a difficult concept.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_conclusion",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "conclusion: 결론",
+    "word": "conclusion",
+    "meaning": "결론",
+    "example": "In conclusion...",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_consequence",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "consequence: 결과",
+    "word": "consequence",
+    "meaning": "결과",
+    "example": "Consider the consequences.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_context",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "context: 맥락",
+    "word": "context",
+    "meaning": "맥락",
+    "example": "Consider the context.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_contribution",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "contribution: 기여",
+    "word": "contribution",
+    "meaning": "기여",
+    "example": "Thank you for your contribution.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_criteria",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "criteria: 기준",
+    "word": "criteria",
+    "meaning": "기준",
+    "example": "What are the criteria?",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_debate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "debate: 토론",
+    "word": "debate",
+    "meaning": "토론",
+    "example": "There's a lot of debate.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_definition",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "definition: 정의",
+    "word": "definition",
+    "meaning": "정의",
+    "example": "What's the definition?",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_demonstration",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "demonstration: 시연",
+    "word": "demonstration",
+    "meaning": "시연",
+    "example": "I'll give a demonstration.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_distribution",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "distribution: 분배",
+    "word": "distribution",
+    "meaning": "분배",
+    "example": "Fair distribution is important.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_element",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "element: 요소",
+    "word": "element",
+    "meaning": "요소",
+    "example": "It's a key element.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_emphasis",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "emphasis: 강조",
+    "word": "emphasis",
+    "meaning": "강조",
+    "example": "We put emphasis on quality.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_evidence",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "evidence: 증거",
+    "word": "evidence",
+    "meaning": "증거",
+    "example": "There's no evidence.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_factor",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "factor: 요인",
+    "word": "factor",
+    "meaning": "요인",
+    "example": "It's an important factor.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_feature",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "feature: 특징",
+    "word": "feature",
+    "meaning": "특징",
+    "example": "It has many features.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_framework",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "framework: 틀, 체계",
+    "word": "framework",
+    "meaning": "틀, 체계",
+    "example": "We need a framework.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_function",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "function: 기능",
+    "word": "function",
+    "meaning": "기능",
+    "example": "What's its function?",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_impact",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "impact: 영향",
+    "word": "impact",
+    "meaning": "영향",
+    "example": "It had a big impact.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_implementation",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "implementation: 시행",
+    "word": "implementation",
+    "meaning": "시행",
+    "example": "Implementation takes time.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_implication",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "implication: 함축, 영향",
+    "word": "implication",
+    "meaning": "함축, 영향",
+    "example": "Consider the implications.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_indication",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "indication: 징후",
+    "word": "indication",
+    "meaning": "징후",
+    "example": "There's no indication of that.",
+    "metadata": {
+      "level": "B2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_acknowledge",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "acknowledge: 인정하다",
+    "word": "acknowledge",
+    "meaning": "인정하다",
+    "example": "I acknowledge my mistake.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_acquire",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "acquire: 획득하다",
+    "word": "acquire",
+    "meaning": "획득하다",
+    "example": "We acquired the company.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_adapt",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "adapt: 적응하다",
+    "word": "adapt",
+    "meaning": "적응하다",
+    "example": "We need to adapt.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_allocate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "allocate: 할당하다",
+    "word": "allocate",
+    "meaning": "할당하다",
+    "example": "We allocated resources.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_anticipate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "anticipate: 예상하다",
+    "word": "anticipate",
+    "meaning": "예상하다",
+    "example": "We anticipate growth.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_appreciate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "appreciate: 감사하다",
+    "word": "appreciate",
+    "meaning": "감사하다",
+    "example": "I appreciate your help.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_assess",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "assess: 평가하다",
+    "word": "assess",
+    "meaning": "평가하다",
+    "example": "We assessed the situation.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_assume",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "assume: 가정하다",
+    "word": "assume",
+    "meaning": "가정하다",
+    "example": "I assume you agree.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_attribute",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "attribute: ~탓으로 돌리다",
+    "word": "attribute",
+    "meaning": "~탓으로 돌리다",
+    "example": "He attributes his success to hard work.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_clarify",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "clarify: 명확히 하다",
+    "word": "clarify",
+    "meaning": "명확히 하다",
+    "example": "Let me clarify.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_communicate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "communicate: 소통하다",
+    "word": "communicate",
+    "meaning": "소통하다",
+    "example": "We need to communicate better.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_compensate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "compensate: 보상하다",
+    "word": "compensate",
+    "meaning": "보상하다",
+    "example": "We'll compensate you.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_conclude",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "conclude: 결론짓다",
+    "word": "conclude",
+    "meaning": "결론짓다",
+    "example": "I conclude that...",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_confirm",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "confirm: 확인하다",
+    "word": "confirm",
+    "meaning": "확인하다",
+    "example": "Please confirm your attendance.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_contribute",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "contribute: 기여하다",
+    "word": "contribute",
+    "meaning": "기여하다",
+    "example": "Everyone contributed.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_convince",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "convince: 설득하다",
+    "word": "convince",
+    "meaning": "설득하다",
+    "example": "You convinced me.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_demonstrate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "demonstrate: 보여주다",
+    "word": "demonstrate",
+    "meaning": "보여주다",
+    "example": "Let me demonstrate.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_determine",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "determine: 결정하다",
+    "word": "determine",
+    "meaning": "결정하다",
+    "example": "We need to determine the cause.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_eliminate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "eliminate: 제거하다",
+    "word": "eliminate",
+    "meaning": "제거하다",
+    "example": "Eliminate unnecessary costs.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_emphasize",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "emphasize: 강조하다",
+    "word": "emphasize",
+    "meaning": "강조하다",
+    "example": "I want to emphasize this point.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_enable",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "enable: 가능하게 하다",
+    "word": "enable",
+    "meaning": "가능하게 하다",
+    "example": "Technology enables us to...",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_enhance",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "enhance: 향상시키다",
+    "word": "enhance",
+    "meaning": "향상시키다",
+    "example": "We enhanced the product.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_ensure",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ensure: 보장하다",
+    "word": "ensure",
+    "meaning": "보장하다",
+    "example": "We ensure quality.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_establish",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "establish: 설립하다",
+    "word": "establish",
+    "meaning": "설립하다",
+    "example": "We established the company in 2010.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_estimate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "estimate: 추정하다",
+    "word": "estimate",
+    "meaning": "추정하다",
+    "example": "I estimate about 100 people.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_evaluate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "evaluate: 평가하다",
+    "word": "evaluate",
+    "meaning": "평가하다",
+    "example": "We need to evaluate options.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_generate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "generate: 생성하다",
+    "word": "generate",
+    "meaning": "생성하다",
+    "example": "We generate ideas.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_identify",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "identify: 식별하다",
+    "word": "identify",
+    "meaning": "식별하다",
+    "example": "We identified the problem.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_implement",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "implement: 시행하다",
+    "word": "implement",
+    "meaning": "시행하다",
+    "example": "We implemented the plan.",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_indicate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "indicate: 나타내다",
+    "word": "indicate",
+    "meaning": "나타내다",
+    "example": "Studies indicate that...",
+    "metadata": {
+      "level": "B2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_adequate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "adequate: 적절한",
+    "word": "adequate",
+    "meaning": "적절한",
+    "example": "Is it adequate?",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_appropriate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "appropriate: 적절한",
+    "word": "appropriate",
+    "meaning": "적절한",
+    "example": "It's not appropriate.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_comprehensive",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "comprehensive: 포괄적인",
+    "word": "comprehensive",
+    "meaning": "포괄적인",
+    "example": "We need a comprehensive plan.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_consistent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "consistent: 일관된",
+    "word": "consistent",
+    "meaning": "일관된",
+    "example": "Be consistent.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_crucial",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "crucial: 중대한",
+    "word": "crucial",
+    "meaning": "중대한",
+    "example": "It's a crucial decision.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_distinct",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "distinct: 뚜렷한",
+    "word": "distinct",
+    "meaning": "뚜렷한",
+    "example": "There's a distinct difference.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_efficient",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "efficient: 효율적인",
+    "word": "efficient",
+    "meaning": "효율적인",
+    "example": "It's more efficient.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_essential",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "essential: 필수적인",
+    "word": "essential",
+    "meaning": "필수적인",
+    "example": "It's essential to prepare.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_evident",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "evident: 명백한",
+    "word": "evident",
+    "meaning": "명백한",
+    "example": "It's evident that...",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_fundamental",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "fundamental: 근본적인",
+    "word": "fundamental",
+    "meaning": "근본적인",
+    "example": "It's a fundamental change.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_initial",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "initial: 초기의",
+    "word": "initial",
+    "meaning": "초기의",
+    "example": "The initial results are good.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_obvious",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "obvious: 명백한",
+    "word": "obvious",
+    "meaning": "명백한",
+    "example": "It's obvious.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_potential",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "potential: 잠재적인",
+    "word": "potential",
+    "meaning": "잠재적인",
+    "example": "There's potential for growth.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_primary",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "primary: 주요한",
+    "word": "primary",
+    "meaning": "주요한",
+    "example": "The primary goal is...",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_relevant",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "relevant: 관련 있는",
+    "word": "relevant",
+    "meaning": "관련 있는",
+    "example": "It's not relevant.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_significant",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "significant: 중요한",
+    "word": "significant",
+    "meaning": "중요한",
+    "example": "It's a significant achievement.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_substantial",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "substantial: 상당한",
+    "word": "substantial",
+    "meaning": "상당한",
+    "example": "There's substantial evidence.",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_sufficient",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "sufficient: 충분한",
+    "word": "sufficient",
+    "meaning": "충분한",
+    "example": "Is it sufficient?",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_valid",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "valid: 유효한",
+    "word": "valid",
+    "meaning": "유효한",
+    "example": "Is it still valid?",
+    "metadata": {
+      "level": "B2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_accumulate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "accumulate: 축적하다",
+    "word": "accumulate",
+    "meaning": "축적하다",
+    "example": "We accumulated data over years.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_advocate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "advocate: 옹호하다",
+    "word": "advocate",
+    "meaning": "옹호하다",
+    "example": "I advocate for change.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_albeit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "albeit: 비록 ~이지만",
+    "word": "albeit",
+    "meaning": "비록 ~이지만",
+    "example": "It was successful, albeit slowly.",
+    "metadata": {
+      "level": "C1",
+      "pos": "conjunction"
+    }
+  },
+  {
+    "id": "vocab_alleviate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "alleviate: 완화하다",
+    "word": "alleviate",
+    "meaning": "완화하다",
+    "example": "We need to alleviate the problem.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_ambiguous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ambiguous: 모호한",
+    "word": "ambiguous",
+    "meaning": "모호한",
+    "example": "The statement is ambiguous.",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_analogous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "analogous: 유사한",
+    "word": "analogous",
+    "meaning": "유사한",
+    "example": "The situations are analogous.",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_apparatus",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "apparatus: 장치",
+    "word": "apparatus",
+    "meaning": "장치",
+    "example": "The apparatus is complex.",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_arbitrary",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "arbitrary: 임의의",
+    "word": "arbitrary",
+    "meaning": "임의의",
+    "example": "The decision was arbitrary.",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_attain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "attain: 달성하다",
+    "word": "attain",
+    "meaning": "달성하다",
+    "example": "We attained our objectives.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_cease",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cease: 중단하다",
+    "word": "cease",
+    "meaning": "중단하다",
+    "example": "Operations will cease.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_coherent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "coherent: 일관성 있는",
+    "word": "coherent",
+    "meaning": "일관성 있는",
+    "example": "Make a coherent argument.",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_coincide",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "coincide: 일치하다",
+    "word": "coincide",
+    "meaning": "일치하다",
+    "example": "Our views coincide.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_commence",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "commence: 시작하다",
+    "word": "commence",
+    "meaning": "시작하다",
+    "example": "The meeting will commence at 9.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_compatible",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "compatible: 호환되는",
+    "word": "compatible",
+    "meaning": "호환되는",
+    "example": "Is it compatible?",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_compile",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "compile: 편집하다",
+    "word": "compile",
+    "meaning": "편집하다",
+    "example": "We compiled the data.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_complement",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "complement: 보완하다",
+    "word": "complement",
+    "meaning": "보완하다",
+    "example": "They complement each other.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_comply",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "comply: 준수하다",
+    "word": "comply",
+    "meaning": "준수하다",
+    "example": "We must comply with regulations.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_conceive",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "conceive: 생각해내다",
+    "word": "conceive",
+    "meaning": "생각해내다",
+    "example": "I can't conceive how...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_concurrent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "concurrent: 동시의",
+    "word": "concurrent",
+    "meaning": "동시의",
+    "example": "Concurrent sessions are held.",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_confine",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "confine: 제한하다",
+    "word": "confine",
+    "meaning": "제한하다",
+    "example": "Let's confine the discussion to...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_consent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "consent: 동의하다",
+    "word": "consent",
+    "meaning": "동의하다",
+    "example": "I consent to the terms.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_constitute",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "constitute: 구성하다",
+    "word": "constitute",
+    "meaning": "구성하다",
+    "example": "This constitutes a breach.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_constrain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "constrain: 제한하다",
+    "word": "constrain",
+    "meaning": "제한하다",
+    "example": "We're constrained by budget.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_contradict",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "contradict: 모순되다",
+    "word": "contradict",
+    "meaning": "모순되다",
+    "example": "The facts contradict the theory.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_controversy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "controversy: 논란",
+    "word": "controversy",
+    "meaning": "논란",
+    "example": "It caused controversy.",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_convene",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "convene: 소집하다",
+    "word": "convene",
+    "meaning": "소집하다",
+    "example": "We convened a meeting.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_conversely",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "conversely: 반대로",
+    "word": "conversely",
+    "meaning": "반대로",
+    "example": "Conversely, we could...",
+    "metadata": {
+      "level": "C1",
+      "pos": "adverb"
+    }
+  },
+  {
+    "id": "vocab_deduce",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "deduce: 추론하다",
+    "word": "deduce",
+    "meaning": "추론하다",
+    "example": "We can deduce that...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_deem",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "deem: 여기다",
+    "word": "deem",
+    "meaning": "여기다",
+    "example": "It was deemed necessary.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_denote",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "denote: 나타내다",
+    "word": "denote",
+    "meaning": "나타내다",
+    "example": "This symbol denotes...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_deteriorate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "deteriorate: 악화되다",
+    "word": "deteriorate",
+    "meaning": "악화되다",
+    "example": "Conditions deteriorated.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_devise",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "devise: 고안하다",
+    "word": "devise",
+    "meaning": "고안하다",
+    "example": "We devised a plan.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_diminish",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "diminish: 줄이다",
+    "word": "diminish",
+    "meaning": "줄이다",
+    "example": "Don't diminish its importance.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_displace",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "displace: 대체하다",
+    "word": "displace",
+    "meaning": "대체하다",
+    "example": "Technology may displace workers.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_dispose",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "dispose: 처리하다",
+    "word": "dispose",
+    "meaning": "처리하다",
+    "example": "Dispose of waste properly.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_distort",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "distort: 왜곡하다",
+    "word": "distort",
+    "meaning": "왜곡하다",
+    "example": "Don't distort the facts.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_divert",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "divert: 전환하다",
+    "word": "divert",
+    "meaning": "전환하다",
+    "example": "Divert attention from...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_doctrine",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "doctrine: 원칙, 교리",
+    "word": "doctrine",
+    "meaning": "원칙, 교리",
+    "example": "The doctrine states...",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_domain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "domain: 영역",
+    "word": "domain",
+    "meaning": "영역",
+    "example": "It's outside my domain.",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_dynamics",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "dynamics: 역학",
+    "word": "dynamics",
+    "meaning": "역학",
+    "example": "The dynamics of the market...",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_elicit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "elicit: 이끌어내다",
+    "word": "elicit",
+    "meaning": "이끌어내다",
+    "example": "Elicit responses from...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_embed",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "embed: 내장하다",
+    "word": "embed",
+    "meaning": "내장하다",
+    "example": "The value is embedded.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_empirical",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "empirical: 경험적인",
+    "word": "empirical",
+    "meaning": "경험적인",
+    "example": "Empirical evidence shows...",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_encompass",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "encompass: 포함하다",
+    "word": "encompass",
+    "meaning": "포함하다",
+    "example": "The study encompasses...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_endeavor",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "endeavor: 노력",
+    "word": "endeavor",
+    "meaning": "노력",
+    "example": "A worthwhile endeavor.",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_entity",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "entity: 실체",
+    "word": "entity",
+    "meaning": "실체",
+    "example": "A separate legal entity.",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_equate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "equate: 동일시하다",
+    "word": "equate",
+    "meaning": "동일시하다",
+    "example": "Don't equate price with quality.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_erode",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "erode: 침식하다",
+    "word": "erode",
+    "meaning": "침식하다",
+    "example": "Trust has eroded.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_evoke",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "evoke: 불러일으키다",
+    "word": "evoke",
+    "meaning": "불러일으키다",
+    "example": "The music evokes memories.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_excerpt",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "excerpt: 발췌",
+    "word": "excerpt",
+    "meaning": "발췌",
+    "example": "Here's an excerpt from...",
+    "metadata": {
+      "level": "C1",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_exert",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "exert: 발휘하다",
+    "word": "exert",
+    "meaning": "발휘하다",
+    "example": "Exert influence on...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_explicit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "explicit: 명시적인",
+    "word": "explicit",
+    "meaning": "명시적인",
+    "example": "Make it explicit.",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_exploit",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "exploit: 활용하다",
+    "word": "exploit",
+    "meaning": "활용하다",
+    "example": "Exploit the opportunity.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_extract",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "extract: 추출하다",
+    "word": "extract",
+    "meaning": "추출하다",
+    "example": "Extract data from...",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_facilitate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "facilitate: 촉진하다",
+    "word": "facilitate",
+    "meaning": "촉진하다",
+    "example": "Facilitate communication.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_fluctuate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "fluctuate: 변동하다",
+    "word": "fluctuate",
+    "meaning": "변동하다",
+    "example": "Prices fluctuate.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_formulate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "formulate: 공식화하다",
+    "word": "formulate",
+    "meaning": "공식화하다",
+    "example": "Formulate a strategy.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_forthcoming",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "forthcoming: 다가오는",
+    "word": "forthcoming",
+    "meaning": "다가오는",
+    "example": "The forthcoming event...",
+    "metadata": {
+      "level": "C1",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_foster",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "foster: 육성하다",
+    "word": "foster",
+    "meaning": "육성하다",
+    "example": "Foster innovation.",
+    "metadata": {
+      "level": "C1",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_aberration",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "aberration: 일탈, 이상",
+    "word": "aberration",
+    "meaning": "일탈, 이상",
+    "example": "This is an aberration from normal.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_abhor",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "abhor: 혐오하다",
+    "word": "abhor",
+    "meaning": "혐오하다",
+    "example": "I abhor violence.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_acquiesce",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "acquiesce: 묵인하다",
+    "word": "acquiesce",
+    "meaning": "묵인하다",
+    "example": "They acquiesced to the demand.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_acrimonious",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "acrimonious: 신랄한",
+    "word": "acrimonious",
+    "meaning": "신랄한",
+    "example": "An acrimonious debate ensued.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_admonish",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "admonish: 훈계하다",
+    "word": "admonish",
+    "meaning": "훈계하다",
+    "example": "He was admonished for his behavior.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_aesthetic",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "aesthetic: 미적인",
+    "word": "aesthetic",
+    "meaning": "미적인",
+    "example": "The aesthetic appeal is undeniable.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_affinity",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "affinity: 친밀감",
+    "word": "affinity",
+    "meaning": "친밀감",
+    "example": "She has an affinity for art.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_aggravate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "aggravate: 악화시키다",
+    "word": "aggravate",
+    "meaning": "악화시키다",
+    "example": "Don't aggravate the situation.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_allude",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "allude: 암시하다",
+    "word": "allude",
+    "meaning": "암시하다",
+    "example": "He alluded to his past.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_amalgamate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "amalgamate: 합병하다",
+    "word": "amalgamate",
+    "meaning": "합병하다",
+    "example": "The companies amalgamated.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_ameliorate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ameliorate: 개선하다",
+    "word": "ameliorate",
+    "meaning": "개선하다",
+    "example": "Steps to ameliorate conditions.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_anachronistic",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "anachronistic: 시대착오적인",
+    "word": "anachronistic",
+    "meaning": "시대착오적인",
+    "example": "The law is anachronistic.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_anomaly",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "anomaly: 이례",
+    "word": "anomaly",
+    "meaning": "이례",
+    "example": "This is a statistical anomaly.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_antithesis",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "antithesis: 정반대",
+    "word": "antithesis",
+    "meaning": "정반대",
+    "example": "His view is the antithesis of mine.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_apathy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "apathy: 무관심",
+    "word": "apathy",
+    "meaning": "무관심",
+    "example": "Voter apathy is increasing.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_apprehensive",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "apprehensive: 불안한",
+    "word": "apprehensive",
+    "meaning": "불안한",
+    "example": "I'm apprehensive about the future.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_archaic",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "archaic: 고대의, 구식의",
+    "word": "archaic",
+    "meaning": "고대의, 구식의",
+    "example": "The system is archaic.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_arduous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "arduous: 힘든",
+    "word": "arduous",
+    "meaning": "힘든",
+    "example": "An arduous journey.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_articulate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "articulate: 명확히 표현하다",
+    "word": "articulate",
+    "meaning": "명확히 표현하다",
+    "example": "Articulate your thoughts clearly.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_ascertain",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "ascertain: 확인하다",
+    "word": "ascertain",
+    "meaning": "확인하다",
+    "example": "We need to ascertain the facts.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_assimilate",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "assimilate: 동화하다",
+    "word": "assimilate",
+    "meaning": "동화하다",
+    "example": "Assimilate new information.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_astute",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "astute: 예리한",
+    "word": "astute",
+    "meaning": "예리한",
+    "example": "An astute observation.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_atrophy",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "atrophy: 위축",
+    "word": "atrophy",
+    "meaning": "위축",
+    "example": "Muscle atrophy occurred.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_auspicious",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "auspicious: 길조의",
+    "word": "auspicious",
+    "meaning": "길조의",
+    "example": "An auspicious beginning.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_austere",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "austere: 엄격한",
+    "word": "austere",
+    "meaning": "엄격한",
+    "example": "An austere lifestyle.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_autonomous",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "autonomous: 자율적인",
+    "word": "autonomous",
+    "meaning": "자율적인",
+    "example": "Autonomous decision-making.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_avarice",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "avarice: 탐욕",
+    "word": "avarice",
+    "meaning": "탐욕",
+    "example": "Driven by avarice.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_aversion",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "aversion: 혐오",
+    "word": "aversion",
+    "meaning": "혐오",
+    "example": "An aversion to risk.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_beguile",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "beguile: 매혹하다",
+    "word": "beguile",
+    "meaning": "매혹하다",
+    "example": "Beguiled by her charm.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_belligerent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "belligerent: 호전적인",
+    "word": "belligerent",
+    "meaning": "호전적인",
+    "example": "A belligerent attitude.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_benevolent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "benevolent: 자비로운",
+    "word": "benevolent",
+    "meaning": "자비로운",
+    "example": "A benevolent leader.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_blatant",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "blatant: 명백한",
+    "word": "blatant",
+    "meaning": "명백한",
+    "example": "A blatant lie.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_bourgeois",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "bourgeois: 부르주아의",
+    "word": "bourgeois",
+    "meaning": "부르주아의",
+    "example": "Bourgeois values.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_brevity",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "brevity: 간결함",
+    "word": "brevity",
+    "meaning": "간결함",
+    "example": "Brevity is the soul of wit.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_buttress",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "buttress: 지지하다",
+    "word": "buttress",
+    "meaning": "지지하다",
+    "example": "Buttress your argument.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_cacophony",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "cacophony: 불협화음",
+    "word": "cacophony",
+    "meaning": "불협화음",
+    "example": "A cacophony of sounds.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_capricious",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "capricious: 변덕스러운",
+    "word": "capricious",
+    "meaning": "변덕스러운",
+    "example": "Capricious weather.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  },
+  {
+    "id": "vocab_catalyst",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "catalyst: 촉매",
+    "word": "catalyst",
+    "meaning": "촉매",
+    "example": "A catalyst for change.",
+    "metadata": {
+      "level": "C2",
+      "pos": "noun"
+    }
+  },
+  {
+    "id": "vocab_circumvent",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "circumvent: 피하다",
+    "word": "circumvent",
+    "meaning": "피하다",
+    "example": "Circumvent the rules.",
+    "metadata": {
+      "level": "C2",
+      "pos": "verb"
+    }
+  },
+  {
+    "id": "vocab_clandestine",
+    "source": "vocabulary",
+    "domain": "vocabulary",
+    "category": "vocabulary",
+    "type": "vocabulary",
+    "content": "clandestine: 은밀한",
+    "word": "clandestine",
+    "meaning": "은밀한",
+    "example": "Clandestine operations.",
+    "metadata": {
+      "level": "C2",
+      "pos": "adjective"
+    }
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "id": "car_rental",
+  "title": "Renting a Car",
+  "title_ko": "렌터카 빌리기",
+  "roles": {
+    "ai": "Rental Agent",
+    "user": "Customer"
+  },
+  "estimated_time": "5-7 min",
+  "learning_objectives": [
+    "Rent a vehicle",
+    "Understand insurance options",
+    "Handle pick-up and drop-off"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Reservation",
+      "ai_opening": "Welcome to Quick Rentals! Do you have a reservation?",
+      "learning_tip": "차종은 compact, sedan, SUV 등으로 구분",
+      "suggested_responses": [
+        "Yes, I have a reservation under Kim.",
+        "I'd like to rent a car for three days.",
+        "Do you have any compact cars available?"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Vehicle Selection",
+      "ai_prompt": "Discuss vehicle options",
+      "learning_tip": "자동변속기는 automatic, 수동은 manual/stick shift",
+      "suggested_responses": [
+        "I'd prefer an automatic.",
+        "What's the difference between these two?",
+        "Does it come with GPS?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Insurance",
+      "ai_prompt": "Explain insurance options",
+      "learning_tip": "보험은 꼭 확인! CDW(충돌 면책), liability(책임 보험)",
+      "suggested_responses": [
+        "What insurance options do you have?",
+        "Is liability insurance included?",
+        "I'll take the full coverage."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Completion",
+      "ai_prompt": "Finalize rental and provide keys",
+      "learning_tip": "반납 시 연료 정책 확인 - 'full to full' 또는 prepaid fuel",
+      "suggested_responses": [
+        "Where do I return the car?",
+        "Do I need to fill up before returning?",
+        "What if I want to extend the rental?"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "insurance",
+      "meaning": "보험",
+      "example": "Would you like insurance?"
+    },
+    {
+      "word": "GPS/navigation",
+      "meaning": "내비게이션",
+      "example": "Does it include GPS?"
+    },
+    {
+      "word": "drop-off",
+      "meaning": "반납",
+      "example": "The drop-off location is downtown."
+    }
+  ],
+  "category": "travel",
+  "difficulty": "intermediate",
+  "icon": "plane",
+  "completion_message": "Great job completing the Renting a Car scenario!"
+}

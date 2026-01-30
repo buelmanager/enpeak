@@ -1,0 +1,82 @@
+{
+  "id": "restaurant_order",
+  "title": "Dining at a Restaurant",
+  "title_ko": "레스토랑에서 식사하기",
+  "roles": {
+    "ai": "Server",
+    "user": "Customer"
+  },
+  "estimated_time": "5-7 min",
+  "learning_objectives": [
+    "Make reservations",
+    "Order food with modifications",
+    "Handle special requests"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Arrival",
+      "ai_opening": "Good evening! Do you have a reservation?",
+      "learning_tip": "'A table for two, please'처럼 인원수 말하기",
+      "suggested_responses": [
+        "Yes, under the name Kim.",
+        "No, but do you have a table for two?",
+        "I called earlier for a reservation."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Ordering",
+      "ai_prompt": "Present menu and take order",
+      "learning_tip": "알레르기나 요청사항은 'I'm allergic to...' 또는 'Could you...'로",
+      "suggested_responses": [
+        "I'll have the grilled salmon.",
+        "Does this contain nuts? I'm allergic.",
+        "Could I get the sauce on the side?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "During the Meal",
+      "ai_prompt": "Check on the meal",
+      "learning_tip": "추가 요청은 'Could I have some more...'",
+      "suggested_responses": [
+        "Could I have some more water?",
+        "This is delicious!",
+        "Actually, I think there's a mistake with my order."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Bill",
+      "ai_prompt": "Bring the check and process payment",
+      "learning_tip": "'Check, please' 또는 'Can I have the bill?'로 계산 요청",
+      "suggested_responses": [
+        "Can I have the check, please?",
+        "We'd like to split the bill.",
+        "Is tip included?"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "reservation",
+      "meaning": "예약",
+      "example": "I have a reservation for 7pm."
+    },
+    {
+      "word": "appetizer",
+      "meaning": "전채요리",
+      "example": "What appetizers do you recommend?"
+    },
+    {
+      "word": "split the bill",
+      "meaning": "나눠 내다",
+      "example": "Can we split the bill?"
+    }
+  ],
+  "category": "daily",
+  "difficulty": "intermediate",
+  "icon": "coffee",
+  "completion_message": "Great job completing the Dining at a Restaurant scenario!"
+}

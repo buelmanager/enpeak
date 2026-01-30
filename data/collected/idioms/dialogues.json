@@ -1,0 +1,402 @@
+[
+  {
+    "idiom": "break the ice",
+    "meaning": "어색한 분위기를 깨다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "He told a joke to break the ice at the meeting."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "social",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "hit the road",
+    "meaning": "출발하다, 떠나다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "We should hit the road early to avoid traffic."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "travel",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "piece of cake",
+    "meaning": "아주 쉬운 일",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "I heard the exam was piece of cake."
+      },
+      {
+        "speaker": "B",
+        "text": "The exam was a piece of cake."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "daily",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "cost an arm and a leg",
+    "meaning": "매우 비싸다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "That new car costs an arm and a leg."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "shopping",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "under the weather",
+    "meaning": "몸이 안 좋다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "I'm feeling a bit under the weather today."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "health",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "bite the bullet",
+    "meaning": "어려운 상황을 감수하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "I had to bite the bullet and tell him the truth."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "daily",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "let the cat out of the bag",
+    "meaning": "비밀을 누설하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "Who let the cat out of the bag about the surprise party?"
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "social",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "kill two birds with one stone",
+    "meaning": "일석이조",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "By working from the cafe, I can kill two birds with one stone."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "daily",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "spill the beans",
+    "meaning": "비밀을 말하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "Come on, spill the beans! What happened?"
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "social",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "get cold feet",
+    "meaning": "겁먹다, 망설이다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "He got cold feet before the job interview."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "daily",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "think outside the box",
+    "meaning": "창의적으로 생각하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "We need to think outside the box to solve this problem."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "business",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "back to square one",
+    "meaning": "처음으로 돌아가다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "The project failed, so we're back to square one."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "business",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "get the ball rolling",
+    "meaning": "일을 시작하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "Let's get the ball rolling on this project."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "business",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "on the same page",
+    "meaning": "같은 생각을 하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "Let's make sure we're on the same page before the meeting."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "business",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "touch base",
+    "meaning": "연락하다, 상황을 확인하다",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "I'll touch base with you next week about the project."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "business",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "over the moon",
+    "meaning": "매우 기쁜",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "She was over the moon when she got the promotion."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "emotion",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "on cloud nine",
+    "meaning": "매우 행복한",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "He's been on cloud nine since he met her."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "emotion",
+    "difficulty": "beginner"
+  },
+  {
+    "idiom": "down in the dumps",
+    "meaning": "우울한",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "She's been down in the dumps since she failed the exam."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "emotion",
+    "difficulty": "intermediate"
+  },
+  {
+    "idiom": "bent out of shape",
+    "meaning": "화가 난, 짜증난",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "Don't get bent out of shape over such a small thing."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "emotion",
+    "difficulty": "advanced"
+  },
+  {
+    "idiom": "once in a blue moon",
+    "meaning": "아주 드물게",
+    "dialogue": [
+      {
+        "speaker": "A",
+        "text": "How are you feeling about the project?"
+      },
+      {
+        "speaker": "B",
+        "text": "I only eat fast food once in a blue moon."
+      },
+      {
+        "speaker": "A",
+        "text": "I see what you mean."
+      }
+    ],
+    "category": "time",
+    "difficulty": "intermediate"
+  }
+]

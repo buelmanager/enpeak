@@ -1,0 +1,776 @@
+[
+  {
+    "id": "idiom_break_the_ice",
+    "source": "idioms",
+    "domain": "social",
+    "category": "expression",
+    "type": "idiom",
+    "content": "break the ice: 어색한 분위기를 깨다",
+    "expression": "break the ice",
+    "meaning": "어색한 분위기를 깨다",
+    "example": "He told a joke to break the ice at the meeting.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_hit_the_road",
+    "source": "idioms",
+    "domain": "travel",
+    "category": "expression",
+    "type": "idiom",
+    "content": "hit the road: 출발하다, 떠나다",
+    "expression": "hit the road",
+    "meaning": "출발하다, 떠나다",
+    "example": "We should hit the road early to avoid traffic.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_piece_of_cake",
+    "source": "idioms",
+    "domain": "daily",
+    "category": "expression",
+    "type": "idiom",
+    "content": "piece of cake: 아주 쉬운 일",
+    "expression": "piece of cake",
+    "meaning": "아주 쉬운 일",
+    "example": "The exam was a piece of cake.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_cost_an_arm_and_a_leg",
+    "source": "idioms",
+    "domain": "shopping",
+    "category": "expression",
+    "type": "idiom",
+    "content": "cost an arm and a leg: 매우 비싸다",
+    "expression": "cost an arm and a leg",
+    "meaning": "매우 비싸다",
+    "example": "That new car costs an arm and a leg.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_under_the_weather",
+    "source": "idioms",
+    "domain": "health",
+    "category": "expression",
+    "type": "idiom",
+    "content": "under the weather: 몸이 안 좋다",
+    "expression": "under the weather",
+    "meaning": "몸이 안 좋다",
+    "example": "I'm feeling a bit under the weather today.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_bite_the_bullet",
+    "source": "idioms",
+    "domain": "daily",
+    "category": "expression",
+    "type": "idiom",
+    "content": "bite the bullet: 어려운 상황을 감수하다",
+    "expression": "bite the bullet",
+    "meaning": "어려운 상황을 감수하다",
+    "example": "I had to bite the bullet and tell him the truth.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_let_the_cat_out_of_the_bag",
+    "source": "idioms",
+    "domain": "social",
+    "category": "expression",
+    "type": "idiom",
+    "content": "let the cat out of the bag: 비밀을 누설하다",
+    "expression": "let the cat out of the bag",
+    "meaning": "비밀을 누설하다",
+    "example": "Who let the cat out of the bag about the surprise party?",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_kill_two_birds_with_one_stone",
+    "source": "idioms",
+    "domain": "daily",
+    "category": "expression",
+    "type": "idiom",
+    "content": "kill two birds with one stone: 일석이조",
+    "expression": "kill two birds with one stone",
+    "meaning": "일석이조",
+    "example": "By working from the cafe, I can kill two birds with one stone.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_spill_the_beans",
+    "source": "idioms",
+    "domain": "social",
+    "category": "expression",
+    "type": "idiom",
+    "content": "spill the beans: 비밀을 말하다",
+    "expression": "spill the beans",
+    "meaning": "비밀을 말하다",
+    "example": "Come on, spill the beans! What happened?",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_get_cold_feet",
+    "source": "idioms",
+    "domain": "daily",
+    "category": "expression",
+    "type": "idiom",
+    "content": "get cold feet: 겁먹다, 망설이다",
+    "expression": "get cold feet",
+    "meaning": "겁먹다, 망설이다",
+    "example": "He got cold feet before the job interview.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_think_outside_the_box",
+    "source": "idioms",
+    "domain": "business",
+    "category": "expression",
+    "type": "idiom",
+    "content": "think outside the box: 창의적으로 생각하다",
+    "expression": "think outside the box",
+    "meaning": "창의적으로 생각하다",
+    "example": "We need to think outside the box to solve this problem.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_back_to_square_one",
+    "source": "idioms",
+    "domain": "business",
+    "category": "expression",
+    "type": "idiom",
+    "content": "back to square one: 처음으로 돌아가다",
+    "expression": "back to square one",
+    "meaning": "처음으로 돌아가다",
+    "example": "The project failed, so we're back to square one.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_get_the_ball_rolling",
+    "source": "idioms",
+    "domain": "business",
+    "category": "expression",
+    "type": "idiom",
+    "content": "get the ball rolling: 일을 시작하다",
+    "expression": "get the ball rolling",
+    "meaning": "일을 시작하다",
+    "example": "Let's get the ball rolling on this project.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_on_the_same_page",
+    "source": "idioms",
+    "domain": "business",
+    "category": "expression",
+    "type": "idiom",
+    "content": "on the same page: 같은 생각을 하다",
+    "expression": "on the same page",
+    "meaning": "같은 생각을 하다",
+    "example": "Let's make sure we're on the same page before the meeting.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_touch_base",
+    "source": "idioms",
+    "domain": "business",
+    "category": "expression",
+    "type": "idiom",
+    "content": "touch base: 연락하다, 상황을 확인하다",
+    "expression": "touch base",
+    "meaning": "연락하다, 상황을 확인하다",
+    "example": "I'll touch base with you next week about the project.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_over_the_moon",
+    "source": "idioms",
+    "domain": "emotion",
+    "category": "expression",
+    "type": "idiom",
+    "content": "over the moon: 매우 기쁜",
+    "expression": "over the moon",
+    "meaning": "매우 기쁜",
+    "example": "She was over the moon when she got the promotion.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_on_cloud_nine",
+    "source": "idioms",
+    "domain": "emotion",
+    "category": "expression",
+    "type": "idiom",
+    "content": "on cloud nine: 매우 행복한",
+    "expression": "on cloud nine",
+    "meaning": "매우 행복한",
+    "example": "He's been on cloud nine since he met her.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_down_in_the_dumps",
+    "source": "idioms",
+    "domain": "emotion",
+    "category": "expression",
+    "type": "idiom",
+    "content": "down in the dumps: 우울한",
+    "expression": "down in the dumps",
+    "meaning": "우울한",
+    "example": "She's been down in the dumps since she failed the exam.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_bent_out_of_shape",
+    "source": "idioms",
+    "domain": "emotion",
+    "category": "expression",
+    "type": "idiom",
+    "content": "bent out of shape: 화가 난, 짜증난",
+    "expression": "bent out of shape",
+    "meaning": "화가 난, 짜증난",
+    "example": "Don't get bent out of shape over such a small thing.",
+    "metadata": {
+      "difficulty": "advanced"
+    }
+  },
+  {
+    "id": "idiom_once_in_a_blue_moon",
+    "source": "idioms",
+    "domain": "time",
+    "category": "expression",
+    "type": "idiom",
+    "content": "once in a blue moon: 아주 드물게",
+    "expression": "once in a blue moon",
+    "meaning": "아주 드물게",
+    "example": "I only eat fast food once in a blue moon.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_in_the_nick_of_time",
+    "source": "idioms",
+    "domain": "time",
+    "category": "expression",
+    "type": "idiom",
+    "content": "in the nick of time: 아슬아슬하게, 간신히",
+    "expression": "in the nick of time",
+    "meaning": "아슬아슬하게, 간신히",
+    "example": "He arrived in the nick of time for the meeting.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_around_the_clock",
+    "source": "idioms",
+    "domain": "time",
+    "category": "expression",
+    "type": "idiom",
+    "content": "around the clock: 24시간 내내",
+    "expression": "around the clock",
+    "meaning": "24시간 내내",
+    "example": "The hospital operates around the clock.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_break_the_bank",
+    "source": "idioms",
+    "domain": "money",
+    "category": "expression",
+    "type": "idiom",
+    "content": "break the bank: 큰돈을 쓰다",
+    "expression": "break the bank",
+    "meaning": "큰돈을 쓰다",
+    "example": "We don't want to break the bank on this vacation.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_make_ends_meet",
+    "source": "idioms",
+    "domain": "money",
+    "category": "expression",
+    "type": "idiom",
+    "content": "make ends meet: 수입으로 생활하다",
+    "expression": "make ends meet",
+    "meaning": "수입으로 생활하다",
+    "example": "It's hard to make ends meet with this salary.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_put_money_aside",
+    "source": "idioms",
+    "domain": "money",
+    "category": "expression",
+    "type": "idiom",
+    "content": "put money aside: 저축하다",
+    "expression": "put money aside",
+    "meaning": "저축하다",
+    "example": "You should put money aside for emergencies.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_beat_around_the_bush",
+    "source": "idioms",
+    "domain": "communication",
+    "category": "expression",
+    "type": "idiom",
+    "content": "beat around the bush: 돌려서 말하다",
+    "expression": "beat around the bush",
+    "meaning": "돌려서 말하다",
+    "example": "Stop beating around the bush and tell me what happened.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_get_straight_to_the_point",
+    "source": "idioms",
+    "domain": "communication",
+    "category": "expression",
+    "type": "idiom",
+    "content": "get straight to the point: 요점만 말하다",
+    "expression": "get straight to the point",
+    "meaning": "요점만 말하다",
+    "example": "Let me get straight to the point.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_speak_your_mind",
+    "source": "idioms",
+    "domain": "communication",
+    "category": "expression",
+    "type": "idiom",
+    "content": "speak your mind: 솔직하게 말하다",
+    "expression": "speak your mind",
+    "meaning": "솔직하게 말하다",
+    "example": "Don't be afraid to speak your mind in the meeting.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_hit_it_off",
+    "source": "idioms",
+    "domain": "relationship",
+    "category": "expression",
+    "type": "idiom",
+    "content": "hit it off: 첫 만남부터 잘 맞다",
+    "expression": "hit it off",
+    "meaning": "첫 만남부터 잘 맞다",
+    "example": "We hit it off from the moment we met.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_see_eye_to_eye",
+    "source": "idioms",
+    "domain": "relationship",
+    "category": "expression",
+    "type": "idiom",
+    "content": "see eye to eye: 의견이 같다",
+    "expression": "see eye to eye",
+    "meaning": "의견이 같다",
+    "example": "We don't always see eye to eye on everything.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_get_along_with",
+    "source": "idioms",
+    "domain": "relationship",
+    "category": "expression",
+    "type": "idiom",
+    "content": "get along with: 잘 지내다",
+    "expression": "get along with",
+    "meaning": "잘 지내다",
+    "example": "I get along with most of my coworkers.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_go_the_extra_mile",
+    "source": "idioms",
+    "domain": "effort",
+    "category": "expression",
+    "type": "idiom",
+    "content": "go the extra mile: 더 노력하다",
+    "expression": "go the extra mile",
+    "meaning": "더 노력하다",
+    "example": "She always goes the extra mile for her clients.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_burn_the_midnight_oil",
+    "source": "idioms",
+    "domain": "effort",
+    "category": "expression",
+    "type": "idiom",
+    "content": "burn the midnight oil: 밤새워 일하다",
+    "expression": "burn the midnight oil",
+    "meaning": "밤새워 일하다",
+    "example": "I've been burning the midnight oil to finish this project.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_practice_makes_perfect",
+    "source": "idioms",
+    "domain": "effort",
+    "category": "expression",
+    "type": "idiom",
+    "content": "practice makes perfect: 연습이 완벽을 만든다",
+    "expression": "practice makes perfect",
+    "meaning": "연습이 완벽을 만든다",
+    "example": "Keep trying! Practice makes perfect.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_on_the_fence",
+    "source": "idioms",
+    "domain": "decision",
+    "category": "expression",
+    "type": "idiom",
+    "content": "on the fence: 결정을 못 내리는",
+    "expression": "on the fence",
+    "meaning": "결정을 못 내리는",
+    "example": "I'm still on the fence about taking the job offer.",
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "idiom_sleep_on_it",
+    "source": "idioms",
+    "domain": "decision",
+    "category": "expression",
+    "type": "idiom",
+    "content": "sleep on it: 하루 더 생각하다",
+    "expression": "sleep on it",
+    "meaning": "하루 더 생각하다",
+    "example": "It's a big decision. Why don't you sleep on it?",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "idiom_make_up_your_mind",
+    "source": "idioms",
+    "domain": "decision",
+    "category": "expression",
+    "type": "idiom",
+    "content": "make up your mind: 결정하다",
+    "expression": "make up your mind",
+    "meaning": "결정하다",
+    "example": "You need to make up your mind soon.",
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_pick_up",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "pick up: 줍다 / 데리러 가다 / 배우다",
+    "expression": "pick up",
+    "meaning": "줍다 / 데리러 가다 / 배우다",
+    "examples": [
+      "Can you pick up my dry cleaning?",
+      "I'll pick you up at 7.",
+      "She picked up Spanish very quickly."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_turn_on/off",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "turn on/off: 켜다/끄다",
+    "expression": "turn on/off",
+    "meaning": "켜다/끄다",
+    "examples": [
+      "Turn on the lights, please.",
+      "Don't forget to turn off the TV."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_put_on",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "put on: 입다, 착용하다",
+    "expression": "put on",
+    "meaning": "입다, 착용하다",
+    "examples": [
+      "Put on your jacket, it's cold outside.",
+      "She put on some makeup before leaving."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_take_off",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "take off: 벗다 / 이륙하다",
+    "expression": "take off",
+    "meaning": "벗다 / 이륙하다",
+    "examples": [
+      "Take off your shoes at the door.",
+      "The plane took off on time."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_look_for",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "look for: 찾다",
+    "expression": "look for",
+    "meaning": "찾다",
+    "examples": [
+      "I'm looking for my keys.",
+      "Are you looking for something specific?"
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_look_after",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "look after: 돌보다",
+    "expression": "look after",
+    "meaning": "돌보다",
+    "examples": [
+      "Can you look after my dog this weekend?",
+      "She looks after her elderly parents."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_give_up",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "give up: 포기하다",
+    "expression": "give up",
+    "meaning": "포기하다",
+    "examples": [
+      "Don't give up! You can do it.",
+      "He gave up smoking last year."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_come_up_with",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "come up with: 생각해내다",
+    "expression": "come up with",
+    "meaning": "생각해내다",
+    "examples": [
+      "Can you come up with a better idea?",
+      "She came up with a brilliant solution."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "pv_run_into",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "run into: 우연히 만나다",
+    "expression": "run into",
+    "meaning": "우연히 만나다",
+    "examples": [
+      "I ran into an old friend yesterday.",
+      "You might run into some problems."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "pv_figure_out",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "figure out: 이해하다, 알아내다",
+    "expression": "figure out",
+    "meaning": "이해하다, 알아내다",
+    "examples": [
+      "I can't figure out this math problem.",
+      "We need to figure out what went wrong."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "pv_work_out",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "work out: 운동하다 / 해결되다",
+    "expression": "work out",
+    "meaning": "운동하다 / 해결되다",
+    "examples": [
+      "I work out three times a week.",
+      "Everything will work out in the end."
+    ],
+    "metadata": {
+      "difficulty": "beginner"
+    }
+  },
+  {
+    "id": "pv_bring_up",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "bring up: 언급하다 / 양육하다",
+    "expression": "bring up",
+    "meaning": "언급하다 / 양육하다",
+    "examples": [
+      "Don't bring up that topic.",
+      "She was brought up in a small town."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "pv_put_off",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "put off: 미루다",
+    "expression": "put off",
+    "meaning": "미루다",
+    "examples": [
+      "Don't put off your homework.",
+      "The meeting was put off until next week."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "pv_get_over",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "get over: 극복하다",
+    "expression": "get over",
+    "meaning": "극복하다",
+    "examples": [
+      "It took time to get over the breakup.",
+      "I hope you get over your cold soon."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  },
+  {
+    "id": "pv_carry_on",
+    "source": "phrasal_verbs",
+    "domain": "daily",
+    "category": "expression",
+    "type": "phrasal_verb",
+    "content": "carry on: 계속하다",
+    "expression": "carry on",
+    "meaning": "계속하다",
+    "examples": [
+      "Carry on with your work.",
+      "Despite the difficulties, they carried on."
+    ],
+    "metadata": {
+      "difficulty": "intermediate"
+    }
+  }
+]

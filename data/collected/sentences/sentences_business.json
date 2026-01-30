@@ -1,0 +1,182 @@
+[
+  {
+    "en": "Nice to meet you.",
+    "ko": "만나서 반갑습니다.",
+    "level": "A1",
+    "category": "business"
+  },
+  {
+    "en": "Here's my business card.",
+    "ko": "제 명함입니다.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "What company do you work for?",
+    "ko": "어느 회사에서 일하세요?",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I work for Samsung.",
+    "ko": "삼성에서 일해요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "What do you do?",
+    "ko": "무슨 일 하세요?",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I'm a software engineer.",
+    "ko": "소프트웨어 엔지니어예요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I'm in marketing.",
+    "ko": "마케팅 일을 해요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I manage a team of five.",
+    "ko": "5명 팀을 관리해요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "I've been with the company for 3 years.",
+    "ko": "회사에 3년 있었어요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "Shall we get started?",
+    "ko": "시작할까요?",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "Let's begin with the agenda.",
+    "ko": "의제부터 시작하죠.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "As I mentioned earlier...",
+    "ko": "앞서 말씀드렸듯이...",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "Could you elaborate on that?",
+    "ko": "좀 더 설명해 주시겠어요?",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "I'd like to add something.",
+    "ko": "덧붙이고 싶은 게 있어요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "That's a good point.",
+    "ko": "좋은 지적이에요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I agree with you.",
+    "ko": "동의해요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I'm not sure I agree.",
+    "ko": "동의하지 않아요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "Let me think about it.",
+    "ko": "생각해 볼게요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "Can we schedule a meeting?",
+    "ko": "미팅 잡을 수 있을까요?",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "When are you available?",
+    "ko": "언제 시간 되세요?",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "How about next Tuesday?",
+    "ko": "다음 주 화요일 어때요?",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "Let me check my calendar.",
+    "ko": "일정 확인해 볼게요.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "I have a conflict at that time.",
+    "ko": "그 시간에 일정이 있어요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "Can we reschedule?",
+    "ko": "일정 변경할 수 있을까요?",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "I'll send you the details by email.",
+    "ko": "이메일로 상세 내용 보낼게요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "Please find attached the report.",
+    "ko": "보고서 첨부해 드립니다.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "I look forward to your reply.",
+    "ko": "답변 기다리겠습니다.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "Thank you for your time.",
+    "ko": "시간 내주셔서 감사합니다.",
+    "level": "A2",
+    "category": "business"
+  },
+  {
+    "en": "Let's touch base next week.",
+    "ko": "다음 주에 연락해요.",
+    "level": "B1",
+    "category": "business"
+  },
+  {
+    "en": "I'll follow up on this.",
+    "ko": "이건 제가 후속 조치할게요.",
+    "level": "B1",
+    "category": "business"
+  }
+]

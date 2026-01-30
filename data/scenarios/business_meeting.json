@@ -1,0 +1,93 @@
+{
+  "id": "business_meeting",
+  "title": "Business Meeting",
+  "title_ko": "비즈니스 미팅",
+  "roles": {
+    "ai": "Meeting Participant",
+    "user": "Presenter"
+  },
+  "estimated_time": "8-12 min",
+  "learning_objectives": [
+    "Present ideas professionally",
+    "Handle questions and objections",
+    "Reach agreements"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Opening",
+      "ai_opening": "Shall we get started? What's on the agenda today?",
+      "learning_tip": "회의 시작 - 'Let's begin with...' 'Today, I'd like to cover...'",
+      "suggested_responses": [
+        "Thank you everyone. Today, I'd like to present our Q4 strategy.",
+        "Let's start with a quick recap of last meeting.",
+        "I have three items on the agenda today."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Presentation",
+      "ai_prompt": "Engage with the presentation",
+      "learning_tip": "포인트 강조 - 'The key point here is...' 'I'd like to highlight...'",
+      "suggested_responses": [
+        "The key point here is that our sales increased by 20%.",
+        "I'd like to highlight three main factors.",
+        "As you can see from this chart..."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Q&A",
+      "ai_prompt": "Ask clarifying questions",
+      "learning_tip": "질문 받기 - 'Does anyone have questions?' 답변 - 'That's a great question.'",
+      "suggested_responses": [
+        "That's a great question. Let me explain...",
+        "I'm glad you brought that up.",
+        "I'll need to get back to you on that."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Action Items",
+      "ai_prompt": "Discuss next steps",
+      "learning_tip": "다음 단계 정리 - 'The action items are...' 'Who will take the lead on...?'",
+      "suggested_responses": [
+        "So the action items are...",
+        "I'll take the lead on this.",
+        "Can we set a deadline for next Friday?"
+      ]
+    },
+    {
+      "stage": 5,
+      "name": "Closing",
+      "ai_prompt": "Wrap up the meeting",
+      "learning_tip": "회의 마무리 - 'Thank you for your input' 'Let's reconvene...'",
+      "suggested_responses": [
+        "Thank you all for your valuable input.",
+        "Let's reconvene next week to review progress.",
+        "I'll send the meeting minutes by end of day."
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "agenda",
+      "meaning": "의제",
+      "example": "What's on the agenda?"
+    },
+    {
+      "word": "action item",
+      "meaning": "실행 항목",
+      "example": "Let's review the action items."
+    },
+    {
+      "word": "deadline",
+      "meaning": "마감일",
+      "example": "When is the deadline?"
+    }
+  ],
+  "category": "business",
+  "difficulty": "advanced",
+  "icon": "briefcase",
+  "completion_message": "Great job completing the Business Meeting scenario!"
+}

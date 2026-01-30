@@ -1,0 +1,82 @@
+{
+  "id": "airport_checkin",
+  "title": "Airport Check-in",
+  "title_ko": "공항 체크인하기",
+  "roles": {
+    "ai": "Airline Staff",
+    "user": "Passenger"
+  },
+  "estimated_time": "5-7 min",
+  "learning_objectives": [
+    "Check in for flights",
+    "Handle baggage",
+    "Navigate airport procedures"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Check-in Counter",
+      "ai_opening": "Good morning! May I see your passport and booking confirmation?",
+      "learning_tip": "예약 확인서는 booking confirmation, 여권은 passport",
+      "suggested_responses": [
+        "Here's my passport and confirmation.",
+        "I booked online, here's my reference number.",
+        "I already checked in online."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Baggage",
+      "ai_prompt": "Ask about baggage and check bags",
+      "learning_tip": "위탁 수하물은 checked baggage, 기내 반입은 carry-on",
+      "suggested_responses": [
+        "I have one bag to check.",
+        "Is my carry-on within the size limit?",
+        "I have a connecting flight. Will my bag go through?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Seat Selection",
+      "ai_prompt": "Discuss seat preferences",
+      "learning_tip": "창가는 window seat, 복도는 aisle seat",
+      "suggested_responses": [
+        "Can I have a window seat?",
+        "Do you have any aisle seats available?",
+        "I'd like to sit near the front."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Gate Information",
+      "ai_prompt": "Provide boarding pass and gate information",
+      "learning_tip": "탑승구는 gate, 탑승 시간은 boarding time",
+      "suggested_responses": [
+        "What gate do I go to?",
+        "What time does boarding start?",
+        "Where is the lounge?"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "boarding pass",
+      "meaning": "탑승권",
+      "example": "Here's your boarding pass."
+    },
+    {
+      "word": "layover",
+      "meaning": "경유",
+      "example": "I have a 3-hour layover."
+    },
+    {
+      "word": "gate",
+      "meaning": "탑승구",
+      "example": "Your gate is B12."
+    }
+  ],
+  "category": "travel",
+  "difficulty": "intermediate",
+  "icon": "plane",
+  "completion_message": "Great job completing the Airport Check-in scenario!"
+}

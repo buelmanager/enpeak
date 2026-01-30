@@ -1,0 +1,182 @@
+[
+  {
+    "en": "Help!",
+    "ko": "도와주세요!",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Call an ambulance!",
+    "ko": "구급차 불러주세요!",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I need a doctor.",
+    "ko": "의사가 필요해요.",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Where's the nearest hospital?",
+    "ko": "가장 가까운 병원이 어디예요?",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I'm not feeling well.",
+    "ko": "몸이 안 좋아요.",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I have a headache.",
+    "ko": "두통이 있어요.",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I have a stomachache.",
+    "ko": "배가 아파요.",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I have a fever.",
+    "ko": "열이 있어요.",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I feel dizzy.",
+    "ko": "어지러워요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I think I'm going to be sick.",
+    "ko": "토할 것 같아요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I cut my finger.",
+    "ko": "손가락을 베었어요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I hurt my leg.",
+    "ko": "다리를 다쳤어요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I'm allergic to penicillin.",
+    "ko": "페니실린 알레르기가 있어요.",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I need my prescription filled.",
+    "ko": "처방전 조제해 주세요.",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "How many times a day should I take this?",
+    "ko": "이거 하루에 몇 번 먹어야 해요?",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Take it after meals.",
+    "ko": "식후에 드세요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Are there any side effects?",
+    "ko": "부작용이 있나요?",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I lost my medication.",
+    "ko": "약을 잃어버렸어요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I need to see a specialist.",
+    "ko": "전문의를 봐야 해요.",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "When can I get an appointment?",
+    "ko": "언제 예약 가능해요?",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "It hurts here.",
+    "ko": "여기가 아파요.",
+    "level": "A1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "The pain is getting worse.",
+    "ko": "통증이 심해지고 있어요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I've had this pain for three days.",
+    "ko": "3일 동안 아팠어요.",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Do I need surgery?",
+    "ko": "수술이 필요한가요?",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Will I need to stay overnight?",
+    "ko": "입원해야 하나요?",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Is it serious?",
+    "ko": "심각한가요?",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "I need a sick note.",
+    "ko": "진단서가 필요해요.",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "My insurance will cover it.",
+    "ko": "보험 처리 될 거예요.",
+    "level": "B1",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Where's the pharmacy?",
+    "ko": "약국 어디예요?",
+    "level": "A2",
+    "category": "emergency_health"
+  },
+  {
+    "en": "Do I need a prescription for this?",
+    "ko": "이거 처방전 필요해요?",
+    "level": "B1",
+    "category": "emergency_health"
+  }
+]

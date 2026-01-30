@@ -1,0 +1,82 @@
+{
+  "id": "phone_call",
+  "title": "Business Phone Call",
+  "title_ko": "비즈니스 전화 통화",
+  "roles": {
+    "ai": "Business Contact",
+    "user": "Caller"
+  },
+  "estimated_time": "5-6 min",
+  "learning_objectives": [
+    "Make professional phone calls",
+    "Leave messages",
+    "Schedule appointments"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Introduction",
+      "ai_opening": "ABC Company, this is Sarah speaking. How may I help you?",
+      "learning_tip": "전화 시 본인 소개 - 'This is [name] from [company]'",
+      "suggested_responses": [
+        "Hello, this is Park from XYZ Company.",
+        "Hi, I'm calling about the project proposal.",
+        "May I speak with Mr. Johnson, please?"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Purpose",
+      "ai_prompt": "Ask about the purpose of the call",
+      "learning_tip": "'The reason I'm calling is...'로 용건을 말해요",
+      "suggested_responses": [
+        "The reason I'm calling is to discuss the contract.",
+        "I'd like to schedule a meeting.",
+        "I'm following up on our previous conversation."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Discussion",
+      "ai_prompt": "Handle the main conversation",
+      "learning_tip": "확인할 때 'Let me confirm...' 사용",
+      "suggested_responses": [
+        "Would Thursday at 2pm work for you?",
+        "Let me check my calendar.",
+        "Could you send me the details via email?"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Closing",
+      "ai_prompt": "Wrap up the call",
+      "learning_tip": "마무리는 'Thank you for your time'",
+      "suggested_responses": [
+        "Thank you for your time.",
+        "I'll send a follow-up email.",
+        "Let's touch base next week."
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "follow up",
+      "meaning": "후속 조치",
+      "example": "I'm following up on our meeting."
+    },
+    {
+      "word": "touch base",
+      "meaning": "연락하다",
+      "example": "Let's touch base soon."
+    },
+    {
+      "word": "schedule",
+      "meaning": "일정 잡다",
+      "example": "Can we schedule a call?"
+    }
+  ],
+  "category": "business",
+  "difficulty": "intermediate",
+  "icon": "briefcase",
+  "completion_message": "Great job completing the Business Phone Call scenario!"
+}

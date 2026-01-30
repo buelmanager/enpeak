@@ -1,0 +1,547 @@
+{
+  "level": "A2",
+  "description": "Elementary - 기초 확장 단어",
+  "word_count": 90,
+  "words": [
+    {
+      "word": "remember",
+      "meaning": "기억하다",
+      "pos": "verb",
+      "example": "I remember you."
+    },
+    {
+      "word": "forget",
+      "meaning": "잊다",
+      "pos": "verb",
+      "example": "Don't forget!"
+    },
+    {
+      "word": "understand",
+      "meaning": "이해하다",
+      "pos": "verb",
+      "example": "I understand."
+    },
+    {
+      "word": "learn",
+      "meaning": "배우다",
+      "pos": "verb",
+      "example": "I'm learning English."
+    },
+    {
+      "word": "teach",
+      "meaning": "가르치다",
+      "pos": "verb",
+      "example": "She teaches math."
+    },
+    {
+      "word": "try",
+      "meaning": "노력하다",
+      "pos": "verb",
+      "example": "I'll try again."
+    },
+    {
+      "word": "start",
+      "meaning": "시작하다",
+      "pos": "verb",
+      "example": "Let's start now."
+    },
+    {
+      "word": "finish",
+      "meaning": "끝내다",
+      "pos": "verb",
+      "example": "I finished my work."
+    },
+    {
+      "word": "stop",
+      "meaning": "멈추다",
+      "pos": "verb",
+      "example": "Please stop here."
+    },
+    {
+      "word": "continue",
+      "meaning": "계속하다",
+      "pos": "verb",
+      "example": "Please continue."
+    },
+    {
+      "word": "change",
+      "meaning": "바꾸다",
+      "pos": "verb",
+      "example": "I want to change this."
+    },
+    {
+      "word": "choose",
+      "meaning": "선택하다",
+      "pos": "verb",
+      "example": "Please choose one."
+    },
+    {
+      "word": "decide",
+      "meaning": "결정하다",
+      "pos": "verb",
+      "example": "I can't decide."
+    },
+    {
+      "word": "hope",
+      "meaning": "희망하다",
+      "pos": "verb",
+      "example": "I hope so."
+    },
+    {
+      "word": "believe",
+      "meaning": "믿다",
+      "pos": "verb",
+      "example": "I believe you."
+    },
+    {
+      "word": "feel",
+      "meaning": "느끼다",
+      "pos": "verb",
+      "example": "I feel good."
+    },
+    {
+      "word": "meet",
+      "meaning": "만나다",
+      "pos": "verb",
+      "example": "Nice to meet you."
+    },
+    {
+      "word": "visit",
+      "meaning": "방문하다",
+      "pos": "verb",
+      "example": "I visited Seoul."
+    },
+    {
+      "word": "travel",
+      "meaning": "여행하다",
+      "pos": "verb",
+      "example": "I like to travel."
+    },
+    {
+      "word": "stay",
+      "meaning": "머무르다",
+      "pos": "verb",
+      "example": "I'll stay here."
+    },
+    {
+      "word": "leave",
+      "meaning": "떠나다",
+      "pos": "verb",
+      "example": "I have to leave."
+    },
+    {
+      "word": "arrive",
+      "meaning": "도착하다",
+      "pos": "verb",
+      "example": "When do you arrive?"
+    },
+    {
+      "word": "return",
+      "meaning": "돌아오다",
+      "pos": "verb",
+      "example": "I'll return tomorrow."
+    },
+    {
+      "word": "send",
+      "meaning": "보내다",
+      "pos": "verb",
+      "example": "Please send me the file."
+    },
+    {
+      "word": "receive",
+      "meaning": "받다",
+      "pos": "verb",
+      "example": "I received your email."
+    },
+    {
+      "word": "bring",
+      "meaning": "가져오다",
+      "pos": "verb",
+      "example": "Bring your ID."
+    },
+    {
+      "word": "carry",
+      "meaning": "운반하다",
+      "pos": "verb",
+      "example": "I'll carry this."
+    },
+    {
+      "word": "wear",
+      "meaning": "입다",
+      "pos": "verb",
+      "example": "I wear a suit."
+    },
+    {
+      "word": "spend",
+      "meaning": "쓰다(돈/시간)",
+      "pos": "verb",
+      "example": "I spend money on books."
+    },
+    {
+      "word": "save",
+      "meaning": "저축하다",
+      "pos": "verb",
+      "example": "I save money every month."
+    },
+    {
+      "word": "job",
+      "meaning": "직업",
+      "pos": "noun",
+      "example": "I got a new job."
+    },
+    {
+      "word": "company",
+      "meaning": "회사",
+      "pos": "noun",
+      "example": "I work for a big company."
+    },
+    {
+      "word": "office",
+      "meaning": "사무실",
+      "pos": "noun",
+      "example": "I'm in the office."
+    },
+    {
+      "word": "meeting",
+      "meaning": "회의",
+      "pos": "noun",
+      "example": "I have a meeting."
+    },
+    {
+      "word": "project",
+      "meaning": "프로젝트",
+      "pos": "noun",
+      "example": "The project is done."
+    },
+    {
+      "word": "boss",
+      "meaning": "상사",
+      "pos": "noun",
+      "example": "My boss is nice."
+    },
+    {
+      "word": "colleague",
+      "meaning": "동료",
+      "pos": "noun",
+      "example": "She's my colleague."
+    },
+    {
+      "word": "customer",
+      "meaning": "고객",
+      "pos": "noun",
+      "example": "The customer is waiting."
+    },
+    {
+      "word": "salary",
+      "meaning": "월급",
+      "pos": "noun",
+      "example": "I got my salary."
+    },
+    {
+      "word": "price",
+      "meaning": "가격",
+      "pos": "noun",
+      "example": "What's the price?"
+    },
+    {
+      "word": "discount",
+      "meaning": "할인",
+      "pos": "noun",
+      "example": "Is there a discount?"
+    },
+    {
+      "word": "sale",
+      "meaning": "세일",
+      "pos": "noun",
+      "example": "It's on sale."
+    },
+    {
+      "word": "size",
+      "meaning": "크기",
+      "pos": "noun",
+      "example": "What size do you need?"
+    },
+    {
+      "word": "color",
+      "meaning": "색상",
+      "pos": "noun",
+      "example": "What color do you want?"
+    },
+    {
+      "word": "receipt",
+      "meaning": "영수증",
+      "pos": "noun",
+      "example": "Can I have the receipt?"
+    },
+    {
+      "word": "cash",
+      "meaning": "현금",
+      "pos": "noun",
+      "example": "I'll pay by cash."
+    },
+    {
+      "word": "card",
+      "meaning": "카드",
+      "pos": "noun",
+      "example": "Do you take cards?"
+    },
+    {
+      "word": "ticket",
+      "meaning": "표",
+      "pos": "noun",
+      "example": "I need a ticket."
+    },
+    {
+      "word": "bus",
+      "meaning": "버스",
+      "pos": "noun",
+      "example": "I take the bus."
+    },
+    {
+      "word": "train",
+      "meaning": "기차",
+      "pos": "noun",
+      "example": "The train is late."
+    },
+    {
+      "word": "subway",
+      "meaning": "지하철",
+      "pos": "noun",
+      "example": "Take the subway."
+    },
+    {
+      "word": "taxi",
+      "meaning": "택시",
+      "pos": "noun",
+      "example": "Call a taxi."
+    },
+    {
+      "word": "car",
+      "meaning": "자동차",
+      "pos": "noun",
+      "example": "I drive a car."
+    },
+    {
+      "word": "flight",
+      "meaning": "비행기편",
+      "pos": "noun",
+      "example": "My flight is delayed."
+    },
+    {
+      "word": "seat",
+      "meaning": "좌석",
+      "pos": "noun",
+      "example": "Is this seat taken?"
+    },
+    {
+      "word": "doctor",
+      "meaning": "의사",
+      "pos": "noun",
+      "example": "I need to see a doctor."
+    },
+    {
+      "word": "medicine",
+      "meaning": "약",
+      "pos": "noun",
+      "example": "Take this medicine."
+    },
+    {
+      "word": "sick",
+      "meaning": "아픈",
+      "pos": "adjective",
+      "example": "I feel sick."
+    },
+    {
+      "word": "pain",
+      "meaning": "통증",
+      "pos": "noun",
+      "example": "I have pain here."
+    },
+    {
+      "word": "headache",
+      "meaning": "두통",
+      "pos": "noun",
+      "example": "I have a headache."
+    },
+    {
+      "word": "fever",
+      "meaning": "열",
+      "pos": "noun",
+      "example": "I have a fever."
+    },
+    {
+      "word": "cold",
+      "meaning": "감기",
+      "pos": "noun",
+      "example": "I caught a cold."
+    },
+    {
+      "word": "weather",
+      "meaning": "날씨",
+      "pos": "noun",
+      "example": "How's the weather?"
+    },
+    {
+      "word": "sunny",
+      "meaning": "맑은",
+      "pos": "adjective",
+      "example": "It's sunny today."
+    },
+    {
+      "word": "cloudy",
+      "meaning": "흐린",
+      "pos": "adjective",
+      "example": "It's cloudy."
+    },
+    {
+      "word": "rainy",
+      "meaning": "비오는",
+      "pos": "adjective",
+      "example": "It's rainy today."
+    },
+    {
+      "word": "windy",
+      "meaning": "바람부는",
+      "pos": "adjective",
+      "example": "It's windy outside."
+    },
+    {
+      "word": "snow",
+      "meaning": "눈",
+      "pos": "noun",
+      "example": "There's snow outside."
+    },
+    {
+      "word": "excited",
+      "meaning": "신난",
+      "pos": "adjective",
+      "example": "I'm so excited!"
+    },
+    {
+      "word": "worried",
+      "meaning": "걱정되는",
+      "pos": "adjective",
+      "example": "I'm worried about it."
+    },
+    {
+      "word": "surprised",
+      "meaning": "놀란",
+      "pos": "adjective",
+      "example": "I was surprised."
+    },
+    {
+      "word": "angry",
+      "meaning": "화난",
+      "pos": "adjective",
+      "example": "Don't be angry."
+    },
+    {
+      "word": "nervous",
+      "meaning": "긴장한",
+      "pos": "adjective",
+      "example": "I'm nervous."
+    },
+    {
+      "word": "comfortable",
+      "meaning": "편안한",
+      "pos": "adjective",
+      "example": "Make yourself comfortable."
+    },
+    {
+      "word": "safe",
+      "meaning": "안전한",
+      "pos": "adjective",
+      "example": "It's safe here."
+    },
+    {
+      "word": "dangerous",
+      "meaning": "위험한",
+      "pos": "adjective",
+      "example": "It's dangerous."
+    },
+    {
+      "word": "always",
+      "meaning": "항상",
+      "pos": "adverb",
+      "example": "I always wake up early."
+    },
+    {
+      "word": "usually",
+      "meaning": "보통",
+      "pos": "adverb",
+      "example": "I usually eat at home."
+    },
+    {
+      "word": "sometimes",
+      "meaning": "가끔",
+      "pos": "adverb",
+      "example": "I sometimes go there."
+    },
+    {
+      "word": "never",
+      "meaning": "절대 ~않다",
+      "pos": "adverb",
+      "example": "I never smoke."
+    },
+    {
+      "word": "already",
+      "meaning": "이미",
+      "pos": "adverb",
+      "example": "I already finished."
+    },
+    {
+      "word": "still",
+      "meaning": "아직",
+      "pos": "adverb",
+      "example": "I'm still working."
+    },
+    {
+      "word": "just",
+      "meaning": "방금",
+      "pos": "adverb",
+      "example": "I just arrived."
+    },
+    {
+      "word": "soon",
+      "meaning": "곧",
+      "pos": "adverb",
+      "example": "I'll be there soon."
+    },
+    {
+      "word": "again",
+      "meaning": "다시",
+      "pos": "adverb",
+      "example": "Try again."
+    },
+    {
+      "word": "together",
+      "meaning": "함께",
+      "pos": "adverb",
+      "example": "Let's go together."
+    },
+    {
+      "word": "alone",
+      "meaning": "혼자",
+      "pos": "adverb",
+      "example": "I live alone."
+    },
+    {
+      "word": "quickly",
+      "meaning": "빨리",
+      "pos": "adverb",
+      "example": "Come quickly!"
+    },
+    {
+      "word": "slowly",
+      "meaning": "천천히",
+      "pos": "adverb",
+      "example": "Please speak slowly."
+    },
+    {
+      "word": "carefully",
+      "meaning": "조심히",
+      "pos": "adverb",
+      "example": "Drive carefully."
+    }
+  ]
+}

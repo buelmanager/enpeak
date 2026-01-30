@@ -1,0 +1,182 @@
+[
+  {
+    "en": "I think so.",
+    "ko": "그렇게 생각해요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I don't think so.",
+    "ko": "그렇게 생각 안 해요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "In my opinion...",
+    "ko": "제 생각에는...",
+    "level": "B1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I believe that...",
+    "ko": "저는 ~라고 믿어요.",
+    "level": "B1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "From my point of view...",
+    "ko": "제 관점에서는...",
+    "level": "B1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I agree with you.",
+    "ko": "동의해요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I disagree.",
+    "ko": "동의하지 않아요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "That's true.",
+    "ko": "맞아요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "That's not true.",
+    "ko": "사실이 아니에요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm not sure.",
+    "ko": "잘 모르겠어요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I have no idea.",
+    "ko": "전혀 모르겠어요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "It depends.",
+    "ko": "상황에 따라 달라요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm happy about it.",
+    "ko": "기뻐요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm sad.",
+    "ko": "슬퍼요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm angry.",
+    "ko": "화나요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm worried.",
+    "ko": "걱정돼요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm excited.",
+    "ko": "신나요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm disappointed.",
+    "ko": "실망했어요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm confused.",
+    "ko": "헷갈려요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm surprised.",
+    "ko": "놀랐어요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm interested in...",
+    "ko": "~에 관심 있어요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm bored.",
+    "ko": "지루해요.",
+    "level": "A1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm frustrated.",
+    "ko": "답답해요.",
+    "level": "B1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm relieved.",
+    "ko": "안심했어요.",
+    "level": "B1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm impressed.",
+    "ko": "인상적이에요.",
+    "level": "B1",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "That's amazing!",
+    "ko": "대단해요!",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "That's terrible!",
+    "ko": "끔찍해요!",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "That's interesting.",
+    "ko": "흥미롭네요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "That sounds great!",
+    "ko": "좋아요!",
+    "level": "A2",
+    "category": "opinions_feelings"
+  },
+  {
+    "en": "I'm looking forward to it.",
+    "ko": "기대돼요.",
+    "level": "A2",
+    "category": "opinions_feelings"
+  }
+]

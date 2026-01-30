@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "idiom_extra_0",
+    "text": "A penny for your thoughts: 무슨 생각해?",
+    "idiom": "A penny for your thoughts",
+    "meaning_ko": "무슨 생각해?",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_1",
+    "text": "Add insult to injury: 설상가상으로",
+    "idiom": "Add insult to injury",
+    "meaning_ko": "설상가상으로",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_2",
+    "text": "Beat around the bush: 빙빙 돌려 말하다",
+    "idiom": "Beat around the bush",
+    "meaning_ko": "빙빙 돌려 말하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_3",
+    "text": "Bite off more than you can chew: 감당 못할 일을 벌이다",
+    "idiom": "Bite off more than you can chew",
+    "meaning_ko": "감당 못할 일을 벌이다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_4",
+    "text": "Bite the bullet: 이를 악물고 하다",
+    "idiom": "Bite the bullet",
+    "meaning_ko": "이를 악물고 하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_5",
+    "text": "Break the ice: 어색한 분위기를 깨다",
+    "idiom": "Break the ice",
+    "meaning_ko": "어색한 분위기를 깨다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_6",
+    "text": "Burn the midnight oil: 밤새 일하다",
+    "idiom": "Burn the midnight oil",
+    "meaning_ko": "밤새 일하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_7",
+    "text": "Call it a day: 오늘은 여기까지",
+    "idiom": "Call it a day",
+    "meaning_ko": "오늘은 여기까지",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_8",
+    "text": "Cost an arm and a leg: 매우 비싸다",
+    "idiom": "Cost an arm and a leg",
+    "meaning_ko": "매우 비싸다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_9",
+    "text": "Cut to the chase: 본론으로 들어가다",
+    "idiom": "Cut to the chase",
+    "meaning_ko": "본론으로 들어가다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_10",
+    "text": "Don't cry over spilled milk: 이미 엎질러진 물",
+    "idiom": "Don't cry over spilled milk",
+    "meaning_ko": "이미 엎질러진 물",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_11",
+    "text": "Every cloud has a silver lining: 고진감래",
+    "idiom": "Every cloud has a silver lining",
+    "meaning_ko": "고진감래",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_12",
+    "text": "Get out of hand: 통제 불능이 되다",
+    "idiom": "Get out of hand",
+    "meaning_ko": "통제 불능이 되다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_13",
+    "text": "Give someone the benefit of the doubt: 의심을 접어두다",
+    "idiom": "Give someone the benefit of the doubt",
+    "meaning_ko": "의심을 접어두다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_14",
+    "text": "Go the extra mile: 더 노력하다",
+    "idiom": "Go the extra mile",
+    "meaning_ko": "더 노력하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_15",
+    "text": "Hit the nail on the head: 핵심을 찌르다",
+    "idiom": "Hit the nail on the head",
+    "meaning_ko": "핵심을 찌르다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_16",
+    "text": "Hit the sack: 자러 가다",
+    "idiom": "Hit the sack",
+    "meaning_ko": "자러 가다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_17",
+    "text": "Jump on the bandwagon: 대세에 편승하다",
+    "idiom": "Jump on the bandwagon",
+    "meaning_ko": "대세에 편승하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_18",
+    "text": "Keep your chin up: 힘내",
+    "idiom": "Keep your chin up",
+    "meaning_ko": "힘내",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_19",
+    "text": "Kill two birds with one stone: 일석이조",
+    "idiom": "Kill two birds with one stone",
+    "meaning_ko": "일석이조",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_20",
+    "text": "Let the cat out of the bag: 비밀을 누설하다",
+    "idiom": "Let the cat out of the bag",
+    "meaning_ko": "비밀을 누설하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_21",
+    "text": "Miss the boat: 기회를 놓치다",
+    "idiom": "Miss the boat",
+    "meaning_ko": "기회를 놓치다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_22",
+    "text": "Once in a blue moon: 가끔",
+    "idiom": "Once in a blue moon",
+    "meaning_ko": "가끔",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_23",
+    "text": "Piece of cake: 식은 죽 먹기",
+    "idiom": "Piece of cake",
+    "meaning_ko": "식은 죽 먹기",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_24",
+    "text": "Pull someone's leg: 놀리다",
+    "idiom": "Pull someone's leg",
+    "meaning_ko": "놀리다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_25",
+    "text": "Put all your eggs in one basket: 한 곳에 모든 걸 걸다",
+    "idiom": "Put all your eggs in one basket",
+    "meaning_ko": "한 곳에 모든 걸 걸다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_26",
+    "text": "Sit on the fence: 중립을 지키다",
+    "idiom": "Sit on the fence",
+    "meaning_ko": "중립을 지키다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_27",
+    "text": "Speak of the devil: 호랑이도 제 말하면 온다",
+    "idiom": "Speak of the devil",
+    "meaning_ko": "호랑이도 제 말하면 온다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_28",
+    "text": "Spill the beans: 비밀을 털어놓다",
+    "idiom": "Spill the beans",
+    "meaning_ko": "비밀을 털어놓다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_29",
+    "text": "Take it with a grain of salt: 반신반의하다",
+    "idiom": "Take it with a grain of salt",
+    "meaning_ko": "반신반의하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_30",
+    "text": "The ball is in your court: 네 차례야",
+    "idiom": "The ball is in your court",
+    "meaning_ko": "네 차례야",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_31",
+    "text": "The best of both worlds: 두 마리 토끼를 잡다",
+    "idiom": "The best of both worlds",
+    "meaning_ko": "두 마리 토끼를 잡다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_32",
+    "text": "Throw in the towel: 포기하다",
+    "idiom": "Throw in the towel",
+    "meaning_ko": "포기하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_33",
+    "text": "Under the weather: 몸이 안 좋다",
+    "idiom": "Under the weather",
+    "meaning_ko": "몸이 안 좋다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_34",
+    "text": "When pigs fly: 절대 안 돼",
+    "idiom": "When pigs fly",
+    "meaning_ko": "절대 안 돼",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_35",
+    "text": "You can't judge a book by its cover: 겉으로 판단하지 마라",
+    "idiom": "You can't judge a book by its cover",
+    "meaning_ko": "겉으로 판단하지 마라",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_36",
+    "text": "A blessing in disguise: 전화위복",
+    "idiom": "A blessing in disguise",
+    "meaning_ko": "전화위복",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_37",
+    "text": "Actions speak louder than words: 행동이 말보다 중요하다",
+    "idiom": "Actions speak louder than words",
+    "meaning_ko": "행동이 말보다 중요하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_38",
+    "text": "Back to square one: 원점으로 돌아가다",
+    "idiom": "Back to square one",
+    "meaning_ko": "원점으로 돌아가다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_39",
+    "text": "Barking up the wrong tree: 헛수고하다",
+    "idiom": "Barking up the wrong tree",
+    "meaning_ko": "헛수고하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_40",
+    "text": "Birds of a feather flock together: 끼리끼리 어울린다",
+    "idiom": "Birds of a feather flock together",
+    "meaning_ko": "끼리끼리 어울린다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_41",
+    "text": "By the skin of your teeth: 간신히",
+    "idiom": "By the skin of your teeth",
+    "meaning_ko": "간신히",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_42",
+    "text": "Caught between a rock and a hard place: 진퇴양난",
+    "idiom": "Caught between a rock and a hard place",
+    "meaning_ko": "진퇴양난",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_43",
+    "text": "Cry wolf: 거짓말로 관심 끌다",
+    "idiom": "Cry wolf",
+    "meaning_ko": "거짓말로 관심 끌다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_44",
+    "text": "Cut corners: 적당히 때우다",
+    "idiom": "Cut corners",
+    "meaning_ko": "적당히 때우다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_45",
+    "text": "Down to earth: 현실적인",
+    "idiom": "Down to earth",
+    "meaning_ko": "현실적인",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_46",
+    "text": "Drop in the bucket: 새 발의 피",
+    "idiom": "Drop in the bucket",
+    "meaning_ko": "새 발의 피",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_47",
+    "text": "Easier said than done: 말처럼 쉽지 않다",
+    "idiom": "Easier said than done",
+    "meaning_ko": "말처럼 쉽지 않다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_48",
+    "text": "Face the music: 결과를 받아들이다",
+    "idiom": "Face the music",
+    "meaning_ko": "결과를 받아들이다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_49",
+    "text": "Get a taste of your own medicine: 자업자득",
+    "idiom": "Get a taste of your own medicine",
+    "meaning_ko": "자업자득",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_50",
+    "text": "Get cold feet: 겁이 나다",
+    "idiom": "Get cold feet",
+    "meaning_ko": "겁이 나다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_51",
+    "text": "Get your act together: 정신 차리다",
+    "idiom": "Get your act together",
+    "meaning_ko": "정신 차리다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_52",
+    "text": "Give the cold shoulder: 무시하다",
+    "idiom": "Give the cold shoulder",
+    "meaning_ko": "무시하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_53",
+    "text": "Go back to the drawing board: 처음부터 다시 하다",
+    "idiom": "Go back to the drawing board",
+    "meaning_ko": "처음부터 다시 하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_54",
+    "text": "Hang in there: 버텨",
+    "idiom": "Hang in there",
+    "meaning_ko": "버텨",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_55",
+    "text": "Have a chip on your shoulder: 앙심을 품다",
+    "idiom": "Have a chip on your shoulder",
+    "meaning_ko": "앙심을 품다",
+    "type": "idiom",
+    "level": "C1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_56",
+    "text": "Hit the books: 열심히 공부하다",
+    "idiom": "Hit the books",
+    "meaning_ko": "열심히 공부하다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_57",
+    "text": "In hot water: 곤경에 빠진",
+    "idiom": "In hot water",
+    "meaning_ko": "곤경에 빠진",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_58",
+    "text": "It takes two to tango: 쌍방의 책임이다",
+    "idiom": "It takes two to tango",
+    "meaning_ko": "쌍방의 책임이다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_59",
+    "text": "Jump the gun: 성급하게 행동하다",
+    "idiom": "Jump the gun",
+    "meaning_ko": "성급하게 행동하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_60",
+    "text": "Keep an eye on: 감시하다",
+    "idiom": "Keep an eye on",
+    "meaning_ko": "감시하다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_61",
+    "text": "Learn the ropes: 요령을 터득하다",
+    "idiom": "Learn the ropes",
+    "meaning_ko": "요령을 터득하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_62",
+    "text": "Let sleeping dogs lie: 괜히 건드리지 마라",
+    "idiom": "Let sleeping dogs lie",
+    "meaning_ko": "괜히 건드리지 마라",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_63",
+    "text": "Make a long story short: 간단히 말하면",
+    "idiom": "Make a long story short",
+    "meaning_ko": "간단히 말하면",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_64",
+    "text": "No pain, no gain: 고생 끝에 낙이 온다",
+    "idiom": "No pain, no gain",
+    "meaning_ko": "고생 끝에 낙이 온다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_65",
+    "text": "On the same page: 의견이 같다",
+    "idiom": "On the same page",
+    "meaning_ko": "의견이 같다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_66",
+    "text": "Out of the blue: 갑자기",
+    "idiom": "Out of the blue",
+    "meaning_ko": "갑자기",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_67",
+    "text": "Play devil's advocate: 반론을 제기하다",
+    "idiom": "Play devil's advocate",
+    "meaning_ko": "반론을 제기하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_68",
+    "text": "Pull your weight: 제몫을 다하다",
+    "idiom": "Pull your weight",
+    "meaning_ko": "제몫을 다하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_69",
+    "text": "Put yourself in someone's shoes: 역지사지",
+    "idiom": "Put yourself in someone's shoes",
+    "meaning_ko": "역지사지",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_70",
+    "text": "Rain on someone's parade: 기분을 망치다",
+    "idiom": "Rain on someone's parade",
+    "meaning_ko": "기분을 망치다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_71",
+    "text": "Read between the lines: 행간을 읽다",
+    "idiom": "Read between the lines",
+    "meaning_ko": "행간을 읽다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_72",
+    "text": "Rome wasn't built in a day: 로마는 하루아침에 이루어지지 않았다",
+    "idiom": "Rome wasn't built in a day",
+    "meaning_ko": "로마는 하루아침에 이루어지지 않았다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_73",
+    "text": "Saving for a rainy day: 만일을 대비하다",
+    "idiom": "Saving for a rainy day",
+    "meaning_ko": "만일을 대비하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_74",
+    "text": "See eye to eye: 의견이 일치하다",
+    "idiom": "See eye to eye",
+    "meaning_ko": "의견이 일치하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_75",
+    "text": "Smell something fishy: 수상하다",
+    "idiom": "Smell something fishy",
+    "meaning_ko": "수상하다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_76",
+    "text": "Stabbed in the back: 뒤통수를 맞다",
+    "idiom": "Stabbed in the back",
+    "meaning_ko": "뒤통수를 맞다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_77",
+    "text": "Steal someone's thunder: 남의 공을 가로채다",
+    "idiom": "Steal someone's thunder",
+    "meaning_ko": "남의 공을 가로채다",
+    "type": "idiom",
+    "level": "C1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_78",
+    "text": "Take the bull by the horns: 적극적으로 해결하다",
+    "idiom": "Take the bull by the horns",
+    "meaning_ko": "적극적으로 해결하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_79",
+    "text": "The last straw: 인내의 한계",
+    "idiom": "The last straw",
+    "meaning_ko": "인내의 한계",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_80",
+    "text": "Time flies: 시간이 빨리 간다",
+    "idiom": "Time flies",
+    "meaning_ko": "시간이 빨리 간다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_81",
+    "text": "Turn a blind eye: 못 본 척하다",
+    "idiom": "Turn a blind eye",
+    "meaning_ko": "못 본 척하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_82",
+    "text": "Two heads are better than one: 백지장도 맞들면 낫다",
+    "idiom": "Two heads are better than one",
+    "meaning_ko": "백지장도 맞들면 낫다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_83",
+    "text": "Walk on eggshells: 조심조심하다",
+    "idiom": "Walk on eggshells",
+    "meaning_ko": "조심조심하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_84",
+    "text": "When in Rome, do as the Romans do: 로마에서는 로마법을 따르라",
+    "idiom": "When in Rome, do as the Romans do",
+    "meaning_ko": "로마에서는 로마법을 따르라",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_85",
+    "text": "Wrap your head around something: 이해하다",
+    "idiom": "Wrap your head around something",
+    "meaning_ko": "이해하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_86",
+    "text": "You can't have your cake and eat it too: 두 가지를 다 가질 순 없다",
+    "idiom": "You can't have your cake and eat it too",
+    "meaning_ko": "두 가지를 다 가질 순 없다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_87",
+    "text": "Your guess is as good as mine: 나도 몰라",
+    "idiom": "Your guess is as good as mine",
+    "meaning_ko": "나도 몰라",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_88",
+    "text": "Zero in on: 집중하다",
+    "idiom": "Zero in on",
+    "meaning_ko": "집중하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_89",
+    "text": "A dime a dozen: 흔하디 흔한",
+    "idiom": "A dime a dozen",
+    "meaning_ko": "흔하디 흔한",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_90",
+    "text": "All in the same boat: 같은 처지",
+    "idiom": "All in the same boat",
+    "meaning_ko": "같은 처지",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_91",
+    "text": "Beat a dead horse: 소용없는 일을 하다",
+    "idiom": "Beat a dead horse",
+    "meaning_ko": "소용없는 일을 하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_92",
+    "text": "Better late than never: 늦더라도 안 하는 것보다 낫다",
+    "idiom": "Better late than never",
+    "meaning_ko": "늦더라도 안 하는 것보다 낫다",
+    "type": "idiom",
+    "level": "A2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_93",
+    "text": "Burning bridges: 관계를 끊다",
+    "idiom": "Burning bridges",
+    "meaning_ko": "관계를 끊다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_94",
+    "text": "Cross that bridge when you come to it: 때가 되면 알아서 하겠다",
+    "idiom": "Cross that bridge when you come to it",
+    "meaning_ko": "때가 되면 알아서 하겠다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_95",
+    "text": "Don't put the cart before the horse: 순서를 따르라",
+    "idiom": "Don't put the cart before the horse",
+    "meaning_ko": "순서를 따르라",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_96",
+    "text": "Elephant in the room: 언급하기 불편한 문제",
+    "idiom": "Elephant in the room",
+    "meaning_ko": "언급하기 불편한 문제",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_97",
+    "text": "From rags to riches: 가난에서 부자로",
+    "idiom": "From rags to riches",
+    "meaning_ko": "가난에서 부자로",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_98",
+    "text": "Get something off your chest: 속마음을 털어놓다",
+    "idiom": "Get something off your chest",
+    "meaning_ko": "속마음을 털어놓다",
+    "type": "idiom",
+    "level": "B1",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  },
+  {
+    "id": "idiom_extra_99",
+    "text": "Give someone the runaround: 핑계대며 피하다",
+    "idiom": "Give someone the runaround",
+    "meaning_ko": "핑계대며 피하다",
+    "type": "idiom",
+    "level": "B2",
+    "source": "generated_idioms_extra",
+    "category": "expression"
+  }
+]

@@ -1,0 +1,631 @@
+{
+  "level": "A1",
+  "description": "Beginner - 기초 일상 단어",
+  "word_count": 104,
+  "words": [
+    {
+      "word": "hello",
+      "meaning": "안녕하세요",
+      "pos": "interjection",
+      "example": "Hello, how are you?"
+    },
+    {
+      "word": "goodbye",
+      "meaning": "안녕히 가세요",
+      "pos": "interjection",
+      "example": "Goodbye, see you tomorrow!"
+    },
+    {
+      "word": "please",
+      "meaning": "제발, 부디",
+      "pos": "adverb",
+      "example": "Please help me."
+    },
+    {
+      "word": "thank you",
+      "meaning": "감사합니다",
+      "pos": "phrase",
+      "example": "Thank you very much."
+    },
+    {
+      "word": "sorry",
+      "meaning": "미안합니다",
+      "pos": "adjective",
+      "example": "I'm sorry for being late."
+    },
+    {
+      "word": "yes",
+      "meaning": "네",
+      "pos": "adverb",
+      "example": "Yes, I understand."
+    },
+    {
+      "word": "no",
+      "meaning": "아니요",
+      "pos": "adverb",
+      "example": "No, thank you."
+    },
+    {
+      "word": "one",
+      "meaning": "하나, 1",
+      "pos": "number",
+      "example": "I have one sister."
+    },
+    {
+      "word": "two",
+      "meaning": "둘, 2",
+      "pos": "number",
+      "example": "Two coffees, please."
+    },
+    {
+      "word": "three",
+      "meaning": "셋, 3",
+      "pos": "number",
+      "example": "I waited three hours."
+    },
+    {
+      "word": "ten",
+      "meaning": "열, 10",
+      "pos": "number",
+      "example": "It costs ten dollars."
+    },
+    {
+      "word": "hundred",
+      "meaning": "백, 100",
+      "pos": "number",
+      "example": "There are a hundred people."
+    },
+    {
+      "word": "today",
+      "meaning": "오늘",
+      "pos": "adverb",
+      "example": "I'm busy today."
+    },
+    {
+      "word": "tomorrow",
+      "meaning": "내일",
+      "pos": "adverb",
+      "example": "See you tomorrow."
+    },
+    {
+      "word": "yesterday",
+      "meaning": "어제",
+      "pos": "adverb",
+      "example": "I went there yesterday."
+    },
+    {
+      "word": "now",
+      "meaning": "지금",
+      "pos": "adverb",
+      "example": "I'm eating now."
+    },
+    {
+      "word": "morning",
+      "meaning": "아침",
+      "pos": "noun",
+      "example": "Good morning!"
+    },
+    {
+      "word": "night",
+      "meaning": "밤",
+      "pos": "noun",
+      "example": "Good night!"
+    },
+    {
+      "word": "week",
+      "meaning": "주",
+      "pos": "noun",
+      "example": "I'll call you next week."
+    },
+    {
+      "word": "month",
+      "meaning": "달, 월",
+      "pos": "noun",
+      "example": "This month is very busy."
+    },
+    {
+      "word": "year",
+      "meaning": "년, 해",
+      "pos": "noun",
+      "example": "Happy New Year!"
+    },
+    {
+      "word": "man",
+      "meaning": "남자",
+      "pos": "noun",
+      "example": "The man is tall."
+    },
+    {
+      "word": "woman",
+      "meaning": "여자",
+      "pos": "noun",
+      "example": "The woman is kind."
+    },
+    {
+      "word": "child",
+      "meaning": "아이",
+      "pos": "noun",
+      "example": "The child is playing."
+    },
+    {
+      "word": "friend",
+      "meaning": "친구",
+      "pos": "noun",
+      "example": "She is my friend."
+    },
+    {
+      "word": "family",
+      "meaning": "가족",
+      "pos": "noun",
+      "example": "I love my family."
+    },
+    {
+      "word": "mother",
+      "meaning": "어머니",
+      "pos": "noun",
+      "example": "My mother cooks well."
+    },
+    {
+      "word": "father",
+      "meaning": "아버지",
+      "pos": "noun",
+      "example": "My father works hard."
+    },
+    {
+      "word": "brother",
+      "meaning": "형제",
+      "pos": "noun",
+      "example": "I have one brother."
+    },
+    {
+      "word": "sister",
+      "meaning": "자매",
+      "pos": "noun",
+      "example": "My sister is older."
+    },
+    {
+      "word": "home",
+      "meaning": "집",
+      "pos": "noun",
+      "example": "I'm going home."
+    },
+    {
+      "word": "school",
+      "meaning": "학교",
+      "pos": "noun",
+      "example": "I go to school."
+    },
+    {
+      "word": "work",
+      "meaning": "일, 직장",
+      "pos": "noun",
+      "example": "I'm at work now."
+    },
+    {
+      "word": "shop",
+      "meaning": "가게",
+      "pos": "noun",
+      "example": "The shop is closed."
+    },
+    {
+      "word": "restaurant",
+      "meaning": "레스토랑",
+      "pos": "noun",
+      "example": "Let's go to a restaurant."
+    },
+    {
+      "word": "hospital",
+      "meaning": "병원",
+      "pos": "noun",
+      "example": "He's in the hospital."
+    },
+    {
+      "word": "station",
+      "meaning": "역",
+      "pos": "noun",
+      "example": "Where is the station?"
+    },
+    {
+      "word": "airport",
+      "meaning": "공항",
+      "pos": "noun",
+      "example": "I'm at the airport."
+    },
+    {
+      "word": "hotel",
+      "meaning": "호텔",
+      "pos": "noun",
+      "example": "I booked a hotel."
+    },
+    {
+      "word": "water",
+      "meaning": "물",
+      "pos": "noun",
+      "example": "Can I have some water?"
+    },
+    {
+      "word": "coffee",
+      "meaning": "커피",
+      "pos": "noun",
+      "example": "I'd like a coffee."
+    },
+    {
+      "word": "tea",
+      "meaning": "차",
+      "pos": "noun",
+      "example": "Do you want tea?"
+    },
+    {
+      "word": "food",
+      "meaning": "음식",
+      "pos": "noun",
+      "example": "The food is delicious."
+    },
+    {
+      "word": "bread",
+      "meaning": "빵",
+      "pos": "noun",
+      "example": "I eat bread for breakfast."
+    },
+    {
+      "word": "rice",
+      "meaning": "밥, 쌀",
+      "pos": "noun",
+      "example": "I like rice."
+    },
+    {
+      "word": "meat",
+      "meaning": "고기",
+      "pos": "noun",
+      "example": "I don't eat meat."
+    },
+    {
+      "word": "fruit",
+      "meaning": "과일",
+      "pos": "noun",
+      "example": "I love fruit."
+    },
+    {
+      "word": "be",
+      "meaning": "~이다",
+      "pos": "verb",
+      "example": "I am happy."
+    },
+    {
+      "word": "have",
+      "meaning": "가지다",
+      "pos": "verb",
+      "example": "I have a car."
+    },
+    {
+      "word": "do",
+      "meaning": "하다",
+      "pos": "verb",
+      "example": "What do you do?"
+    },
+    {
+      "word": "go",
+      "meaning": "가다",
+      "pos": "verb",
+      "example": "I go to work."
+    },
+    {
+      "word": "come",
+      "meaning": "오다",
+      "pos": "verb",
+      "example": "Please come here."
+    },
+    {
+      "word": "see",
+      "meaning": "보다",
+      "pos": "verb",
+      "example": "I see you."
+    },
+    {
+      "word": "eat",
+      "meaning": "먹다",
+      "pos": "verb",
+      "example": "I eat breakfast."
+    },
+    {
+      "word": "drink",
+      "meaning": "마시다",
+      "pos": "verb",
+      "example": "I drink water."
+    },
+    {
+      "word": "want",
+      "meaning": "원하다",
+      "pos": "verb",
+      "example": "I want coffee."
+    },
+    {
+      "word": "like",
+      "meaning": "좋아하다",
+      "pos": "verb",
+      "example": "I like pizza."
+    },
+    {
+      "word": "need",
+      "meaning": "필요하다",
+      "pos": "verb",
+      "example": "I need help."
+    },
+    {
+      "word": "know",
+      "meaning": "알다",
+      "pos": "verb",
+      "example": "I know him."
+    },
+    {
+      "word": "think",
+      "meaning": "생각하다",
+      "pos": "verb",
+      "example": "I think so."
+    },
+    {
+      "word": "make",
+      "meaning": "만들다",
+      "pos": "verb",
+      "example": "I make coffee."
+    },
+    {
+      "word": "take",
+      "meaning": "가져가다",
+      "pos": "verb",
+      "example": "Take this."
+    },
+    {
+      "word": "give",
+      "meaning": "주다",
+      "pos": "verb",
+      "example": "Give me water."
+    },
+    {
+      "word": "buy",
+      "meaning": "사다",
+      "pos": "verb",
+      "example": "I buy food."
+    },
+    {
+      "word": "work",
+      "meaning": "일하다",
+      "pos": "verb",
+      "example": "I work here."
+    },
+    {
+      "word": "live",
+      "meaning": "살다",
+      "pos": "verb",
+      "example": "I live in Seoul."
+    },
+    {
+      "word": "speak",
+      "meaning": "말하다",
+      "pos": "verb",
+      "example": "I speak English."
+    },
+    {
+      "word": "read",
+      "meaning": "읽다",
+      "pos": "verb",
+      "example": "I read books."
+    },
+    {
+      "word": "write",
+      "meaning": "쓰다",
+      "pos": "verb",
+      "example": "I write emails."
+    },
+    {
+      "word": "listen",
+      "meaning": "듣다",
+      "pos": "verb",
+      "example": "Listen to me."
+    },
+    {
+      "word": "help",
+      "meaning": "돕다",
+      "pos": "verb",
+      "example": "Can you help me?"
+    },
+    {
+      "word": "open",
+      "meaning": "열다",
+      "pos": "verb",
+      "example": "Open the door."
+    },
+    {
+      "word": "close",
+      "meaning": "닫다",
+      "pos": "verb",
+      "example": "Close the window."
+    },
+    {
+      "word": "wait",
+      "meaning": "기다리다",
+      "pos": "verb",
+      "example": "Please wait here."
+    },
+    {
+      "word": "ask",
+      "meaning": "묻다",
+      "pos": "verb",
+      "example": "Can I ask you?"
+    },
+    {
+      "word": "call",
+      "meaning": "전화하다",
+      "pos": "verb",
+      "example": "I'll call you."
+    },
+    {
+      "word": "pay",
+      "meaning": "지불하다",
+      "pos": "verb",
+      "example": "I'll pay by card."
+    },
+    {
+      "word": "good",
+      "meaning": "좋은",
+      "pos": "adjective",
+      "example": "This is good."
+    },
+    {
+      "word": "bad",
+      "meaning": "나쁜",
+      "pos": "adjective",
+      "example": "That's bad news."
+    },
+    {
+      "word": "big",
+      "meaning": "큰",
+      "pos": "adjective",
+      "example": "It's a big house."
+    },
+    {
+      "word": "small",
+      "meaning": "작은",
+      "pos": "adjective",
+      "example": "I want a small one."
+    },
+    {
+      "word": "new",
+      "meaning": "새로운",
+      "pos": "adjective",
+      "example": "This is new."
+    },
+    {
+      "word": "old",
+      "meaning": "오래된",
+      "pos": "adjective",
+      "example": "It's an old building."
+    },
+    {
+      "word": "hot",
+      "meaning": "뜨거운",
+      "pos": "adjective",
+      "example": "The coffee is hot."
+    },
+    {
+      "word": "cold",
+      "meaning": "차가운",
+      "pos": "adjective",
+      "example": "It's cold today."
+    },
+    {
+      "word": "happy",
+      "meaning": "행복한",
+      "pos": "adjective",
+      "example": "I'm happy."
+    },
+    {
+      "word": "tired",
+      "meaning": "피곤한",
+      "pos": "adjective",
+      "example": "I'm tired."
+    },
+    {
+      "word": "hungry",
+      "meaning": "배고픈",
+      "pos": "adjective",
+      "example": "I'm hungry."
+    },
+    {
+      "word": "busy",
+      "meaning": "바쁜",
+      "pos": "adjective",
+      "example": "I'm busy now."
+    },
+    {
+      "word": "free",
+      "meaning": "자유로운, 무료",
+      "pos": "adjective",
+      "example": "Are you free today?"
+    },
+    {
+      "word": "easy",
+      "meaning": "쉬운",
+      "pos": "adjective",
+      "example": "It's easy."
+    },
+    {
+      "word": "difficult",
+      "meaning": "어려운",
+      "pos": "adjective",
+      "example": "It's difficult."
+    },
+    {
+      "word": "expensive",
+      "meaning": "비싼",
+      "pos": "adjective",
+      "example": "It's expensive."
+    },
+    {
+      "word": "cheap",
+      "meaning": "싼",
+      "pos": "adjective",
+      "example": "It's cheap."
+    },
+    {
+      "word": "near",
+      "meaning": "가까운",
+      "pos": "adjective",
+      "example": "It's near here."
+    },
+    {
+      "word": "far",
+      "meaning": "먼",
+      "pos": "adjective",
+      "example": "It's far from here."
+    },
+    {
+      "word": "what",
+      "meaning": "무엇",
+      "pos": "pronoun",
+      "example": "What is this?"
+    },
+    {
+      "word": "where",
+      "meaning": "어디",
+      "pos": "adverb",
+      "example": "Where are you?"
+    },
+    {
+      "word": "when",
+      "meaning": "언제",
+      "pos": "adverb",
+      "example": "When is it?"
+    },
+    {
+      "word": "who",
+      "meaning": "누구",
+      "pos": "pronoun",
+      "example": "Who is he?"
+    },
+    {
+      "word": "why",
+      "meaning": "왜",
+      "pos": "adverb",
+      "example": "Why not?"
+    },
+    {
+      "word": "how",
+      "meaning": "어떻게",
+      "pos": "adverb",
+      "example": "How are you?"
+    },
+    {
+      "word": "how much",
+      "meaning": "얼마",
+      "pos": "phrase",
+      "example": "How much is it?"
+    },
+    {
+      "word": "how many",
+      "meaning": "몇 개",
+      "pos": "phrase",
+      "example": "How many do you want?"
+    }
+  ]
+}

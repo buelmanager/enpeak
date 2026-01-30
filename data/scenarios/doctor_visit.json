@@ -1,0 +1,82 @@
+{
+  "id": "doctor_visit",
+  "title": "Visiting the Doctor",
+  "title_ko": "병원 방문하기",
+  "roles": {
+    "ai": "Doctor",
+    "user": "Patient"
+  },
+  "estimated_time": "5-7 min",
+  "learning_objectives": [
+    "Describe symptoms",
+    "Understand medical advice",
+    "Ask about medication"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Check-in",
+      "ai_opening": "Hello, I'm Dr. Smith. What brings you in today?",
+      "learning_tip": "증상을 설명할 때 'I have a...' 또는 'I've been experiencing...'",
+      "suggested_responses": [
+        "I've been having headaches for a few days.",
+        "I have a sore throat and a cough.",
+        "I've been feeling really tired lately."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Examination",
+      "ai_prompt": "Ask follow-up questions about symptoms",
+      "learning_tip": "'It started...' 'It gets worse when...'로 상세히 설명",
+      "suggested_responses": [
+        "It started about three days ago.",
+        "It gets worse at night.",
+        "I also have a fever."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Diagnosis",
+      "ai_prompt": "Explain the diagnosis",
+      "learning_tip": "이해가 안 되면 'Could you explain that again?'",
+      "suggested_responses": [
+        "Is it serious?",
+        "What should I do?",
+        "How long will it take to recover?"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Prescription",
+      "ai_prompt": "Provide treatment plan and medication",
+      "learning_tip": "복용법은 'How often should I take this?'로 확인",
+      "suggested_responses": [
+        "How many times a day should I take this?",
+        "Are there any side effects?",
+        "Do I need a follow-up appointment?"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "symptoms",
+      "meaning": "증상",
+      "example": "What are your symptoms?"
+    },
+    {
+      "word": "prescription",
+      "meaning": "처방전",
+      "example": "Here's your prescription."
+    },
+    {
+      "word": "side effects",
+      "meaning": "부작용",
+      "example": "This may cause side effects."
+    }
+  ],
+  "category": "daily",
+  "difficulty": "intermediate",
+  "icon": "coffee",
+  "completion_message": "Great job completing the Visiting the Doctor scenario!"
+}

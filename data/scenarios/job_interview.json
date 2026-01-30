@@ -1,0 +1,93 @@
+{
+  "id": "job_interview",
+  "title": "Job Interview",
+  "title_ko": "영어 면접 보기",
+  "roles": {
+    "ai": "Interviewer",
+    "user": "Candidate"
+  },
+  "estimated_time": "10-15 min",
+  "learning_objectives": [
+    "Answer common interview questions",
+    "Present qualifications professionally",
+    "Ask thoughtful questions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Introduction",
+      "ai_opening": "Thank you for coming in today. Please, tell me about yourself.",
+      "learning_tip": "자기소개는 2-3분, 경력 중심으로 간결하게",
+      "suggested_responses": [
+        "Thank you for this opportunity. I'm a software developer with 5 years of experience...",
+        "I'm excited to be here. Currently, I work at ABC Company as a project manager...",
+        "I appreciate the opportunity. Let me give you a brief overview of my background..."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Experience",
+      "ai_prompt": "Ask about relevant experience",
+      "learning_tip": "STAR 방법: Situation, Task, Action, Result",
+      "suggested_responses": [
+        "In my previous role, I led a team of five...",
+        "Let me give you a specific example...",
+        "One of my key achievements was..."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Challenges",
+      "ai_prompt": "Ask about challenges and weaknesses",
+      "learning_tip": "약점은 개선 노력과 함께 말하기",
+      "suggested_responses": [
+        "A challenge I faced was... and I overcame it by...",
+        "I consider my weakness to be... but I've been working on...",
+        "I turned that challenge into a learning opportunity."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Questions",
+      "ai_prompt": "Ask if the candidate has questions",
+      "learning_tip": "질문 준비 필수! 회사 문화, 팀, 성장 기회 등",
+      "suggested_responses": [
+        "Could you tell me about the team I'd be working with?",
+        "What does success look like in this role?",
+        "What are the growth opportunities here?"
+      ]
+    },
+    {
+      "stage": 5,
+      "name": "Closing",
+      "ai_prompt": "Close the interview",
+      "learning_tip": "마무리는 감사 인사와 열정 표현",
+      "suggested_responses": [
+        "Thank you for your time. I'm very excited about this opportunity.",
+        "I appreciate you considering me for this position.",
+        "This role aligns perfectly with my career goals."
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "achievement",
+      "meaning": "성과",
+      "example": "My biggest achievement was..."
+    },
+    {
+      "word": "collaborate",
+      "meaning": "협업하다",
+      "example": "I collaborated with the team."
+    },
+    {
+      "word": "initiative",
+      "meaning": "주도성",
+      "example": "I took initiative on the project."
+    }
+  ],
+  "category": "business",
+  "difficulty": "advanced",
+  "icon": "briefcase",
+  "completion_message": "Great job completing the Job Interview scenario!"
+}

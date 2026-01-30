@@ -1,0 +1,138 @@
+[
+  {
+    "verb": "pick up",
+    "meaning": "줍다 / 데리러 가다 / 배우다",
+    "examples": [
+      "Can you pick up my dry cleaning?",
+      "I'll pick you up at 7.",
+      "She picked up Spanish very quickly."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "turn on/off",
+    "meaning": "켜다/끄다",
+    "examples": [
+      "Turn on the lights, please.",
+      "Don't forget to turn off the TV."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "put on",
+    "meaning": "입다, 착용하다",
+    "examples": [
+      "Put on your jacket, it's cold outside.",
+      "She put on some makeup before leaving."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "take off",
+    "meaning": "벗다 / 이륙하다",
+    "examples": [
+      "Take off your shoes at the door.",
+      "The plane took off on time."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "look for",
+    "meaning": "찾다",
+    "examples": [
+      "I'm looking for my keys.",
+      "Are you looking for something specific?"
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "look after",
+    "meaning": "돌보다",
+    "examples": [
+      "Can you look after my dog this weekend?",
+      "She looks after her elderly parents."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "give up",
+    "meaning": "포기하다",
+    "examples": [
+      "Don't give up! You can do it.",
+      "He gave up smoking last year."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "come up with",
+    "meaning": "생각해내다",
+    "examples": [
+      "Can you come up with a better idea?",
+      "She came up with a brilliant solution."
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "verb": "run into",
+    "meaning": "우연히 만나다",
+    "examples": [
+      "I ran into an old friend yesterday.",
+      "You might run into some problems."
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "verb": "figure out",
+    "meaning": "이해하다, 알아내다",
+    "examples": [
+      "I can't figure out this math problem.",
+      "We need to figure out what went wrong."
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "verb": "work out",
+    "meaning": "운동하다 / 해결되다",
+    "examples": [
+      "I work out three times a week.",
+      "Everything will work out in the end."
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "verb": "bring up",
+    "meaning": "언급하다 / 양육하다",
+    "examples": [
+      "Don't bring up that topic.",
+      "She was brought up in a small town."
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "verb": "put off",
+    "meaning": "미루다",
+    "examples": [
+      "Don't put off your homework.",
+      "The meeting was put off until next week."
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "verb": "get over",
+    "meaning": "극복하다",
+    "examples": [
+      "It took time to get over the breakup.",
+      "I hope you get over your cold soon."
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "verb": "carry on",
+    "meaning": "계속하다",
+    "examples": [
+      "Carry on with your work.",
+      "Despite the difficulties, they carried on."
+    ],
+    "difficulty": "intermediate"
+  }
+]

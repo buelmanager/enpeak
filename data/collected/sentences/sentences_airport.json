@@ -1,0 +1,182 @@
+[
+  {
+    "en": "Where's the check-in counter?",
+    "ko": "체크인 카운터 어디예요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "I'd like to check in for my flight.",
+    "ko": "체크인 하고 싶어요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Here's my passport and booking.",
+    "ko": "여권과 예약 확인서예요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "How many bags can I check?",
+    "ko": "짐 몇 개까지 부칠 수 있나요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Is there a weight limit?",
+    "ko": "무게 제한 있나요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Your bag is overweight.",
+    "ko": "가방이 무게 초과예요.",
+    "level": "B1",
+    "category": "airport"
+  },
+  {
+    "en": "Can I have a window seat?",
+    "ko": "창가 좌석으로 해주세요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "I'd prefer an aisle seat.",
+    "ko": "복도쪽 좌석이 좋아요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Is the flight on time?",
+    "ko": "비행기 정시 출발인가요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "The flight is delayed.",
+    "ko": "비행기가 연착됐어요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "What gate do I go to?",
+    "ko": "몇 번 게이트로 가야 해요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Boarding starts at 10:30.",
+    "ko": "탑승은 10시 30분에 시작해요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Where's the security check?",
+    "ko": "보안검색대 어디예요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Please remove your laptop.",
+    "ko": "노트북 꺼내주세요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Take off your belt and shoes.",
+    "ko": "벨트와 신발 벗어주세요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Where's the duty-free shop?",
+    "ko": "면세점 어디예요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Is this my connecting flight?",
+    "ko": "이게 환승편인가요?",
+    "level": "B1",
+    "category": "airport"
+  },
+  {
+    "en": "Where do I collect my luggage?",
+    "ko": "짐 어디서 찾아요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "My luggage is missing.",
+    "ko": "제 짐이 없어요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "I need to file a lost baggage claim.",
+    "ko": "분실 수하물 신고해야 해요.",
+    "level": "B1",
+    "category": "airport"
+  },
+  {
+    "en": "Where's the immigration counter?",
+    "ko": "입국심사대 어디예요?",
+    "level": "B1",
+    "category": "airport"
+  },
+  {
+    "en": "What's the purpose of your visit?",
+    "ko": "방문 목적이 뭔가요?",
+    "level": "B1",
+    "category": "airport"
+  },
+  {
+    "en": "I'm here on business.",
+    "ko": "출장으로 왔어요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "I'm here for vacation.",
+    "ko": "휴가로 왔어요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "How long will you be staying?",
+    "ko": "얼마나 머무르실 건가요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "I'll be here for one week.",
+    "ko": "일주일 있을 거예요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Do you have anything to declare?",
+    "ko": "신고할 물품 있으신가요?",
+    "level": "B1",
+    "category": "airport"
+  },
+  {
+    "en": "Nothing to declare.",
+    "ko": "신고할 게 없어요.",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Where can I exchange money?",
+    "ko": "환전 어디서 해요?",
+    "level": "A2",
+    "category": "airport"
+  },
+  {
+    "en": "Is there an ATM nearby?",
+    "ko": "근처에 ATM 있나요?",
+    "level": "A2",
+    "category": "airport"
+  }
+]

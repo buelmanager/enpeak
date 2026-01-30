@@ -118,11 +118,15 @@ from backend.api.chat import router as chat_router
 from backend.api.roleplay import router as roleplay_router
 from backend.api.speech import router as speech_router
 from backend.api.feedback import router as feedback_router
+from backend.api.vocabulary import router as vocabulary_router
+from backend.api.rag import router as rag_router
 
 app.include_router(chat_router, prefix="/api", tags=["Chat"])
 app.include_router(roleplay_router, prefix="/api/roleplay", tags=["Roleplay"])
 app.include_router(speech_router, prefix="/api/speech", tags=["Speech"])
 app.include_router(feedback_router, prefix="/api/feedback", tags=["Feedback"])
+app.include_router(vocabulary_router, prefix="/api/vocabulary", tags=["Vocabulary"])
+app.include_router(rag_router, prefix="/api/rag", tags=["RAG"])
 
 
 @app.get("/api/health")

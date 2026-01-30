@@ -1,0 +1,182 @@
+[
+  {
+    "en": "Hello, how are you?",
+    "ko": "안녕하세요, 어떻게 지내세요?",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Good morning!",
+    "ko": "좋은 아침이에요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Good afternoon!",
+    "ko": "좋은 오후에요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Good evening!",
+    "ko": "좋은 저녁이에요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Good night!",
+    "ko": "안녕히 주무세요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Nice to meet you.",
+    "ko": "만나서 반가워요.",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "How have you been?",
+    "ko": "그동안 어떻게 지냈어요?",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "It's been a while.",
+    "ko": "오랜만이에요.",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "Long time no see!",
+    "ko": "오랜만이에요!",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "What's up?",
+    "ko": "뭐해?",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "How's it going?",
+    "ko": "어떻게 지내?",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "I'm doing well, thanks.",
+    "ko": "잘 지내요, 감사합니다.",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "I'm fine, thank you.",
+    "ko": "괜찮아요, 감사합니다.",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Not bad.",
+    "ko": "나쁘지 않아요.",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "Could be better.",
+    "ko": "더 좋을 수도 있어요.",
+    "level": "B1",
+    "category": "greeting"
+  },
+  {
+    "en": "I've been busy lately.",
+    "ko": "요즘 바빴어요.",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "Same as usual.",
+    "ko": "평소와 같아요.",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "Pleased to meet you.",
+    "ko": "만나서 기쁩니다.",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "The pleasure is mine.",
+    "ko": "저도 기쁩니다.",
+    "level": "B1",
+    "category": "greeting"
+  },
+  {
+    "en": "I've heard a lot about you.",
+    "ko": "많이 들었습니다.",
+    "level": "B1",
+    "category": "greeting"
+  },
+  {
+    "en": "See you later!",
+    "ko": "나중에 봐요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Take care!",
+    "ko": "잘 지내요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Have a nice day!",
+    "ko": "좋은 하루 보내세요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "See you tomorrow!",
+    "ko": "내일 봐요!",
+    "level": "A1",
+    "category": "greeting"
+  },
+  {
+    "en": "Keep in touch!",
+    "ko": "연락해요!",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "Let's catch up soon.",
+    "ko": "곧 만나서 얘기해요.",
+    "level": "B1",
+    "category": "greeting"
+  },
+  {
+    "en": "It was nice talking to you.",
+    "ko": "얘기 나눠서 좋았어요.",
+    "level": "A2",
+    "category": "greeting"
+  },
+  {
+    "en": "I look forward to seeing you again.",
+    "ko": "다시 뵙기를 기대합니다.",
+    "level": "B1",
+    "category": "greeting"
+  },
+  {
+    "en": "Give my regards to your family.",
+    "ko": "가족분들께 안부 전해주세요.",
+    "level": "B1",
+    "category": "greeting"
+  },
+  {
+    "en": "Say hi to everyone for me.",
+    "ko": "모두에게 안부 전해줘.",
+    "level": "A2",
+    "category": "greeting"
+  }
+]

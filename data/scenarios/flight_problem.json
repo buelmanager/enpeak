@@ -1,0 +1,82 @@
+{
+  "id": "flight_problem",
+  "title": "Handling Flight Problems",
+  "title_ko": "항공편 문제 해결하기",
+  "roles": {
+    "ai": "Airline Agent",
+    "user": "Passenger"
+  },
+  "estimated_time": "6-8 min",
+  "learning_objectives": [
+    "Handle delays and cancellations",
+    "Request rebooking",
+    "Assert passenger rights"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Problem Report",
+      "ai_opening": "I'm sorry, but your flight has been cancelled. How can I assist you?",
+      "learning_tip": "상황을 명확히 파악하세요 - delay(지연), cancel(취소)",
+      "suggested_responses": [
+        "Why was the flight cancelled?",
+        "What options do I have now?",
+        "I need to get to Seoul urgently."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Options Discussion",
+      "ai_prompt": "Present available options",
+      "learning_tip": "다른 항공사 연결은 'endorsement', 다음 편은 'next available'",
+      "suggested_responses": [
+        "Can you book me on the next available flight?",
+        "What about other airlines?",
+        "Can I get a refund instead?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Compensation",
+      "ai_prompt": "Discuss compensation options",
+      "learning_tip": "장시간 지연 시 식사/숙박 voucher 요청 가능",
+      "suggested_responses": [
+        "Am I entitled to compensation?",
+        "Can you provide hotel accommodation?",
+        "I need a meal voucher."
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Confirmation",
+      "ai_prompt": "Finalize arrangements",
+      "learning_tip": "새 일정 확인서를 받으세요",
+      "suggested_responses": [
+        "Can I get this in writing?",
+        "Please confirm my new itinerary.",
+        "What's the confirmation number?"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "compensation",
+      "meaning": "보상",
+      "example": "You're entitled to compensation."
+    },
+    {
+      "word": "rebook",
+      "meaning": "재예약",
+      "example": "Let me rebook you."
+    },
+    {
+      "word": "voucher",
+      "meaning": "바우처",
+      "example": "Here's a meal voucher."
+    }
+  ],
+  "category": "travel",
+  "difficulty": "advanced",
+  "icon": "plane",
+  "completion_message": "Great job completing the Handling Flight Problems scenario!"
+}

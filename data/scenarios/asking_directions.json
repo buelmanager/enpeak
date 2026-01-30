@@ -1,0 +1,71 @@
+{
+  "id": "asking_directions",
+  "title": "Asking for Directions",
+  "title_ko": "길 물어보기",
+  "roles": {
+    "ai": "Local",
+    "user": "Tourist"
+  },
+  "estimated_time": "3-4 min",
+  "learning_objectives": [
+    "Ask for directions politely",
+    "Understand basic directions",
+    "Thank someone for help"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Getting Attention",
+      "ai_opening": "Yes? Can I help you with something?",
+      "learning_tip": "'Excuse me'로 먼저 주의를 끌어요",
+      "suggested_responses": [
+        "Excuse me, can you help me?",
+        "Hi, I'm a bit lost.",
+        "Could you tell me how to get to the station?"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Understanding Directions",
+      "ai_prompt": "Give clear directions with landmarks",
+      "learning_tip": "Go straight, turn left/right, on your left/right",
+      "suggested_responses": [
+        "So I turn left at the corner?",
+        "Is it far from here?",
+        "About how long will it take?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Confirmation",
+      "ai_prompt": "Confirm understanding and offer additional help",
+      "learning_tip": "방향을 다시 확인할 때 'So I...' 사용",
+      "suggested_responses": [
+        "Thank you so much!",
+        "I really appreciate your help.",
+        "Got it, thanks!"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "go straight",
+      "meaning": "직진하다",
+      "example": "Go straight for two blocks."
+    },
+    {
+      "word": "turn left/right",
+      "meaning": "좌/우회전",
+      "example": "Turn right at the light."
+    },
+    {
+      "word": "on the corner",
+      "meaning": "모퉁이에",
+      "example": "It's on the corner."
+    }
+  ],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "coffee",
+  "completion_message": "Great job completing the Asking for Directions scenario!"
+}

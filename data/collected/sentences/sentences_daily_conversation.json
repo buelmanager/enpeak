@@ -1,0 +1,212 @@
+[
+  {
+    "en": "What time is it?",
+    "ko": "몇 시예요?",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "It's 3 o'clock.",
+    "ko": "3시예요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "What day is it today?",
+    "ko": "오늘 무슨 요일이에요?",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "Today is Monday.",
+    "ko": "오늘은 월요일이에요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "What's the date today?",
+    "ko": "오늘 몇일이에요?",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "What's the weather like?",
+    "ko": "날씨가 어때요?",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "It's sunny today.",
+    "ko": "오늘 화창해요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "It looks like rain.",
+    "ko": "비가 올 것 같아요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "It's getting cold.",
+    "ko": "추워지고 있어요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm hungry.",
+    "ko": "배고파요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm thirsty.",
+    "ko": "목말라요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm tired.",
+    "ko": "피곤해요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm sleepy.",
+    "ko": "졸려요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm bored.",
+    "ko": "지루해요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I need to rest.",
+    "ko": "쉬어야 해요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "Let's take a break.",
+    "ko": "쉬어요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "What are you doing?",
+    "ko": "뭐해요?",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm watching TV.",
+    "ko": "TV 보고 있어요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm reading a book.",
+    "ko": "책 읽고 있어요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm listening to music.",
+    "ko": "음악 듣고 있어요.",
+    "level": "A1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm working from home.",
+    "ko": "재택근무 중이에요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I have plans tonight.",
+    "ko": "오늘 밤에 약속 있어요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I'm free this weekend.",
+    "ko": "이번 주말에 시간 있어요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "Do you have any plans?",
+    "ko": "계획 있어요?",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "What do you usually do on weekends?",
+    "ko": "주말에 보통 뭐 해요?",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I usually sleep in on Sundays.",
+    "ko": "일요일에 보통 늦잠 자요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I like to relax at home.",
+    "ko": "집에서 쉬는 게 좋아요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I enjoy going for walks.",
+    "ko": "산책하는 것을 좋아해요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I prefer staying indoors.",
+    "ko": "실내에 있는 게 좋아요.",
+    "level": "B1",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I need to do laundry.",
+    "ko": "빨래해야 해요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I have to clean my room.",
+    "ko": "방 청소해야 해요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "Could you help me with this?",
+    "ko": "이것 좀 도와줄래요?",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "Sure, no problem.",
+    "ko": "네, 문제없어요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "I appreciate your help.",
+    "ko": "도움 감사해요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  },
+  {
+    "en": "Don't mention it.",
+    "ko": "별말씀을요.",
+    "level": "A2",
+    "category": "daily_conversation"
+  }
+]

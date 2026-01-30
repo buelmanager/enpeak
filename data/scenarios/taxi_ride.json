@@ -1,0 +1,71 @@
+{
+  "id": "taxi_ride",
+  "title": "Taking a Taxi",
+  "title_ko": "택시 타기",
+  "roles": {
+    "ai": "Taxi Driver",
+    "user": "Passenger"
+  },
+  "estimated_time": "3-4 min",
+  "learning_objectives": [
+    "Give destinations",
+    "Ask about fares",
+    "Make simple requests"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Destination",
+      "ai_opening": "Where to?",
+      "learning_tip": "'To the airport, please' 또는 주소를 직접 말해요",
+      "suggested_responses": [
+        "To the airport, please.",
+        "Can you take me to this address?",
+        "Central Station, please."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "During the Ride",
+      "ai_prompt": "Small talk and updates on the ride",
+      "learning_tip": "요청할 때 'Could you...' 사용",
+      "suggested_responses": [
+        "Could you turn on the AC?",
+        "How long will it take?",
+        "Is this the fastest route?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Payment",
+      "ai_prompt": "Arrive and collect fare",
+      "learning_tip": "'Keep the change'는 잔돈은 가지세요라는 뜻",
+      "suggested_responses": [
+        "How much is it?",
+        "Do you take cards?",
+        "Keep the change."
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "fare",
+      "meaning": "요금",
+      "example": "What's the fare to downtown?"
+    },
+    {
+      "word": "keep the change",
+      "meaning": "잔돈은 가지세요",
+      "example": "Keep the change."
+    },
+    {
+      "word": "meter",
+      "meaning": "미터기",
+      "example": "Please use the meter."
+    }
+  ],
+  "category": "travel",
+  "difficulty": "beginner",
+  "icon": "plane",
+  "completion_message": "Great job completing the Taking a Taxi scenario!"
+}

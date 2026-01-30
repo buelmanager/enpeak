@@ -1,0 +1,361 @@
+{
+  "level": "C1",
+  "description": "Advanced - 고급 단어",
+  "word_count": 59,
+  "words": [
+    {
+      "word": "accumulate",
+      "meaning": "축적하다",
+      "pos": "verb",
+      "example": "We accumulated data over years."
+    },
+    {
+      "word": "advocate",
+      "meaning": "옹호하다",
+      "pos": "verb",
+      "example": "I advocate for change."
+    },
+    {
+      "word": "albeit",
+      "meaning": "비록 ~이지만",
+      "pos": "conjunction",
+      "example": "It was successful, albeit slowly."
+    },
+    {
+      "word": "alleviate",
+      "meaning": "완화하다",
+      "pos": "verb",
+      "example": "We need to alleviate the problem."
+    },
+    {
+      "word": "ambiguous",
+      "meaning": "모호한",
+      "pos": "adjective",
+      "example": "The statement is ambiguous."
+    },
+    {
+      "word": "analogous",
+      "meaning": "유사한",
+      "pos": "adjective",
+      "example": "The situations are analogous."
+    },
+    {
+      "word": "apparatus",
+      "meaning": "장치",
+      "pos": "noun",
+      "example": "The apparatus is complex."
+    },
+    {
+      "word": "arbitrary",
+      "meaning": "임의의",
+      "pos": "adjective",
+      "example": "The decision was arbitrary."
+    },
+    {
+      "word": "attain",
+      "meaning": "달성하다",
+      "pos": "verb",
+      "example": "We attained our objectives."
+    },
+    {
+      "word": "cease",
+      "meaning": "중단하다",
+      "pos": "verb",
+      "example": "Operations will cease."
+    },
+    {
+      "word": "coherent",
+      "meaning": "일관성 있는",
+      "pos": "adjective",
+      "example": "Make a coherent argument."
+    },
+    {
+      "word": "coincide",
+      "meaning": "일치하다",
+      "pos": "verb",
+      "example": "Our views coincide."
+    },
+    {
+      "word": "commence",
+      "meaning": "시작하다",
+      "pos": "verb",
+      "example": "The meeting will commence at 9."
+    },
+    {
+      "word": "compatible",
+      "meaning": "호환되는",
+      "pos": "adjective",
+      "example": "Is it compatible?"
+    },
+    {
+      "word": "compile",
+      "meaning": "편집하다",
+      "pos": "verb",
+      "example": "We compiled the data."
+    },
+    {
+      "word": "complement",
+      "meaning": "보완하다",
+      "pos": "verb",
+      "example": "They complement each other."
+    },
+    {
+      "word": "comply",
+      "meaning": "준수하다",
+      "pos": "verb",
+      "example": "We must comply with regulations."
+    },
+    {
+      "word": "conceive",
+      "meaning": "생각해내다",
+      "pos": "verb",
+      "example": "I can't conceive how..."
+    },
+    {
+      "word": "concurrent",
+      "meaning": "동시의",
+      "pos": "adjective",
+      "example": "Concurrent sessions are held."
+    },
+    {
+      "word": "confine",
+      "meaning": "제한하다",
+      "pos": "verb",
+      "example": "Let's confine the discussion to..."
+    },
+    {
+      "word": "consent",
+      "meaning": "동의하다",
+      "pos": "verb",
+      "example": "I consent to the terms."
+    },
+    {
+      "word": "constitute",
+      "meaning": "구성하다",
+      "pos": "verb",
+      "example": "This constitutes a breach."
+    },
+    {
+      "word": "constrain",
+      "meaning": "제한하다",
+      "pos": "verb",
+      "example": "We're constrained by budget."
+    },
+    {
+      "word": "contradict",
+      "meaning": "모순되다",
+      "pos": "verb",
+      "example": "The facts contradict the theory."
+    },
+    {
+      "word": "controversy",
+      "meaning": "논란",
+      "pos": "noun",
+      "example": "It caused controversy."
+    },
+    {
+      "word": "convene",
+      "meaning": "소집하다",
+      "pos": "verb",
+      "example": "We convened a meeting."
+    },
+    {
+      "word": "conversely",
+      "meaning": "반대로",
+      "pos": "adverb",
+      "example": "Conversely, we could..."
+    },
+    {
+      "word": "deduce",
+      "meaning": "추론하다",
+      "pos": "verb",
+      "example": "We can deduce that..."
+    },
+    {
+      "word": "deem",
+      "meaning": "여기다",
+      "pos": "verb",
+      "example": "It was deemed necessary."
+    },
+    {
+      "word": "denote",
+      "meaning": "나타내다",
+      "pos": "verb",
+      "example": "This symbol denotes..."
+    },
+    {
+      "word": "deteriorate",
+      "meaning": "악화되다",
+      "pos": "verb",
+      "example": "Conditions deteriorated."
+    },
+    {
+      "word": "devise",
+      "meaning": "고안하다",
+      "pos": "verb",
+      "example": "We devised a plan."
+    },
+    {
+      "word": "diminish",
+      "meaning": "줄이다",
+      "pos": "verb",
+      "example": "Don't diminish its importance."
+    },
+    {
+      "word": "displace",
+      "meaning": "대체하다",
+      "pos": "verb",
+      "example": "Technology may displace workers."
+    },
+    {
+      "word": "dispose",
+      "meaning": "처리하다",
+      "pos": "verb",
+      "example": "Dispose of waste properly."
+    },
+    {
+      "word": "distort",
+      "meaning": "왜곡하다",
+      "pos": "verb",
+      "example": "Don't distort the facts."
+    },
+    {
+      "word": "divert",
+      "meaning": "전환하다",
+      "pos": "verb",
+      "example": "Divert attention from..."
+    },
+    {
+      "word": "doctrine",
+      "meaning": "원칙, 교리",
+      "pos": "noun",
+      "example": "The doctrine states..."
+    },
+    {
+      "word": "domain",
+      "meaning": "영역",
+      "pos": "noun",
+      "example": "It's outside my domain."
+    },
+    {
+      "word": "dynamics",
+      "meaning": "역학",
+      "pos": "noun",
+      "example": "The dynamics of the market..."
+    },
+    {
+      "word": "elicit",
+      "meaning": "이끌어내다",
+      "pos": "verb",
+      "example": "Elicit responses from..."
+    },
+    {
+      "word": "embed",
+      "meaning": "내장하다",
+      "pos": "verb",
+      "example": "The value is embedded."
+    },
+    {
+      "word": "empirical",
+      "meaning": "경험적인",
+      "pos": "adjective",
+      "example": "Empirical evidence shows..."
+    },
+    {
+      "word": "encompass",
+      "meaning": "포함하다",
+      "pos": "verb",
+      "example": "The study encompasses..."
+    },
+    {
+      "word": "endeavor",
+      "meaning": "노력",
+      "pos": "noun",
+      "example": "A worthwhile endeavor."
+    },
+    {
+      "word": "entity",
+      "meaning": "실체",
+      "pos": "noun",
+      "example": "A separate legal entity."
+    },
+    {
+      "word": "equate",
+      "meaning": "동일시하다",
+      "pos": "verb",
+      "example": "Don't equate price with quality."
+    },
+    {
+      "word": "erode",
+      "meaning": "침식하다",
+      "pos": "verb",
+      "example": "Trust has eroded."
+    },
+    {
+      "word": "evoke",
+      "meaning": "불러일으키다",
+      "pos": "verb",
+      "example": "The music evokes memories."
+    },
+    {
+      "word": "excerpt",
+      "meaning": "발췌",
+      "pos": "noun",
+      "example": "Here's an excerpt from..."
+    },
+    {
+      "word": "exert",
+      "meaning": "발휘하다",
+      "pos": "verb",
+      "example": "Exert influence on..."
+    },
+    {
+      "word": "explicit",
+      "meaning": "명시적인",
+      "pos": "adjective",
+      "example": "Make it explicit."
+    },
+    {
+      "word": "exploit",
+      "meaning": "활용하다",
+      "pos": "verb",
+      "example": "Exploit the opportunity."
+    },
+    {
+      "word": "extract",
+      "meaning": "추출하다",
+      "pos": "verb",
+      "example": "Extract data from..."
+    },
+    {
+      "word": "facilitate",
+      "meaning": "촉진하다",
+      "pos": "verb",
+      "example": "Facilitate communication."
+    },
+    {
+      "word": "fluctuate",
+      "meaning": "변동하다",
+      "pos": "verb",
+      "example": "Prices fluctuate."
+    },
+    {
+      "word": "formulate",
+      "meaning": "공식화하다",
+      "pos": "verb",
+      "example": "Formulate a strategy."
+    },
+    {
+      "word": "forthcoming",
+      "meaning": "다가오는",
+      "pos": "adjective",
+      "example": "The forthcoming event..."
+    },
+    {
+      "word": "foster",
+      "meaning": "육성하다",
+      "pos": "verb",
+      "example": "Foster innovation."
+    }
+  ]
+}

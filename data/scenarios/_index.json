@@ -1,0 +1,127 @@
+{
+  "total": 14,
+  "by_category": {
+    "daily": 6,
+    "travel": 5,
+    "business": 3
+  },
+  "by_level": {
+    "beginner": 5,
+    "intermediate": 5,
+    "advanced": 4
+  },
+  "scenarios": [
+    {
+      "id": "cafe_order",
+      "title": "Ordering at a Cafe",
+      "title_ko": "카페에서 주문하기",
+      "category": "daily",
+      "difficulty": "beginner",
+      "estimated_time": "3-5 min"
+    },
+    {
+      "id": "grocery_shopping",
+      "title": "At the Grocery Store",
+      "title_ko": "마트에서 장보기",
+      "category": "daily",
+      "difficulty": "beginner",
+      "estimated_time": "3-5 min"
+    },
+    {
+      "id": "asking_directions",
+      "title": "Asking for Directions",
+      "title_ko": "길 물어보기",
+      "category": "daily",
+      "difficulty": "beginner",
+      "estimated_time": "3-4 min"
+    },
+    {
+      "id": "restaurant_order",
+      "title": "Dining at a Restaurant",
+      "title_ko": "레스토랑에서 식사하기",
+      "category": "daily",
+      "difficulty": "intermediate",
+      "estimated_time": "5-7 min"
+    },
+    {
+      "id": "doctor_visit",
+      "title": "Visiting the Doctor",
+      "title_ko": "병원 방문하기",
+      "category": "daily",
+      "difficulty": "intermediate",
+      "estimated_time": "5-7 min"
+    },
+    {
+      "id": "complaint_handling",
+      "title": "Making a Complaint",
+      "title_ko": "불만 제기하기",
+      "category": "daily",
+      "difficulty": "advanced",
+      "estimated_time": "6-8 min"
+    },
+    {
+      "id": "hotel_checkin",
+      "title": "Hotel Check-in",
+      "title_ko": "호텔 체크인하기",
+      "category": "travel",
+      "difficulty": "beginner",
+      "estimated_time": "4-6 min"
+    },
+    {
+      "id": "taxi_ride",
+      "title": "Taking a Taxi",
+      "title_ko": "택시 타기",
+      "category": "travel",
+      "difficulty": "beginner",
+      "estimated_time": "3-4 min"
+    },
+    {
+      "id": "airport_checkin",
+      "title": "Airport Check-in",
+      "title_ko": "공항 체크인하기",
+      "category": "travel",
+      "difficulty": "intermediate",
+      "estimated_time": "5-7 min"
+    },
+    {
+      "id": "car_rental",
+      "title": "Renting a Car",
+      "title_ko": "렌터카 빌리기",
+      "category": "travel",
+      "difficulty": "intermediate",
+      "estimated_time": "5-7 min"
+    },
+    {
+      "id": "flight_problem",
+      "title": "Handling Flight Problems",
+      "title_ko": "항공편 문제 해결하기",
+      "category": "travel",
+      "difficulty": "advanced",
+      "estimated_time": "6-8 min"
+    },
+    {
+      "id": "phone_call",
+      "title": "Business Phone Call",
+      "title_ko": "비즈니스 전화 통화",
+      "category": "business",
+      "difficulty": "intermediate",
+      "estimated_time": "5-6 min"
+    },
+    {
+      "id": "job_interview",
+      "title": "Job Interview",
+      "title_ko": "영어 면접 보기",
+      "category": "business",
+      "difficulty": "advanced",
+      "estimated_time": "10-15 min"
+    },
+    {
+      "id": "business_meeting",
+      "title": "Business Meeting",
+      "title_ko": "비즈니스 미팅",
+      "category": "business",
+      "difficulty": "advanced",
+      "estimated_time": "8-12 min"
+    }
+  ]
+}

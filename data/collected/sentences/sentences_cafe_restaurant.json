@@ -1,0 +1,218 @@
+[
+  {
+    "en": "I'd like a coffee, please.",
+    "ko": "커피 한 잔 주세요.",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Can I have an americano?",
+    "ko": "아메리카노 주시겠어요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "What would you recommend?",
+    "ko": "뭘 추천하세요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "What's your specialty?",
+    "ko": "시그니처 메뉴가 뭐예요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Is it hot or iced?",
+    "ko": "뜨거운 건가요 아이스인가요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "I'll have it iced.",
+    "ko": "아이스로 할게요.",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "For here or to go?",
+    "ko": "여기서 드실 건가요 포장인가요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "To go, please.",
+    "ko": "포장이요.",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Can I get this without sugar?",
+    "ko": "설탕 빼고 주실 수 있나요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Could you make it less sweet?",
+    "ko": "덜 달게 해주시겠어요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Do you have oat milk?",
+    "ko": "오트밀크 있나요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "What sizes do you have?",
+    "ko": "사이즈 어떤 게 있나요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "I'll take the large one.",
+    "ko": "큰 걸로 할게요.",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "How much is it?",
+    "ko": "얼마예요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "I'll pay by card.",
+    "ko": "카드로 계산할게요.",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Can I pay with Apple Pay?",
+    "ko": "애플페이로 결제할 수 있나요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Do you have Wi-Fi here?",
+    "ko": "여기 와이파이 있나요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "What's the Wi-Fi password?",
+    "ko": "와이파이 비밀번호가 뭐예요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Is there an outlet nearby?",
+    "ko": "근처에 콘센트 있나요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Can I get a refill?",
+    "ko": "리필 해주시겠어요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "A table for two, please.",
+    "ko": "두 명이요.",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Do you have a reservation?",
+    "ko": "예약하셨나요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "I made a reservation for 7pm.",
+    "ko": "7시에 예약했어요.",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Could we have the menu, please?",
+    "ko": "메뉴판 주시겠어요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "What do you have for vegetarians?",
+    "ko": "채식주의자 메뉴 있나요?",
+    "level": "B1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "I'm allergic to nuts.",
+    "ko": "견과류 알레르기가 있어요.",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Does this contain gluten?",
+    "ko": "글루텐이 들어있나요?",
+    "level": "B1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "I'll have the steak.",
+    "ko": "스테이크로 할게요.",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "How would you like it cooked?",
+    "ko": "어떻게 익혀드릴까요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Medium rare, please.",
+    "ko": "미디엄 레어로요.",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Could I have some water?",
+    "ko": "물 좀 주시겠어요?",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "This is delicious!",
+    "ko": "맛있어요!",
+    "level": "A1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Could I have the bill, please?",
+    "ko": "계산서 주시겠어요?",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "We'd like to split the bill.",
+    "ko": "따로 계산할게요.",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Is service charge included?",
+    "ko": "서비스 비용이 포함되어 있나요?",
+    "level": "B1",
+    "category": "cafe_restaurant"
+  },
+  {
+    "en": "Keep the change.",
+    "ko": "잔돈은 됐어요.",
+    "level": "A2",
+    "category": "cafe_restaurant"
+  }
+]

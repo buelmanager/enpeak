@@ -1,0 +1,96 @@
+[
+  {
+    "pattern": "Could you...?",
+    "meaning": "~해 주시겠어요?",
+    "examples": [
+      "Could you help me with this?",
+      "Could you speak more slowly?",
+      "Could you tell me the way to the station?"
+    ],
+    "category": "request",
+    "formality": "polite"
+  },
+  {
+    "pattern": "Would you mind...?",
+    "meaning": "~해 주시겠어요? (더 정중)",
+    "examples": [
+      "Would you mind opening the window?",
+      "Would you mind waiting for a moment?",
+      "Would you mind if I sat here?"
+    ],
+    "category": "request",
+    "formality": "very_polite"
+  },
+  {
+    "pattern": "I'd like to...",
+    "meaning": "~하고 싶습니다",
+    "examples": [
+      "I'd like to make a reservation.",
+      "I'd like to order a coffee.",
+      "I'd like to check out, please."
+    ],
+    "category": "request",
+    "formality": "polite"
+  },
+  {
+    "pattern": "I think...",
+    "meaning": "~라고 생각해요",
+    "examples": [
+      "I think it's a good idea.",
+      "I think we should wait.",
+      "I think you're right."
+    ],
+    "category": "opinion",
+    "formality": "neutral"
+  },
+  {
+    "pattern": "In my opinion...",
+    "meaning": "제 생각에는...",
+    "examples": [
+      "In my opinion, this is the best option.",
+      "In my opinion, we need more time."
+    ],
+    "category": "opinion",
+    "formality": "formal"
+  },
+  {
+    "pattern": "I agree with...",
+    "meaning": "~에 동의해요",
+    "examples": [
+      "I agree with you completely.",
+      "I agree with that idea."
+    ],
+    "category": "agreement",
+    "formality": "neutral"
+  },
+  {
+    "pattern": "I'm afraid I disagree",
+    "meaning": "동의하지 않아요 (정중)",
+    "examples": [
+      "I'm afraid I disagree with that point.",
+      "I'm afraid I can't agree with you there."
+    ],
+    "category": "disagreement",
+    "formality": "polite"
+  },
+  {
+    "pattern": "What I mean is...",
+    "meaning": "제 말은...",
+    "examples": [
+      "What I mean is, we need more research.",
+      "What I mean is, it's not that simple."
+    ],
+    "category": "clarification",
+    "formality": "neutral"
+  },
+  {
+    "pattern": "In other words...",
+    "meaning": "다시 말해서...",
+    "examples": [
+      "In other words, we need to start over.",
+      "In other words, he's not coming."
+    ],
+    "category": "clarification",
+    "formality": "neutral"
+  }
+]

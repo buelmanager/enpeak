@@ -1,0 +1,517 @@
+{
+  "level": "B1",
+  "description": "Intermediate - 중급 단어",
+  "word_count": 85,
+  "words": [
+    {
+      "word": "experience",
+      "meaning": "경험",
+      "pos": "noun",
+      "example": "I have experience in marketing."
+    },
+    {
+      "word": "opportunity",
+      "meaning": "기회",
+      "pos": "noun",
+      "example": "This is a great opportunity."
+    },
+    {
+      "word": "situation",
+      "meaning": "상황",
+      "pos": "noun",
+      "example": "The situation is complicated."
+    },
+    {
+      "word": "relationship",
+      "meaning": "관계",
+      "pos": "noun",
+      "example": "We have a good relationship."
+    },
+    {
+      "word": "environment",
+      "meaning": "환경",
+      "pos": "noun",
+      "example": "Protect the environment."
+    },
+    {
+      "word": "society",
+      "meaning": "사회",
+      "pos": "noun",
+      "example": "We live in a modern society."
+    },
+    {
+      "word": "culture",
+      "meaning": "문화",
+      "pos": "noun",
+      "example": "I love Korean culture."
+    },
+    {
+      "word": "technology",
+      "meaning": "기술",
+      "pos": "noun",
+      "example": "Technology is changing fast."
+    },
+    {
+      "word": "education",
+      "meaning": "교육",
+      "pos": "noun",
+      "example": "Education is important."
+    },
+    {
+      "word": "government",
+      "meaning": "정부",
+      "pos": "noun",
+      "example": "The government announced new policies."
+    },
+    {
+      "word": "economy",
+      "meaning": "경제",
+      "pos": "noun",
+      "example": "The economy is growing."
+    },
+    {
+      "word": "development",
+      "meaning": "발전",
+      "pos": "noun",
+      "example": "Economic development is important."
+    },
+    {
+      "word": "research",
+      "meaning": "연구",
+      "pos": "noun",
+      "example": "I do research in AI."
+    },
+    {
+      "word": "knowledge",
+      "meaning": "지식",
+      "pos": "noun",
+      "example": "Knowledge is power."
+    },
+    {
+      "word": "information",
+      "meaning": "정보",
+      "pos": "noun",
+      "example": "I need more information."
+    },
+    {
+      "word": "solution",
+      "meaning": "해결책",
+      "pos": "noun",
+      "example": "We found a solution."
+    },
+    {
+      "word": "problem",
+      "meaning": "문제",
+      "pos": "noun",
+      "example": "There's a problem."
+    },
+    {
+      "word": "issue",
+      "meaning": "이슈, 문제",
+      "pos": "noun",
+      "example": "This is an important issue."
+    },
+    {
+      "word": "advantage",
+      "meaning": "장점",
+      "pos": "noun",
+      "example": "What's the advantage?"
+    },
+    {
+      "word": "disadvantage",
+      "meaning": "단점",
+      "pos": "noun",
+      "example": "There are some disadvantages."
+    },
+    {
+      "word": "benefit",
+      "meaning": "이점, 혜택",
+      "pos": "noun",
+      "example": "What are the benefits?"
+    },
+    {
+      "word": "risk",
+      "meaning": "위험",
+      "pos": "noun",
+      "example": "There's a risk involved."
+    },
+    {
+      "word": "success",
+      "meaning": "성공",
+      "pos": "noun",
+      "example": "Success takes time."
+    },
+    {
+      "word": "failure",
+      "meaning": "실패",
+      "pos": "noun",
+      "example": "Failure is part of learning."
+    },
+    {
+      "word": "goal",
+      "meaning": "목표",
+      "pos": "noun",
+      "example": "What's your goal?"
+    },
+    {
+      "word": "plan",
+      "meaning": "계획",
+      "pos": "noun",
+      "example": "What's the plan?"
+    },
+    {
+      "word": "decision",
+      "meaning": "결정",
+      "pos": "noun",
+      "example": "It's your decision."
+    },
+    {
+      "word": "choice",
+      "meaning": "선택",
+      "pos": "noun",
+      "example": "You have a choice."
+    },
+    {
+      "word": "opinion",
+      "meaning": "의견",
+      "pos": "noun",
+      "example": "In my opinion..."
+    },
+    {
+      "word": "idea",
+      "meaning": "아이디어",
+      "pos": "noun",
+      "example": "That's a good idea."
+    },
+    {
+      "word": "achieve",
+      "meaning": "달성하다",
+      "pos": "verb",
+      "example": "We achieved our goal."
+    },
+    {
+      "word": "improve",
+      "meaning": "개선하다",
+      "pos": "verb",
+      "example": "We need to improve."
+    },
+    {
+      "word": "develop",
+      "meaning": "개발하다",
+      "pos": "verb",
+      "example": "We're developing a new product."
+    },
+    {
+      "word": "create",
+      "meaning": "창조하다",
+      "pos": "verb",
+      "example": "Let's create something new."
+    },
+    {
+      "word": "produce",
+      "meaning": "생산하다",
+      "pos": "verb",
+      "example": "We produce quality products."
+    },
+    {
+      "word": "provide",
+      "meaning": "제공하다",
+      "pos": "verb",
+      "example": "We provide excellent service."
+    },
+    {
+      "word": "offer",
+      "meaning": "제안하다",
+      "pos": "verb",
+      "example": "I can offer you a discount."
+    },
+    {
+      "word": "suggest",
+      "meaning": "제안하다",
+      "pos": "verb",
+      "example": "I suggest we wait."
+    },
+    {
+      "word": "recommend",
+      "meaning": "추천하다",
+      "pos": "verb",
+      "example": "I recommend this book."
+    },
+    {
+      "word": "accept",
+      "meaning": "수락하다",
+      "pos": "verb",
+      "example": "I accept your offer."
+    },
+    {
+      "word": "refuse",
+      "meaning": "거절하다",
+      "pos": "verb",
+      "example": "I have to refuse."
+    },
+    {
+      "word": "agree",
+      "meaning": "동의하다",
+      "pos": "verb",
+      "example": "I agree with you."
+    },
+    {
+      "word": "disagree",
+      "meaning": "동의하지 않다",
+      "pos": "verb",
+      "example": "I disagree."
+    },
+    {
+      "word": "support",
+      "meaning": "지원하다",
+      "pos": "verb",
+      "example": "I support your idea."
+    },
+    {
+      "word": "manage",
+      "meaning": "관리하다",
+      "pos": "verb",
+      "example": "I manage a team."
+    },
+    {
+      "word": "organize",
+      "meaning": "조직하다",
+      "pos": "verb",
+      "example": "I organize events."
+    },
+    {
+      "word": "prepare",
+      "meaning": "준비하다",
+      "pos": "verb",
+      "example": "I'm preparing for the meeting."
+    },
+    {
+      "word": "attend",
+      "meaning": "참석하다",
+      "pos": "verb",
+      "example": "I'll attend the meeting."
+    },
+    {
+      "word": "discuss",
+      "meaning": "논의하다",
+      "pos": "verb",
+      "example": "Let's discuss this later."
+    },
+    {
+      "word": "explain",
+      "meaning": "설명하다",
+      "pos": "verb",
+      "example": "Can you explain?"
+    },
+    {
+      "word": "describe",
+      "meaning": "묘사하다",
+      "pos": "verb",
+      "example": "Describe the situation."
+    },
+    {
+      "word": "compare",
+      "meaning": "비교하다",
+      "pos": "verb",
+      "example": "Let's compare prices."
+    },
+    {
+      "word": "consider",
+      "meaning": "고려하다",
+      "pos": "verb",
+      "example": "I'll consider your offer."
+    },
+    {
+      "word": "expect",
+      "meaning": "기대하다",
+      "pos": "verb",
+      "example": "I expect good results."
+    },
+    {
+      "word": "require",
+      "meaning": "요구하다",
+      "pos": "verb",
+      "example": "This requires more time."
+    },
+    {
+      "word": "include",
+      "meaning": "포함하다",
+      "pos": "verb",
+      "example": "The price includes tax."
+    },
+    {
+      "word": "contain",
+      "meaning": "포함하다",
+      "pos": "verb",
+      "example": "This contains sugar."
+    },
+    {
+      "word": "involve",
+      "meaning": "포함하다",
+      "pos": "verb",
+      "example": "The project involves many people."
+    },
+    {
+      "word": "affect",
+      "meaning": "영향을 미치다",
+      "pos": "verb",
+      "example": "This will affect everyone."
+    },
+    {
+      "word": "influence",
+      "meaning": "영향을 주다",
+      "pos": "verb",
+      "example": "Music influenced my life."
+    },
+    {
+      "word": "important",
+      "meaning": "중요한",
+      "pos": "adjective",
+      "example": "This is important."
+    },
+    {
+      "word": "necessary",
+      "meaning": "필요한",
+      "pos": "adjective",
+      "example": "It's necessary to study."
+    },
+    {
+      "word": "possible",
+      "meaning": "가능한",
+      "pos": "adjective",
+      "example": "Is it possible?"
+    },
+    {
+      "word": "impossible",
+      "meaning": "불가능한",
+      "pos": "adjective",
+      "example": "Nothing is impossible."
+    },
+    {
+      "word": "available",
+      "meaning": "이용 가능한",
+      "pos": "adjective",
+      "example": "Is it available?"
+    },
+    {
+      "word": "responsible",
+      "meaning": "책임 있는",
+      "pos": "adjective",
+      "example": "I'm responsible for this."
+    },
+    {
+      "word": "successful",
+      "meaning": "성공적인",
+      "pos": "adjective",
+      "example": "The event was successful."
+    },
+    {
+      "word": "popular",
+      "meaning": "인기 있는",
+      "pos": "adjective",
+      "example": "It's very popular."
+    },
+    {
+      "word": "similar",
+      "meaning": "비슷한",
+      "pos": "adjective",
+      "example": "They look similar."
+    },
+    {
+      "word": "different",
+      "meaning": "다른",
+      "pos": "adjective",
+      "example": "This is different."
+    },
+    {
+      "word": "specific",
+      "meaning": "구체적인",
+      "pos": "adjective",
+      "example": "Be more specific."
+    },
+    {
+      "word": "general",
+      "meaning": "일반적인",
+      "pos": "adjective",
+      "example": "In general, I agree."
+    },
+    {
+      "word": "common",
+      "meaning": "흔한",
+      "pos": "adjective",
+      "example": "It's a common problem."
+    },
+    {
+      "word": "rare",
+      "meaning": "드문",
+      "pos": "adjective",
+      "example": "It's a rare opportunity."
+    },
+    {
+      "word": "simple",
+      "meaning": "간단한",
+      "pos": "adjective",
+      "example": "The answer is simple."
+    },
+    {
+      "word": "complex",
+      "meaning": "복잡한",
+      "pos": "adjective",
+      "example": "It's a complex issue."
+    },
+    {
+      "word": "recent",
+      "meaning": "최근의",
+      "pos": "adjective",
+      "example": "Recent studies show..."
+    },
+    {
+      "word": "previous",
+      "meaning": "이전의",
+      "pos": "adjective",
+      "example": "In my previous job..."
+    },
+    {
+      "word": "current",
+      "meaning": "현재의",
+      "pos": "adjective",
+      "example": "My current situation..."
+    },
+    {
+      "word": "main",
+      "meaning": "주요한",
+      "pos": "adjective",
+      "example": "The main reason is..."
+    },
+    {
+      "word": "entire",
+      "meaning": "전체의",
+      "pos": "adjective",
+      "example": "The entire team worked hard."
+    },
+    {
+      "word": "various",
+      "meaning": "다양한",
+      "pos": "adjective",
+      "example": "There are various options."
+    },
+    {
+      "word": "certain",
+      "meaning": "확실한",
+      "pos": "adjective",
+      "example": "I'm certain about it."
+    },
+    {
+      "word": "likely",
+      "meaning": "아마",
+      "pos": "adjective",
+      "example": "It's likely to rain."
+    },
+    {
+      "word": "unlikely",
+      "meaning": "~할 것 같지 않은",
+      "pos": "adjective",
+      "example": "It's unlikely to happen."
+    }
+  ]
+}

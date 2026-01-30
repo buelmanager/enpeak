@@ -1,0 +1,418 @@
+[
+  {
+    "id": "fallback_0",
+    "source": "generated",
+    "domain": "greeting",
+    "category": "greeting",
+    "type": "sentence_pair",
+    "content": "Hello, how are you?",
+    "translation": "안녕하세요, 어떻게 지내세요?",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_1",
+    "source": "generated",
+    "domain": "greeting",
+    "category": "greeting",
+    "type": "sentence_pair",
+    "content": "I'm fine, thank you.",
+    "translation": "잘 지내요, 감사합니다.",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_2",
+    "source": "generated",
+    "domain": "greeting",
+    "category": "greeting",
+    "type": "sentence_pair",
+    "content": "What's your name?",
+    "translation": "이름이 뭐예요?",
+    "metadata": {
+      "level": "A1",
+      "word_count": 3
+    }
+  },
+  {
+    "id": "fallback_3",
+    "source": "generated",
+    "domain": "greeting",
+    "category": "greeting",
+    "type": "sentence_pair",
+    "content": "Nice to meet you.",
+    "translation": "만나서 반가워요.",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_4",
+    "source": "generated",
+    "domain": "greeting",
+    "category": "greeting",
+    "type": "sentence_pair",
+    "content": "Where are you from?",
+    "translation": "어디서 왔어요?",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_5",
+    "source": "generated",
+    "domain": "greeting",
+    "category": "greeting",
+    "type": "sentence_pair",
+    "content": "I'm from Korea.",
+    "translation": "한국에서 왔어요.",
+    "metadata": {
+      "level": "A1",
+      "word_count": 3
+    }
+  },
+  {
+    "id": "fallback_6",
+    "source": "generated",
+    "domain": "request",
+    "category": "request",
+    "type": "sentence_pair",
+    "content": "Can you help me?",
+    "translation": "도와주실 수 있나요?",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_7",
+    "source": "generated",
+    "domain": "shopping",
+    "category": "shopping",
+    "type": "sentence_pair",
+    "content": "How much is this?",
+    "translation": "이거 얼마예요?",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_8",
+    "source": "generated",
+    "domain": "daily",
+    "category": "daily",
+    "type": "sentence_pair",
+    "content": "Where is the bathroom?",
+    "translation": "화장실 어디예요?",
+    "metadata": {
+      "level": "A1",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_9",
+    "source": "generated",
+    "domain": "daily",
+    "category": "daily",
+    "type": "sentence_pair",
+    "content": "I don't understand.",
+    "translation": "이해가 안 돼요.",
+    "metadata": {
+      "level": "A1",
+      "word_count": 3
+    }
+  },
+  {
+    "id": "fallback_10",
+    "source": "generated",
+    "domain": "request",
+    "category": "request",
+    "type": "sentence_pair",
+    "content": "Could you speak more slowly?",
+    "translation": "좀 더 천천히 말씀해 주시겠어요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 5
+    }
+  },
+  {
+    "id": "fallback_11",
+    "source": "generated",
+    "domain": "travel",
+    "category": "travel",
+    "type": "sentence_pair",
+    "content": "I'd like to make a reservation.",
+    "translation": "예약하고 싶어요.",
+    "metadata": {
+      "level": "A2",
+      "word_count": 6
+    }
+  },
+  {
+    "id": "fallback_12",
+    "source": "generated",
+    "domain": "daily",
+    "category": "daily",
+    "type": "sentence_pair",
+    "content": "What time does it open?",
+    "translation": "몇 시에 열어요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 5
+    }
+  },
+  {
+    "id": "fallback_13",
+    "source": "generated",
+    "domain": "shopping",
+    "category": "shopping",
+    "type": "sentence_pair",
+    "content": "Can I pay by credit card?",
+    "translation": "카드로 결제할 수 있나요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 6
+    }
+  },
+  {
+    "id": "fallback_14",
+    "source": "generated",
+    "domain": "travel",
+    "category": "travel",
+    "type": "sentence_pair",
+    "content": "I'm looking for a hotel.",
+    "translation": "호텔을 찾고 있어요.",
+    "metadata": {
+      "level": "A2",
+      "word_count": 5
+    }
+  },
+  {
+    "id": "fallback_15",
+    "source": "generated",
+    "domain": "travel",
+    "category": "travel",
+    "type": "sentence_pair",
+    "content": "How long does it take?",
+    "translation": "얼마나 걸려요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 5
+    }
+  },
+  {
+    "id": "fallback_16",
+    "source": "generated",
+    "domain": "request",
+    "category": "request",
+    "type": "sentence_pair",
+    "content": "Could you recommend something?",
+    "translation": "뭔가 추천해 주시겠어요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_17",
+    "source": "generated",
+    "domain": "travel",
+    "category": "travel",
+    "type": "sentence_pair",
+    "content": "I have a reservation under Kim.",
+    "translation": "김으로 예약했어요.",
+    "metadata": {
+      "level": "A2",
+      "word_count": 6
+    }
+  },
+  {
+    "id": "fallback_18",
+    "source": "generated",
+    "domain": "daily",
+    "category": "daily",
+    "type": "sentence_pair",
+    "content": "What's the WiFi password?",
+    "translation": "와이파이 비밀번호가 뭐예요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 4
+    }
+  },
+  {
+    "id": "fallback_19",
+    "source": "generated",
+    "domain": "travel",
+    "category": "travel",
+    "type": "sentence_pair",
+    "content": "Is breakfast included?",
+    "translation": "조식 포함인가요?",
+    "metadata": {
+      "level": "A2",
+      "word_count": 3
+    }
+  },
+  {
+    "id": "fallback_20",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "I apologize for the inconvenience.",
+    "translation": "불편을 드려 죄송합니다.",
+    "metadata": {
+      "level": "B1",
+      "word_count": 5
+    }
+  },
+  {
+    "id": "fallback_21",
+    "source": "generated",
+    "domain": "daily",
+    "category": "daily",
+    "type": "sentence_pair",
+    "content": "Would you mind if I sat here?",
+    "translation": "여기 앉아도 될까요?",
+    "metadata": {
+      "level": "B1",
+      "word_count": 7
+    }
+  },
+  {
+    "id": "fallback_22",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "I'm afraid there's been a mistake.",
+    "translation": "실수가 있었던 것 같아요.",
+    "metadata": {
+      "level": "B1",
+      "word_count": 6
+    }
+  },
+  {
+    "id": "fallback_23",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "Could you elaborate on that point?",
+    "translation": "그 점에 대해 자세히 설명해 주시겠어요?",
+    "metadata": {
+      "level": "B1",
+      "word_count": 6
+    }
+  },
+  {
+    "id": "fallback_24",
+    "source": "generated",
+    "domain": "opinion",
+    "category": "opinion",
+    "type": "sentence_pair",
+    "content": "In my opinion, this is the best option.",
+    "translation": "제 생각에는 이게 최선의 선택이에요.",
+    "metadata": {
+      "level": "B1",
+      "word_count": 8
+    }
+  },
+  {
+    "id": "fallback_25",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "I'm looking forward to working with you.",
+    "translation": "함께 일하게 되어 기대됩니다.",
+    "metadata": {
+      "level": "B1",
+      "word_count": 7
+    }
+  },
+  {
+    "id": "fallback_26",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "Let me check my schedule and get back to you.",
+    "translation": "일정 확인하고 다시 연락드릴게요.",
+    "metadata": {
+      "level": "B1",
+      "word_count": 10
+    }
+  },
+  {
+    "id": "fallback_27",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "I'd appreciate it if you could send me the details.",
+    "translation": "상세 내용을 보내주시면 감사하겠습니다.",
+    "metadata": {
+      "level": "B1",
+      "word_count": 10
+    }
+  },
+  {
+    "id": "fallback_28",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "Notwithstanding the challenges, we achieved our goals.",
+    "translation": "어려움에도 불구하고 목표를 달성했습니다.",
+    "metadata": {
+      "level": "B2",
+      "word_count": 7
+    }
+  },
+  {
+    "id": "fallback_29",
+    "source": "generated",
+    "domain": "opinion",
+    "category": "opinion",
+    "type": "sentence_pair",
+    "content": "I would be inclined to disagree with that assessment.",
+    "translation": "그 평가에 동의하지 않는 편입니다.",
+    "metadata": {
+      "level": "B2",
+      "word_count": 9
+    }
+  },
+  {
+    "id": "fallback_30",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "The implications of this decision are far-reaching.",
+    "translation": "이 결정의 영향은 광범위합니다.",
+    "metadata": {
+      "level": "B2",
+      "word_count": 7
+    }
+  },
+  {
+    "id": "fallback_31",
+    "source": "generated",
+    "domain": "business",
+    "category": "business",
+    "type": "sentence_pair",
+    "content": "We need to take into account various factors.",
+    "translation": "다양한 요소를 고려해야 합니다.",
+    "metadata": {
+      "level": "B2",
+      "word_count": 8
+    }
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "en": "I'm just looking, thanks.",
+    "ko": "그냥 구경하는 거예요, 감사합니다.",
+    "level": "A1",
+    "category": "shopping"
+  },
+  {
+    "en": "Can I help you find something?",
+    "ko": "뭐 찾는 거 도와드릴까요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "I'm looking for a jacket.",
+    "ko": "재킷을 찾고 있어요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Do you have this in a different size?",
+    "ko": "다른 사이즈 있나요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "What size do you need?",
+    "ko": "어떤 사이즈가 필요하세요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "I wear a medium.",
+    "ko": "미디엄 사이즈 입어요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Do you have this in black?",
+    "ko": "검정색 있나요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Can I try this on?",
+    "ko": "이거 입어봐도 될까요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Where's the fitting room?",
+    "ko": "탈의실 어디예요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "It doesn't fit.",
+    "ko": "안 맞아요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "It's too tight.",
+    "ko": "너무 꽉 껴요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "It's too loose.",
+    "ko": "너무 헐렁해요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "This fits perfectly.",
+    "ko": "딱 맞아요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "How much is this?",
+    "ko": "이거 얼마예요?",
+    "level": "A1",
+    "category": "shopping"
+  },
+  {
+    "en": "It's on sale.",
+    "ko": "세일 중이에요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Is there a discount?",
+    "ko": "할인 있나요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Can I get a better price?",
+    "ko": "더 싸게 해주실 수 있나요?",
+    "level": "B1",
+    "category": "shopping"
+  },
+  {
+    "en": "Do you accept credit cards?",
+    "ko": "카드 받으세요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "I'll take it.",
+    "ko": "이걸로 할게요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Could I get a receipt?",
+    "ko": "영수증 주시겠어요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Can I return this?",
+    "ko": "이거 반품할 수 있나요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "I'd like to exchange this.",
+    "ko": "이거 교환하고 싶어요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "I have a gift receipt.",
+    "ko": "선물 영수증 있어요.",
+    "level": "B1",
+    "category": "shopping"
+  },
+  {
+    "en": "Is there a warranty?",
+    "ko": "보증서 있나요?",
+    "level": "B1",
+    "category": "shopping"
+  },
+  {
+    "en": "Could you gift wrap this?",
+    "ko": "선물 포장 해주시겠어요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Where can I find electronics?",
+    "ko": "전자제품 어디 있나요?",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "Is this available online?",
+    "ko": "온라인에서 살 수 있나요?",
+    "level": "B1",
+    "category": "shopping"
+  },
+  {
+    "en": "When will it be back in stock?",
+    "ko": "언제 재입고 되나요?",
+    "level": "B1",
+    "category": "shopping"
+  },
+  {
+    "en": "I'm looking for something cheaper.",
+    "ko": "더 저렴한 거 찾고 있어요.",
+    "level": "A2",
+    "category": "shopping"
+  },
+  {
+    "en": "This is out of my budget.",
+    "ko": "예산 초과예요.",
+    "level": "B1",
+    "category": "shopping"
+  }
+]

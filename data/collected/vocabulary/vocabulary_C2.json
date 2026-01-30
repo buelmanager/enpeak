@@ -1,0 +1,247 @@
+{
+  "level": "C2",
+  "description": "Proficiency - 최고급 단어",
+  "word_count": 40,
+  "words": [
+    {
+      "word": "aberration",
+      "meaning": "일탈, 이상",
+      "pos": "noun",
+      "example": "This is an aberration from normal."
+    },
+    {
+      "word": "abhor",
+      "meaning": "혐오하다",
+      "pos": "verb",
+      "example": "I abhor violence."
+    },
+    {
+      "word": "acquiesce",
+      "meaning": "묵인하다",
+      "pos": "verb",
+      "example": "They acquiesced to the demand."
+    },
+    {
+      "word": "acrimonious",
+      "meaning": "신랄한",
+      "pos": "adjective",
+      "example": "An acrimonious debate ensued."
+    },
+    {
+      "word": "admonish",
+      "meaning": "훈계하다",
+      "pos": "verb",
+      "example": "He was admonished for his behavior."
+    },
+    {
+      "word": "aesthetic",
+      "meaning": "미적인",
+      "pos": "adjective",
+      "example": "The aesthetic appeal is undeniable."
+    },
+    {
+      "word": "affinity",
+      "meaning": "친밀감",
+      "pos": "noun",
+      "example": "She has an affinity for art."
+    },
+    {
+      "word": "aggravate",
+      "meaning": "악화시키다",
+      "pos": "verb",
+      "example": "Don't aggravate the situation."
+    },
+    {
+      "word": "allude",
+      "meaning": "암시하다",
+      "pos": "verb",
+      "example": "He alluded to his past."
+    },
+    {
+      "word": "amalgamate",
+      "meaning": "합병하다",
+      "pos": "verb",
+      "example": "The companies amalgamated."
+    },
+    {
+      "word": "ameliorate",
+      "meaning": "개선하다",
+      "pos": "verb",
+      "example": "Steps to ameliorate conditions."
+    },
+    {
+      "word": "anachronistic",
+      "meaning": "시대착오적인",
+      "pos": "adjective",
+      "example": "The law is anachronistic."
+    },
+    {
+      "word": "anomaly",
+      "meaning": "이례",
+      "pos": "noun",
+      "example": "This is a statistical anomaly."
+    },
+    {
+      "word": "antithesis",
+      "meaning": "정반대",
+      "pos": "noun",
+      "example": "His view is the antithesis of mine."
+    },
+    {
+      "word": "apathy",
+      "meaning": "무관심",
+      "pos": "noun",
+      "example": "Voter apathy is increasing."
+    },
+    {
+      "word": "apprehensive",
+      "meaning": "불안한",
+      "pos": "adjective",
+      "example": "I'm apprehensive about the future."
+    },
+    {
+      "word": "archaic",
+      "meaning": "고대의, 구식의",
+      "pos": "adjective",
+      "example": "The system is archaic."
+    },
+    {
+      "word": "arduous",
+      "meaning": "힘든",
+      "pos": "adjective",
+      "example": "An arduous journey."
+    },
+    {
+      "word": "articulate",
+      "meaning": "명확히 표현하다",
+      "pos": "verb",
+      "example": "Articulate your thoughts clearly."
+    },
+    {
+      "word": "ascertain",
+      "meaning": "확인하다",
+      "pos": "verb",
+      "example": "We need to ascertain the facts."
+    },
+    {
+      "word": "assimilate",
+      "meaning": "동화하다",
+      "pos": "verb",
+      "example": "Assimilate new information."
+    },
+    {
+      "word": "astute",
+      "meaning": "예리한",
+      "pos": "adjective",
+      "example": "An astute observation."
+    },
+    {
+      "word": "atrophy",
+      "meaning": "위축",
+      "pos": "noun",
+      "example": "Muscle atrophy occurred."
+    },
+    {
+      "word": "auspicious",
+      "meaning": "길조의",
+      "pos": "adjective",
+      "example": "An auspicious beginning."
+    },
+    {
+      "word": "austere",
+      "meaning": "엄격한",
+      "pos": "adjective",
+      "example": "An austere lifestyle."
+    },
+    {
+      "word": "autonomous",
+      "meaning": "자율적인",
+      "pos": "adjective",
+      "example": "Autonomous decision-making."
+    },
+    {
+      "word": "avarice",
+      "meaning": "탐욕",
+      "pos": "noun",
+      "example": "Driven by avarice."
+    },
+    {
+      "word": "aversion",
+      "meaning": "혐오",
+      "pos": "noun",
+      "example": "An aversion to risk."
+    },
+    {
+      "word": "beguile",
+      "meaning": "매혹하다",
+      "pos": "verb",
+      "example": "Beguiled by her charm."
+    },
+    {
+      "word": "belligerent",
+      "meaning": "호전적인",
+      "pos": "adjective",
+      "example": "A belligerent attitude."
+    },
+    {
+      "word": "benevolent",
+      "meaning": "자비로운",
+      "pos": "adjective",
+      "example": "A benevolent leader."
+    },
+    {
+      "word": "blatant",
+      "meaning": "명백한",
+      "pos": "adjective",
+      "example": "A blatant lie."
+    },
+    {
+      "word": "bourgeois",
+      "meaning": "부르주아의",
+      "pos": "adjective",
+      "example": "Bourgeois values."
+    },
+    {
+      "word": "brevity",
+      "meaning": "간결함",
+      "pos": "noun",
+      "example": "Brevity is the soul of wit."
+    },
+    {
+      "word": "buttress",
+      "meaning": "지지하다",
+      "pos": "verb",
+      "example": "Buttress your argument."
+    },
+    {
+      "word": "cacophony",
+      "meaning": "불협화음",
+      "pos": "noun",
+      "example": "A cacophony of sounds."
+    },
+    {
+      "word": "capricious",
+      "meaning": "변덕스러운",
+      "pos": "adjective",
+      "example": "Capricious weather."
+    },
+    {
+      "word": "catalyst",
+      "meaning": "촉매",
+      "pos": "noun",
+      "example": "A catalyst for change."
+    },
+    {
+      "word": "circumvent",
+      "meaning": "피하다",
+      "pos": "verb",
+      "example": "Circumvent the rules."
+    },
+    {
+      "word": "clandestine",
+      "meaning": "은밀한",
+      "pos": "adjective",
+      "example": "Clandestine operations."
+    }
+  ]
+}

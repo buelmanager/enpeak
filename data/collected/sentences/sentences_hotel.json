@@ -1,0 +1,182 @@
+[
+  {
+    "en": "I have a reservation.",
+    "ko": "예약했어요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "I'd like to check in.",
+    "ko": "체크인 하고 싶어요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Here's my booking confirmation.",
+    "ko": "예약 확인서예요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "May I see your passport?",
+    "ko": "여권 보여주시겠어요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "How many nights are you staying?",
+    "ko": "몇 박 하시나요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "I'm staying for three nights.",
+    "ko": "3박 해요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "What time is check-out?",
+    "ko": "체크아웃 몇 시예요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Can I have a late check-out?",
+    "ko": "레이트 체크아웃 가능한가요?",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "Is breakfast included?",
+    "ko": "조식 포함인가요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "What time is breakfast?",
+    "ko": "조식 몇 시예요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Where's the restaurant?",
+    "ko": "레스토랑 어디예요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Is there a gym?",
+    "ko": "헬스장 있나요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "What's the WiFi password?",
+    "ko": "와이파이 비밀번호가 뭐예요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "The AC isn't working.",
+    "ko": "에어컨이 안 돼요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Could I get extra towels?",
+    "ko": "수건 더 주시겠어요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "I need a wake-up call at 7am.",
+    "ko": "7시에 모닝콜 부탁해요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Can I extend my stay?",
+    "ko": "연박 가능한가요?",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "Is there a safe in the room?",
+    "ko": "방에 금고 있나요?",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "Could you call a taxi for me?",
+    "ko": "택시 불러주시겠어요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Where can I leave my luggage?",
+    "ko": "짐 어디에 맡겨요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "I'd like to check out.",
+    "ko": "체크아웃 할게요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Can I pay with credit card?",
+    "ko": "카드로 결제할 수 있나요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "The room is too noisy.",
+    "ko": "방이 너무 시끄러워요.",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Can I change rooms?",
+    "ko": "방 바꿀 수 있나요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "I locked myself out.",
+    "ko": "방에 열쇠 두고 나왔어요.",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "Is there room service?",
+    "ko": "룸서비스 있나요?",
+    "level": "A2",
+    "category": "hotel"
+  },
+  {
+    "en": "Can you recommend a restaurant nearby?",
+    "ko": "근처 레스토랑 추천해주시겠어요?",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "What's included in the minibar?",
+    "ko": "미니바에 뭐가 있나요?",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "I'd like to request housekeeping.",
+    "ko": "청소 부탁드려요.",
+    "level": "B1",
+    "category": "hotel"
+  },
+  {
+    "en": "Please put the 'Do Not Disturb' sign.",
+    "ko": "방해하지 마세요 표시 달아주세요.",
+    "level": "B1",
+    "category": "hotel"
+  }
+]

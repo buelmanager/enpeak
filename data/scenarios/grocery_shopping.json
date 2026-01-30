@@ -1,0 +1,71 @@
+{
+  "id": "grocery_shopping",
+  "title": "At the Grocery Store",
+  "title_ko": "마트에서 장보기",
+  "roles": {
+    "ai": "Store Clerk",
+    "user": "Shopper"
+  },
+  "estimated_time": "3-5 min",
+  "learning_objectives": [
+    "Ask for item locations",
+    "Inquire about prices",
+    "Use basic shopping phrases"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Finding Items",
+      "ai_opening": "Hello! Can I help you find something?",
+      "learning_tip": "'Where can I find...?'로 물건 위치를 물어보세요",
+      "suggested_responses": [
+        "Where can I find the milk?",
+        "I'm looking for bread.",
+        "Where is the fresh produce?"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Price Inquiry",
+      "ai_prompt": "Direct customer and offer help with prices",
+      "learning_tip": "'How much is this?'로 가격을 물어요",
+      "suggested_responses": [
+        "How much is this?",
+        "Is there a sale on these?",
+        "Do you have this in a smaller size?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Checkout",
+      "ai_prompt": "Help at checkout",
+      "learning_tip": "'Paper or plastic?'은 종이봉투/비닐봉투 선택이에요",
+      "suggested_responses": [
+        "Paper, please.",
+        "I brought my own bag.",
+        "Can I get a receipt?"
+      ]
+    }
+  ],
+  "key_vocabulary": [
+    {
+      "word": "aisle",
+      "meaning": "통로",
+      "example": "It's in aisle 3."
+    },
+    {
+      "word": "on sale",
+      "meaning": "할인 중",
+      "example": "These are on sale."
+    },
+    {
+      "word": "receipt",
+      "meaning": "영수증",
+      "example": "Here's your receipt."
+    }
+  ],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "coffee",
+  "completion_message": "Great job completing the At the Grocery Store scenario!"
+}
