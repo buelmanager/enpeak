@@ -216,6 +216,45 @@ Output ONLY the tip in Korean, or the word "null" if no tip needed:"""
         return None
 
 
+class TranslateRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=2000, description="Text to translate")
+    target_lang: Optional[str] = Field("ko", description="Target language (ko/en)")
+
+
+class TranslateResponse(BaseModel):
+    translation: str
+
+
+@router.post("/translate", response_model=TranslateResponse)
+async def translate(request: TranslateRequest, req: Request):
+    """
+    번역 전용 엔드포인트
+    영어 -> 한국어 또는 한국어 -> 영어 번역
+    """
+    try:
+        llm = req.app.state.llm
+        if not llm:
+            raise HTTPException(status_code=503, detail="LLM not initialized")
+
+        if request.target_lang == "ko":
+            prompt = f'Translate this English sentence to Korean. Output ONLY the Korean translation, nothing else:\n\n"{request.text}"'
+        else:
+            prompt = f'Translate this Korean sentence to English. Output ONLY the English translation, nothing else:\n\n"{request.text}"'
+
+        result = llm.generate(
+            prompt=prompt,
+            system_prompt="You are a translator. Output only the translation, no explanations.",
+            max_tokens=200,
+            temperature=0.3,
+        )
+
+        return TranslateResponse(translation=result.strip())
+
+    except Exception as e:
+        logger.error(f"Translation error: {e}")
+        raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
+
+
 @router.delete("/chat/{conversation_id}")
 async def clear_conversation(conversation_id: str):
     """대화 히스토리 삭제"""

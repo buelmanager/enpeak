@@ -3,6 +3,8 @@
 import { useState, useEffect, Suspense, useRef } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { useTTS } from '@/contexts/TTSContext'
+import TTSSettingsModal from '@/components/TTSSettingsModal'
 
 interface CommunityScenario {
   id: string
@@ -113,7 +115,9 @@ function CommunityContent() {
   const [inputText, setInputText] = useState('')
   const [isRoleplayLoading, setIsRoleplayLoading] = useState(false)
   const [showRoleplayModal, setShowRoleplayModal] = useState(false)
+  const [showTTSSettings, setShowTTSSettings] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { speak, stop, isSpeaking } = useTTS()
 
   useEffect(() => {
     if (searchParams.get('published') === 'true') {
@@ -283,12 +287,10 @@ function CommunityContent() {
   }
 
   const speakMessage = (text: string) => {
-    if ('speechSynthesis' in window) {
-      speechSynthesis.cancel()
-      const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = 'en-US'
-      utterance.rate = 0.9
-      speechSynthesis.speak(utterance)
+    if (isSpeaking) {
+      stop()
+    } else {
+      speak(text)
     }
   }
 
@@ -309,19 +311,19 @@ function CommunityContent() {
 
     // 번역 요청
     try {
-      const response = await fetch(`${API_BASE}/api/chat`, {
+      const response = await fetch(`${API_BASE}/api/translate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: `Translate this English sentence to Korean. Output ONLY the Korean translation, nothing else: "${msg.content}"`,
-          context: 'translation'
+          text: msg.content,
+          target_lang: 'ko'
         }),
       })
 
       if (response.ok) {
         const data = await response.json()
         setMessages(prev => prev.map((m, i) =>
-          i === idx ? { ...m, translation: data.response, showTranslation: true, isTranslating: false } : m
+          i === idx ? { ...m, translation: data.translation, showTranslation: true, isTranslating: false } : m
         ))
       } else {
         setMessages(prev => prev.map((m, i) =>
@@ -477,7 +479,12 @@ function CommunityContent() {
                 </p>
               )}
             </div>
-            <div className="w-9" />
+            <button onClick={() => setShowTTSSettings(true)} className="p-2 -mr-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
           </header>
 
           {/* Learning Tip */}
@@ -611,6 +618,9 @@ function CommunityContent() {
           )}
         </div>
       )}
+
+      {/* TTS Settings Modal */}
+      <TTSSettingsModal isOpen={showTTSSettings} onClose={() => setShowTTSSettings(false)} />
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">

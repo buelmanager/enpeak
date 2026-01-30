@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import '../styles/globals.css'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { TTSProvider } from '@/contexts/TTSContext'
 import { VersionCheck } from '@/components/VersionCheck'
 
 export const metadata: Metadata = {
@@ -52,7 +53,9 @@ export default function RootLayout({
       <body className="antialiased bg-[#faf9f7]">
         <VersionCheck />
         <AuthProvider>
-          {children}
+          <TTSProvider>
+            {children}
+          </TTSProvider>
         </AuthProvider>
         <ServiceWorkerRegister />
       </body>
