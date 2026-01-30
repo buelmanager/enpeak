@@ -1,0 +1,79 @@
+{
+  "id": "hotel_checkin",
+  "title": "Hotel Check-in",
+  "title_ko": "호텔 체크인",
+  "category": "travel",
+  "difficulty": "beginner",
+  "estimated_time": "4-6 minutes",
+  "description": "Practice checking into a hotel",
+  "description_ko": "호텔에서 체크인하는 연습",
+  "icon": "🏨",
+  "roles": {
+    "ai": "Front desk receptionist at a hotel",
+    "user": "Hotel guest"
+  },
+  "learning_objectives": [
+    "Provide booking information",
+    "Ask about room amenities",
+    "Request additional services"
+  ],
+  "key_vocabulary": [
+    {"word": "I have a reservation", "meaning": "예약이 있어요", "example": "I have a reservation under Kim."},
+    {"word": "under the name of", "meaning": "~의 이름으로", "example": "The reservation is under the name of Kim."},
+    {"word": "What time is checkout?", "meaning": "체크아웃은 몇 시예요?", "example": "What time is checkout tomorrow?"},
+    {"word": "Could I get a wake-up call?", "meaning": "모닝콜 부탁드릴 수 있나요?", "example": "Could I get a wake-up call at 7 AM?"}
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Greeting",
+      "ai_prompt": "A guest approaches the front desk. Greet them and ask if they have a reservation.",
+      "ai_opening": "Good afternoon! Welcome to Grand Hotel. Do you have a reservation with us?",
+      "expected_user_intents": ["greeting", "reservation_confirmation"],
+      "learning_tip": "'I have a reservation under...' 다음에 이름을 말하세요",
+      "suggested_responses": [
+        "Yes, I have a reservation under Kim.",
+        "Hi! Yes, I booked a room for tonight.",
+        "Hello! I reserved a room online."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Verification",
+      "ai_prompt": "Ask for ID and verify the booking details. Explain the room.",
+      "expected_user_intents": ["providing_id", "confirming_details", "asking_questions"],
+      "learning_tip": "여권이나 ID를 보여줄 때 'Here you go' 또는 'Here's my ID'라고 말해요",
+      "suggested_responses": [
+        "Here's my passport.",
+        "Yes, that's correct.",
+        "Is breakfast included?"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Room Information",
+      "ai_prompt": "Provide room key and explain hotel facilities. Ask if they need anything else.",
+      "expected_user_intents": ["asking_facilities", "requesting_service", "thanking"],
+      "learning_tip": "질문할 때 'What time...?' 또는 'Where is...?'를 사용하세요",
+      "suggested_responses": [
+        "What time is breakfast?",
+        "Where's the gym?",
+        "Could I get an extra towel?"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "Completion",
+      "ai_prompt": "Give final instructions and wish them a pleasant stay.",
+      "expected_user_intents": ["thanking", "farewell"],
+      "learning_tip": "'Thank you so much!' 또는 'Thanks a lot!'으로 감사를 표현하세요",
+      "suggested_responses": [
+        "Thank you so much!",
+        "Thanks! Have a good day!",
+        "Great, thank you for your help!"
+      ]
+    }
+  ],
+  "completion_message": "Well done! You successfully checked into a hotel! 호텔 체크인을 완료했습니다!",
+  "ai_personality": "Professional and helpful hotel receptionist. Be clear and patient. Provide useful information about the hotel."
+}

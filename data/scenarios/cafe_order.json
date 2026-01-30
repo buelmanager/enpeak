@@ -1,0 +1,67 @@
+{
+  "id": "cafe_order",
+  "title": "Ordering Coffee at a Cafe",
+  "title_ko": "카페에서 커피 주문하기",
+  "category": "daily",
+  "difficulty": "beginner",
+  "estimated_time": "3-5 minutes",
+  "description": "Practice ordering drinks and snacks at a coffee shop",
+  "description_ko": "카페에서 음료와 간식을 주문하는 연습",
+  "icon": "☕",
+  "roles": {
+    "ai": "Barista at a cozy coffee shop",
+    "user": "Customer"
+  },
+  "learning_objectives": [
+    "Order beverages using polite expressions",
+    "Ask about menu options and customizations",
+    "Handle payment conversation"
+  ],
+  "key_vocabulary": [
+    {"word": "I'd like", "meaning": "~을 원합니다", "example": "I'd like a latte, please."},
+    {"word": "What do you recommend?", "meaning": "추천해 주시겠어요?", "example": "What do you recommend for first-timers?"},
+    {"word": "For here or to go?", "meaning": "매장에서 드실 건가요, 포장인가요?", "example": "For here, please."},
+    {"word": "Could I get...", "meaning": "~을 주시겠어요?", "example": "Could I get some extra ice?"}
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Greeting",
+      "ai_prompt": "Customer approaches the counter. Greet them warmly and ask what they would like to order.",
+      "ai_opening": "Hi there! Welcome to Sunny Cafe. What can I get for you today?",
+      "expected_user_intents": ["greeting", "ordering", "asking_menu"],
+      "learning_tip": "인사 후 'I'd like...' 또는 'Could I have...'로 주문을 시작하세요",
+      "suggested_responses": [
+        "Hi! I'd like a latte, please.",
+        "Hello! Could I see the menu?",
+        "Hi! What do you recommend?"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Customization",
+      "ai_prompt": "Ask about size and any customizations for the order.",
+      "expected_user_intents": ["size_selection", "customization", "confirmation"],
+      "learning_tip": "사이즈는 small, medium, large 또는 tall, grande, venti로 말해요",
+      "suggested_responses": [
+        "Medium, please.",
+        "Large with oat milk, please.",
+        "A tall iced latte with an extra shot."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Payment",
+      "ai_prompt": "Tell the customer the total and ask about payment method.",
+      "expected_user_intents": ["payment_method", "confirmation", "farewell"],
+      "learning_tip": "'I'll pay by card' 또는 'Here you go'를 사용하세요",
+      "suggested_responses": [
+        "I'll pay by card.",
+        "Here's my card.",
+        "Can I pay with Apple Pay?"
+      ]
+    }
+  ],
+  "completion_message": "Great job! You successfully ordered at a cafe! 잘했어요! 카페 주문을 성공적으로 완료했습니다!",
+  "ai_personality": "Friendly and patient barista. Speak clearly and use simple vocabulary appropriate for beginners. Offer help if the customer seems unsure."
+}

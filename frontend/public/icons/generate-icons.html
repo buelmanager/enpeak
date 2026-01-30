@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate PWA Icons</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+sizes.forEach(size => {
+  canvas.width = size;
+  canvas.height = size;
+  
+  // Background
+  ctx.fillStyle = '#0a0a0f';
+  ctx.beginPath();
+  const radius = size * 0.2;
+  ctx.roundRect(0, 0, size, size, radius);
+  ctx.fill();
+  
+  // Main circle
+  ctx.fillStyle = '#7c3aed';
+  ctx.beginPath();
+  ctx.arc(size/2, size * 0.43, size * 0.16, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Microphone body
+  ctx.fillStyle = '#a78bfa';
+  ctx.beginPath();
+  ctx.roundRect(size * 0.44, size * 0.35, size * 0.12, size * 0.2, size * 0.02);
+  ctx.fill();
+  
+  // Bottom wave lines
+  ctx.strokeStyle = '#7c3aed';
+  ctx.lineWidth = size * 0.03;
+  ctx.lineCap = 'round';
+  
+  // Wave 1
+  ctx.beginPath();
+  ctx.arc(size/2, size * 0.7, size * 0.12, 0, Math.PI);
+  ctx.stroke();
+  
+  // Wave 2
+  ctx.beginPath();
+  ctx.arc(size/2, size * 0.7, size * 0.2, 0, Math.PI);
+  ctx.stroke();
+  
+  const dataUrl = canvas.toDataURL('image/png');
+  console.log('icon-' + size + '.png:', dataUrl.length);
+});
+</script>
+</body>
+</html>
