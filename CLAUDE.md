@@ -404,3 +404,75 @@ gtts>=2.5.0
 # Data Processing
 datasets (HuggingFace)
 ```
+
+---
+
+## 테스트 및 개선 작업 목록
+
+### 배포 후 수행할 테스트
+배포 후 실제 환경에서 다음 항목들을 테스트해야 합니다:
+
+1. **단어 연습 페이지 (/vocabulary)**
+   - [ ] 레벨별 단어 로드 확인 (A1-C2)
+   - [ ] 정답 체크 기능 (뜻 맞추기, 철자 맞추기, 듣고 맞추기)
+   - [ ] 숙어 & 문장 연습 확장 기능
+   - [ ] TTS 발음 재생
+
+2. **자유 회화 페이지 (/chat)**
+   - [ ] AI 응답 생성
+   - [ ] 음성 입력 (Web Speech API)
+   - [ ] 음성 출력 (TTS)
+
+3. **상황별 회화 페이지 (/conversations)**
+   - [ ] 시나리오 목록 로드
+   - [ ] 대화 진행
+   - [ ] 단계별 학습 팁
+
+### 발견된 이슈 및 수정 사항 (2026-01-31)
+
+| 이슈 | 상태 | 설명 |
+|------|------|------|
+| 단어 meaning 필드 빈값 | 수정됨 | vocabulary_chunks.json에서 word/meaning이 최상위 레벨에 있는데, metadata에서 찾고 있었음 |
+| 숙어/예문 확장 API 응답 형식 | 수정됨 | 프론트엔드가 기대하는 형식(sentences, idioms)으로 변경 |
+| RAG 검색 통합 | 수정됨 | search_related_idioms, search_example_sentences에 RAG 검색 추가 |
+
+### 향후 개선 사항
+
+1. **단어 학습 기능 강화**
+   - 유사 정답 허용 (예: "안녕하세요" vs "안녕")
+   - 오답 시 힌트 제공
+   - 학습 통계 저장 및 표시
+
+2. **숙어/예문 기능**
+   - 숙어 퀴즈 모드 추가
+   - 예문 빈칸 채우기 연습
+   - 관련 단어 추천 개선
+
+3. **UI/UX 개선**
+   - 정답/오답 애니메이션 강화
+   - 레벨업 축하 효과
+   - 학습 진행률 시각화
+
+4. **백엔드 최적화**
+   - HuggingFace Spaces 자동 배포 확인
+   - ChromaDB 인덱싱 최적화
+   - API 응답 캐싱
+
+### 배포 체크리스트
+
+프론트엔드 배포 (Firebase):
+```bash
+cd frontend
+npm run build
+npx firebase deploy --only hosting
+```
+
+백엔드 배포 (HuggingFace Spaces):
+- GitHub에 push하면 자동 배포
+- 수동 재시작: HF Spaces 대시보드에서 "Restart Space"
+
+배포 후 확인:
+1. https://enpeak.web.app 접속
+2. 개발자 도구 > Network 탭에서 API 호출 확인
+3. `/api/health` 버전 확인
+4. 단어 연습 > 정답 체크 테스트
