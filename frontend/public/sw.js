@@ -1,7 +1,10 @@
-const CACHE_NAME = 'enpeak-v1';
+const CACHE_NAME = 'enpeak-v2';
 const urlsToCache = [
   '/',
   '/chat',
+  '/create',
+  '/community',
+  '/vocabulary',
   '/roleplay',
   '/manifest.json',
   '/icons/icon-192.png',

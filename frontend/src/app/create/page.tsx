@@ -205,9 +205,9 @@ export default function CreateScenarioPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a]">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pt-safe">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4">
+      <header className="sticky top-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4 mt-safe">
         <div className="flex items-center justify-between">
           <Link href="/" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

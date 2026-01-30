@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import BottomNav from '@/components/BottomNav'
 
 const scenarios = [
   {
@@ -68,9 +69,9 @@ const getDifficultyStyle = (difficulty: string) => {
 
 export default function RoleplayPage() {
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28 pt-safe">
       {/* Header */}
-      <header className="px-6 pt-16 pb-8">
+      <header className="px-6 pt-12 pb-8">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-[#8a8a8a] text-sm tracking-wide">Practice</p>
@@ -137,27 +138,7 @@ export default function RoleplayPage() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">
-        <div className="flex items-center justify-around py-5">
-          <Link href="/" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">홈</span>
-          </Link>
-          <Link href="/chat" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">대화</span>
-          </Link>
-          <Link href="/roleplay" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]" />
-            <span className="text-[10px] text-[#1a1a1a] tracking-wide">연습</span>
-          </Link>
-          <button className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">설정</span>
-          </button>
-        </div>
-      </nav>
+      <BottomNav />
     </main>
   )
 }

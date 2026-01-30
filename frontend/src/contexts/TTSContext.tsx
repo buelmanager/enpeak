@@ -27,11 +27,26 @@ interface TTSContextType {
 
 const TTSContext = createContext<TTSContextType | null>(null)
 
+// 모바일 최적화 기본 설정
+// - 속도: 0.85 (영어 학습자에게 조금 느리게)
+// - 높낮이: 1.0 (자연스러운 톤)
 const DEFAULT_SETTINGS: TTSSettings = {
   selectedVoice: null,
-  rate: 0.9,
+  rate: 0.85,
   pitch: 1.0,
 }
+
+// 모바일 우선 음성 순위 (iOS/Android에서 품질 좋은 음성)
+const PREFERRED_VOICES = [
+  // iOS 고품질 음성 (Siri 음성)
+  'samantha', 'karen', 'daniel', 'moira', 'tessa', 'fiona',
+  // Android 고품질 음성
+  'google us english', 'google uk english',
+  // Windows 고품질 음성
+  'zira', 'david', 'mark',
+  // macOS 고품질 음성
+  'alex', 'victoria', 'kate',
+]
 
 // 음성 성별 추정
 function detectGender(voice: SpeechSynthesisVoice): 'male' | 'female' | 'unknown' {
@@ -114,9 +129,27 @@ export function TTSProvider({ children }: { children: ReactNode }) {
           }
         }
       } else if (englishVoices.length > 0) {
-        // 기본 여성 음성 선택
-        const defaultFemale = englishVoices.find(v => v.gender === 'female')
-        setSettingsState(prev => ({ ...prev, selectedVoice: defaultFemale || englishVoices[0] }))
+        // 모바일 최적화: 우선순위 음성 선택
+        let bestVoice = englishVoices[0]
+
+        // 우선순위 목록에서 음성 찾기
+        for (const preferred of PREFERRED_VOICES) {
+          const found = englishVoices.find(v =>
+            v.name.toLowerCase().includes(preferred)
+          )
+          if (found) {
+            bestVoice = found
+            break
+          }
+        }
+
+        // 우선순위에 없으면 여성 음성 선호
+        if (bestVoice === englishVoices[0]) {
+          const femaleVoice = englishVoices.find(v => v.gender === 'female')
+          if (femaleVoice) bestVoice = femaleVoice
+        }
+
+        setSettingsState(prev => ({ ...prev, selectedVoice: bestVoice }))
       }
 
       setIsLoaded(true)

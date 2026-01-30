@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import BottomNav from '@/components/BottomNav'
+import { useTTS } from '@/contexts/TTSContext'
+import { addLearningRecord } from '@/lib/learningHistory'
 
 interface VocabWord {
   word: string
@@ -38,6 +41,7 @@ const LEVEL_COLORS: Record<string, string> = {
 }
 
 export default function VocabularyPage() {
+  const { speak } = useTTS()
   const [state, setState] = useState<LearningState>({
     currentWord: null,
     userAnswer: '',
@@ -106,7 +110,15 @@ export default function VocabularyPage() {
   const checkAnswer = async () => {
     if (!state.currentWord) return
 
-    const isCorrect = state.userAnswer.toLowerCase().trim() === state.currentWord.word.toLowerCase().trim()
+    // 모드에 따라 정답 체크 방식 변경
+    let isCorrect = false
+    if (mode === 'meaning') {
+      // 뜻 맞추기: 한국어 뜻 비교
+      isCorrect = state.userAnswer.trim() === state.currentWord.meaning
+    } else {
+      // 철자/듣기 맞추기: 영어 단어 비교
+      isCorrect = state.userAnswer.toLowerCase().trim() === state.currentWord.word.toLowerCase().trim()
+    }
 
     setState(prev => ({
       ...prev,
@@ -116,6 +128,18 @@ export default function VocabularyPage() {
       streak: isCorrect ? prev.streak + 1 : 0,
       levelProgress: isCorrect ? prev.levelProgress + 10 : Math.max(0, prev.levelProgress - 5),
     }))
+
+    // 학습 기록 저장
+    addLearningRecord({
+      type: 'vocabulary',
+      title: state.currentWord.word,
+      word: state.currentWord.word,
+      details: {
+        correctCount: isCorrect ? 1 : 0,
+        totalCount: 1,
+        level: state.currentLevel,
+      },
+    })
 
     // 레벨업 체크
     if (isCorrect && state.levelProgress >= 90) {
@@ -201,11 +225,8 @@ export default function VocabularyPage() {
   }
 
   const speakWord = () => {
-    if ('speechSynthesis' in window && state.currentWord) {
-      const utterance = new SpeechSynthesisUtterance(state.currentWord.word)
-      utterance.lang = 'en-US'
-      utterance.rate = 0.8
-      speechSynthesis.speak(utterance)
+    if (state.currentWord) {
+      speak(state.currentWord.word)
     }
   }
 
@@ -224,23 +245,30 @@ export default function VocabularyPage() {
     )
   }
 
+  // 단어에서 불필요한 특수문자(:) 제거
+  const cleanWord = (word: string) => word.replace(/:/g, '').trim()
+
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
       {/* Level Up Animation */}
       {showLevelUp && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
           <div className="bg-white rounded-3xl p-8 text-center animate-bounce">
-            <div className="text-6xl mb-4">🎉</div>
+            <div className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
             <h2 className="text-2xl font-bold mb-2">Level Up!</h2>
             <p className="text-[#8a8a8a]">
-              {state.currentLevel} → {LEVELS[LEVELS.indexOf(state.currentLevel) + 1]}
+              {state.currentLevel} &rarr; {LEVELS[LEVELS.indexOf(state.currentLevel) + 1]}
             </p>
           </div>
         </div>
       )}
 
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4">
+      {/* Header - Fixed */}
+      <header className="fixed top-0 left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4 pt-safe">
         <div className="flex items-center justify-between">
           <Link href="/" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,7 +305,7 @@ export default function VocabularyPage() {
           </div>
           <div className="w-px h-8 bg-[#e5e5e5]" />
           <div className="text-center">
-            <p className="text-lg font-medium">🔥 {state.streak}</p>
+            <p className="text-lg font-medium">{state.streak}</p>
             <p className="text-[10px] text-[#8a8a8a]">연속</p>
           </div>
           <div className="w-px h-8 bg-[#e5e5e5]" />
@@ -287,6 +315,9 @@ export default function VocabularyPage() {
           </div>
         </div>
       </header>
+
+      {/* Spacer for fixed header */}
+      <div className="h-48" />
 
       {/* Mode Selector */}
       <div className="px-6 py-4">
@@ -318,16 +349,32 @@ export default function VocabularyPage() {
             {/* Word Display */}
             {mode === 'meaning' && (
               <>
-                <p className="text-3xl font-light mb-2">{state.currentWord.word}</p>
+                <p className="text-3xl font-light mb-2">{cleanWord(state.currentWord.word)}</p>
                 <button onClick={speakWord} className="text-[#8a8a8a] hover:text-[#1a1a1a]">
                   <svg className="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
                   </svg>
                 </button>
-                {state.showAnswer ? (
-                  <p className="text-xl text-[#1a1a1a] mt-4">{state.currentWord.meaning}</p>
-                ) : (
-                  <p className="text-[#c5c5c5] mt-4">이 단어의 뜻은?</p>
+                <input
+                  type="text"
+                  value={state.userAnswer}
+                  onChange={e => setState(prev => ({ ...prev, userAnswer: e.target.value }))}
+                  onKeyDown={e => e.key === 'Enter' && !state.showAnswer && checkAnswer()}
+                  placeholder="한국어 뜻을 입력하세요"
+                  className="w-full text-center text-xl py-3 mt-4 border-b-2 border-[#e5e5e5] focus:border-[#1a1a1a] outline-none bg-transparent"
+                  disabled={state.showAnswer}
+                  autoFocus
+                />
+                {state.showAnswer && (
+                  <p className={`mt-4 text-lg ${
+                    state.userAnswer.trim() === state.currentWord.meaning
+                      ? 'text-green-500'
+                      : 'text-red-500'
+                  }`}>
+                    {state.userAnswer.trim() === state.currentWord.meaning
+                      ? '정답!'
+                      : `정답: ${state.currentWord.meaning}`}
+                  </p>
                 )}
               </>
             )}
@@ -347,13 +394,13 @@ export default function VocabularyPage() {
                 />
                 {state.showAnswer && (
                   <p className={`mt-4 text-lg ${
-                    state.userAnswer.toLowerCase().trim() === state.currentWord.word.toLowerCase()
+                    state.userAnswer.toLowerCase().trim() === cleanWord(state.currentWord.word).toLowerCase()
                       ? 'text-green-500'
                       : 'text-red-500'
                   }`}>
-                    {state.userAnswer.toLowerCase().trim() === state.currentWord.word.toLowerCase()
-                      ? '✓ 정답!'
-                      : `✗ 정답: ${state.currentWord.word}`}
+                    {state.userAnswer.toLowerCase().trim() === cleanWord(state.currentWord.word).toLowerCase()
+                      ? '정답!'
+                      : `정답: ${cleanWord(state.currentWord.word)}`}
                   </p>
                 )}
               </>
@@ -381,13 +428,13 @@ export default function VocabularyPage() {
                 />
                 {state.showAnswer && (
                   <p className={`mt-4 text-lg ${
-                    state.userAnswer.toLowerCase().trim() === state.currentWord.word.toLowerCase()
+                    state.userAnswer.toLowerCase().trim() === cleanWord(state.currentWord.word).toLowerCase()
                       ? 'text-green-500'
                       : 'text-red-500'
                   }`}>
-                    {state.userAnswer.toLowerCase().trim() === state.currentWord.word.toLowerCase()
-                      ? '✓ 정답!'
-                      : `✗ 정답: ${state.currentWord.word}`}
+                    {state.userAnswer.toLowerCase().trim() === cleanWord(state.currentWord.word).toLowerCase()
+                      ? '정답!'
+                      : `정답: ${cleanWord(state.currentWord.word)}`}
                   </p>
                 )}
               </>
@@ -408,10 +455,10 @@ export default function VocabularyPage() {
           <div className="mt-6 space-y-3">
             {!state.showAnswer ? (
               <button
-                onClick={mode === 'meaning' ? () => setState(prev => ({ ...prev, showAnswer: true })) : checkAnswer}
+                onClick={checkAnswer}
                 className="w-full py-4 bg-[#1a1a1a] text-white rounded-xl font-medium"
               >
-                {mode === 'meaning' ? '정답 보기' : '확인'}
+                확인
               </button>
             ) : (
               <>
@@ -439,8 +486,7 @@ export default function VocabularyPage() {
           {/* Expanded Content */}
           {expandedWord && relatedContent && (
             <div className="mt-6 bg-white rounded-2xl border border-[#f0f0f0] p-5 space-y-4">
-              <h3 className="font-medium flex items-center gap-2">
-                <span className="text-lg">📚</span>
+              <h3 className="font-medium">
                 "{expandedWord}" 확장 학습
               </h3>
 
@@ -520,27 +566,7 @@ export default function VocabularyPage() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">
-        <div className="flex items-center justify-around py-5">
-          <Link href="/" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">홈</span>
-          </Link>
-          <Link href="/chat" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">대화</span>
-          </Link>
-          <Link href="/vocabulary" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]" />
-            <span className="text-[10px] text-[#1a1a1a] tracking-wide">단어</span>
-          </Link>
-          <Link href="/community" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">커뮤니티</span>
-          </Link>
-        </div>
-      </nav>
+      <BottomNav />
     </main>
   )
 }

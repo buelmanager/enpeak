@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense, useRef } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useTTS } from '@/contexts/TTSContext'
-import TTSSettingsModal from '@/components/TTSSettingsModal'
+import BottomNav from '@/components/BottomNav'
 
 interface CommunityScenario {
   id: string
@@ -115,7 +115,6 @@ function CommunityContent() {
   const [inputText, setInputText] = useState('')
   const [isRoleplayLoading, setIsRoleplayLoading] = useState(false)
   const [showRoleplayModal, setShowRoleplayModal] = useState(false)
-  const [showTTSSettings, setShowTTSSettings] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { speak, stop, isSpeaking } = useTTS()
 
@@ -309,37 +308,36 @@ function CommunityContent() {
       i === idx ? { ...m, isTranslating: true } : m
     ))
 
-    // 번역 요청 - /api/translate 시도, 실패시 /api/chat 사용
+    // 번역 요청 - MyMemory 무료 번역 API 사용
     try {
       let translation = ''
 
-      // 먼저 번역 전용 API 시도
-      const translateResponse = await fetch(`${API_BASE}/api/translate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: msg.content,
-          target_lang: 'ko'
-        }),
-      })
+      // MyMemory 무료 번역 API 사용
+      const encodedText = encodeURIComponent(msg.content)
+      const translateResponse = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|ko`
+      )
 
       if (translateResponse.ok) {
         const data = await translateResponse.json()
-        translation = data.translation
-      } else {
-        // 폴백: /api/chat 사용
-        const chatResponse = await fetch(`${API_BASE}/api/chat`, {
+        if (data.responseStatus === 200 && data.responseData?.translatedText) {
+          translation = data.responseData.translatedText
+        }
+      }
+
+      // 폴백: 백엔드 API 시도
+      if (!translation) {
+        const backendResponse = await fetch(`${API_BASE}/api/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            message: `[TRANSLATE] "${msg.content}"`,
+            text: msg.content,
+            target_lang: 'ko'
           }),
         })
-        if (chatResponse.ok) {
-          const data = await chatResponse.json()
-          // 응답에서 한국어만 추출 시도
-          const koreanMatch = data.message.match(/[가-힣\s.,!?]+/g)
-          translation = koreanMatch ? koreanMatch.join(' ').trim() : data.message
+        if (backendResponse.ok) {
+          const data = await backendResponse.json()
+          translation = data.translation
         }
       }
 
@@ -361,7 +359,7 @@ function CommunityContent() {
   }
 
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28 pt-safe">
       {/* Toast */}
       {showPublishedToast && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-[#1a1a1a] text-white rounded-full text-sm shadow-lg">
@@ -370,7 +368,7 @@ function CommunityContent() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4">
+      <header className="sticky top-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4 mt-safe">
         <div className="flex items-center justify-between">
           <Link href="/" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -487,7 +485,7 @@ function CommunityContent() {
       {showRoleplayModal && selectedScenario && (
         <div className="fixed inset-0 z-50 bg-[#faf9f7] flex flex-col">
           {/* Modal Header */}
-          <header className="bg-white border-b border-[#f0f0f0] px-4 py-3 flex items-center justify-between">
+          <header className="bg-white border-b border-[#f0f0f0] px-4 py-3 pt-safe flex items-center justify-between">
             <button onClick={closeRoleplay} className="p-2 -ml-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -501,12 +499,7 @@ function CommunityContent() {
                 </p>
               )}
             </div>
-            <button onClick={() => setShowTTSSettings(true)} className="p-2 -mr-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </button>
+            <div className="w-9" />
           </header>
 
           {/* Learning Tip */}
@@ -641,30 +634,7 @@ function CommunityContent() {
         </div>
       )}
 
-      {/* TTS Settings Modal */}
-      <TTSSettingsModal isOpen={showTTSSettings} onClose={() => setShowTTSSettings(false)} />
-
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">
-        <div className="flex items-center justify-around py-5">
-          <Link href="/" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">홈</span>
-          </Link>
-          <Link href="/chat" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">대화</span>
-          </Link>
-          <Link href="/create" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
-            <span className="text-[10px] text-[#8a8a8a] tracking-wide">만들기</span>
-          </Link>
-          <Link href="/community" className="flex flex-col items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]" />
-            <span className="text-[10px] text-[#1a1a1a] tracking-wide">커뮤니티</span>
-          </Link>
-        </div>
-      </nav>
+      <BottomNav />
     </main>
   )
 }

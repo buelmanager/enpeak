@@ -4,6 +4,7 @@ import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { TTSProvider } from '@/contexts/TTSContext'
 import { VersionCheck } from '@/components/VersionCheck'
+import PWAInstallGuide from '@/components/PWAInstallGuide'
 
 export const metadata: Metadata = {
   title: 'EnPeak - AI English Learning',
@@ -55,6 +56,7 @@ export default function RootLayout({
         <AuthProvider>
           <TTSProvider>
             {children}
+            <PWAInstallGuide />
           </TTSProvider>
         </AuthProvider>
         <ServiceWorkerRegister />
