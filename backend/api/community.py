@@ -517,6 +517,9 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
     current_stage = stages[current_stage_num - 1] if current_stage_num <= len(stages) else stages[-1]
 
     # LLM으로 응답 생성
+    ai_response = ""
+    suggested_responses = []
+
     try:
         llm = req.app.state.llm
         if llm:
@@ -525,6 +528,7 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
                 for m in session["conversation_history"][-6:]
             ])
 
+            # AI 응답과 추천 응답을 함께 생성
             prompt = f"""You are an English conversation partner in this scenario:
 - Title: {scenario.get('title')}
 - Place: {scenario.get('place')}
@@ -534,22 +538,42 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
 Conversation so far:
 {history_text}
 
-Respond naturally as an English speaker would. Keep your response concise (1-2 sentences).
-If the conversation seems complete for this stage, guide towards the next topic naturally.
-Do NOT use any emojis."""
+Respond as JSON with this format:
+{{"response": "Your natural English response (1-2 sentences)", "suggestions": ["Suggested reply 1", "Suggested reply 2"]}}
 
-            ai_response = llm.generate(
+The suggestions should be appropriate responses the user could say next based on your response.
+Do NOT use any emojis. Output ONLY valid JSON."""
+
+            llm_output = llm.generate(
                 prompt=prompt,
-                system_prompt="You are a helpful English conversation partner. Respond naturally in English. Do NOT use any emojis.",
-                max_tokens=100,
+                system_prompt="Output only valid JSON. No emojis.",
+                max_tokens=200,
                 temperature=0.8,
             )
-        else:
-            # Fallback
+
+            # JSON 파싱 시도
+            try:
+                llm_output = llm_output.strip()
+                if llm_output.startswith("```"):
+                    llm_output = llm_output.split("```")[1]
+                    if llm_output.startswith("json"):
+                        llm_output = llm_output[4:]
+
+                parsed = json.loads(llm_output)
+                ai_response = parsed.get("response", "")
+                suggested_responses = parsed.get("suggestions", [])
+            except json.JSONDecodeError:
+                # JSON 파싱 실패 시 텍스트 그대로 사용
+                ai_response = llm_output
+                suggested_responses = current_stage.get("suggested_responses", [])
+
+        if not ai_response:
             ai_response = "That sounds great! Is there anything else I can help you with?"
+            suggested_responses = ["Yes, I have another question.", "No, that's all. Thank you!"]
     except Exception as e:
         logger.warning(f"LLM error in community roleplay: {e}")
         ai_response = "I understand. Please continue, I'm here to help you practice."
+        suggested_responses = ["Sure, let me try again.", "Can you give me an example?"]
 
     # AI 응답 저장
     session["conversation_history"].append({
@@ -572,13 +596,17 @@ Do NOT use any emojis."""
     # 다음 스테이지 정보
     next_stage_info = stages[next_stage - 1] if next_stage <= len(stages) else stages[-1]
 
+    # 스테이지가 바뀌면 해당 스테이지의 suggested_responses 사용
+    if next_stage != current_stage_num:
+        suggested_responses = next_stage_info.get("suggested_responses", suggested_responses)
+
     return {
         "session_id": session_id,
         "ai_message": ai_response,
         "current_stage": next_stage,
         "total_stages": len(stages),
         "learning_tip": next_stage_info.get("learning_tip"),
-        "suggested_responses": next_stage_info.get("suggested_responses", []),
+        "suggested_responses": suggested_responses,
         "is_complete": is_complete,
     }
 
