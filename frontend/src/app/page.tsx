@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 import { logOut } from '@/lib/firebase'
 import { useState, useEffect } from 'react'
+import { APP_VERSION } from '@/lib/version'
 
 interface UserStats {
   todayConversations: number
@@ -244,6 +245,9 @@ export default function Home() {
             <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
             <span className="text-[10px] text-[#8a8a8a] tracking-wide">커뮤니티</span>
           </Link>
+        </div>
+        <div className="text-center pb-2">
+          <span className="text-[8px] text-[#c5c5c5]">v{APP_VERSION}</span>
         </div>
       </nav>
     </main>

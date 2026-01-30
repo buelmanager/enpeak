@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import '../styles/globals.css'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { VersionCheck } from '@/components/VersionCheck'
 
 export const metadata: Metadata = {
   title: 'EnPeak - AI English Learning',
@@ -49,6 +50,7 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className="antialiased bg-[#faf9f7]">
+        <VersionCheck />
         <AuthProvider>
           {children}
         </AuthProvider>

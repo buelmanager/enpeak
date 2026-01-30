@@ -38,6 +38,7 @@ interface Message {
   content: string
   translation?: string
   showTranslation?: boolean
+  isTranslating?: boolean
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
@@ -281,6 +282,16 @@ function CommunityContent() {
     setInputText(suggestion)
   }
 
+  const speakMessage = (text: string) => {
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel()
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.lang = 'en-US'
+      utterance.rate = 0.9
+      speechSynthesis.speak(utterance)
+    }
+  }
+
   const translateMessage = async (idx: number) => {
     const msg = messages[idx]
     if (msg.translation) {
@@ -290,6 +301,11 @@ function CommunityContent() {
       ))
       return
     }
+
+    // 번역 중 상태 표시
+    setMessages(prev => prev.map((m, i) =>
+      i === idx ? { ...m, isTranslating: true } : m
+    ))
 
     // 번역 요청
     try {
@@ -305,11 +321,18 @@ function CommunityContent() {
       if (response.ok) {
         const data = await response.json()
         setMessages(prev => prev.map((m, i) =>
-          i === idx ? { ...m, translation: data.response, showTranslation: true } : m
+          i === idx ? { ...m, translation: data.response, showTranslation: true, isTranslating: false } : m
+        ))
+      } else {
+        setMessages(prev => prev.map((m, i) =>
+          i === idx ? { ...m, isTranslating: false } : m
         ))
       }
     } catch (error) {
       console.error('Translation failed:', error)
+      setMessages(prev => prev.map((m, i) =>
+        i === idx ? { ...m, isTranslating: false } : m
+      ))
     }
   }
 
@@ -489,17 +512,34 @@ function CommunityContent() {
                       </div>
                     )}
                   </div>
-                  {/* 번역 버튼 */}
-                  <button
-                    onClick={() => translateMessage(idx)}
-                    className={`mt-1 px-2 py-0.5 text-[10px] rounded transition-colors ${
-                      msg.showTranslation && msg.translation
-                        ? 'text-blue-600 bg-blue-50'
-                        : 'text-[#8a8a8a] hover:text-[#1a1a1a] hover:bg-[#f5f5f5]'
-                    }`}
-                  >
-                    {msg.showTranslation && msg.translation ? '번역 숨기기' : '번역'}
-                  </button>
+                  {/* 스피커 + 번역 버튼 */}
+                  <div className={`flex items-center gap-1 mt-1.5 ${msg.role === 'user' ? 'mr-1 justify-end' : 'ml-1'}`}>
+                    {/* 음성 재생 버튼 */}
+                    <button
+                      onClick={() => speakMessage(msg.content)}
+                      className="p-1.5 text-[#c5c5c5] hover:text-[#1a1a1a] transition-colors"
+                      title="Listen"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                      </svg>
+                    </button>
+                    {/* 번역 버튼 */}
+                    <button
+                      onClick={() => translateMessage(idx)}
+                      disabled={msg.isTranslating}
+                      className={`p-1.5 transition-colors ${
+                        msg.showTranslation && msg.translation
+                          ? 'text-[#1a1a1a]'
+                          : 'text-[#c5c5c5] hover:text-[#1a1a1a]'
+                      } ${msg.isTranslating ? 'opacity-50' : ''}`}
+                      title={msg.showTranslation ? '번역 숨기기' : '번역 보기'}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                      </svg>
+                    </button>
+                  </div>
                   {/* 추천 응답 - 마지막 AI 메시지 바로 아래 */}
                   {isLastAssistant && !isRoleplayLoading && roleplaySession?.suggestedResponses && roleplaySession.suggestedResponses.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">

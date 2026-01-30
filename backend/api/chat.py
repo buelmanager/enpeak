@@ -89,6 +89,9 @@ async def chat(request: ChatRequest, req: Request):
         # 더 나은 표현 제안 생성
         better_expressions = await generate_better_expressions(llm, request.message)
 
+        # 학습 팁 생성 (사용자 메시지에 개선점이 있을 때만)
+        learning_tip = await generate_learning_tip(llm, request.message, response)
+
         logger.info(f"Chat response generated for conversation {conversation_id[:8]}...")
 
         return ChatResponse(
@@ -97,7 +100,7 @@ async def chat(request: ChatRequest, req: Request):
             suggestions=suggestions,
             better_expressions=better_expressions,
             grammar_feedback=None,  # TODO: 별도 분석
-            learning_tip=None,  # TODO: 별도 생성
+            learning_tip=learning_tip,
         )
 
     except Exception as e:
@@ -172,6 +175,45 @@ async def generate_suggestions(llm, context: str, ai_message: str) -> List[str]:
     except Exception as e:
         logger.warning(f"Failed to generate suggestions: {e}")
         return ["I see!", "That sounds great!", "Can you tell me more?"]
+
+
+async def generate_learning_tip(llm, user_message: str, ai_response: str) -> Optional[str]:
+    """사용자 메시지에 대한 학습 팁 생성 (개선점이 있을 때만)"""
+    try:
+        # 너무 짧은 메시지는 스킵
+        if len(user_message.split()) < 3:
+            return None
+
+        prompt = f"""Analyze this English sentence from a Korean learner and provide a brief learning tip ONLY if there's something to improve or a useful expression to learn.
+
+User said: "{user_message}"
+
+If the sentence is good, output: null
+If there's a tip to share, output a SHORT tip (1 sentence, max 15 words) in Korean.
+
+Focus on:
+- Grammar corrections (if any)
+- More natural expressions
+- Common mistakes Korean speakers make
+
+Output ONLY the tip in Korean, or the word "null" if no tip needed:"""
+
+        result = llm.generate(
+            prompt=prompt,
+            system_prompt="You are a helpful English tutor. Output only the tip or null.",
+            max_tokens=50,
+            temperature=0.5,
+        )
+
+        result = result.strip()
+        if result.lower() == "null" or not result or len(result) < 5:
+            return None
+
+        return result
+
+    except Exception as e:
+        logger.warning(f"Failed to generate learning tip: {e}")
+        return None
 
 
 @router.delete("/chat/{conversation_id}")
