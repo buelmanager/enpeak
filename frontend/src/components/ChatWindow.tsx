@@ -8,6 +8,8 @@ interface Message {
   id: string
   role: 'user' | 'assistant'
   content: string
+  suggestions?: string[]
+  betterExpressions?: string[]
   learningTip?: string
 }
 
@@ -59,10 +61,26 @@ export default function ChatWindow() {
         setConversationId(data.conversation_id)
       }
 
+      // 이전 사용자 메시지에 더 나은 표현 추가
+      if (data.better_expressions && data.better_expressions.length > 0) {
+        setMessages(prev => {
+          const updated = [...prev]
+          const lastUserIdx = updated.length - 1
+          if (lastUserIdx >= 0 && updated[lastUserIdx].role === 'user') {
+            updated[lastUserIdx] = {
+              ...updated[lastUserIdx],
+              betterExpressions: data.better_expressions,
+            }
+          }
+          return updated
+        })
+      }
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.message,
+        suggestions: data.suggestions?.slice(0, 2), // 2개만 저장
         learningTip: data.learning_tip,
       }
 
@@ -89,27 +107,45 @@ export default function ChatWindow() {
     sendMessage(text)
   }
 
+  const handleSuggestionClick = (suggestion: string) => {
+    sendMessage(suggestion)
+  }
+
+  // 마지막 AI 메시지 인덱스 찾기
+  const lastAssistantIndex = messages.reduce((lastIdx, msg, idx) =>
+    msg.role === 'assistant' ? idx : lastIdx, -1
+  )
+
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-[#faf9f7]">
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
         {messages.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
+          <div className="flex flex-col items-center justify-center h-full py-12">
+            {/* Breathing Circle */}
+            <div className="relative mb-8">
+              <div className="w-32 h-32 rounded-full border border-[#e5e5e5] flex items-center justify-center">
+                <div className="w-24 h-24 rounded-full border border-[#d5d5d5] flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#1a1a1a] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">Start a Conversation!</h2>
-            <p className="text-gray-600 text-sm max-w-xs mx-auto">
-              Say anything in English. I'll chat with you and help improve your speaking skills.
+
+            <h2 className="text-lg font-light text-[#1a1a1a] mb-2 tracking-wide">대화를 시작해보세요</h2>
+            <p className="text-sm text-[#8a8a8a] max-w-xs text-center leading-relaxed">
+              영어로 자유롭게 이야기해보세요. AI가 대화를 도와드립니다.
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-2">
-              {['Hello!', 'How are you?', "What's the weather like?"].map(suggestion => (
+
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              {['Hello!', 'How are you?', "Nice to meet you"].map(suggestion => (
                 <button
                   key={suggestion}
                   onClick={() => sendMessage(suggestion)}
-                  className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="px-4 py-2 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:border-[#1a1a1a] transition-colors"
                 >
                   {suggestion}
                 </button>
@@ -117,19 +153,24 @@ export default function ChatWindow() {
             </div>
           </div>
         ) : (
-          messages.map(message => (
-            <MessageBubble key={message.id} message={message} />
+          messages.map((message, idx) => (
+            <MessageBubble
+              key={message.id}
+              message={message}
+              onSuggestionClick={handleSuggestionClick}
+              isLatest={idx === lastAssistantIndex && !loading}
+            />
           ))
         )}
 
         {loading && (
-          <div className="flex items-center gap-2 text-gray-500">
+          <div className="flex items-center gap-3 text-[#8a8a8a]">
             <div className="flex gap-1">
-              <div className="w-2 h-2 bg-gray-400 rounded-full loading-dot" />
-              <div className="w-2 h-2 bg-gray-400 rounded-full loading-dot" />
-              <div className="w-2 h-2 bg-gray-400 rounded-full loading-dot" />
+              <div className="w-2 h-2 bg-[#c5c5c5] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-2 h-2 bg-[#c5c5c5] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-2 h-2 bg-[#c5c5c5] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
-            <span className="text-sm">Thinking...</span>
+            <span className="text-xs tracking-wide">생각 중...</span>
           </div>
         )}
 
@@ -137,24 +178,24 @@ export default function ChatWindow() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t bg-white p-4">
-        <form onSubmit={handleSubmit} className="flex gap-2">
+      <div className="border-t border-[#f0f0f0] bg-[#faf9f7] px-6 py-4">
+        <form onSubmit={handleSubmit} className="flex items-center gap-3">
           <input
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="Type in English..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="영어로 입력하세요..."
+            className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#1a1a1a] transition-colors"
             disabled={loading}
           />
           <VoiceRecorder onResult={handleVoiceResult} disabled={loading} />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-12 h-12 bg-[#1a1a1a] text-white rounded-full flex items-center justify-center hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </button>
         </form>

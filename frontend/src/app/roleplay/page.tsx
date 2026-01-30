@@ -9,7 +9,6 @@ const scenarios = [
     titleEn: 'Ordering at a Cafe',
     category: 'daily',
     difficulty: 'Beginner',
-    icon: '☕',
     description: '카페에서 음료를 주문하는 연습',
   },
   {
@@ -18,7 +17,6 @@ const scenarios = [
     titleEn: 'Hotel Check-in',
     category: 'travel',
     difficulty: 'Beginner',
-    icon: '🏨',
     description: '호텔에서 체크인하는 상황 연습',
   },
   {
@@ -27,7 +25,6 @@ const scenarios = [
     titleEn: 'Restaurant Ordering',
     category: 'daily',
     difficulty: 'Beginner',
-    icon: '🍽️',
     description: '레스토랑에서 음식 주문하기',
   },
   {
@@ -36,7 +33,6 @@ const scenarios = [
     titleEn: 'Airport Check-in',
     category: 'travel',
     difficulty: 'Intermediate',
-    icon: '✈️',
     description: '공항에서 탑승 수속하기',
   },
   {
@@ -45,7 +41,6 @@ const scenarios = [
     titleEn: 'Shopping for Clothes',
     category: 'daily',
     difficulty: 'Intermediate',
-    icon: '🛍️',
     description: '옷 가게에서 쇼핑하기',
   },
   {
@@ -54,101 +49,115 @@ const scenarios = [
     titleEn: 'Job Interview',
     category: 'business',
     difficulty: 'Advanced',
-    icon: '💼',
     description: '영어로 채용 면접 보기',
   },
 ]
 
-const getCategoryStyle = (category: string) => {
-  switch (category) {
-    case 'daily':
-      return 'scenario-card-daily'
-    case 'travel':
-      return 'scenario-card-travel'
-    case 'business':
-      return 'scenario-card-business'
-    default:
-      return 'bg-gray-500'
-  }
-}
-
-const getDifficultyColor = (difficulty: string) => {
+const getDifficultyStyle = (difficulty: string) => {
   switch (difficulty) {
     case 'Beginner':
-      return 'text-green-600 bg-green-50'
+      return 'text-[#1a1a1a]'
     case 'Intermediate':
-      return 'text-amber-600 bg-amber-50'
+      return 'text-[#666]'
     case 'Advanced':
-      return 'text-red-600 bg-red-50'
+      return 'text-[#8a8a8a]'
     default:
-      return 'text-gray-600 bg-gray-50'
+      return 'text-[#8a8a8a]'
   }
 }
 
 export default function RoleplayPage() {
   return (
-    <main className="min-h-screen bg-slate-50 safe-area-top pb-20">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
       {/* Header */}
-      <header className="bg-white border-b border-gray-100 px-5 py-4 sticky top-0 z-10">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="text-gray-600">
+      <header className="px-6 pt-16 pb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[#8a8a8a] text-sm tracking-wide">Practice</p>
+            <h1 className="text-3xl font-light mt-2 tracking-tight">
+              상황별 <span className="font-medium">연습</span>
+            </h1>
+          </div>
+          <Link href="/" className="text-[#8a8a8a] hover:text-[#1a1a1a] transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </Link>
-          <h1 className="text-lg font-semibold text-gray-900">상황별 롤플레이</h1>
         </div>
       </header>
 
-      <div className="px-5 py-6">
+      <div className="px-6">
         {/* Intro */}
-        <div className="mb-6">
-          <p className="text-gray-600 text-sm">
-            실제 상황을 연습하며 자연스러운 영어 표현을 익혀보세요.
-          </p>
-        </div>
+        <p className="text-sm text-[#8a8a8a] mb-8 leading-relaxed">
+          실제 상황을 연습하며 자연스러운 영어 표현을 익혀보세요.
+        </p>
 
         {/* Category Filter */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium whitespace-nowrap">
+        <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
+          <button className="px-4 py-2 bg-[#1a1a1a] text-white rounded-full text-sm tracking-wide whitespace-nowrap">
             전체
           </button>
-          <button className="px-4 py-2 bg-white text-gray-600 rounded-full text-sm border border-gray-200 whitespace-nowrap">
+          <button className="px-4 py-2 bg-white text-[#8a8a8a] rounded-full text-sm border border-[#e5e5e5] whitespace-nowrap hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors">
             일상
           </button>
-          <button className="px-4 py-2 bg-white text-gray-600 rounded-full text-sm border border-gray-200 whitespace-nowrap">
+          <button className="px-4 py-2 bg-white text-[#8a8a8a] rounded-full text-sm border border-[#e5e5e5] whitespace-nowrap hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors">
             여행
           </button>
-          <button className="px-4 py-2 bg-white text-gray-600 rounded-full text-sm border border-gray-200 whitespace-nowrap">
+          <button className="px-4 py-2 bg-white text-[#8a8a8a] rounded-full text-sm border border-[#e5e5e5] whitespace-nowrap hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors">
             비즈니스
           </button>
         </div>
 
         {/* Scenario List */}
-        <div className="space-y-3">
-          {scenarios.map(scenario => (
+        <div className="space-y-1">
+          {scenarios.map((scenario, idx) => (
             <Link key={scenario.id} href={`/roleplay/${scenario.id}`}>
-              <div className="bg-white rounded-2xl p-4 border border-gray-100 flex items-center gap-4 active:scale-[0.98] transition-transform">
-                <div className={`w-14 h-14 ${getCategoryStyle(scenario.category)} rounded-xl flex items-center justify-center flex-shrink-0`}>
-                  <span className="text-2xl">{scenario.icon}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-medium text-gray-900">{scenario.title}</h3>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getDifficultyColor(scenario.difficulty)}`}>
-                      {scenario.difficulty}
+              <div className="flex items-center justify-between py-4 border-b border-[#f0f0f0] active:bg-[#f5f5f5] transition-colors">
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-full ${idx < 3 ? 'bg-[#1a1a1a]' : 'border-2 border-[#1a1a1a]'} flex items-center justify-center`}>
+                    <span className={`text-sm ${idx < 3 ? 'text-white' : 'text-[#1a1a1a]'}`}>
+                      {String(idx + 1).padStart(2, '0')}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-500 truncate">{scenario.titleEn}</p>
+                  <div>
+                    <h4 className="font-medium text-sm">{scenario.title}</h4>
+                    <p className="text-xs text-[#8a8a8a] mt-0.5">
+                      <span className={getDifficultyStyle(scenario.difficulty)}>{scenario.difficulty}</span>
+                      <span className="mx-1">·</span>
+                      {scenario.titleEn}
+                    </p>
+                  </div>
                 </div>
-                <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg className="w-5 h-5 text-[#c5c5c5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
             </Link>
           ))}
         </div>
       </div>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">
+        <div className="flex items-center justify-around py-5">
+          <Link href="/" className="flex flex-col items-center gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+            <span className="text-[10px] text-[#8a8a8a] tracking-wide">홈</span>
+          </Link>
+          <Link href="/chat" className="flex flex-col items-center gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+            <span className="text-[10px] text-[#8a8a8a] tracking-wide">대화</span>
+          </Link>
+          <Link href="/roleplay" className="flex flex-col items-center gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]" />
+            <span className="text-[10px] text-[#1a1a1a] tracking-wide">연습</span>
+          </Link>
+          <button className="flex flex-col items-center gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+            <span className="text-[10px] text-[#8a8a8a] tracking-wide">설정</span>
+          </button>
+        </div>
+      </nav>
     </main>
   )
 }

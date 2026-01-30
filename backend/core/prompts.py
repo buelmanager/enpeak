@@ -126,6 +126,43 @@ Generate a learning report in this JSON format:
 
 Output only valid JSON:"""
 
+# 더 나은 표현 제안 프롬프트
+BETTER_EXPRESSION_PROMPT = """A Korean English learner said: "{user_message}"
+
+Suggest 1-2 better, more natural, or commonly used English expressions for what they said.
+
+Requirements:
+1. Only suggest if there's a meaningfully better way to say it
+2. Keep suggestions short and practical
+3. Focus on expressions native speakers commonly use
+4. If the original is already natural, return empty array
+
+Output ONLY a JSON array (can be empty if original is good):
+["better expression 1", "better expression 2"]
+
+Examples:
+- "I am happy" → ["I'm so happy!", "I'm thrilled!"]
+- "Hello" → []
+- "I want to eat pizza" → ["I feel like having pizza", "I'm craving pizza"]"""
+
+# 응답 제안 프롬프트
+RESPONSE_SUGGESTIONS_PROMPT = """Based on this English conversation:
+
+{context}
+
+AI just said: "{ai_message}"
+
+Suggest 3 natural English responses that a Korean learner could use to continue this conversation.
+
+Requirements:
+1. Keep each suggestion short (5-15 words)
+2. Vary the responses: one simple, one intermediate, one slightly advanced
+3. Make them contextually appropriate and natural
+4. Focus on common conversational patterns
+
+Output ONLY a JSON array with 3 suggestions, no explanation:
+["suggestion 1", "suggestion 2", "suggestion 3"]"""
+
 # 발음 피드백 (placeholder - 실제 발음 분석은 별도 서비스 필요)
 PRONUNCIATION_TIP = """
 Common pronunciation tips for Korean English learners:

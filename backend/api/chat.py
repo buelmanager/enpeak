@@ -8,7 +8,8 @@ from typing import Optional, List
 import logging
 import uuid
 
-from backend.core.prompts import SYSTEM_PROMPT_ENGLISH_TUTOR, FREE_CONVERSATION_PROMPT
+from backend.core.prompts import SYSTEM_PROMPT_ENGLISH_TUTOR, FREE_CONVERSATION_PROMPT, RESPONSE_SUGGESTIONS_PROMPT, BETTER_EXPRESSION_PROMPT
+import json
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -23,6 +24,8 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     conversation_id: str
     message: str
+    suggestions: Optional[List[str]] = None
+    better_expressions: Optional[List[str]] = None
     grammar_feedback: Optional[str] = None
     learning_tip: Optional[str] = None
 
@@ -80,11 +83,19 @@ async def chat(request: ChatRequest, req: Request):
         if len(history) > 20:
             conversation_store[conversation_id] = history[-20:]
 
+        # 응답 제안 생성
+        suggestions = await generate_suggestions(llm, context, response)
+
+        # 더 나은 표현 제안 생성
+        better_expressions = await generate_better_expressions(llm, request.message)
+
         logger.info(f"Chat response generated for conversation {conversation_id[:8]}...")
 
         return ChatResponse(
             conversation_id=conversation_id,
             message=response,
+            suggestions=suggestions,
+            better_expressions=better_expressions,
             grammar_feedback=None,  # TODO: 별도 분석
             learning_tip=None,  # TODO: 별도 생성
         )
@@ -92,6 +103,75 @@ async def chat(request: ChatRequest, req: Request):
     except Exception as e:
         logger.error(f"Chat error: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to generate response: {str(e)}")
+
+
+async def generate_better_expressions(llm, user_message: str) -> List[str]:
+    """사용자 메시지에 대한 더 나은 표현 제안"""
+    try:
+        # 너무 짧은 메시지는 스킵
+        if len(user_message.split()) < 3:
+            return []
+
+        prompt = BETTER_EXPRESSION_PROMPT.format(user_message=user_message)
+
+        result = llm.generate(
+            prompt=prompt,
+            system_prompt="You are a helpful assistant. Output only valid JSON.",
+            max_tokens=100,
+            temperature=0.7,
+        )
+
+        # JSON 파싱
+        result = result.strip()
+        if result.startswith("```"):
+            result = result.split("```")[1]
+            if result.startswith("json"):
+                result = result[4:]
+
+        expressions = json.loads(result)
+
+        if isinstance(expressions, list):
+            return expressions[:2]
+
+        return []
+
+    except Exception as e:
+        logger.warning(f"Failed to generate better expressions: {e}")
+        return []
+
+
+async def generate_suggestions(llm, context: str, ai_message: str) -> List[str]:
+    """AI 응답에 대한 사용자 응답 제안 생성"""
+    try:
+        prompt = RESPONSE_SUGGESTIONS_PROMPT.format(
+            context=context if context else "This is a new conversation.",
+            ai_message=ai_message
+        )
+
+        result = llm.generate(
+            prompt=prompt,
+            system_prompt="You are a helpful assistant. Output only valid JSON.",
+            max_tokens=150,
+            temperature=0.7,
+        )
+
+        # JSON 파싱
+        result = result.strip()
+        if result.startswith("```"):
+            result = result.split("```")[1]
+            if result.startswith("json"):
+                result = result[4:]
+
+        suggestions = json.loads(result)
+
+        if isinstance(suggestions, list) and len(suggestions) >= 2:
+            return suggestions[:3]
+
+        return ["I see!", "That's interesting.", "Tell me more."]
+
+    except Exception as e:
+        logger.warning(f"Failed to generate suggestions: {e}")
+        return ["I see!", "That sounds great!", "Can you tell me more?"]
 
 
 @router.delete("/chat/{conversation_id}")
