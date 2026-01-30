@@ -95,6 +95,31 @@ def moderate_content(text: str) -> tuple[bool, str]:
     return True, "OK"
 
 
+def generate_default_suggestions(ai_message: str) -> list:
+    """AI 응답에 따른 기본 추천 응답 생성"""
+    ai_lower = ai_message.lower()
+
+    # 질문 유형에 따른 추천 응답
+    if "would you like" in ai_lower or "do you want" in ai_lower:
+        return ["Yes, please.", "No, thank you."]
+    elif "what size" in ai_lower or "which size" in ai_lower:
+        return ["Medium, please.", "Large one, please."]
+    elif "cash or card" in ai_lower or "how would you like to pay" in ai_lower:
+        return ["Card, please.", "I'll pay with cash."]
+    elif "anything else" in ai_lower:
+        return ["No, that's all. Thank you!", "Actually, can I also get..."]
+    elif "what can i get" in ai_lower or "what would you like" in ai_lower:
+        return ["I'd like to order...", "Can I get..."]
+    elif "name" in ai_lower:
+        return ["My name is...", "It's under..."]
+    elif "have a" in ai_lower and ("day" in ai_lower or "nice" in ai_lower):
+        return ["Thank you! You too!", "Thanks, have a good day!"]
+    elif "?" in ai_message:
+        return ["Yes, please.", "No, thank you."]
+    else:
+        return ["I see, thank you.", "Okay, sounds good."]
+
+
 def determine_difficulty(context: ScenarioContext, stages_count: int) -> str:
     """시나리오 난이도 자동 결정"""
     situation = context.situation.lower()
@@ -528,8 +553,8 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
                 for m in session["conversation_history"][-6:]
             ])
 
-            # AI 응답과 추천 응답을 함께 생성
-            prompt = f"""You are an English conversation partner in this scenario:
+            # 먼저 AI 응답 생성
+            response_prompt = f"""You are an English conversation partner in this scenario:
 - Title: {scenario.get('title')}
 - Place: {scenario.get('place')}
 - Situation: {scenario.get('situation')}
@@ -538,38 +563,48 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
 Conversation so far:
 {history_text}
 
-Respond as JSON with this format:
-{{"response": "Your natural English response (1-2 sentences)", "suggestions": ["Suggested reply 1", "Suggested reply 2"]}}
+Respond naturally as an English speaker would. Keep your response concise (1-2 sentences).
+Do NOT use any emojis."""
 
-The suggestions should be appropriate responses the user could say next based on your response.
-Do NOT use any emojis. Output ONLY valid JSON."""
-
-            llm_output = llm.generate(
-                prompt=prompt,
-                system_prompt="Output only valid JSON. No emojis.",
-                max_tokens=200,
+            ai_response = llm.generate(
+                prompt=response_prompt,
+                system_prompt="You are a helpful English conversation partner. Respond naturally in English. No emojis.",
+                max_tokens=100,
                 temperature=0.8,
             )
 
-            # JSON 파싱 시도
-            try:
-                llm_output = llm_output.strip()
-                if llm_output.startswith("```"):
-                    llm_output = llm_output.split("```")[1]
-                    if llm_output.startswith("json"):
-                        llm_output = llm_output[4:]
+            # 추천 응답 생성 (별도 호출)
+            suggestion_prompt = f"""Based on this conversation, suggest 2 short responses the user could say next.
 
-                parsed = json.loads(llm_output)
-                ai_response = parsed.get("response", "")
-                suggested_responses = parsed.get("suggestions", [])
-            except json.JSONDecodeError:
-                # JSON 파싱 실패 시 텍스트 그대로 사용
-                ai_response = llm_output
-                suggested_responses = current_stage.get("suggested_responses", [])
+AI just said: "{ai_response}"
+
+Output ONLY a JSON array with 2 suggestions, like: ["Response 1", "Response 2"]
+Keep each suggestion under 10 words. No emojis."""
+
+            try:
+                suggestion_output = llm.generate(
+                    prompt=suggestion_prompt,
+                    system_prompt="Output only a JSON array. No explanation.",
+                    max_tokens=80,
+                    temperature=0.7,
+                )
+
+                suggestion_output = suggestion_output.strip()
+                # JSON 배열 추출
+                if "[" in suggestion_output and "]" in suggestion_output:
+                    start = suggestion_output.index("[")
+                    end = suggestion_output.rindex("]") + 1
+                    suggested_responses = json.loads(suggestion_output[start:end])
+            except Exception as e:
+                logger.warning(f"Suggestion generation failed: {e}")
 
         if not ai_response:
             ai_response = "That sounds great! Is there anything else I can help you with?"
-            suggested_responses = ["Yes, I have another question.", "No, that's all. Thank you!"]
+
+        # 추천 응답이 없으면 기본값 생성
+        if not suggested_responses:
+            suggested_responses = generate_default_suggestions(ai_response)
+
     except Exception as e:
         logger.warning(f"LLM error in community roleplay: {e}")
         ai_response = "I understand. Please continue, I'm here to help you practice."
