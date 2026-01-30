@@ -497,15 +497,28 @@ async def get_vocabulary_by_level(level: str, limit: int = 10):
                 chunks = json.load(f)
                 for chunk in chunks:
                     metadata = chunk.get("metadata", {})
-                    if metadata.get("level", "").upper() == level:
-                        words.append({
-                            "word": metadata.get("word", chunk.get("content", "").split()[0] if chunk.get("content") else ""),
-                            "meaning": metadata.get("meaning_ko", ""),
-                            "level": level,
-                            "example": metadata.get("example", ""),
-                            "example_ko": metadata.get("example_ko", ""),
-                            "pronunciation": metadata.get("pronunciation", ""),
-                        })
+                    chunk_level = metadata.get("level", "").upper()
+                    if chunk_level == level:
+                        # word와 meaning은 최상위 레벨에 있음
+                        word_text = chunk.get("word", "")
+                        meaning_text = chunk.get("meaning", "")
+                        example_text = chunk.get("example", "")
+
+                        # metadata에서 폴백
+                        if not word_text:
+                            word_text = metadata.get("word", "")
+                        if not meaning_text:
+                            meaning_text = metadata.get("meaning_ko", metadata.get("meaning", ""))
+
+                        if word_text:
+                            words.append({
+                                "word": word_text,
+                                "meaning": meaning_text,
+                                "level": level,
+                                "example": example_text or metadata.get("example", ""),
+                                "example_ko": metadata.get("example_ko", ""),
+                                "pronunciation": metadata.get("pronunciation", ""),
+                            })
         except Exception as e:
             print(f"Error loading vocabulary: {e}")
 
