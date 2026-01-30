@@ -20,8 +20,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # 버전 정보
-APP_VERSION = "0.1.0"
-BUILD_DATE = "2026-01-30"
+APP_VERSION = "0.2.8"
+BUILD_DATE = "2026-01-31"
 BUILD_ID = "enpeak-alpha"
 
 
