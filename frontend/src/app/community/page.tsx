@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useRef } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
@@ -18,6 +18,24 @@ interface CommunityScenario {
   plays: number
   createdAt: string
   tags?: string[]
+  stages?: any[]
+}
+
+interface RoleplaySession {
+  sessionId: string
+  scenarioTitle: string
+  scenarioTitleKo?: string
+  aiMessage: string
+  currentStage: number
+  totalStages: number
+  learningTip?: string
+  suggestedResponses: string[]
+  isComplete: boolean
+}
+
+interface Message {
+  role: 'user' | 'assistant'
+  content: string
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
@@ -85,6 +103,15 @@ function CommunityContent() {
   const [filter, setFilter] = useState<'popular' | 'recent' | 'beginner'>('popular')
   const [showPublishedToast, setShowPublishedToast] = useState(false)
 
+  // 롤플레이 모달 상태
+  const [selectedScenario, setSelectedScenario] = useState<CommunityScenario | null>(null)
+  const [roleplaySession, setRoleplaySession] = useState<RoleplaySession | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [inputText, setInputText] = useState('')
+  const [isRoleplayLoading, setIsRoleplayLoading] = useState(false)
+  const [showRoleplayModal, setShowRoleplayModal] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     if (searchParams.get('published') === 'true') {
       setShowPublishedToast(true)
@@ -113,6 +140,10 @@ function CommunityContent() {
     fetchScenarios()
   }, [filter])
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner': return 'text-green-600 bg-green-50'
@@ -131,12 +162,129 @@ function CommunityContent() {
     }
   }
 
+  const startRoleplay = async (scenario: CommunityScenario) => {
+    setSelectedScenario(scenario)
+    setShowRoleplayModal(true)
+    setIsRoleplayLoading(true)
+    setMessages([])
+
+    try {
+      const response = await fetch(`${API_BASE}/api/community/roleplay/start`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scenario_id: scenario.id }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setRoleplaySession({
+          sessionId: data.session_id,
+          scenarioTitle: data.scenario_title,
+          scenarioTitleKo: data.scenario_title_ko,
+          aiMessage: data.ai_message,
+          currentStage: data.current_stage,
+          totalStages: data.total_stages,
+          learningTip: data.learning_tip,
+          suggestedResponses: data.suggested_responses || [],
+          isComplete: false,
+        })
+        setMessages([{ role: 'assistant', content: data.ai_message }])
+      } else {
+        // Fallback for scenarios without stages
+        const fallbackMessage = `Hello! Welcome. Let's practice a conversation about "${scenario.title}". How can I help you today?`
+        setRoleplaySession({
+          sessionId: 'fallback',
+          scenarioTitle: scenario.title,
+          scenarioTitleKo: scenario.title_ko,
+          aiMessage: fallbackMessage,
+          currentStage: 1,
+          totalStages: 3,
+          learningTip: 'Try to respond naturally in English.',
+          suggestedResponses: ["Hi! I'd like to practice.", "Hello, can you help me?"],
+          isComplete: false,
+        })
+        setMessages([{ role: 'assistant', content: fallbackMessage }])
+      }
+    } catch (error) {
+      console.error('Failed to start roleplay:', error)
+      const fallbackMessage = `Hello! Let's practice "${scenario.title}". How can I help you today?`
+      setRoleplaySession({
+        sessionId: 'fallback',
+        scenarioTitle: scenario.title,
+        scenarioTitleKo: scenario.title_ko,
+        aiMessage: fallbackMessage,
+        currentStage: 1,
+        totalStages: 3,
+        learningTip: 'Try to respond naturally.',
+        suggestedResponses: ["Hi!", "Hello!"],
+        isComplete: false,
+      })
+      setMessages([{ role: 'assistant', content: fallbackMessage }])
+    } finally {
+      setIsRoleplayLoading(false)
+    }
+  }
+
+  const sendMessage = async () => {
+    if (!inputText.trim() || !roleplaySession || isRoleplayLoading) return
+
+    const userMessage = inputText.trim()
+    setInputText('')
+    setMessages(prev => [...prev, { role: 'user', content: userMessage }])
+    setIsRoleplayLoading(true)
+
+    try {
+      const response = await fetch(`${API_BASE}/api/community/roleplay/turn`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: roleplaySession.sessionId,
+          user_message: userMessage,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setMessages(prev => [...prev, { role: 'assistant', content: data.ai_message }])
+        setRoleplaySession(prev => prev ? {
+          ...prev,
+          aiMessage: data.ai_message,
+          currentStage: data.current_stage,
+          learningTip: data.learning_tip,
+          suggestedResponses: data.suggested_responses || [],
+          isComplete: data.is_complete,
+        } : null)
+      } else {
+        // Fallback response
+        const fallbackResponse = "I understand. That's great practice! Would you like to continue?"
+        setMessages(prev => [...prev, { role: 'assistant', content: fallbackResponse }])
+      }
+    } catch (error) {
+      console.error('Failed to send message:', error)
+      setMessages(prev => [...prev, { role: 'assistant', content: "I see. Let's keep practicing!" }])
+    } finally {
+      setIsRoleplayLoading(false)
+    }
+  }
+
+  const closeRoleplay = () => {
+    setShowRoleplayModal(false)
+    setSelectedScenario(null)
+    setRoleplaySession(null)
+    setMessages([])
+    setInputText('')
+  }
+
+  const useSuggestion = (suggestion: string) => {
+    setInputText(suggestion)
+  }
+
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
       {/* Toast */}
       {showPublishedToast && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-[#1a1a1a] text-white rounded-full text-sm shadow-lg">
-          ✨ 시나리오가 공유되었습니다!
+          시나리오가 공유되었습니다!
         </div>
       )}
 
@@ -209,10 +357,10 @@ function CommunityContent() {
           </div>
         ) : (
           scenarios.map(scenario => (
-            <Link
+            <div
               key={scenario.id}
-              href={`/community/${scenario.id}`}
-              className="block bg-white rounded-2xl border border-[#f0f0f0] p-5 active:bg-[#f5f5f5] transition-colors"
+              onClick={() => startRoleplay(scenario)}
+              className="block bg-white rounded-2xl border border-[#f0f0f0] p-5 active:bg-[#f5f5f5] transition-colors cursor-pointer"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
@@ -249,10 +397,126 @@ function CommunityContent() {
                 </div>
                 <span>by {scenario.author}</span>
               </div>
-            </Link>
+            </div>
           ))
         )}
       </div>
+
+      {/* Roleplay Modal */}
+      {showRoleplayModal && selectedScenario && (
+        <div className="fixed inset-0 z-50 bg-[#faf9f7] flex flex-col">
+          {/* Modal Header */}
+          <header className="bg-white border-b border-[#f0f0f0] px-4 py-3 flex items-center justify-between">
+            <button onClick={closeRoleplay} className="p-2 -ml-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="text-center flex-1">
+              <h2 className="font-medium text-sm">{selectedScenario.title}</h2>
+              {roleplaySession && (
+                <p className="text-xs text-[#8a8a8a]">
+                  Stage {roleplaySession.currentStage}/{roleplaySession.totalStages}
+                </p>
+              )}
+            </div>
+            <div className="w-9" />
+          </header>
+
+          {/* Learning Tip */}
+          {roleplaySession?.learningTip && (
+            <div className="bg-blue-50 px-4 py-2 text-xs text-blue-700">
+              Tip: {roleplaySession.learningTip}
+            </div>
+          )}
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm ${
+                    msg.role === 'user'
+                      ? 'bg-[#1a1a1a] text-white rounded-br-md'
+                      : 'bg-white border border-[#f0f0f0] rounded-bl-md'
+                  }`}
+                >
+                  {msg.content}
+                </div>
+              </div>
+            ))}
+            {isRoleplayLoading && messages.length > 0 && (
+              <div className="flex justify-start">
+                <div className="bg-white border border-[#f0f0f0] rounded-2xl rounded-bl-md px-4 py-3">
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-[#c5c5c5] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <div className="w-2 h-2 bg-[#c5c5c5] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <div className="w-2 h-2 bg-[#c5c5c5] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Suggested Responses */}
+          {roleplaySession?.suggestedResponses && roleplaySession.suggestedResponses.length > 0 && (
+            <div className="px-4 py-2 flex gap-2 overflow-x-auto">
+              {roleplaySession.suggestedResponses.map((suggestion, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => useSuggestion(suggestion)}
+                  className="px-3 py-1.5 bg-white border border-[#e5e5e5] rounded-full text-xs whitespace-nowrap hover:bg-[#f5f5f5] transition-colors"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Completion Message */}
+          {roleplaySession?.isComplete && (
+            <div className="px-4 py-3 bg-green-50 text-center">
+              <p className="text-sm text-green-700 font-medium">Great job! You completed this conversation.</p>
+              <button
+                onClick={closeRoleplay}
+                className="mt-2 px-4 py-2 bg-green-600 text-white rounded-full text-sm"
+              >
+                Done
+              </button>
+            </div>
+          )}
+
+          {/* Input */}
+          {!roleplaySession?.isComplete && (
+            <div className="bg-white border-t border-[#f0f0f0] px-4 py-3">
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="Type your response..."
+                  className="flex-1 px-4 py-2.5 bg-[#f5f5f5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/10"
+                  disabled={isRoleplayLoading}
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={!inputText.trim() || isRoleplayLoading}
+                  className="p-2.5 bg-[#1a1a1a] text-white rounded-full disabled:opacity-50 transition-opacity"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">

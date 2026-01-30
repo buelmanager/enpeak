@@ -147,7 +147,7 @@ Keep it brief and friendly. Suggest 2-3 possible variations they might want to t
 """
             response = llm.generate(
                 prompt=prompt,
-                system_prompt="You are a helpful English learning assistant. Respond in Korean.",
+                system_prompt="You are a helpful English learning assistant. Respond in Korean. Do NOT use any emojis.",
                 max_tokens=200,
                 temperature=0.8,
             )
@@ -198,7 +198,7 @@ Keep responses brief (2-3 sentences).
 """
             response = llm.generate(
                 prompt=prompt,
-                system_prompt="You are a helpful English learning assistant. Respond in Korean.",
+                system_prompt="You are a helpful English learning assistant. Respond in Korean. Do NOT use any emojis.",
                 max_tokens=200,
                 temperature=0.7,
             )
@@ -430,3 +430,175 @@ async def delete_scenario(scenario_id: str, author: str):
         del scenario_stats[scenario_id]
 
     return {"status": "deleted"}
+
+
+# 커뮤니티 시나리오 롤플레이용 세션 저장소
+community_roleplay_sessions: Dict[str, Any] = {}
+
+
+class CommunityRoleplayStartRequest(BaseModel):
+    scenario_id: str
+
+
+class CommunityRoleplayTurnRequest(BaseModel):
+    session_id: str
+    user_message: str
+
+
+@router.post("/community/roleplay/start")
+async def start_community_roleplay(request: CommunityRoleplayStartRequest, req: Request):
+    """커뮤니티 시나리오로 롤플레이 시작"""
+    scenario_id = request.scenario_id
+
+    if scenario_id not in community_scenarios:
+        raise HTTPException(status_code=404, detail="Scenario not found")
+
+    scenario = community_scenarios[scenario_id]
+    stages = scenario.get("stages", [])
+
+    if not stages:
+        raise HTTPException(status_code=400, detail="This scenario has no stages")
+
+    # 플레이 카운트 증가
+    if scenario_id in scenario_stats:
+        scenario_stats[scenario_id]["plays"] += 1
+        scenario["plays"] = scenario_stats[scenario_id]["plays"]
+
+    # 세션 생성
+    session_id = str(uuid.uuid4())
+    first_stage = stages[0]
+
+    community_roleplay_sessions[session_id] = {
+        "scenario_id": scenario_id,
+        "scenario": scenario,
+        "current_stage": 1,
+        "conversation_history": [],
+    }
+
+    ai_message = first_stage.get("ai_opening", "Hello! Let's start our conversation.")
+
+    community_roleplay_sessions[session_id]["conversation_history"].append({
+        "role": "assistant",
+        "content": ai_message
+    })
+
+    return {
+        "session_id": session_id,
+        "scenario_title": scenario.get("title"),
+        "scenario_title_ko": scenario.get("title_ko"),
+        "ai_message": ai_message,
+        "current_stage": 1,
+        "total_stages": len(stages),
+        "learning_tip": first_stage.get("learning_tip"),
+        "suggested_responses": first_stage.get("suggested_responses", []),
+    }
+
+
+@router.post("/community/roleplay/turn")
+async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Request):
+    """커뮤니티 롤플레이 대화 턴"""
+    session_id = request.session_id
+
+    if session_id not in community_roleplay_sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    session = community_roleplay_sessions[session_id]
+    scenario = session["scenario"]
+    stages = scenario.get("stages", [])
+    current_stage_num = session["current_stage"]
+
+    # 사용자 메시지 저장
+    session["conversation_history"].append({
+        "role": "user",
+        "content": request.user_message
+    })
+
+    # 현재 스테이지 정보
+    current_stage = stages[current_stage_num - 1] if current_stage_num <= len(stages) else stages[-1]
+
+    # LLM으로 응답 생성
+    try:
+        llm = req.app.state.llm
+        if llm:
+            history_text = "\n".join([
+                f"{'User' if m['role'] == 'user' else 'AI'}: {m['content']}"
+                for m in session["conversation_history"][-6:]
+            ])
+
+            prompt = f"""You are an English conversation partner in this scenario:
+- Title: {scenario.get('title')}
+- Place: {scenario.get('place')}
+- Situation: {scenario.get('situation')}
+- Current stage: {current_stage.get('name', f'Stage {current_stage_num}')}
+
+Conversation so far:
+{history_text}
+
+Respond naturally as an English speaker would. Keep your response concise (1-2 sentences).
+If the conversation seems complete for this stage, guide towards the next topic naturally.
+Do NOT use any emojis."""
+
+            ai_response = llm.generate(
+                prompt=prompt,
+                system_prompt="You are a helpful English conversation partner. Respond naturally in English. Do NOT use any emojis.",
+                max_tokens=100,
+                temperature=0.8,
+            )
+        else:
+            # Fallback
+            ai_response = "That sounds great! Is there anything else I can help you with?"
+    except Exception as e:
+        logger.warning(f"LLM error in community roleplay: {e}")
+        ai_response = "I understand. Please continue, I'm here to help you practice."
+
+    # AI 응답 저장
+    session["conversation_history"].append({
+        "role": "assistant",
+        "content": ai_response
+    })
+
+    # 스테이지 진행 체크
+    user_turns = len([m for m in session["conversation_history"] if m["role"] == "user"])
+    is_complete = False
+    next_stage = current_stage_num
+
+    # 2턴마다 스테이지 진행
+    if user_turns % 2 == 0 and current_stage_num < len(stages):
+        next_stage = current_stage_num + 1
+        session["current_stage"] = next_stage
+    elif user_turns >= len(stages) * 2:
+        is_complete = True
+
+    # 다음 스테이지 정보
+    next_stage_info = stages[next_stage - 1] if next_stage <= len(stages) else stages[-1]
+
+    return {
+        "session_id": session_id,
+        "ai_message": ai_response,
+        "current_stage": next_stage,
+        "total_stages": len(stages),
+        "learning_tip": next_stage_info.get("learning_tip"),
+        "suggested_responses": next_stage_info.get("suggested_responses", []),
+        "is_complete": is_complete,
+    }
+
+
+@router.post("/community/roleplay/end")
+async def end_community_roleplay(session_id: str):
+    """커뮤니티 롤플레이 종료"""
+    if session_id not in community_roleplay_sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    session = community_roleplay_sessions[session_id]
+    scenario = session["scenario"]
+    total_turns = len([m for m in session["conversation_history"] if m["role"] == "user"])
+
+    # 세션 정리
+    del community_roleplay_sessions[session_id]
+
+    return {
+        "status": "completed",
+        "scenario_title": scenario.get("title"),
+        "total_turns": total_turns,
+        "message": "Great job practicing! 잘하셨어요!"
+    }
