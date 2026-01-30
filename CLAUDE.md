@@ -23,7 +23,8 @@ Speak과 유사한 AI 기반 영어 학습 PWA 앱.
 ## 기술 스택
 
 ### 서버 인프라
-- **배포 플랫폼**: HuggingFace Spaces (Docker) + Vercel (프론트엔드)
+- **프론트엔드 배포**: Firebase Hosting (https://enpeak.web.app)
+- **백엔드 배포**: HuggingFace Spaces (Docker)
 - **포트**: 7860 (HF Spaces 표준)
 
 ### AI 모델
@@ -165,7 +166,7 @@ CHROMADB_PATH=./vectordb
 DEBUG=false
 
 # CORS
-ALLOWED_ORIGINS=https://enpeak.vercel.app,http://localhost:3000
+ALLOWED_ORIGINS=https://enpeak.web.app,http://localhost:3000
 ```
 
 ---
@@ -190,11 +191,14 @@ npm run dev
 
 ## 배포
 
-### Vercel (프론트엔드)
+### Firebase Hosting (프론트엔드)
 ```bash
 cd frontend
-npx vercel --prod
+npm run build
+npx firebase deploy --only hosting
 ```
+- **프로젝트**: gothic-space-672
+- **URL**: https://enpeak.web.app
 
 ### HuggingFace Spaces (백엔드)
 1. HF Spaces 생성 (Docker)
@@ -229,8 +233,8 @@ npx vercel --prod
 
 ## 버전 정보
 
-- **APP_VERSION**: 0.1.0
-- **BUILD_DATE**: 2026-01-30
+- **APP_VERSION**: 0.2.8
+- **BUILD_DATE**: 2026-01-31
 
 ---
 
@@ -369,6 +373,11 @@ python index_to_chromadb.py
 
 ### GitHub
 - **Repository**: https://github.com/buelmanager/enpeak (Private)
+
+### Firebase Hosting (프론트엔드)
+- **URL**: https://enpeak.web.app
+- **Project**: gothic-space-672
+- **Status**: Active
 
 ### HuggingFace Spaces (백엔드)
 - **URL**: https://wonchulhee-enpeak.hf.space

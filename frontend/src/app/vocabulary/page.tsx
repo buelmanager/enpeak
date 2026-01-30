@@ -206,18 +206,28 @@ export default function VocabularyPage() {
 
       if (response.ok) {
         const data = await response.json()
-        setRelatedContent(data)
+        // API 응답 형식에 맞게 변환
+        setRelatedContent({
+          idioms: data.idioms || [],
+          sentences: data.sentences || [],
+          related_words: data.related_words || [],
+        })
+      } else {
+        throw new Error('API failed')
       }
     } catch {
-      // 샘플 확장 데이터
+      // 샘플 확장 데이터 (폴백)
+      const word = state.currentWord?.word || 'word'
       setRelatedContent({
         idioms: [
-          { phrase: `say ${state.currentWord?.word}`, meaning: '~라고 말하다' },
+          { phrase: `learn ${word}`, meaning: `${word}를 배우다` },
+          { phrase: `use ${word}`, meaning: `${word}를 사용하다` },
         ],
         sentences: [
-          { en: `I always ${state.currentWord?.word}.`, ko: '나는 항상 ~해요.' },
+          { en: `I want to learn ${word}.`, ko: `나는 ${word}를 배우고 싶어요.` },
+          { en: `Can you explain ${word}?`, ko: `${word}를 설명해 줄 수 있나요?` },
         ],
-        related_words: ['similar', 'example', 'practice'],
+        related_words: ['vocabulary', 'practice', 'study'],
       })
     } finally {
       setLoading(false)

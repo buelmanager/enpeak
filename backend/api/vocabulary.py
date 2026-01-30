@@ -169,19 +169,18 @@ Respond in JSON format:
 
 
 def search_related_idioms(word: str) -> List[Dict]:
-    """단어와 관련된 숙어 검색"""
+    """단어와 관련된 숙어 검색 (JSON 파일 + RAG)"""
     idioms = load_idioms_data()
     phrasal_verbs = load_phrasal_verbs()
 
     related = []
+    word_lower = word.lower()
 
     # 숙어에서 검색
-    word_lower = word.lower()
     for idiom in idioms:
         if word_lower in idiom.get("idiom", "").lower():
             related.append({
-                "type": "idiom",
-                "expression": idiom["idiom"],
+                "phrase": idiom["idiom"],
                 "meaning": idiom["meaning"],
                 "example": idiom.get("example", ""),
                 "difficulty": idiom.get("difficulty", "intermediate")
@@ -191,36 +190,97 @@ def search_related_idioms(word: str) -> List[Dict]:
     for pv in phrasal_verbs:
         if word_lower in pv.get("verb", "").lower():
             related.append({
-                "type": "phrasal_verb",
-                "expression": pv["verb"],
+                "phrase": pv["verb"],
                 "meaning": pv["meaning"],
-                "examples": pv.get("examples", []),
+                "example": pv.get("examples", [""])[0] if pv.get("examples") else "",
                 "difficulty": pv.get("difficulty", "intermediate")
             })
+
+    # RAG에서 추가 검색
+    try:
+        from .rag import get_collection
+        collection = get_collection()
+        if collection:
+            results = collection.query(
+                query_texts=[word],
+                n_results=10,
+                where={"$or": [{"type": "idiom"}, {"type": "phrasal_verb"}]}
+            )
+            if results['ids'] and results['ids'][0]:
+                for i, doc in enumerate(results['documents'][0]):
+                    meta = results['metadatas'][0][i] if results['metadatas'] else {}
+                    # 중복 체크
+                    phrase = meta.get("idiom", meta.get("expression", doc[:50]))
+                    if not any(r["phrase"].lower() == phrase.lower() for r in related):
+                        related.append({
+                            "phrase": phrase,
+                            "meaning": meta.get("meaning", meta.get("meaning_ko", "")),
+                            "example": meta.get("example", ""),
+                            "difficulty": meta.get("difficulty", "intermediate")
+                        })
+    except Exception as e:
+        print(f"RAG idiom search error: {e}")
 
     return related[:10]  # 최대 10개
 
 
 def search_example_sentences(word: str) -> List[Dict]:
-    """단어가 포함된 예문 검색"""
+    """단어가 포함된 예문 검색 (JSON 파일 + RAG)"""
     sentences = load_sentences_data()
 
     examples = []
     word_lower = word.lower()
 
+    # JSON 파일에서 검색
     for sent in sentences:
         if word_lower in sent.get("english", "").lower():
             examples.append({
-                "english": sent["english"],
-                "korean": sent.get("korean", ""),
+                "en": sent["english"],
+                "ko": sent.get("korean", ""),
                 "category": sent.get("category", "general"),
-                "difficulty": "beginner" if sent.get("word_count", 10) < 8 else "intermediate"
             })
-
-            if len(examples) >= 10:
+            if len(examples) >= 5:
                 break
 
-    return examples
+    # RAG에서 추가 검색 (대화, 표현, 문장 등)
+    try:
+        from .rag import get_collection
+        collection = get_collection()
+        if collection:
+            results = collection.query(
+                query_texts=[word],
+                n_results=15,
+                where={"$or": [
+                    {"type": "dialogue"},
+                    {"type": "expression"},
+                    {"type": "sentence_pair"},
+                    {"type": "useful_sentence"}
+                ]}
+            )
+            if results['ids'] and results['ids'][0]:
+                for i, doc in enumerate(results['documents'][0]):
+                    meta = results['metadatas'][0][i] if results['metadatas'] else {}
+                    # 영어 문장 추출
+                    en_text = meta.get("english", meta.get("expression", ""))
+                    ko_text = meta.get("korean", meta.get("meaning_ko", meta.get("meaning", "")))
+
+                    # 문서 텍스트에서 추출 시도
+                    if not en_text and doc:
+                        en_text = doc.split('\n')[0] if '\n' in doc else doc[:100]
+
+                    if en_text and not any(e["en"].lower() == en_text.lower() for e in examples):
+                        examples.append({
+                            "en": en_text,
+                            "ko": ko_text,
+                            "category": meta.get("category", "general"),
+                        })
+
+                    if len(examples) >= 10:
+                        break
+    except Exception as e:
+        print(f"RAG sentence search error: {e}")
+
+    return examples[:10]
 
 
 @router.post("/add", response_model=VocabularyResponse)
@@ -310,25 +370,66 @@ async def expand_vocabulary(expansion_req: WordExpansionRequest, request: Reques
     result = {
         "word": word,
         "idioms": [],
-        "examples": [],
+        "sentences": [],  # frontend expects 'sentences' not 'examples'
         "related_words": [],
-        "context": None,
     }
 
-    # 숙어 검색
+    # 숙어 검색 (RAG + JSON)
     if expansion_req.include_idioms:
-        result["idioms"] = search_related_idioms(word)
+        idioms = search_related_idioms(word)
+        # 프론트엔드 형식에 맞게 변환 (phrase, meaning)
+        result["idioms"] = idioms
 
-    # 예문 검색
+    # 예문 검색 (RAG + JSON)
     if expansion_req.include_examples:
-        result["examples"] = search_example_sentences(word)
+        sentences = search_example_sentences(word)
+        # 프론트엔드 형식에 맞게 변환 (en, ko)
+        result["sentences"] = sentences
 
-    # AI로 추가 정보 생성
+    # AI로 추가 정보 생성 (관련 단어)
     llm = getattr(request.app.state, "llm", None)
     if llm and expansion_req.include_related:
-        ai_expansion = await expand_word_with_ai(word, llm)
-        result["related_words"] = ai_expansion.get("related_words", [])
-        result["ai_examples"] = ai_expansion.get("examples", [])
+        try:
+            ai_expansion = await expand_word_with_ai(word, llm)
+            result["related_words"] = ai_expansion.get("related_words", [])
+
+            # AI가 생성한 숙어 추가 (중복 제거)
+            ai_idioms = ai_expansion.get("idioms", [])
+            for ai_idiom in ai_idioms:
+                idiom_phrase = ai_idiom.get("idiom", "")
+                if idiom_phrase and not any(i.get("phrase", "").lower() == idiom_phrase.lower() for i in result["idioms"]):
+                    result["idioms"].append({
+                        "phrase": idiom_phrase,
+                        "meaning": ai_idiom.get("meaning", ""),
+                    })
+
+            # AI가 생성한 예문 추가 (중복 제거)
+            ai_examples = ai_expansion.get("examples", [])
+            for ai_ex in ai_examples:
+                en_text = ai_ex.get("english", "")
+                if en_text and not any(s.get("en", "").lower() == en_text.lower() for s in result["sentences"]):
+                    result["sentences"].append({
+                        "en": en_text,
+                        "ko": ai_ex.get("korean", ""),
+                    })
+        except Exception as e:
+            print(f"AI expansion error: {e}")
+
+    # 데이터가 없으면 기본 샘플 제공
+    if not result["idioms"]:
+        result["idioms"] = [
+            {"phrase": f"learn {word}", "meaning": f"{word}를 배우다"},
+            {"phrase": f"use {word}", "meaning": f"{word}를 사용하다"},
+        ]
+
+    if not result["sentences"]:
+        result["sentences"] = [
+            {"en": f"I want to learn {word}.", "ko": f"나는 {word}를 배우고 싶어요."},
+            {"en": f"Can you explain {word}?", "ko": f"{word}를 설명해 줄 수 있나요?"},
+        ]
+
+    if not result["related_words"]:
+        result["related_words"] = ["vocabulary", "practice", "study"]
 
     return result
 
