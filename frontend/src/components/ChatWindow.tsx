@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import MessageBubble from './MessageBubble'
 import VoiceRecorder, { VoiceRecorderRef } from './VoiceRecorder'
 import ListeningIndicator from './ListeningIndicator'
@@ -77,18 +78,42 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
   const [isRecording, setIsRecording] = useState(false)
   const [shouldAutoRecord, setShouldAutoRecord] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
   const voiceRecorderRef = useRef<VoiceRecorderRef>(null)
+  const pathname = usePathname()
 
   const { speakWithCallback, isSpeaking, stop: stopTTS } = useTTS()
   const { settings } = useConversationSettings()
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    // 메시지 컨테이너를 맨 아래로 스크롤
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+    }
   }
 
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // 녹음 상태 변경 시에도 스크롤
+  useEffect(() => {
+    if (isRecording) {
+      // 약간의 딜레이 후 스크롤 (ListeningIndicator 렌더링 후)
+      setTimeout(() => {
+        scrollToBottom()
+      }, 150)
+    }
+  }, [isRecording])
+
+  // 페이지 이동 시 녹음 중지
+  useEffect(() => {
+    return () => {
+      // 컴포넌트 언마운트 시 녹음 중지
+      voiceRecorderRef.current?.stopRecording()
+      stopTTS()
+    }
+  }, [pathname])
 
   // 표현 연습 모드일 때 초기 메시지 설정
   useEffect(() => {
@@ -257,7 +282,7 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full py-12">
             {/* Breathing Circle */}
@@ -335,7 +360,7 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
           </div>
         )}
 
-        <div ref={messagesEndRef} />
+        <div ref={messagesEndRef} className="h-20" />
       </div>
 
       {/* Input Area */}

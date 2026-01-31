@@ -114,10 +114,21 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
     if (onSpeak) {
       onSpeak(english)
     } else if ('speechSynthesis' in window) {
+      const synth = window.speechSynthesis
+      synth.cancel() // 기존 재생 중지
+
       const utterance = new SpeechSynthesisUtterance(english)
       utterance.lang = 'en-US'
-      utterance.rate = 0.9
-      speechSynthesis.speak(utterance)
+      utterance.rate = 0.85
+
+      // 영어 음성 찾기
+      const voices = synth.getVoices()
+      const englishVoice = voices.find(v => v.lang.startsWith('en-'))
+      if (englishVoice) {
+        utterance.voice = englishVoice
+      }
+
+      synth.speak(utterance)
     }
   }
 

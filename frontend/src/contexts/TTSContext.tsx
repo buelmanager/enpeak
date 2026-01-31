@@ -182,12 +182,26 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     utterance.rate = settings.rate
     utterance.pitch = settings.pitch
 
+    const synth = window.speechSynthesis
+    const availableVoices = synth.getVoices()
+
     // 선택된 음성 찾기
     if (settings.selectedVoice) {
-      const synth = window.speechSynthesis
-      const voice = synth.getVoices().find(v => v.voiceURI === settings.selectedVoice?.voiceURI)
+      const voice = availableVoices.find(v => v.voiceURI === settings.selectedVoice?.voiceURI)
       if (voice) {
         utterance.voice = voice
+      } else {
+        // 선택된 음성을 찾을 수 없으면 영어 음성 사용
+        const englishVoice = availableVoices.find(v => v.lang.startsWith('en'))
+        if (englishVoice) {
+          utterance.voice = englishVoice
+        }
+      }
+    } else {
+      // 선택된 음성이 없으면 영어 음성 사용
+      const englishVoice = availableVoices.find(v => v.lang.startsWith('en'))
+      if (englishVoice) {
+        utterance.voice = englishVoice
       }
     }
 

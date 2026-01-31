@@ -15,6 +15,7 @@ interface ConversationSettingsContextType {
   toggleAutoTTS: () => void
   toggleAutoRecord: () => void
   setInputMode: (mode: ConversationSettings['inputMode']) => void
+  isLoaded: boolean
 }
 
 const ConversationSettingsContext = createContext<ConversationSettingsContextType | null>(null)
@@ -27,23 +28,30 @@ const DEFAULT_SETTINGS: ConversationSettings = {
 
 const STORAGE_KEY = 'conversation-settings'
 
+// 초기값을 localStorage에서 읽어오기 (SSR 대응)
+function getInitialSettings(): ConversationSettings {
+  if (typeof window === 'undefined') return DEFAULT_SETTINGS
+
+  const saved = localStorage.getItem(STORAGE_KEY)
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved)
+      return { ...DEFAULT_SETTINGS, ...parsed }
+    } catch {
+      return DEFAULT_SETTINGS
+    }
+  }
+  return DEFAULT_SETTINGS
+}
+
 export function ConversationSettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<ConversationSettings>(DEFAULT_SETTINGS)
   const [isLoaded, setIsLoaded] = useState(false)
 
-  // 저장된 설정 로드
+  // 저장된 설정 로드 (클라이언트 사이드에서)
   useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved)
-        setSettings({ ...DEFAULT_SETTINGS, ...parsed })
-      } catch {
-        // 파싱 실패 시 기본값 사용
-      }
-    }
+    const savedSettings = getInitialSettings()
+    setSettings(savedSettings)
     setIsLoaded(true)
   }, [])
 
@@ -80,6 +88,7 @@ export function ConversationSettingsProvider({ children }: { children: ReactNode
       toggleAutoTTS,
       toggleAutoRecord,
       setInputMode,
+      isLoaded,
     }}>
       {children}
     </ConversationSettingsContext.Provider>
