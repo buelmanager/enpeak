@@ -20,9 +20,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # 버전 정보
-APP_VERSION = "0.3.1"
+APP_VERSION = "0.3.2"
 BUILD_DATE = "2026-01-31"
-BUILD_ID = "daily-expression"
+BUILD_ID = "expression-practice"
 
 
 class AppState:

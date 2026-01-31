@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import BottomNav from '@/components/BottomNav'
 
 interface DailyExpression {
@@ -15,6 +16,7 @@ interface DailyExpression {
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function DailyExpressionPage() {
+  const router = useRouter()
   const [expression, setExpression] = useState<DailyExpression | null>(null)
   const [loading, setLoading] = useState(true)
   const [showMeaning, setShowMeaning] = useState(false)
@@ -37,7 +39,7 @@ export default function DailyExpressionPage() {
           expression: "break the ice",
           meaning: "어색한 분위기를 깨다, 대화를 시작하다",
           example: "I tried to break the ice by asking about his hobbies.",
-          example_ko: "나는 그의 취미에 대해 물어보며 어색한 분위기를 깨려고 했다.",
+          example_ko: "그의 취미에 대해 물어보면서 분위기를 풀어보려고 했어.",
           category: "daily"
         })
       }
@@ -46,7 +48,7 @@ export default function DailyExpressionPage() {
         expression: "break the ice",
         meaning: "어색한 분위기를 깨다, 대화를 시작하다",
         example: "I tried to break the ice by asking about his hobbies.",
-        example_ko: "나는 그의 취미에 대해 물어보며 어색한 분위기를 깨려고 했다.",
+        example_ko: "그의 취미에 대해 물어보면서 분위기를 풀어보려고 했어.",
         category: "daily"
       })
     } finally {
@@ -172,11 +174,18 @@ export default function DailyExpressionPage() {
             </div>
 
             {/* Practice Button */}
-            <Link href="/chat" className="block">
-              <button className="w-full py-4 bg-[#1a1a1a] text-white rounded-xl font-medium">
-                이 표현으로 대화 연습하기
-              </button>
-            </Link>
+            <button
+              onClick={() => {
+                const params = new URLSearchParams({
+                  expression: expression.expression,
+                  meaning: expression.meaning,
+                })
+                router.push(`/chat?${params.toString()}`)
+              }}
+              className="w-full py-4 bg-[#1a1a1a] text-white rounded-xl font-medium"
+            >
+              이 표현으로 대화 연습하기
+            </button>
           </>
         ) : (
           <div className="text-center py-20 text-[#8a8a8a]">

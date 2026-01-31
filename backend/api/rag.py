@@ -269,9 +269,33 @@ async def get_daily_expression():
         if not meaning:
             meaning = meta.get("meaning_ko") or meta.get("meaning") or ""
 
-        # 예문 생성 (간단한 예문)
-        example = meta.get("example") or meta.get("example_en") or f"Let me show you how to use '{expression}'."
+        # 예문과 해석
+        example = meta.get("example") or meta.get("example_en") or ""
         example_ko = meta.get("example_ko") or meta.get("translation") or ""
+
+        # 예문이 없으면 기본 예문 제공
+        if not example or example.startswith("Let me show"):
+            # 표현별 기본 예문 (자주 사용되는 숙어들)
+            default_examples = {
+                "break the ice": ("I tried to break the ice by asking about his hobbies.", "그의 취미에 대해 물어보면서 분위기를 풀어보려고 했어."),
+                "easier said than done": ("Losing weight is easier said than done.", "살 빼는 건 말처럼 쉽지 않아."),
+                "hit the nail on the head": ("You hit the nail on the head with that comment.", "그 말 정확히 맞았어."),
+                "piece of cake": ("The test was a piece of cake.", "시험이 정말 쉬웠어."),
+                "cost an arm and a leg": ("That car cost an arm and a leg.", "그 차 정말 비쌌어."),
+                "under the weather": ("I'm feeling a bit under the weather today.", "오늘 몸이 좀 안 좋아."),
+                "once in a blue moon": ("We only see each other once in a blue moon.", "우리는 아주 가끔씩만 만나."),
+                "bite the bullet": ("I decided to bite the bullet and ask for a raise.", "용기를 내서 월급 인상을 요청했어."),
+                "let the cat out of the bag": ("She let the cat out of the bag about the surprise party.", "그녀가 깜짝 파티 비밀을 말해버렸어."),
+                "when pigs fly": ("He'll clean his room when pigs fly.", "걔가 방 청소하는 건 절대 없을 일이야."),
+            }
+
+            expr_lower = expression.lower()
+            if expr_lower in default_examples:
+                example, example_ko = default_examples[expr_lower]
+            else:
+                # 기본 예문 템플릿
+                example = f"This expression is commonly used in daily conversations."
+                example_ko = "이 표현은 일상 대화에서 자주 사용돼요."
 
         return {
             "expression": expression,
