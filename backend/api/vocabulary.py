@@ -481,14 +481,10 @@ def get_smart_fallback(word: str) -> Dict:
             "related_words": [],
         }
 
-    # 3. 아무것도 없으면 일반적인 학습 문장 생성
+    # 3. 아무것도 없으면 빈 데이터 반환 (AI가 생성하도록)
     return {
         "idioms": [],
-        "sentences": [
-            {"en": f"I'm learning the word '{word}'.", "ko": f"'{word}'라는 단어를 배우고 있어요."},
-            {"en": f"Can you use '{word}' in a sentence?", "ko": f"'{word}'를 문장에서 사용해 볼 수 있나요?"},
-            {"en": f"How do you pronounce '{word}'?", "ko": f"'{word}'는 어떻게 발음하나요?"},
-        ],
+        "sentences": [],
         "related_words": [],
     }
 
@@ -573,6 +569,57 @@ Respond in JSON format:
         print(f"Expansion error: {e}")
 
     return {}
+
+
+async def generate_real_examples_with_ai(word: str, llm) -> Dict:
+    """AI로 실제 예문과 숙어 생성 (RAG에 데이터가 없을 때 사용)"""
+    if not llm:
+        return {"idioms": [], "sentences": [], "related_words": []}
+
+    prompt = f"""You are an English teacher. Generate real-world examples for the word "{word}".
+
+IMPORTANT: Generate sentences where "{word}" is naturally used, NOT sentences about learning the word.
+
+Provide:
+1. 3-4 common idioms or phrases containing "{word}" with Korean meanings
+2. 3-4 natural example sentences using "{word}" in real contexts with Korean translations
+3. 4-5 related words
+
+Respond ONLY in this JSON format (no other text):
+{{
+    "idioms": [
+        {{"phrase": "idiom containing {word}", "meaning": "한국어 의미"}}
+    ],
+    "sentences": [
+        {{"en": "Natural sentence using {word}.", "ko": "한국어 번역"}}
+    ],
+    "related_words": ["word1", "word2", "word3"]
+}}
+"""
+
+    try:
+        response = llm.generate(prompt=prompt, max_tokens=600, temperature=0.7)
+        import re
+        json_match = re.search(r'\{[\s\S]*\}', response)
+        if json_match:
+            result = json.loads(json_match.group())
+            # 결과 검증: 실제 단어가 포함된 예문인지 확인
+            word_lower = word.lower()
+            if result.get("sentences"):
+                result["sentences"] = [
+                    s for s in result["sentences"]
+                    if word_lower in s.get("en", "").lower()
+                ]
+            if result.get("idioms"):
+                result["idioms"] = [
+                    i for i in result["idioms"]
+                    if word_lower in i.get("phrase", "").lower()
+                ]
+            return result
+    except Exception as e:
+        print(f"AI example generation error: {e}")
+
+    return {"idioms": [], "sentences": [], "related_words": []}
 
 
 def search_related_idioms(word: str) -> List[Dict]:
@@ -781,58 +828,70 @@ async def expand_vocabulary(expansion_req: WordExpansionRequest, request: Reques
         "related_words": [],
     }
 
-    # 숙어 검색 (RAG + JSON)
-    if expansion_req.include_idioms:
+    # 1. 하드코딩된 데이터베이스에서 먼저 검색
+    word_lower = word.lower()
+    if word_lower in COMMON_WORD_DATA:
+        hardcoded = COMMON_WORD_DATA[word_lower]
+        result["idioms"] = hardcoded.get("idioms", [])
+        result["sentences"] = hardcoded.get("sentences", [])
+        result["related_words"] = hardcoded.get("related_words", [])
+
+    # 2. 숙어 검색 (RAG + JSON) - 하드코딩에 없으면
+    if expansion_req.include_idioms and not result["idioms"]:
         idioms = search_related_idioms(word)
-        # 프론트엔드 형식에 맞게 변환 (phrase, meaning)
         result["idioms"] = idioms
 
-    # 예문 검색 (RAG + JSON)
-    if expansion_req.include_examples:
+    # 3. 예문 검색 (RAG + JSON) - 하드코딩에 없으면
+    if expansion_req.include_examples and not result["sentences"]:
         sentences = search_example_sentences(word)
-        # 프론트엔드 형식에 맞게 변환 (en, ko)
         result["sentences"] = sentences
 
-    # AI로 추가 정보 생성 (관련 단어)
+    # 4. LLM 가져오기
     llm = getattr(request.app.state, "llm", None)
-    if llm and expansion_req.include_related:
+
+    # 5. 데이터가 여전히 부족하면 AI로 생성
+    needs_ai_generation = (
+        (expansion_req.include_idioms and len(result["idioms"]) < 2) or
+        (expansion_req.include_examples and len(result["sentences"]) < 2) or
+        (expansion_req.include_related and len(result["related_words"]) < 2)
+    )
+
+    if llm and needs_ai_generation:
         try:
-            ai_expansion = await expand_word_with_ai(word, llm)
-            result["related_words"] = ai_expansion.get("related_words", [])
+            # 실제 예문과 숙어 생성
+            ai_data = await generate_real_examples_with_ai(word, llm)
 
             # AI가 생성한 숙어 추가 (중복 제거)
-            ai_idioms = ai_expansion.get("idioms", [])
-            for ai_idiom in ai_idioms:
-                idiom_phrase = ai_idiom.get("idiom", "")
-                if idiom_phrase and not any(i.get("phrase", "").lower() == idiom_phrase.lower() for i in result["idioms"]):
+            for ai_idiom in ai_data.get("idioms", []):
+                phrase = ai_idiom.get("phrase", "")
+                if phrase and not any(i.get("phrase", "").lower() == phrase.lower() for i in result["idioms"]):
                     result["idioms"].append({
-                        "phrase": idiom_phrase,
+                        "phrase": phrase,
                         "meaning": ai_idiom.get("meaning", ""),
                     })
 
             # AI가 생성한 예문 추가 (중복 제거)
-            ai_examples = ai_expansion.get("examples", [])
-            for ai_ex in ai_examples:
-                en_text = ai_ex.get("english", "")
+            for ai_sent in ai_data.get("sentences", []):
+                en_text = ai_sent.get("en", "")
                 if en_text and not any(s.get("en", "").lower() == en_text.lower() for s in result["sentences"]):
                     result["sentences"].append({
                         "en": en_text,
-                        "ko": ai_ex.get("korean", ""),
+                        "ko": ai_sent.get("ko", ""),
                     })
+
+            # 관련 단어 추가
+            if not result["related_words"]:
+                result["related_words"] = ai_data.get("related_words", [])
+
         except Exception as e:
-            print(f"AI expansion error: {e}")
+            print(f"AI generation error: {e}")
 
-    # 데이터가 없으면 스마트 폴백 제공
-    fallback_data = get_smart_fallback(word)
-
+    # 6. 그래도 없으면 RAG 청크에서 직접 검색
     if not result["idioms"]:
-        result["idioms"] = fallback_data.get("idioms", [])
+        result["idioms"] = search_idioms_containing_word(word, limit=4)
 
     if not result["sentences"]:
-        result["sentences"] = fallback_data.get("sentences", [])
-
-    if not result["related_words"]:
-        result["related_words"] = fallback_data.get("related_words", [])
+        result["sentences"] = search_sentences_containing_word(word, limit=4)
 
     return result
 

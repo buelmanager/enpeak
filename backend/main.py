@@ -20,7 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # 버전 정보
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.0.1"
 BUILD_DATE = "2026-01-31"
 BUILD_ID = "official-release"
 
