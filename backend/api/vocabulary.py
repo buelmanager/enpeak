@@ -228,6 +228,147 @@ COMMON_WORD_DATA = {
         ],
         "related_words": ["meal", "dish", "cuisine", "snack", "drink"],
     },
+    # 자주 사용되는 동사들
+    "call": {
+        "idioms": [
+            {"phrase": "call it a day", "meaning": "오늘은 여기까지 하다"},
+            {"phrase": "call off", "meaning": "취소하다"},
+            {"phrase": "call on", "meaning": "방문하다, 요청하다"},
+            {"phrase": "wake-up call", "meaning": "경종, 각성의 계기"},
+        ],
+        "sentences": [
+            {"en": "I'll call you later.", "ko": "나중에 전화할게요."},
+            {"en": "Please call me back.", "ko": "다시 전화해 주세요."},
+            {"en": "What do you call this in English?", "ko": "이것을 영어로 뭐라고 해요?"},
+        ],
+        "related_words": ["phone", "ring", "contact", "dial", "message"],
+    },
+    "go": {
+        "idioms": [
+            {"phrase": "go ahead", "meaning": "진행하다, 먼저 하세요"},
+            {"phrase": "go through", "meaning": "겪다, 통과하다"},
+            {"phrase": "let go", "meaning": "놓아주다, 포기하다"},
+            {"phrase": "on the go", "meaning": "바쁘게 움직이는"},
+        ],
+        "sentences": [
+            {"en": "Let's go home.", "ko": "집에 가자."},
+            {"en": "Where are you going?", "ko": "어디 가세요?"},
+            {"en": "I need to go now.", "ko": "이제 가야 해요."},
+        ],
+        "related_words": ["leave", "travel", "move", "walk", "come"],
+    },
+    "come": {
+        "idioms": [
+            {"phrase": "come across", "meaning": "우연히 만나다"},
+            {"phrase": "come up with", "meaning": "생각해내다"},
+            {"phrase": "come true", "meaning": "실현되다"},
+            {"phrase": "first come, first served", "meaning": "선착순"},
+        ],
+        "sentences": [
+            {"en": "Come here, please.", "ko": "이리 와 주세요."},
+            {"en": "When did you come to Korea?", "ko": "언제 한국에 왔어요?"},
+            {"en": "Dreams come true.", "ko": "꿈은 이루어진다."},
+        ],
+        "related_words": ["arrive", "visit", "approach", "go", "return"],
+    },
+    "take": {
+        "idioms": [
+            {"phrase": "take care", "meaning": "조심해, 잘 지내"},
+            {"phrase": "take off", "meaning": "이륙하다, 벗다"},
+            {"phrase": "take place", "meaning": "일어나다, 개최되다"},
+            {"phrase": "take it easy", "meaning": "진정해, 쉬엄쉬엄 해"},
+        ],
+        "sentences": [
+            {"en": "Take your time.", "ko": "천천히 하세요."},
+            {"en": "I'll take this one.", "ko": "이걸로 할게요."},
+            {"en": "How long does it take?", "ko": "얼마나 걸려요?"},
+        ],
+        "related_words": ["bring", "carry", "grab", "hold", "get"],
+    },
+    "make": {
+        "idioms": [
+            {"phrase": "make sense", "meaning": "이해가 되다, 말이 되다"},
+            {"phrase": "make sure", "meaning": "확실히 하다"},
+            {"phrase": "make up", "meaning": "화해하다, 구성하다"},
+            {"phrase": "make a difference", "meaning": "변화를 만들다"},
+        ],
+        "sentences": [
+            {"en": "Let me make a reservation.", "ko": "예약할게요."},
+            {"en": "Can you make coffee?", "ko": "커피 만들 수 있어요?"},
+            {"en": "That makes sense.", "ko": "그거 이해가 돼요."},
+        ],
+        "related_words": ["create", "build", "produce", "do", "form"],
+    },
+    "get": {
+        "idioms": [
+            {"phrase": "get along", "meaning": "사이좋게 지내다"},
+            {"phrase": "get over", "meaning": "극복하다"},
+            {"phrase": "get up", "meaning": "일어나다"},
+            {"phrase": "get rid of", "meaning": "없애다, 제거하다"},
+        ],
+        "sentences": [
+            {"en": "I get it.", "ko": "이해했어요."},
+            {"en": "What time do you get up?", "ko": "몇 시에 일어나요?"},
+            {"en": "Let's get started.", "ko": "시작하자."},
+        ],
+        "related_words": ["receive", "obtain", "become", "have", "take"],
+    },
+    "give": {
+        "idioms": [
+            {"phrase": "give up", "meaning": "포기하다"},
+            {"phrase": "give in", "meaning": "굴복하다, 양보하다"},
+            {"phrase": "give away", "meaning": "나눠주다, 폭로하다"},
+            {"phrase": "give it a try", "meaning": "한번 해보다"},
+        ],
+        "sentences": [
+            {"en": "Can you give me a hand?", "ko": "좀 도와줄 수 있어요?"},
+            {"en": "Don't give up!", "ko": "포기하지 마!"},
+            {"en": "I'll give it a try.", "ko": "한번 해볼게요."},
+        ],
+        "related_words": ["offer", "provide", "share", "present", "donate"],
+    },
+    "see": {
+        "idioms": [
+            {"phrase": "see you later", "meaning": "나중에 봐요"},
+            {"phrase": "wait and see", "meaning": "두고 보다"},
+            {"phrase": "see eye to eye", "meaning": "의견이 일치하다"},
+            {"phrase": "I see", "meaning": "알겠어요, 그렇군요"},
+        ],
+        "sentences": [
+            {"en": "Nice to see you.", "ko": "만나서 반가워요."},
+            {"en": "I see what you mean.", "ko": "무슨 말인지 알겠어요."},
+            {"en": "See you tomorrow!", "ko": "내일 봐요!"},
+        ],
+        "related_words": ["look", "watch", "view", "notice", "observe"],
+    },
+    "look": {
+        "idioms": [
+            {"phrase": "look forward to", "meaning": "기대하다"},
+            {"phrase": "look after", "meaning": "돌보다"},
+            {"phrase": "look up", "meaning": "찾아보다, 올려다보다"},
+            {"phrase": "look out", "meaning": "조심해"},
+        ],
+        "sentences": [
+            {"en": "Look at this!", "ko": "이것 좀 봐!"},
+            {"en": "You look great today.", "ko": "오늘 멋져 보여요."},
+            {"en": "I'm looking forward to it.", "ko": "기대하고 있어요."},
+        ],
+        "related_words": ["see", "watch", "appear", "seem", "glance"],
+    },
+    "run": {
+        "idioms": [
+            {"phrase": "run out of", "meaning": "다 떨어지다"},
+            {"phrase": "in the long run", "meaning": "결국, 장기적으로"},
+            {"phrase": "run into", "meaning": "우연히 만나다"},
+            {"phrase": "run away", "meaning": "도망치다"},
+        ],
+        "sentences": [
+            {"en": "I run every morning.", "ko": "매일 아침 달려요."},
+            {"en": "We're running out of time.", "ko": "시간이 다 되어가요."},
+            {"en": "The bus runs every 10 minutes.", "ko": "버스가 10분마다 와요."},
+        ],
+        "related_words": ["jog", "sprint", "walk", "move", "race"],
+    },
 }
 
 
