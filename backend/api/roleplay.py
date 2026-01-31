@@ -129,6 +129,21 @@ async def list_scenarios():
     return get_all_scenarios()
 
 
+@router.get("/debug/paths")
+async def debug_paths():
+    """디버그: 경로 확인"""
+    import glob
+    return {
+        "SCENARIOS_DIR": SCENARIOS_DIR,
+        "exists": os.path.exists(SCENARIOS_DIR),
+        "files": os.listdir(SCENARIOS_DIR) if os.path.exists(SCENARIOS_DIR) else [],
+        "cwd": os.getcwd(),
+        "app_data_exists": os.path.exists("/app/data"),
+        "app_data_scenarios_exists": os.path.exists("/app/data/scenarios"),
+        "app_data_contents": os.listdir("/app/data") if os.path.exists("/app/data") else [],
+    }
+
+
 @router.post("/start", response_model=RoleplayStartResponse)
 async def start_roleplay(request: RoleplayStartRequest, req: Request):
     """롤플레이 세션 시작"""
