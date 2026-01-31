@@ -16,60 +16,60 @@
     {
       "stage": 1,
       "name": "Greeting",
-      "ai_opening": "Hi! Welcome to Sunny Cafe. What can I get for you today?",
-      "learning_tip": "'I'd like...' 또는 'Can I have...'로 주문하세요",
+      "ai_line": "Hi! Welcome to Sunny Cafe. What can I get for you today?",
+      "learning_tip": "'I'd like...' or 'Can I have...'",
       "suggested_responses": [
         "Hi! I'd like a latte, please.",
         "Can I have a cappuccino?",
         "I'll have an americano."
       ],
-      "expected_user_intents": [
-        "order",
-        "greeting"
-      ]
+      "accept_keywords": ["latte", "cappuccino", "americano", "coffee", "like", "have", "order"]
     },
     {
       "stage": 2,
       "name": "Customization",
-      "ai_prompt": "Ask about size and customization options",
-      "learning_tip": "사이즈는 small/medium/large, 온도는 hot/iced로 말해요",
+      "ai_line": "Great choice! Would you like that hot or iced? And what size - small, medium, or large?",
+      "learning_tip": "Size: small/medium/large, Temperature: hot/iced",
       "suggested_responses": [
-        "Medium, please.",
-        "Can I get that iced?",
-        "Hot and large, please."
-      ]
+        "Hot and medium, please.",
+        "Iced and large, please.",
+        "Small and hot, please."
+      ],
+      "accept_keywords": ["hot", "iced", "small", "medium", "large", "cold", "warm"]
     },
     {
       "stage": 3,
       "name": "Payment",
-      "ai_prompt": "Tell the total and ask for payment method",
-      "learning_tip": "결제할 때는 'I'll pay by card/cash'라고 해요",
+      "ai_line": "That'll be $4.50. How would you like to pay?",
+      "learning_tip": "'I'll pay by card/cash'",
       "suggested_responses": [
         "I'll pay by card.",
-        "Here you go. (cash)",
+        "Cash, please.",
         "Can I use Apple Pay?"
-      ]
+      ],
+      "accept_keywords": ["card", "cash", "pay", "apple", "credit", "debit"]
+    },
+    {
+      "stage": 4,
+      "name": "Completion",
+      "ai_line": "Perfect! Your order will be ready in a moment. Have a great day!",
+      "learning_tip": "Say 'Thank you' to complete",
+      "suggested_responses": [
+        "Thank you!",
+        "Thanks, you too!",
+        "Have a nice day!"
+      ],
+      "accept_keywords": ["thank", "thanks", "bye", "day", "great"],
+      "is_final": true
     }
   ],
   "key_vocabulary": [
-    {
-      "word": "I'd like",
-      "meaning": "~하고 싶어요",
-      "example": "I'd like a coffee."
-    },
-    {
-      "word": "to go",
-      "meaning": "포장",
-      "example": "Can I get that to go?"
-    },
-    {
-      "word": "for here",
-      "meaning": "매장 식사",
-      "example": "For here, please."
-    }
+    {"word": "I'd like", "meaning": "~would like", "example": "I'd like a coffee."},
+    {"word": "to go", "meaning": "takeaway", "example": "Can I get that to go?"},
+    {"word": "for here", "meaning": "dine in", "example": "For here, please."}
   ],
   "category": "daily",
   "difficulty": "beginner",
   "icon": "coffee",
-  "completion_message": "Great job completing the Ordering at a Cafe scenario!"
+  "completion_message": "Great job! You successfully ordered at a cafe!"
 }

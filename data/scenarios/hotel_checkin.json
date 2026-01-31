@@ -16,67 +16,60 @@
     {
       "stage": 1,
       "name": "Arrival",
-      "ai_opening": "Good afternoon! Welcome to Grand Hotel. Do you have a reservation?",
-      "learning_tip": "예약 확인할 때 'I have a reservation under...'",
+      "ai_line": "Good afternoon! Welcome to Grand Hotel. Do you have a reservation?",
+      "learning_tip": "'I have a reservation under...'",
       "suggested_responses": [
         "Yes, I have a reservation under Kim.",
         "Hi, checking in. Reservation number is 12345.",
         "Yes, I booked through the website."
-      ]
+      ],
+      "accept_keywords": ["reservation", "booked", "yes", "checking"]
     },
     {
       "stage": 2,
       "name": "Verification",
-      "ai_prompt": "Ask for ID and confirm reservation details",
-      "learning_tip": "여권이나 신분증을 'Here's my passport/ID'로 건네요",
+      "ai_line": "Perfect! Could I see your ID or passport, please? And let me confirm - that's for two nights?",
+      "learning_tip": "'Here's my passport/ID'",
       "suggested_responses": [
         "Here's my passport.",
-        "I booked for two nights, is that correct?",
+        "Yes, two nights is correct.",
         "I requested a non-smoking room."
-      ]
+      ],
+      "accept_keywords": ["passport", "id", "yes", "correct", "here", "non-smoking"]
     },
     {
       "stage": 3,
       "name": "Room Information",
-      "ai_prompt": "Provide room details and hotel information",
-      "learning_tip": "시설 위치는 'Where is the...?'로 물어요",
+      "ai_line": "Your room is 507 on the 5th floor. The elevator is on your right. Is there anything else you'd like to know?",
+      "learning_tip": "'Where is the...?'",
       "suggested_responses": [
-        "What floor is my room on?",
         "Where is the breakfast room?",
-        "Is WiFi included?"
-      ]
+        "Is WiFi included?",
+        "What time is breakfast?"
+      ],
+      "accept_keywords": ["where", "wifi", "breakfast", "included", "time", "pool", "gym"]
     },
     {
       "stage": 4,
       "name": "Completion",
-      "ai_prompt": "Give room key and final information",
-      "learning_tip": "체크아웃 시간 확인 'What time is checkout?'",
+      "ai_line": "Breakfast is from 7 to 10 AM in the restaurant on the first floor. WiFi password is on your key card. Enjoy your stay!",
+      "learning_tip": "'What time is checkout?'",
       "suggested_responses": [
         "What time is checkout?",
-        "Can I leave my luggage after checkout?",
-        "Thank you very much!"
-      ]
+        "Thank you very much!",
+        "Have a nice day!"
+      ],
+      "accept_keywords": ["checkout", "thank", "thanks", "day", "great"],
+      "is_final": true
     }
   ],
   "key_vocabulary": [
-    {
-      "word": "reservation",
-      "meaning": "예약",
-      "example": "I have a reservation."
-    },
-    {
-      "word": "check-in/out",
-      "meaning": "체크인/아웃",
-      "example": "Checkout is at 11am."
-    },
-    {
-      "word": "amenities",
-      "meaning": "편의시설",
-      "example": "What amenities do you offer?"
-    }
+    {"word": "reservation", "meaning": "booking", "example": "I have a reservation."},
+    {"word": "check-in/out", "meaning": "arrive/leave hotel", "example": "Checkout is at 11am."},
+    {"word": "amenities", "meaning": "facilities", "example": "What amenities do you offer?"}
   ],
   "category": "travel",
   "difficulty": "beginner",
   "icon": "plane",
-  "completion_message": "Great job completing the Hotel Check-in scenario!"
+  "completion_message": "Great job! You successfully checked into a hotel!"
 }

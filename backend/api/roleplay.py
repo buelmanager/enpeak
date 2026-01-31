@@ -171,8 +171,8 @@ async def start_roleplay(request: RoleplayStartRequest, req: Request):
             "user_level": request.user_level,
         }
 
-        # AI 오프닝 메시지
-        ai_message = first_stage.get("ai_opening", "Hello! Let's start.")
+        # AI 오프닝 메시지 (ai_line 우선, 없으면 ai_opening)
+        ai_message = first_stage.get("ai_line") or first_stage.get("ai_opening", "Hello! Let's start.")
 
         # 대화 히스토리에 추가
         roleplay_sessions[session_id]["conversation_history"].append({
@@ -205,9 +205,18 @@ async def start_roleplay(request: RoleplayStartRequest, req: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def check_user_response(user_message: str, accept_keywords: List[str]) -> bool:
+    """사용자 응답이 현재 스테이지의 예상 키워드를 포함하는지 확인"""
+    user_lower = user_message.lower()
+    for keyword in accept_keywords:
+        if keyword.lower() in user_lower:
+            return True
+    return False
+
+
 @router.post("/turn", response_model=RoleplayTurnResponse)
 async def roleplay_turn(request: RoleplayTurnRequest, req: Request):
-    """롤플레이 대화 턴"""
+    """롤플레이 대화 턴 - 스크립트 방식"""
     try:
         if request.session_id not in roleplay_sessions:
             raise HTTPException(status_code=404, detail="Session not found")
@@ -215,10 +224,7 @@ async def roleplay_turn(request: RoleplayTurnRequest, req: Request):
         session = roleplay_sessions[request.session_id]
         scenario = session["scenario"]
         current_stage_num = session["current_stage"]
-
-        llm = req.app.state.llm
-        if not llm:
-            raise HTTPException(status_code=503, detail="LLM not initialized")
+        total_stages = len(scenario["stages"])
 
         # 사용자 메시지 저장
         session["conversation_history"].append({
@@ -228,135 +234,54 @@ async def roleplay_turn(request: RoleplayTurnRequest, req: Request):
 
         # 현재 스테이지 정보
         current_stage = scenario["stages"][current_stage_num - 1]
+        accept_keywords = current_stage.get("accept_keywords", [])
 
-        # 대화 히스토리 포맷
-        history_text = ""
-        for msg in session["conversation_history"]:
-            role = "User" if msg["role"] == "user" else scenario["roles"]["ai"]
-            history_text += f"{role}: {msg['content']}\n"
+        # 사용자 응답이 현재 스테이지에 적합한지 확인
+        is_valid_response = check_user_response(request.user_message, accept_keywords)
 
-        # AI 응답과 추천 응답을 함께 JSON으로 생성
-        prompt = f"""You are: {scenario["roles"]["ai"]}
-Scenario: {scenario["title"]} | Stage: {current_stage["name"]} ({current_stage_num}/{len(scenario["stages"])})
+        # 스테이지 진행 결정
+        is_complete = False
+        next_stage = current_stage_num
 
-CONVERSATION SO FAR:
-{history_text}
+        if is_valid_response:
+            # 다음 스테이지로 진행
+            if current_stage_num < total_stages:
+                next_stage = current_stage_num + 1
+                session["current_stage"] = next_stage
+            else:
+                # 마지막 스테이지 완료
+                is_complete = True
 
-USER NOW SAYS: "{request.user_message}"
-
-You MUST respond with valid JSON containing both "response" and "suggestions":
-{{"response": "Your reply to the user (1-2 sentences)", "suggestions": ["Option 1", "Option 2", "Option 3"]}}
-
-Example output:
-{{"response": "That sounds wonderful! What are your plans for today?", "suggestions": ["I want to have breakfast first.", "I need to go to work.", "I think I will exercise."]}}
-
-IMPORTANT:
-- "suggestions" MUST contain 3 different options the user could say next
-- Each suggestion should be a natural response to YOUR reply
-- Keep suggestions 5-10 words each
-- Stay in character as {scenario["roles"]["ai"]}
-
-Output ONLY the JSON:"""
-
-        llm_output = llm.generate(
-            prompt=prompt,
-            system_prompt="Output only valid JSON. No emojis. No markdown.",
-            max_tokens=250,
-            temperature=0.9,
-        )
-
-        # JSON 파싱
-        ai_response = ""
-        dynamic_suggestions = []
-        try:
-            llm_output = llm_output.strip()
-            print(f"[DEBUG] LLM raw output: {llm_output[:300]}")  # 강제 출력
-
-            # 마크다운 코드 블록 제거
-            if llm_output.startswith("```"):
-                parts = llm_output.split("```")
-                if len(parts) >= 2:
-                    llm_output = parts[1]
-                    if llm_output.startswith("json"):
-                        llm_output = llm_output[4:]
-                    llm_output = llm_output.strip()
-
-            # JSON 객체 추출 시도 (텍스트 중간에 JSON이 있을 수 있음)
-            import re
-            json_match = re.search(r'\{[^{}]*"response"[^{}]*"suggestions"[^{}]*\[.*?\][^{}]*\}', llm_output, re.DOTALL)
-            if json_match:
-                llm_output = json_match.group()
-
-            parsed = json.loads(llm_output)
-            ai_response = parsed.get("response", "")
-            dynamic_suggestions = parsed.get("suggestions", [])
-            print(f"[DEBUG] Parsed suggestions: {dynamic_suggestions}")  # 강제 출력
-        except (json.JSONDecodeError, Exception) as e:
-            # JSON 파싱 실패 시 텍스트 그대로 사용
-            print(f"[DEBUG] JSON parse failed: {e}, output: {llm_output[:200]}")
-            ai_response = llm_output
-            dynamic_suggestions = []
-
-        # 응답에서 앞뒤 따옴표 제거 (LLM이 종종 따옴표로 감싸서 반환)
-        if ai_response:
-            ai_response = ai_response.strip()
-            # 앞뒤 따옴표 반복 제거
-            while ai_response and ai_response[0] in '"\'':
-                ai_response = ai_response[1:]
-            while ai_response and ai_response[-1] in '"\'':
-                ai_response = ai_response[:-1]
-            ai_response = ai_response.strip()
-
-        if not ai_response:
-            ai_response = "That sounds great! Is there anything else?"
-            dynamic_suggestions = ["Yes, please.", "No, that's all.", "Can you repeat that?"]
+        # 다음 스테이지 정보 (또는 현재 스테이지 유지)
+        if is_complete:
+            # 완료 시 현재 스테이지 정보 사용
+            next_stage_info = current_stage
+            ai_message = scenario.get("completion_message", "Great job! You completed the conversation!")
+            suggested_responses = []
+        elif is_valid_response and next_stage <= total_stages:
+            # 다음 스테이지로 이동
+            next_stage_info = scenario["stages"][next_stage - 1]
+            ai_message = next_stage_info.get("ai_line", "Please continue.")
+            suggested_responses = next_stage_info.get("suggested_responses", [])
+        else:
+            # 현재 스테이지 유지 (응답이 적합하지 않음)
+            next_stage_info = current_stage
+            ai_message = f"I didn't quite catch that. {current_stage.get('ai_line', 'Could you try again?')}"
+            suggested_responses = current_stage.get("suggested_responses", [])
 
         # AI 응답 저장
         session["conversation_history"].append({
             "role": "assistant",
-            "content": ai_response
+            "content": ai_message
         })
-
-        # 스테이지 진행 체크 (간단한 휴리스틱)
-        is_complete = False
-        next_stage = current_stage_num
-
-        # 대화 턴 수에 따라 스테이지 진행
-        turns_in_stage = len([m for m in session["conversation_history"] if m["role"] == "user"])
-        if turns_in_stage >= 2 and current_stage_num < len(scenario["stages"]):
-            next_stage = current_stage_num + 1
-            session["current_stage"] = next_stage
-        elif turns_in_stage >= 2 and current_stage_num >= len(scenario["stages"]):
-            is_complete = True
-
-        # 다음 스테이지 정보
-        stage_info = scenario["stages"][next_stage - 1] if next_stage <= len(scenario["stages"]) else current_stage
-
-        # 동적 추천이 없으면 AI 응답 기반으로 간단한 제안 생성
-        if not dynamic_suggestions and ai_response:
-            # AI가 질문을 했을 경우 기본 응답 생성
-            ai_lower = ai_response.lower()
-            if "hot or" in ai_lower or "iced" in ai_lower:
-                dynamic_suggestions = ["Hot, please.", "Iced, please.", "What do you recommend?"]
-            elif "size" in ai_lower or "small" in ai_lower or "large" in ai_lower:
-                dynamic_suggestions = ["Medium, please.", "Large, please.", "What sizes do you have?"]
-            elif "anything else" in ai_lower or "else" in ai_lower:
-                dynamic_suggestions = ["That's all, thanks.", "Yes, I'd also like a muffin.", "How much is it?"]
-            elif "?" in ai_response:
-                # 일반적인 질문에 대한 기본 응답
-                dynamic_suggestions = ["Yes, please.", "No, thank you.", "Could you repeat that?"]
-
-        # 동적 추천이 있으면 사용, 없으면 스테이지 기본 추천 사용
-        final_suggestions = dynamic_suggestions if dynamic_suggestions else stage_info.get("suggested_responses", [])
-        print(f"[DEBUG] Final suggestions: {final_suggestions}, dynamic count: {len(dynamic_suggestions)}")
 
         return RoleplayTurnResponse(
             session_id=request.session_id,
-            ai_message=ai_response,
+            ai_message=ai_message,
             current_stage=next_stage,
-            total_stages=len(scenario["stages"]),
-            learning_tip=stage_info.get("learning_tip"),
-            suggested_responses=final_suggestions,
+            total_stages=total_stages,
+            learning_tip=next_stage_info.get("learning_tip"),
+            suggested_responses=suggested_responses,
             is_complete=is_complete
         )
 
