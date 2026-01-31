@@ -87,6 +87,95 @@ def load_sentences_data() -> List[Dict]:
     return []
 
 
+# RAG 청크 데이터 디렉토리
+RAG_CHUNKS_DIR = DATA_DIR / "rag_chunks"
+
+
+def search_idioms_containing_word(word: str, limit: int = 5) -> List[Dict]:
+    """RAG 청크에서 특정 단어가 포함된 숙어 검색"""
+    word_lower = word.lower()
+    results = []
+
+    # 숙어 파일들 검색
+    idiom_files = ["idiom_chunks.json", "more_idioms_chunks.json"]
+    for filename in idiom_files:
+        filepath = RAG_CHUNKS_DIR / filename
+        if filepath.exists():
+            try:
+                with open(filepath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                for item in data:
+                    # 숙어 표현에서 단어 검색
+                    expression = item.get("expression") or item.get("idiom") or ""
+                    if word_lower in expression.lower():
+                        meaning = item.get("meaning") or item.get("meaning_ko") or ""
+                        example = item.get("example") or ""
+                        results.append({
+                            "phrase": expression,
+                            "meaning": meaning,
+                            "example": example,
+                        })
+                        if len(results) >= limit:
+                            return results
+            except Exception:
+                pass
+
+    return results
+
+
+def search_sentences_containing_word(word: str, limit: int = 5) -> List[Dict]:
+    """RAG 청크에서 특정 단어가 포함된 예문 검색"""
+    word_lower = word.lower()
+    results = []
+
+    # 대화 데이터에서 검색
+    dialogue_file = RAG_CHUNKS_DIR / "dialogsum_chunks.json"
+    if dialogue_file.exists():
+        try:
+            with open(dialogue_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for item in data:
+                content = item.get("content", "")
+                # 대화에서 해당 단어가 포함된 문장 추출
+                lines = content.split("\n")
+                for line in lines:
+                    if word_lower in line.lower() and len(line) > 10 and len(line) < 150:
+                        # #Person1#: 등의 접두어 제거
+                        clean_line = line
+                        if ":" in line:
+                            clean_line = line.split(":", 1)[1].strip()
+                        if clean_line and len(clean_line) > 5:
+                            results.append({
+                                "en": clean_line,
+                                "ko": "",  # 번역 없음
+                            })
+                            if len(results) >= limit:
+                                return results
+        except Exception:
+            pass
+
+    # 표현 데이터에서 검색
+    expr_file = RAG_CHUNKS_DIR / "expressions_chunks.json"
+    if expr_file.exists():
+        try:
+            with open(expr_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            for item in data:
+                expression = item.get("expression", "")
+                if word_lower in expression.lower():
+                    meaning = item.get("meaning_ko") or item.get("meaning") or ""
+                    results.append({
+                        "en": expression,
+                        "ko": meaning,
+                    })
+                    if len(results) >= limit:
+                        return results
+        except Exception:
+            pass
+
+    return results
+
+
 # 일반 단어에 대한 실제 숙어/예문 데이터베이스
 COMMON_WORD_DATA = {
     "man": {
@@ -373,22 +462,34 @@ COMMON_WORD_DATA = {
 
 
 def get_smart_fallback(word: str) -> Dict:
-    """단어에 맞는 스마트 폴백 데이터 반환"""
+    """단어에 맞는 스마트 폴백 데이터 반환 (RAG 검색 포함)"""
     word_lower = word.lower()
 
-    # 데이터베이스에 있는 경우 해당 데이터 반환
+    # 1. 하드코딩된 데이터베이스에 있는 경우
     if word_lower in COMMON_WORD_DATA:
         return COMMON_WORD_DATA[word_lower]
 
-    # 없는 경우 일반적인 학습 문장 생성
+    # 2. RAG 청크 데이터에서 검색
+    rag_idioms = search_idioms_containing_word(word, limit=4)
+    rag_sentences = search_sentences_containing_word(word, limit=4)
+
+    # RAG에서 데이터를 찾은 경우
+    if rag_idioms or rag_sentences:
+        return {
+            "idioms": rag_idioms,
+            "sentences": rag_sentences,
+            "related_words": [],
+        }
+
+    # 3. 아무것도 없으면 일반적인 학습 문장 생성
     return {
-        "idioms": [],  # 숙어는 없으면 빈 배열 (잘못된 템플릿보다 나음)
+        "idioms": [],
         "sentences": [
             {"en": f"I'm learning the word '{word}'.", "ko": f"'{word}'라는 단어를 배우고 있어요."},
             {"en": f"Can you use '{word}' in a sentence?", "ko": f"'{word}'를 문장에서 사용해 볼 수 있나요?"},
             {"en": f"How do you pronounce '{word}'?", "ko": f"'{word}'는 어떻게 발음하나요?"},
         ],
-        "related_words": [],  # 관련 단어도 없으면 빈 배열
+        "related_words": [],
     }
 
 

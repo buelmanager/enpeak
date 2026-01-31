@@ -266,14 +266,20 @@ Output ONLY valid JSON:"""
             parsed = json.loads(llm_output)
             ai_response = parsed.get("response", "")
             dynamic_suggestions = parsed.get("suggestions", [])
-
-            # 응답에서 앞뒤 따옴표 제거
-            if ai_response:
-                ai_response = ai_response.strip().strip('"').strip("'")
         except json.JSONDecodeError:
-            # JSON 파싱 실패 시 텍스트 그대로 사용 (따옴표 제거)
-            ai_response = llm_output.strip().strip('"').strip("'")
+            # JSON 파싱 실패 시 텍스트 그대로 사용
+            ai_response = llm_output
             dynamic_suggestions = []
+
+        # 응답에서 앞뒤 따옴표 제거 (LLM이 종종 따옴표로 감싸서 반환)
+        if ai_response:
+            ai_response = ai_response.strip()
+            # 앞뒤 따옴표 반복 제거
+            while ai_response and ai_response[0] in '"\'':
+                ai_response = ai_response[1:]
+            while ai_response and ai_response[-1] in '"\'':
+                ai_response = ai_response[:-1]
+            ai_response = ai_response.strip()
 
         if not ai_response:
             ai_response = "That sounds great! Is there anything else?"
