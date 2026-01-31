@@ -2,7 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react'
 import MessageBubble from './MessageBubble'
-import VoiceRecorder from './VoiceRecorder'
+import VoiceRecorder, { VoiceRecorderRef } from './VoiceRecorder'
+import ListeningIndicator from './ListeningIndicator'
+import ConversationSettingsPanel from './ConversationSettingsPanel'
+import { useTTS } from '@/contexts/TTSContext'
+import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 
 interface Message {
   id: string
@@ -68,7 +72,14 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
   const [loading, setLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | null>(null)
   const [initialized, setInitialized] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [isRecording, setIsRecording] = useState(false)
+  const [shouldAutoRecord, setShouldAutoRecord] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const voiceRecorderRef = useRef<VoiceRecorderRef>(null)
+
+  const { speakWithCallback, isSpeaking, stop: stopTTS } = useTTS()
+  const { settings } = useConversationSettings()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -103,8 +114,34 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
     }
   }, [practiceExpression, initialized])
 
+  // AI 응답 후 자동 TTS 재생
+  useEffect(() => {
+    if (!settings.autoTTS || loading || messages.length === 0) return
+
+    const lastMessage = messages[messages.length - 1]
+    if (lastMessage.role === 'assistant' && lastMessage.id !== 'initial' && lastMessage.id !== 'situation') {
+      // TTS 재생 후 자동 녹음 시작
+      speakWithCallback(lastMessage.content, () => {
+        if (settings.autoRecord) {
+          setShouldAutoRecord(true)
+        }
+      })
+    }
+  }, [messages, loading, settings.autoTTS, settings.autoRecord])
+
+  // 자동 녹음 트리거
+  useEffect(() => {
+    if (shouldAutoRecord && !isSpeaking && !loading) {
+      voiceRecorderRef.current?.startRecording()
+      setShouldAutoRecord(false)
+    }
+  }, [shouldAutoRecord, isSpeaking, loading])
+
   const sendMessage = async (text: string) => {
     if (!text.trim()) return
+
+    // TTS 중이면 중지
+    stopTTS()
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -184,13 +221,40 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
     sendMessage(suggestion)
   }
 
+  const handleRecordingChange = (recording: boolean) => {
+    setIsRecording(recording)
+  }
+
+  const handleCancelRecording = () => {
+    voiceRecorderRef.current?.stopRecording()
+    setIsRecording(false)
+  }
+
   // 마지막 AI 메시지 인덱스 찾기
   const lastAssistantIndex = messages.reduce((lastIdx, msg, idx) =>
     msg.role === 'assistant' ? idx : lastIdx, -1
   )
 
+  // 입력 모드에 따른 UI 표시
+  const showTextInput = settings.inputMode === 'text' || settings.inputMode === 'both'
+  const showVoiceInput = settings.inputMode === 'voice' || settings.inputMode === 'both'
+
   return (
     <div className="flex flex-col h-full bg-[#faf9f7]">
+      {/* 설정 버튼 (우상단) */}
+      <div className="absolute top-[40px] right-4 z-10">
+        <button
+          onClick={() => setShowSettings(true)}
+          className="w-10 h-10 bg-white rounded-full shadow-sm border border-[#f0f0f0] flex items-center justify-center text-[#8a8a8a] hover:text-[#1a1a1a] transition-colors"
+          title="대화 설정"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+      </div>
+
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
         {messages.length === 0 ? (
@@ -236,6 +300,29 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
           ))
         )}
 
+        {/* TTS 재생 중 표시 */}
+        {isSpeaking && (
+          <div className="flex items-center gap-3 text-[#8a8a8a]">
+            <div className="flex gap-1">
+              <div className="w-2 h-2 bg-[#1a1a1a] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-2 h-2 bg-[#1a1a1a] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-2 h-2 bg-[#1a1a1a] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+            </div>
+            <span className="text-xs tracking-wide">읽는 중...</span>
+            <button
+              onClick={stopTTS}
+              className="text-xs text-[#8a8a8a] hover:text-[#1a1a1a] underline"
+            >
+              중지
+            </button>
+          </div>
+        )}
+
+        {/* 녹음 중 표시 */}
+        {isRecording && settings.autoRecord && (
+          <ListeningIndicator isActive={isRecording} onCancel={handleCancelRecording} />
+        )}
+
         {loading && (
           <div className="flex items-center gap-3 text-[#8a8a8a]">
             <div className="flex gap-1">
@@ -253,26 +340,43 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
       {/* Input Area */}
       <div className="border-t border-[#f0f0f0] bg-[#faf9f7] px-6 py-4">
         <form onSubmit={handleSubmit} className="flex items-center gap-3">
-          <input
-            type="text"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            placeholder="영어로 입력하세요..."
-            className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#1a1a1a] transition-colors"
-            disabled={loading}
-          />
-          <VoiceRecorder onResult={handleVoiceResult} disabled={loading} />
-          <button
-            type="submit"
-            disabled={loading || !input.trim()}
-            className="w-12 h-12 bg-[#1a1a1a] text-white rounded-full flex items-center justify-center hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-            </svg>
-          </button>
+          {showTextInput && (
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              placeholder="영어로 입력하세요..."
+              className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#1a1a1a] transition-colors"
+              disabled={loading || isRecording}
+            />
+          )}
+          {showVoiceInput && (
+            <VoiceRecorder
+              ref={voiceRecorderRef}
+              onResult={handleVoiceResult}
+              disabled={loading}
+              onRecordingChange={handleRecordingChange}
+            />
+          )}
+          {showTextInput && (
+            <button
+              type="submit"
+              disabled={loading || !input.trim() || isRecording}
+              className="w-12 h-12 bg-[#1a1a1a] text-white rounded-full flex items-center justify-center hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          )}
         </form>
       </div>
+
+      {/* 설정 패널 */}
+      <ConversationSettingsPanel
+        isOpen={showSettings}
+        onClose={() => setShowSettings(false)}
+      />
     </div>
   )
 }

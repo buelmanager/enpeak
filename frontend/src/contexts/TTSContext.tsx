@@ -21,6 +21,7 @@ interface TTSContextType {
   settings: TTSSettings
   setSettings: (settings: TTSSettings) => void
   speak: (text: string) => void
+  speakWithCallback: (text: string, onEnd?: () => void) => void
   stop: () => void
   isSpeaking: boolean
   isLoaded: boolean
@@ -174,13 +175,8 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     syncToFirebaseIfLoggedIn({ ttsSettings: newSettings })
   }
 
-  // 음성 재생
-  const speak = (text: string) => {
-    if (!('speechSynthesis' in window)) return
-
-    const synth = window.speechSynthesis
-    synth.cancel() // 기존 재생 중지
-
+  // 음성 재생 (내부 헬퍼)
+  const createUtterance = (text: string, onEnd?: () => void): SpeechSynthesisUtterance => {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = 'en-US'
     utterance.rate = settings.rate
@@ -188,6 +184,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
 
     // 선택된 음성 찾기
     if (settings.selectedVoice) {
+      const synth = window.speechSynthesis
       const voice = synth.getVoices().find(v => v.voiceURI === settings.selectedVoice?.voiceURI)
       if (voice) {
         utterance.voice = voice
@@ -195,9 +192,40 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     }
 
     utterance.onstart = () => setIsSpeaking(true)
-    utterance.onend = () => setIsSpeaking(false)
-    utterance.onerror = () => setIsSpeaking(false)
+    utterance.onend = () => {
+      setIsSpeaking(false)
+      onEnd?.()
+    }
+    utterance.onerror = () => {
+      setIsSpeaking(false)
+      onEnd?.()
+    }
 
+    return utterance
+  }
+
+  // 음성 재생
+  const speak = (text: string) => {
+    if (!('speechSynthesis' in window)) return
+
+    const synth = window.speechSynthesis
+    synth.cancel() // 기존 재생 중지
+
+    const utterance = createUtterance(text)
+    synth.speak(utterance)
+  }
+
+  // 음성 재생 + 완료 콜백
+  const speakWithCallback = (text: string, onEnd?: () => void) => {
+    if (!('speechSynthesis' in window)) {
+      onEnd?.()
+      return
+    }
+
+    const synth = window.speechSynthesis
+    synth.cancel() // 기존 재생 중지
+
+    const utterance = createUtterance(text, onEnd)
     synth.speak(utterance)
   }
 
@@ -215,6 +243,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
       settings,
       setSettings,
       speak,
+      speakWithCallback,
       stop,
       isSpeaking,
       isLoaded,
