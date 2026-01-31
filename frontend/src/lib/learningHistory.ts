@@ -1,4 +1,5 @@
 // 학습 기록 관리 유틸리티
+import { syncToFirebaseIfLoggedIn } from './userDataSync'
 
 export interface LearningRecord {
   id: string
@@ -67,7 +68,13 @@ export function addLearningRecord(record: Omit<LearningRecord, 'id' | 'completed
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records))
 
   // 통계 업데이트
-  updateStats(newRecord)
+  const stats = updateStats(newRecord)
+
+  // Firebase 동기화 (로그인된 경우)
+  syncToFirebaseIfLoggedIn({
+    learningHistory: records,
+    learningStats: stats,
+  })
 
   return newRecord
 }
@@ -130,9 +137,21 @@ export function getStats(): TodayStats {
 }
 
 // 통계 업데이트
-function updateStats(record: LearningRecord) {
+interface StatsData {
+  lastActiveDate: string | null
+  streak: number
+  todayStats: {
+    date: string
+    totalSessions: number
+    totalMinutes: number
+    vocabularyWords: number
+    conversationScenarios: number
+  }
+}
+
+function updateStats(record: LearningRecord): StatsData {
   const data = localStorage.getItem(STATS_KEY)
-  const stats = data ? JSON.parse(data) : {
+  const stats: StatsData = data ? JSON.parse(data) : {
     lastActiveDate: null,
     streak: 0,
     todayStats: {
@@ -194,6 +213,8 @@ function updateStats(record: LearningRecord) {
   }
 
   localStorage.setItem(STATS_KEY, JSON.stringify(stats))
+
+  return stats
 }
 
 // 이번 주 학습일 가져오기 (월~일)

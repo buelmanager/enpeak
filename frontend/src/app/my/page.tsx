@@ -1,13 +1,27 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
 import TTSSettingsModal from '@/components/TTSSettingsModal'
 import { APP_VERSION, BUILD_DATE } from '@/lib/version'
+import { useAuth } from '@/contexts/AuthContext'
+import { logOut } from '@/lib/firebase'
 
 export default function MyPage() {
+  const router = useRouter()
+  const { user, loading } = useAuth()
   const [showTTSSettings, setShowTTSSettings] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    await logOut()
+    setIsLoggingOut(false)
+    router.push('/')
+  }
 
   const handleUpdate = async () => {
     setIsUpdating(true)
@@ -43,6 +57,45 @@ export default function MyPage() {
         <h1 className="text-2xl font-bold text-[#1a1a1a] mb-8">My</h1>
 
         <div className="space-y-4">
+          {/* Profile Section */}
+          <section className="bg-white rounded-2xl p-4 shadow-sm">
+            {loading ? (
+              <div className="flex items-center gap-4 py-2">
+                <div className="w-14 h-14 bg-[#f0f0f0] rounded-full animate-pulse" />
+                <div className="flex-1">
+                  <div className="h-5 bg-[#f0f0f0] rounded w-24 mb-2 animate-pulse" />
+                  <div className="h-4 bg-[#f0f0f0] rounded w-40 animate-pulse" />
+                </div>
+              </div>
+            ) : user ? (
+              <div className="flex items-center gap-4 py-2">
+                <div className="w-14 h-14 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white text-xl font-medium">
+                  {user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
+                </div>
+                <div className="flex-1">
+                  <p className="text-[#1a1a1a] font-medium text-lg">
+                    {user.displayName || '사용자'}
+                  </p>
+                  <p className="text-sm text-[#8a8a8a]">{user.email}</p>
+                </div>
+              </div>
+            ) : (
+              <Link href="/login" className="flex items-center gap-4 py-2">
+                <div className="w-14 h-14 bg-[#f5f5f5] rounded-full flex items-center justify-center">
+                  <svg className="w-7 h-7 text-[#c5c5c5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-[#1a1a1a] font-medium text-lg">로그인하기</p>
+                  <p className="text-sm text-[#8a8a8a]">로그인하면 학습 데이터가 저장됩니다</p>
+                </div>
+                <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            )}
+          </section>
           <section className="bg-white rounded-2xl p-4 shadow-sm">
             <h2 className="text-sm font-medium text-[#8a8a8a] mb-3">설정</h2>
 
@@ -108,6 +161,26 @@ export default function MyPage() {
               </div>
             </div>
           </section>
+
+          {/* Logout Button - only when logged in */}
+          {user && (
+            <button
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className="w-full bg-white rounded-2xl p-4 shadow-sm flex items-center justify-center gap-2 text-red-500 font-medium"
+            >
+              {isLoggingOut ? (
+                <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              )}
+              {isLoggingOut ? '로그아웃 중...' : '로그아웃'}
+            </button>
+          )}
         </div>
       </div>
 

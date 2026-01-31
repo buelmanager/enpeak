@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { syncToFirebaseIfLoggedIn } from '@/lib/userDataSync'
 
 export interface TTSVoice {
   name: string
@@ -168,6 +169,9 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   const setSettings = (newSettings: TTSSettings) => {
     setSettingsState(newSettings)
     localStorage.setItem('tts-settings', JSON.stringify(newSettings))
+
+    // Firebase 동기화 (로그인된 경우)
+    syncToFirebaseIfLoggedIn({ ttsSettings: newSettings })
   }
 
   // 음성 재생

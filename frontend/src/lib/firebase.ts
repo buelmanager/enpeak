@@ -2,7 +2,6 @@ import { initializeApp, getApps } from 'firebase/app'
 import {
   getAuth,
   GoogleAuthProvider,
-  OAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -10,6 +9,14 @@ import {
   onAuthStateChanged,
   User
 } from 'firebase/auth'
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  serverTimestamp
+} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -23,26 +30,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 const auth = getAuth(app)
+const db = getFirestore(app)
 
 // Providers
 const googleProvider = new GoogleAuthProvider()
-const appleProvider = new OAuthProvider('apple.com')
-appleProvider.addScope('email')
-appleProvider.addScope('name')
 
 // Auth functions
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider)
-    return { user: result.user, error: null }
-  } catch (error: any) {
-    return { user: null, error: error.message }
-  }
-}
-
-export const signInWithApple = async () => {
-  try {
-    const result = await signInWithPopup(auth, appleProvider)
     return { user: result.user, error: null }
   } catch (error: any) {
     return { user: null, error: error.message }
@@ -76,5 +72,5 @@ export const logOut = async () => {
   }
 }
 
-export { auth, onAuthStateChanged }
+export { auth, db, onAuthStateChanged, doc, getDoc, setDoc, updateDoc, serverTimestamp }
 export type { User }

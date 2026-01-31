@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
-import { logOut } from '@/lib/firebase'
 import { useState, useEffect } from 'react'
 import BottomNav from '@/components/BottomNav'
 import {
@@ -50,10 +49,6 @@ export default function Home() {
     setWeeklyStats(loadedWeeklyStats)
   }, [])
 
-  const handleLogout = async () => {
-    await logOut()
-  }
-
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-28">
       {/* Header */}
@@ -68,12 +63,12 @@ export default function Home() {
           {loading ? (
             <div className="w-10 h-10 rounded-full border border-[#e5e5e5]" />
           ) : user ? (
-            <button
-              onClick={handleLogout}
+            <Link
+              href="/my"
               className="w-10 h-10 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center text-xs font-medium"
             >
-              {user.email?.charAt(0).toUpperCase() || 'U'}
-            </button>
+              {user.displayName?.charAt(0) || user.email?.charAt(0).toUpperCase() || 'U'}
+            </Link>
           ) : (
             <Link
               href="/login"
