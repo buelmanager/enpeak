@@ -7,9 +7,20 @@ import { VersionCheck } from '@/components/VersionCheck'
 import PWAInstallGuide from '@/components/PWAInstallGuide'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://enpeak.web.app'),
   title: 'EnPeak - AI English Learning',
   description: 'AI와 함께하는 영어 회화 연습 앱',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/icons/apple-touch-icon.png',
+  },
+  openGraph: {
+    title: 'EnPeak - AI English Learning',
+    description: 'AI와 함께하는 영어 회화 연습 앱',
+    images: ['/icon.png'],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -40,15 +51,17 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
         <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="EnPeak" />
         <meta name="application-name" content="EnPeak" />
-        <meta name="msapplication-TileColor" content="#0d0d12" />
+        <meta name="msapplication-TileColor" content="#1a1a1a" />
+        <meta name="msapplication-TileImage" content="/icons/icon-144.png" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className="antialiased bg-[#faf9f7]">
