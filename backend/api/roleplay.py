@@ -239,10 +239,13 @@ async def roleplay_turn(request: RoleplayTurnRequest, req: Request):
             user_message=request.user_message
         )
 
+        # 디버그 로깅
+        logger.info(f"=== ROLEPLAY PROMPT ===\n{prompt}\n=== END PROMPT ===")
+
         ai_response = llm.generate(
             prompt=prompt,
             max_tokens=150,
-            temperature=0.8,
+            temperature=0.9,  # 더 다양한 응답을 위해 temperature 상승
         )
 
         # AI 응답 저장

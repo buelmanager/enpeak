@@ -8,7 +8,9 @@ import BottomNav from '@/components/BottomNav'
 import {
   getStats,
   getWeeklyActivity,
+  getWeeklyStats,
   type TodayStats,
+  type WeeklyStats,
 } from '@/lib/learningHistory'
 
 export default function Home() {
@@ -22,6 +24,13 @@ export default function Home() {
   })
   const [greeting, setGreeting] = useState('Good morning')
   const [weeklyActivity, setWeeklyActivity] = useState<boolean[]>([false, false, false, false, false, false, false])
+  const [weeklyStats, setWeeklyStats] = useState<WeeklyStats>({
+    totalSessions: 0,
+    totalDays: 0,
+    vocabularyWords: 0,
+    conversations: 0,
+    chatSessions: 0,
+  })
 
   useEffect(() => {
     const hour = new Date().getHours()
@@ -31,8 +40,10 @@ export default function Home() {
 
     const loadedStats = getStats()
     const loadedWeekly = getWeeklyActivity()
+    const loadedWeeklyStats = getWeeklyStats()
     setStats(loadedStats)
     setWeeklyActivity(loadedWeekly)
+    setWeeklyStats(loadedWeeklyStats)
   }, [])
 
   const handleLogout = async () => {
@@ -154,23 +165,45 @@ export default function Home() {
           <div className="flex-1 h-px bg-[#e5e5e5]" />
         </div>
 
-        {/* Weekly Activity */}
-        <div className="flex justify-between px-4">
-          {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
-            <div key={day} className="flex flex-col items-center gap-2">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${
-                weeklyActivity[idx]
-                  ? 'bg-[#1a1a1a] text-white'
-                  : 'bg-[#f0f0f0] text-[#c5c5c5]'
-              }`}>
-                {weeklyActivity[idx] ? (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                ) : day}
-              </div>
+        {/* Weekly Stats Summary */}
+        <div className="bg-white rounded-2xl p-4 border border-[#f0f0f0]">
+          <div className="grid grid-cols-4 gap-3 text-center">
+            <div>
+              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.totalDays}</p>
+              <p className="text-[10px] text-[#8a8a8a] mt-1">학습일</p>
             </div>
-          ))}
+            <div>
+              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.conversations}</p>
+              <p className="text-[10px] text-[#8a8a8a] mt-1">회화</p>
+            </div>
+            <div>
+              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.vocabularyWords}</p>
+              <p className="text-[10px] text-[#8a8a8a] mt-1">단어</p>
+            </div>
+            <div>
+              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.chatSessions}</p>
+              <p className="text-[10px] text-[#8a8a8a] mt-1">대화</p>
+            </div>
+          </div>
+
+          {/* Weekly Activity Dots */}
+          <div className="flex justify-between mt-4 pt-4 border-t border-[#f0f0f0]">
+            {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
+              <div key={day} className="flex flex-col items-center gap-1">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] ${
+                  weeklyActivity[idx]
+                    ? 'bg-[#1a1a1a] text-white'
+                    : 'bg-[#f5f5f5] text-[#c5c5c5]'
+                }`}>
+                  {weeklyActivity[idx] ? (
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  ) : day}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -219,6 +219,45 @@ export function getWeeklyActivity(): boolean[] {
   return weekDays
 }
 
+// 이번 주 상세 통계
+export interface WeeklyStats {
+  totalSessions: number      // 총 학습 세션
+  totalDays: number          // 학습한 날 수
+  vocabularyWords: number    // 학습한 단어 수
+  conversations: number      // 완료한 회화 수
+  chatSessions: number       // 자유 대화 세션 수
+}
+
+export function getWeeklyStats(): WeeklyStats {
+  if (typeof window === 'undefined') {
+    return {
+      totalSessions: 0,
+      totalDays: 0,
+      vocabularyWords: 0,
+      conversations: 0,
+      chatSessions: 0,
+    }
+  }
+
+  const records = getAllRecords()
+  const today = new Date()
+  const dayOfWeek = today.getDay() // 0 = Sunday
+  const monday = new Date(today)
+  monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1))
+  monday.setHours(0, 0, 0, 0)
+
+  const weekRecords = records.filter(record => new Date(record.completedAt) >= monday)
+  const activeDays = new Set(weekRecords.map(r => r.completedAt.split('T')[0]))
+
+  return {
+    totalSessions: weekRecords.length,
+    totalDays: activeDays.size,
+    vocabularyWords: weekRecords.filter(r => r.type === 'vocabulary').length,
+    conversations: weekRecords.filter(r => r.type === 'conversation').length,
+    chatSessions: weekRecords.filter(r => r.type === 'chat').length,
+  }
+}
+
 // 학습 타입별 아이콘 및 색상
 export function getLearningTypeInfo(type: LearningRecord['type']) {
   const info = {
