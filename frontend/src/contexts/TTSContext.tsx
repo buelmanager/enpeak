@@ -29,13 +29,11 @@ interface TTSContextType {
 
 const TTSContext = createContext<TTSContextType | null>(null)
 
-// 모바일 최적화 기본 설정
-// - 속도: 0.85 (영어 학습자에게 조금 느리게)
-// - 높낮이: 1.0 (자연스러운 톤)
+// 기본 설정
 const DEFAULT_SETTINGS: TTSSettings = {
   selectedVoice: null,
-  rate: 0.85,
-  pitch: 1.0,
+  rate: 1.0,
+  pitch: 1.2,
 }
 
 // 모바일 우선 음성 순위 (iOS/Android에서 품질 좋은 음성)
@@ -179,8 +177,9 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   const createUtterance = (text: string, onEnd?: () => void): SpeechSynthesisUtterance => {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = 'en-US'
-    utterance.rate = settings.rate
-    utterance.pitch = settings.pitch
+    // 값이 유효한지 확인하고 기본값 적용
+    utterance.rate = Number.isFinite(settings.rate) ? settings.rate : DEFAULT_SETTINGS.rate
+    utterance.pitch = Number.isFinite(settings.pitch) ? settings.pitch : DEFAULT_SETTINGS.pitch
 
     const synth = window.speechSynthesis
     const availableVoices = synth.getVoices()

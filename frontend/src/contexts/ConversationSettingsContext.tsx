@@ -26,30 +26,37 @@ const DEFAULT_SETTINGS: ConversationSettings = {
   inputMode: 'both',
 }
 
-const STORAGE_KEY = 'conversation-settings'
+const STORAGE_KEY = 'enpeak-conversation-settings'
 
 // 초기값을 localStorage에서 읽어오기 (SSR 대응)
 function getInitialSettings(): ConversationSettings {
   if (typeof window === 'undefined') return DEFAULT_SETTINGS
 
-  const saved = localStorage.getItem(STORAGE_KEY)
-  if (saved) {
-    try {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
       const parsed = JSON.parse(saved)
       return { ...DEFAULT_SETTINGS, ...parsed }
-    } catch {
-      return DEFAULT_SETTINGS
     }
+  } catch {
+    // ignore parse errors
   }
   return DEFAULT_SETTINGS
 }
 
 export function ConversationSettingsProvider({ children }: { children: ReactNode }) {
-  const [settings, setSettings] = useState<ConversationSettings>(DEFAULT_SETTINGS)
+  const [settings, setSettings] = useState<ConversationSettings>(() => {
+    // 클라이언트에서 초기값을 바로 localStorage에서 읽어옴
+    if (typeof window !== 'undefined') {
+      return getInitialSettings()
+    }
+    return DEFAULT_SETTINGS
+  })
   const [isLoaded, setIsLoaded] = useState(false)
 
-  // 저장된 설정 로드 (클라이언트 사이드에서)
+  // 컴포넌트 마운트 후 로드 완료 표시
   useEffect(() => {
+    // hydration 후 다시 한번 로드 (SSR/CSR 불일치 방지)
     const savedSettings = getInitialSettings()
     setSettings(savedSettings)
     setIsLoaded(true)

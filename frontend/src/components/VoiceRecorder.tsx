@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 're
 
 interface VoiceRecorderProps {
   onResult: (text: string) => void
+  onInterimResult?: (text: string) => void
   disabled?: boolean
   autoStart?: boolean
   onRecordingChange?: (isRecording: boolean) => void
@@ -16,7 +17,7 @@ export interface VoiceRecorderRef {
 }
 
 const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
-  ({ onResult, disabled, autoStart, onRecordingChange }, ref) => {
+  ({ onResult, onInterimResult, disabled, autoStart, onRecordingChange }, ref) => {
     const [isRecording, setIsRecording] = useState(false)
     const [isSupported, setIsSupported] = useState(true)
     const recognitionRef = useRef<any>(null)
@@ -32,14 +33,22 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
         const recognition = new SpeechRecognition()
         recognition.continuous = false
-        recognition.interimResults = false
+        recognition.interimResults = true
         recognition.lang = 'en-US'
 
         recognition.onresult = (event: any) => {
-          const transcript = event.results[0][0].transcript
-          onResult(transcript)
-          setIsRecording(false)
-          onRecordingChange?.(false)
+          const result = event.results[0]
+          const transcript = result[0].transcript
+
+          if (result.isFinal) {
+            // 최종 결과: 메시지 전송
+            onResult(transcript)
+            setIsRecording(false)
+            onRecordingChange?.(false)
+          } else {
+            // 중간 결과: 입력창에 표시
+            onInterimResult?.(transcript)
+          }
         }
 
         recognition.onerror = (event: any) => {
@@ -55,7 +64,7 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
         recognitionRef.current = recognition
       }
-    }, [onResult, onRecordingChange])
+    }, [onResult, onInterimResult, onRecordingChange])
 
     // 외부에서 녹음 제어 가능하도록
     useImperativeHandle(ref, () => ({

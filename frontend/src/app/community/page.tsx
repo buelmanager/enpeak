@@ -9,6 +9,7 @@ import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 import BottomNav from '@/components/BottomNav'
 import ListeningIndicator from '@/components/ListeningIndicator'
 import ConversationSettingsPanel from '@/components/ConversationSettingsPanel'
+import VoiceRecorder, { VoiceRecorderRef } from '@/components/VoiceRecorder'
 
 interface CommunityScenario {
   id: string
@@ -122,78 +123,13 @@ function CommunityContent() {
   const [inputText, setInputText] = useState('')
   const [isRoleplayLoading, setIsRoleplayLoading] = useState(false)
   const [showRoleplayModal, setShowRoleplayModal] = useState(false)
-  const [isListening, setIsListening] = useState(false)
-  const [speechSupported, setSpeechSupported] = useState(false)
-  const recognitionRef = useRef<any>(null)
+  const [isRecording, setIsRecording] = useState(false)
+  const voiceRecorderRef = useRef<VoiceRecorderRef>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { speak, speakWithCallback, stop, isSpeaking } = useTTS()
+  const { speakWithCallback, stop, isSpeaking } = useTTS()
   const { settings } = useConversationSettings()
   const [showSettings, setShowSettings] = useState(false)
   const [shouldAutoRecord, setShouldAutoRecord] = useState(false)
-
-  // 음성 인식 초기화
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
-      if (SpeechRecognition) {
-        setSpeechSupported(true)
-        const recognition = new SpeechRecognition()
-        recognition.continuous = false
-        recognition.interimResults = true
-        recognition.lang = 'en-US'
-
-        recognition.onresult = (event: any) => {
-          let finalTranscript = ''
-          let interimTranscript = ''
-
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            const transcript = event.results[i][0].transcript
-            if (event.results[i].isFinal) {
-              finalTranscript += transcript
-            } else {
-              interimTranscript += transcript
-            }
-          }
-
-          if (finalTranscript) {
-            setInputText(finalTranscript)
-          } else if (interimTranscript) {
-            setInputText(interimTranscript)
-          }
-        }
-
-        recognition.onend = () => {
-          setIsListening(false)
-        }
-
-        recognition.onerror = (event: any) => {
-          console.error('Speech recognition error:', event.error)
-          setIsListening(false)
-        }
-
-        recognitionRef.current = recognition
-      }
-    }
-
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.abort()
-      }
-    }
-  }, [])
-
-  const toggleListening = () => {
-    if (!recognitionRef.current) return
-
-    if (isListening) {
-      recognitionRef.current.stop()
-      setIsListening(false)
-    } else {
-      setInputText('')
-      recognitionRef.current.start()
-      setIsListening(true)
-    }
-  }
 
   useEffect(() => {
     if (searchParams.get('published') === 'true') {
@@ -245,14 +181,10 @@ function CommunityContent() {
   // 자동 녹음 트리거
   useEffect(() => {
     if (shouldAutoRecord && !isSpeaking && !isRoleplayLoading && showRoleplayModal) {
-      if (recognitionRef.current && !isListening) {
-        setInputText('')
-        recognitionRef.current.start()
-        setIsListening(true)
-      }
+      voiceRecorderRef.current?.startRecording()
       setShouldAutoRecord(false)
     }
-  }, [shouldAutoRecord, isSpeaking, isRoleplayLoading, showRoleplayModal, isListening])
+  }, [shouldAutoRecord, isSpeaking, isRoleplayLoading, showRoleplayModal])
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -380,10 +312,8 @@ function CommunityContent() {
   const closeRoleplay = () => {
     // TTS 및 녹음 중지
     stop()
-    if (recognitionRef.current && isListening) {
-      recognitionRef.current.stop()
-    }
-    setIsListening(false)
+    voiceRecorderRef.current?.stopRecording()
+    setIsRecording(false)
     setShouldAutoRecord(false)
 
     setShowRoleplayModal(false)
@@ -401,7 +331,7 @@ function CommunityContent() {
     if (isSpeaking) {
       stop()
     } else {
-      speak(text)
+      speakWithCallback(text, () => {})
     }
   }
 
@@ -745,17 +675,13 @@ function CommunityContent() {
           )}
 
           {/* 녹음 중 인디케이터 (입력창 바로 위) */}
-          {isListening && settings.autoRecord && (
-            <ListeningIndicator
-              isActive={isListening}
-              onCancel={() => {
-                if (recognitionRef.current) {
-                  recognitionRef.current.stop()
-                }
-                setIsListening(false)
-              }}
-            />
-          )}
+          <ListeningIndicator
+            isActive={isRecording}
+            onCancel={() => {
+              voiceRecorderRef.current?.stopRecording()
+              setIsRecording(false)
+            }}
+          />
 
           {/* Input */}
           {!roleplaySession?.isComplete && (
@@ -769,24 +695,46 @@ function CommunityContent() {
                   onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                   placeholder="영어로 입력하세요..."
                   className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#1a1a1a] transition-colors"
-                  disabled={isRoleplayLoading || isListening}
+                  disabled={isRoleplayLoading || isRecording}
                 />
                 {/* 마이크 버튼 */}
-                {speechSupported && (
-                  <button
-                    onClick={toggleListening}
-                    disabled={isRoleplayLoading}
-                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                      isListening
-                        ? 'bg-red-500 text-white'
-                        : 'bg-[#f5f5f5] text-[#8a8a8a] hover:bg-[#e5e5e5]'
-                    } disabled:opacity-50`}
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                    </svg>
-                  </button>
-                )}
+                <VoiceRecorder
+                  ref={voiceRecorderRef}
+                  onResult={(text) => {
+                    // 녹음 완료 시 자동 전송
+                    setInputText('')
+                    setMessages(prev => [...prev, { role: 'user', content: text }])
+                    setIsRoleplayLoading(true)
+                    // API 호출
+                    fetch(`${API_BASE}/api/community/roleplay/turn`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        session_id: roleplaySession?.sessionId,
+                        user_message: text,
+                      }),
+                    })
+                      .then(res => res.ok ? res.json() : Promise.reject())
+                      .then(data => {
+                        setMessages(prev => [...prev, { role: 'assistant', content: data.ai_message }])
+                        setRoleplaySession(prev => prev ? {
+                          ...prev,
+                          aiMessage: data.ai_message,
+                          currentStage: data.current_stage,
+                          learningTip: data.learning_tip,
+                          suggestedResponses: data.suggested_responses || [],
+                          isComplete: data.is_complete,
+                        } : null)
+                      })
+                      .catch(() => {
+                        setMessages(prev => [...prev, { role: 'assistant', content: "I see. Let's keep practicing!" }])
+                      })
+                      .finally(() => setIsRoleplayLoading(false))
+                  }}
+                  onInterimResult={(text) => setInputText(text)}
+                  onRecordingChange={setIsRecording}
+                  disabled={isRoleplayLoading}
+                />
                 {/* 전송 버튼 */}
                 <button
                   onClick={sendMessage}
