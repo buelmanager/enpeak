@@ -3,18 +3,22 @@
 import { useEffect, useState } from 'react'
 
 const CURRENT_VERSION_KEY = 'enpeak_current_version'
-
-// 전역 변수로 체크 여부 관리 (모든 인스턴스에서 공유)
-let hasCheckedVersion = false
+const WINDOW_CHECK_FLAG = '__enpeak_version_checked__'
 
 export function VersionCheck() {
   const [needsUpdate, setNeedsUpdate] = useState(false)
   const [serverVersion, setServerVersion] = useState<string | null>(null)
 
   useEffect(() => {
-    // 이미 체크했으면 스킵 (전역)
-    if (hasCheckedVersion) return
-    hasCheckedVersion = true
+    // window 객체에서 체크 여부 확인 (모든 청크에서 공유)
+    if (typeof window !== 'undefined' && (window as any)[WINDOW_CHECK_FLAG]) {
+      return
+    }
+
+    // 체크 플래그 설정
+    if (typeof window !== 'undefined') {
+      (window as any)[WINDOW_CHECK_FLAG] = true
+    }
 
     const checkVersion = async () => {
       try {
@@ -76,7 +80,12 @@ export function VersionCheck() {
       localStorage.setItem(CURRENT_VERSION_KEY, serverVersion)
     }
 
-    // 4. 하드 리로드
+    // 4. 체크 플래그 리셋
+    if (typeof window !== 'undefined') {
+      delete (window as any)[WINDOW_CHECK_FLAG]
+    }
+
+    // 5. 하드 리로드
     window.location.href = window.location.href.split('?')[0] + '?_=' + Date.now()
   }
 
