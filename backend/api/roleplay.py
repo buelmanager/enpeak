@@ -235,16 +235,19 @@ CONVERSATION SO FAR:
 
 USER NOW SAYS: "{request.user_message}"
 
-Respond as JSON with this format:
-{{"response": "Your natural English response (1-2 sentences)", "suggestions": ["What user could say next 1", "What user could say next 2", "What user could say next 3"]}}
+You MUST respond with valid JSON containing both "response" and "suggestions":
+{{"response": "Your reply to the user (1-2 sentences)", "suggestions": ["Option 1", "Option 2", "Option 3"]}}
 
-RULES:
-- NEVER repeat your previous responses - check the conversation history
-- The suggestions should be natural follow-ups based on YOUR response
-- Keep suggestions short (5-10 words each)
+Example output:
+{{"response": "That sounds wonderful! What are your plans for today?", "suggestions": ["I want to have breakfast first.", "I need to go to work.", "I think I will exercise."]}}
+
+IMPORTANT:
+- "suggestions" MUST contain 3 different options the user could say next
+- Each suggestion should be a natural response to YOUR reply
+- Keep suggestions 5-10 words each
 - Stay in character as {scenario["roles"]["ai"]}
 
-Output ONLY valid JSON:"""
+Output ONLY the JSON:"""
 
         llm_output = llm.generate(
             prompt=prompt,
