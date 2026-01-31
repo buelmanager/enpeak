@@ -105,7 +105,7 @@ const SAMPLE_SCENARIOS: CommunityScenario[] = [
 function CommunityContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const [scenarios, setScenarios] = useState<CommunityScenario[]>(SAMPLE_SCENARIOS)
   const [loading, setLoading] = useState(false)
   const [filter, setFilter] = useState<'popular' | 'recent' | 'beginner'>('popular')
@@ -452,6 +452,8 @@ function CommunityContent() {
           <h1 className="font-medium">커뮤니티</h1>
           <button
             onClick={() => {
+              // 인증 로딩 중이면 무시
+              if (authLoading) return
               if (!user) {
                 setShowLoginModal(true)
               } else {

@@ -1,4 +1,8 @@
 {
+  "firestore": {
+    "rules": "firestore.rules",
+    "database": "enpeak-users"
+  },
   "hosting": {
     "site": "enpeak",
     "public": "out",

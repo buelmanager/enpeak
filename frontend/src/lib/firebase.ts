@@ -39,15 +39,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 const auth = getAuth(app)
-const db = getFirestore(app)
+// enpeak-users 데이터베이스 사용 (Firestore Native 모드)
+const db = getFirestore(app, 'enpeak-users')
 
-// Auth persistence 설정 (IndexedDB 우선, 실패시 localStorage)
-// 이 설정은 앱 업데이트/캐시 삭제 후에도 로그인 상태 유지
+// Auth persistence 설정 (localStorage 사용 - 더 안정적)
+// IndexedDB는 서비스 워커 업데이트 시 영향받을 수 있음
+// localStorage는 캐시 삭제와 독립적으로 유지됨
 if (typeof window !== 'undefined') {
-  setPersistence(auth, indexedDBLocalPersistence).catch(() => {
-    // IndexedDB 실패 시 localStorage 사용
-    setPersistence(auth, browserLocalPersistence).catch(console.error)
-  })
+  setPersistence(auth, browserLocalPersistence)
+    .then(() => console.log('Auth persistence set to localStorage'))
+    .catch(console.error)
 }
 
 // Providers

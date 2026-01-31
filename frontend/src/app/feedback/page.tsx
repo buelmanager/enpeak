@@ -175,14 +175,20 @@ export default function FeedbackPage() {
   }
 
   // 댓글 작성
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false)
+
   const handleSubmitComment = async () => {
-    if (!user || !selectedPost || !newComment.trim()) return
+    if (!user || !selectedPost || !newComment.trim() || isSubmittingComment) return
+
+    setIsSubmittingComment(true)
+    const commentContent = newComment.trim()
+    setNewComment('') // 즉시 입력창 비우기
 
     try {
       await addDoc(collection(db, 'feedback', selectedPost.id, 'comments'), {
         userId: user.uid,
         userName: user.displayName || user.email?.split('@')[0] || 'Anonymous',
-        content: newComment.trim(),
+        content: commentContent,
         createdAt: serverTimestamp()
       })
 
@@ -191,10 +197,11 @@ export default function FeedbackPage() {
       await updateDoc(postRef, {
         commentCount: (selectedPost.commentCount || 0) + 1
       })
-
-      setNewComment('')
     } catch (error) {
       console.error('Error adding comment:', error)
+      setNewComment(commentContent) // 에러 시 복구
+    } finally {
+      setIsSubmittingComment(false)
     }
   }
 
@@ -579,7 +586,7 @@ export default function FeedbackPage() {
               />
               <button
                 onClick={handleSubmitComment}
-                disabled={!user || !newComment.trim()}
+                disabled={!user || !newComment.trim() || isSubmittingComment}
                 className="p-2.5 bg-[#1a1a1a] text-white rounded-full disabled:opacity-50"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
