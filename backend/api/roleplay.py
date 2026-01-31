@@ -226,27 +226,54 @@ async def roleplay_turn(request: RoleplayTurnRequest, req: Request):
             role = "User" if msg["role"] == "user" else scenario["roles"]["ai"]
             history_text += f"{role}: {msg['content']}\n"
 
-        # AI 응답 생성
-        prompt = ROLEPLAY_RESPONSE_PROMPT.format(
-            ai_role=scenario["roles"]["ai"],
-            scenario_title=scenario["title"],
-            difficulty=scenario["difficulty"],
-            stage_name=current_stage["name"],
-            current_stage=current_stage_num,
-            total_stages=len(scenario["stages"]),
-            stage_objective=current_stage.get("ai_prompt", "Continue the conversation naturally"),
-            conversation_history=history_text,
-            user_message=request.user_message
-        )
+        # AI 응답과 추천 응답을 함께 JSON으로 생성
+        prompt = f"""You are: {scenario["roles"]["ai"]}
+Scenario: {scenario["title"]} | Stage: {current_stage["name"]} ({current_stage_num}/{len(scenario["stages"])})
 
-        # 디버그 로깅
-        logger.info(f"=== ROLEPLAY PROMPT ===\n{prompt}\n=== END PROMPT ===")
+CONVERSATION SO FAR:
+{history_text}
 
-        ai_response = llm.generate(
+USER NOW SAYS: "{request.user_message}"
+
+Respond as JSON with this format:
+{{"response": "Your natural English response (1-2 sentences)", "suggestions": ["What user could say next 1", "What user could say next 2", "What user could say next 3"]}}
+
+RULES:
+- NEVER repeat your previous responses - check the conversation history
+- The suggestions should be natural follow-ups based on YOUR response
+- Keep suggestions short (5-10 words each)
+- Stay in character as {scenario["roles"]["ai"]}
+
+Output ONLY valid JSON:"""
+
+        llm_output = llm.generate(
             prompt=prompt,
-            max_tokens=150,
-            temperature=0.9,  # 더 다양한 응답을 위해 temperature 상승
+            system_prompt="Output only valid JSON. No emojis. No markdown.",
+            max_tokens=250,
+            temperature=0.9,
         )
+
+        # JSON 파싱
+        ai_response = ""
+        dynamic_suggestions = []
+        try:
+            llm_output = llm_output.strip()
+            if llm_output.startswith("```"):
+                llm_output = llm_output.split("```")[1]
+                if llm_output.startswith("json"):
+                    llm_output = llm_output[4:]
+
+            parsed = json.loads(llm_output)
+            ai_response = parsed.get("response", "")
+            dynamic_suggestions = parsed.get("suggestions", [])
+        except json.JSONDecodeError:
+            # JSON 파싱 실패 시 텍스트 그대로 사용
+            ai_response = llm_output
+            dynamic_suggestions = []
+
+        if not ai_response:
+            ai_response = "That sounds great! Is there anything else?"
+            dynamic_suggestions = ["Yes, please.", "No, that's all.", "Can you repeat that?"]
 
         # AI 응답 저장
         session["conversation_history"].append({
@@ -269,13 +296,16 @@ async def roleplay_turn(request: RoleplayTurnRequest, req: Request):
         # 다음 스테이지 정보
         stage_info = scenario["stages"][next_stage - 1] if next_stage <= len(scenario["stages"]) else current_stage
 
+        # 동적 추천이 있으면 사용, 없으면 스테이지 기본 추천 사용
+        final_suggestions = dynamic_suggestions if dynamic_suggestions else stage_info.get("suggested_responses", [])
+
         return RoleplayTurnResponse(
             session_id=request.session_id,
             ai_message=ai_response,
             current_stage=next_stage,
             total_stages=len(scenario["stages"]),
             learning_tip=stage_info.get("learning_tip"),
-            suggested_responses=stage_info.get("suggested_responses", []),
+            suggested_responses=final_suggestions,
             is_complete=is_complete
         )
 
