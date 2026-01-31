@@ -4,11 +4,18 @@ import { useEffect, useState } from 'react'
 
 const CURRENT_VERSION_KEY = 'enpeak_current_version'
 
+// 전역 변수로 체크 여부 관리 (모든 인스턴스에서 공유)
+let hasCheckedVersion = false
+
 export function VersionCheck() {
   const [needsUpdate, setNeedsUpdate] = useState(false)
   const [serverVersion, setServerVersion] = useState<string | null>(null)
 
   useEffect(() => {
+    // 이미 체크했으면 스킵 (전역)
+    if (hasCheckedVersion) return
+    hasCheckedVersion = true
+
     const checkVersion = async () => {
       try {
         const res = await fetch('/version.json?t=' + Date.now(), {
@@ -46,12 +53,7 @@ export function VersionCheck() {
       }
     }
 
-    // 최초 1회만 체크 (페이지 이동 시 다시 체크하지 않음)
-    const alreadyChecked = sessionStorage.getItem('version_checked')
-    if (!alreadyChecked) {
-      sessionStorage.setItem('version_checked', 'true')
-      checkVersion()
-    }
+    checkVersion()
   }, [])
 
   const handleUpdate = async () => {
@@ -74,10 +76,7 @@ export function VersionCheck() {
       localStorage.setItem(CURRENT_VERSION_KEY, serverVersion)
     }
 
-    // 4. 세션 체크 플래그 삭제
-    sessionStorage.removeItem('version_checked')
-
-    // 5. 하드 리로드
+    // 4. 하드 리로드
     window.location.href = window.location.href.split('?')[0] + '?_=' + Date.now()
   }
 
