@@ -760,15 +760,25 @@ function CommunityContent() {
           {/* Input */}
           {!roleplaySession?.isComplete && (
             <div className="bg-white border-t border-[#f0f0f0] px-4 py-3 pb-safe">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
+                {/* 텍스트 입력 */}
+                <input
+                  type="text"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  placeholder="영어로 입력하세요..."
+                  className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#1a1a1a] transition-colors"
+                  disabled={isRoleplayLoading || isListening}
+                />
                 {/* 마이크 버튼 */}
                 {speechSupported && (
                   <button
                     onClick={toggleListening}
                     disabled={isRoleplayLoading}
-                    className={`p-2.5 rounded-full transition-all ${
+                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                       isListening
-                        ? 'bg-red-500 text-white animate-pulse'
+                        ? 'bg-red-500 text-white'
                         : 'bg-[#f5f5f5] text-[#8a8a8a] hover:bg-[#e5e5e5]'
                     } disabled:opacity-50`}
                   >
@@ -777,22 +787,14 @@ function CommunityContent() {
                     </svg>
                   </button>
                 )}
-                <input
-                  type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder={isListening ? 'Speak now...' : 'Type or speak your response...'}
-                  className="flex-1 px-4 py-2.5 bg-[#f5f5f5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/10"
-                  disabled={isRoleplayLoading}
-                />
+                {/* 전송 버튼 */}
                 <button
                   onClick={sendMessage}
                   disabled={!inputText.trim() || isRoleplayLoading}
-                  className="p-2.5 bg-[#1a1a1a] text-white rounded-full disabled:opacity-50 transition-opacity"
+                  className="w-12 h-12 bg-[#1a1a1a] text-white rounded-full flex items-center justify-center hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                 </button>
               </div>
