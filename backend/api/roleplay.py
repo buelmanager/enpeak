@@ -179,7 +179,7 @@ async def start_roleplay(request: RoleplayStartRequest, req: Request):
                 title_ko=scenario.get("title_ko", scenario["title"]),
                 category=scenario["category"],
                 difficulty=scenario["difficulty"],
-                description=scenario["description"],
+                description=scenario.get("description", scenario.get("title_ko", scenario["title"])),
                 estimated_time=scenario.get("estimated_time", "3-5 minutes")
             ),
             ai_message=ai_message,
