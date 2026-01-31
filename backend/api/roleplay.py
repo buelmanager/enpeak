@@ -114,7 +114,7 @@ def get_all_scenarios() -> List[ScenarioInfo]:
                         title_ko=data.get("title_ko", data["title"]),
                         category=data["category"],
                         difficulty=data["difficulty"],
-                        description=data["description"],
+                        description=data.get("description", data.get("title_ko", data["title"])),
                         estimated_time=data.get("estimated_time", "3-5 minutes")
                     ))
             except Exception as e:
