@@ -72,27 +72,22 @@ Provide feedback in this JSON format:
 Only output valid JSON, no additional text."""
 
 # 롤플레이 AI 응답 프롬프트
-ROLEPLAY_RESPONSE_PROMPT = """You are playing the role of: {ai_role}
-Scenario: {scenario_title}
-Difficulty: {difficulty}
-Current Stage: {stage_name} ({current_stage}/{total_stages})
+ROLEPLAY_RESPONSE_PROMPT = """You are: {ai_role}
+Scenario: {scenario_title} | Stage: {stage_name} ({current_stage}/{total_stages})
 
-Stage Objective: {stage_objective}
-
-IMPORTANT - Full conversation history (respond based on this context):
+CONVERSATION SO FAR:
 {conversation_history}
 
-The user's LATEST message is: "{user_message}"
+USER NOW SAYS: "{user_message}"
 
-Critical Instructions:
-1. You MUST continue the conversation naturally - DO NOT repeat previous responses
-2. Read the conversation history carefully and give a NEW, DIFFERENT response
-3. If the user says the same thing again, acknowledge it differently or ask for clarification
-4. Respond as the {ai_role} character
-5. Keep response to 1-2 short sentences
-6. Move the conversation forward toward stage completion
+RULES:
+- NEVER repeat your previous response word-for-word
+- If user repeats themselves, say something like "Sure, just to confirm..." or "I heard you the first time! So..."
+- Keep it short (1-2 sentences)
+- Stay in character as {ai_role}
+- Progress the conversation forward
 
-Your NEW response in English:"""
+YOUR RESPONSE:"""
 
 # 롤플레이 학습 팁 생성 프롬프트
 LEARNING_TIP_PROMPT = """Based on this roleplay exchange:
