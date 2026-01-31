@@ -18,6 +18,8 @@ interface MessageBubbleProps {
   isLatest?: boolean
 }
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
+
 // 한국어 번역 추출 함수
 function extractKorean(text: string): { english: string; korean: string | null } {
   // 괄호 안의 한국어 추출: (한국어 텍스트)
@@ -51,8 +53,62 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
   const isUser = message.role === 'user'
   const [showKorean, setShowKorean] = useState(false)
   const [showBetterExpressions, setShowBetterExpressions] = useState(true)
+  const [translatedText, setTranslatedText] = useState<string | null>(null)
+  const [isTranslating, setIsTranslating] = useState(false)
 
   const { english, korean } = extractKorean(message.content)
+
+  // 번역 함수
+  const translateText = async () => {
+    if (translatedText) {
+      setShowKorean(!showKorean)
+      return
+    }
+
+    if (korean) {
+      setTranslatedText(korean)
+      setShowKorean(true)
+      return
+    }
+
+    setIsTranslating(true)
+    try {
+      // MyMemory 무료 번역 API 사용
+      const encodedText = encodeURIComponent(english)
+      const response = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|ko`
+      )
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.responseStatus === 200 && data.responseData?.translatedText) {
+          setTranslatedText(data.responseData.translatedText)
+          setShowKorean(true)
+        }
+      }
+
+      // 폴백: 백엔드 API 시도
+      if (!translatedText) {
+        const backendResponse = await fetch(`${API_BASE}/api/translate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: english,
+            target_lang: 'ko'
+          }),
+        })
+        if (backendResponse.ok) {
+          const data = await backendResponse.json()
+          setTranslatedText(data.translation)
+          setShowKorean(true)
+        }
+      }
+    } catch (error) {
+      console.error('Translation failed:', error)
+    } finally {
+      setIsTranslating(false)
+    }
+  }
 
   const handleSpeak = () => {
     if (onSpeak) {
@@ -82,9 +138,9 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
           <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{english}</p>
 
           {/* 한국어 번역 (토글) */}
-          {!isUser && korean && showKorean && (
+          {!isUser && showKorean && (translatedText || korean) && (
             <p className="text-[13px] text-[#8a8a8a] mt-2 pt-2 border-t border-[#f0f0f0]">
-              {korean}
+              {translatedText || korean}
             </p>
           )}
         </div>
@@ -133,18 +189,25 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
               </svg>
             </button>
 
-            {/* 한국어 번역 토글 버튼 */}
-            {korean && (
-              <button
-                onClick={() => setShowKorean(!showKorean)}
-                className={`p-1.5 transition-colors ${showKorean ? 'text-[#1a1a1a]' : 'text-[#c5c5c5] hover:text-[#1a1a1a]'}`}
-                title={showKorean ? '번역 숨기기' : '번역 보기'}
-              >
+            {/* 한국어 번역 토글 버튼 - 항상 표시 */}
+            <button
+              onClick={translateText}
+              disabled={isTranslating}
+              className={`p-1.5 transition-colors ${
+                showKorean ? 'text-[#1a1a1a]' : 'text-[#c5c5c5] hover:text-[#1a1a1a]'
+              } ${isTranslating ? 'opacity-50' : ''}`}
+              title={showKorean ? '번역 숨기기' : '번역 보기'}
+            >
+              {isTranslating ? (
+                <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              ) : (
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                 </svg>
-              </button>
-            )}
+              )}
+            </button>
           </div>
         )}
 

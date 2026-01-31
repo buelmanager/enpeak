@@ -7,6 +7,9 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+  indexedDBLocalPersistence,
   User
 } from 'firebase/auth'
 import {
@@ -15,7 +18,13 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  serverTimestamp
+  serverTimestamp,
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  addDoc,
+  deleteDoc
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -31,6 +40,15 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 const auth = getAuth(app)
 const db = getFirestore(app)
+
+// Auth persistence 설정 (IndexedDB 우선, 실패시 localStorage)
+// 이 설정은 앱 업데이트/캐시 삭제 후에도 로그인 상태 유지
+if (typeof window !== 'undefined') {
+  setPersistence(auth, indexedDBLocalPersistence).catch(() => {
+    // IndexedDB 실패 시 localStorage 사용
+    setPersistence(auth, browserLocalPersistence).catch(console.error)
+  })
+}
 
 // Providers
 const googleProvider = new GoogleAuthProvider()
@@ -72,5 +90,5 @@ export const logOut = async () => {
   }
 }
 
-export { auth, db, onAuthStateChanged, doc, getDoc, setDoc, updateDoc, serverTimestamp }
+export { auth, db, onAuthStateChanged, doc, getDoc, setDoc, updateDoc, serverTimestamp, collection, query, orderBy, onSnapshot, addDoc, deleteDoc }
 export type { User }

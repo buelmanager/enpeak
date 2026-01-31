@@ -9,7 +9,21 @@ import { APP_VERSION, BUILD_DATE } from '@/lib/version'
 import { useAuth } from '@/contexts/AuthContext'
 import { logOut } from '@/lib/firebase'
 
+// 버전별 릴리스 노트
+const RELEASE_NOTES: Record<string, string[]> = {
+  '1.0.0': [
+    'AI 자유 회화',
+    '오늘의 표현 학습',
+    '표현 연습 모드',
+    '단어 연습 (A1~C2)',
+    '커뮤니티 시나리오',
+    'Firebase 사용자 데이터 동기화',
+    'PWA 앱 설치 지원',
+  ],
+}
+
 export default function MyPage() {
+  const [showReleaseNotes, setShowReleaseNotes] = useState(false)
   const router = useRouter()
   const { user, loading } = useAuth()
   const [showTTSSettings, setShowTTSSettings] = useState(false)
@@ -147,6 +161,31 @@ export default function MyPage() {
             </button>
           </section>
 
+          {/* Feedback Section */}
+          <section className="bg-white rounded-2xl p-4 shadow-sm">
+            <h2 className="text-sm font-medium text-[#8a8a8a] mb-3">피드백</h2>
+
+            <Link
+              href="/feedback"
+              className="w-full flex items-center justify-between py-3"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#f5f5f5] rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-[#8a8a8a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div className="text-left">
+                  <p className="text-[#1a1a1a] font-medium">기능 요청</p>
+                  <p className="text-xs text-[#8a8a8a]">원하는 기능을 요청하고 투표하세요</p>
+                </div>
+              </div>
+              <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </section>
+
           <section className="bg-white rounded-2xl p-4 shadow-sm">
             <h2 className="text-sm font-medium text-[#8a8a8a] mb-3">앱 정보</h2>
 
@@ -159,6 +198,47 @@ export default function MyPage() {
                 <span className="text-[#1a1a1a]">빌드 날짜</span>
                 <span className="text-[#8a8a8a]">{BUILD_DATE}</span>
               </div>
+
+              {/* Release Notes */}
+              <button
+                onClick={() => setShowReleaseNotes(!showReleaseNotes)}
+                className="w-full flex items-center justify-between py-2 border-t border-[#f0f0f0] mt-2 pt-4"
+              >
+                <span className="text-[#1a1a1a]">주요 기능</span>
+                <svg
+                  className={`w-5 h-5 text-[#8a8a8a] transition-transform ${showReleaseNotes ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {showReleaseNotes && (
+                <div className="space-y-4 pt-2">
+                  {Object.entries(RELEASE_NOTES)
+                    .sort(([a], [b]) => b.localeCompare(a, undefined, { numeric: true }))
+                    .map(([version, features]) => (
+                      <div key={version} className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-[#1a1a1a]">v{version}</span>
+                          {version === APP_VERSION && (
+                            <span className="text-xs bg-[#1a1a1a] text-white px-2 py-0.5 rounded-full">현재</span>
+                          )}
+                        </div>
+                        <ul className="space-y-1 pl-3">
+                          {features.map((feature, idx) => (
+                            <li key={idx} className="text-sm text-[#666] flex items-start gap-2">
+                              <span className="text-[#8a8a8a] mt-1">-</span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                </div>
+              )}
             </div>
           </section>
 

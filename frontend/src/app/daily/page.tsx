@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import BottomNav from '@/components/BottomNav'
+import { useTTS } from '@/contexts/TTSContext'
 
 interface DailyExpression {
   expression: string
@@ -17,6 +18,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function DailyExpressionPage() {
   const router = useRouter()
+  const { speak, stop, isSpeaking } = useTTS()
   const [expression, setExpression] = useState<DailyExpression | null>(null)
   const [loading, setLoading] = useState(true)
   const [showMeaning, setShowMeaning] = useState(false)
@@ -26,49 +28,115 @@ export default function DailyExpressionPage() {
     fetchDailyExpression()
   }, [])
 
-  const fetchDailyExpression = async () => {
+  // 폴백용 표현 목록
+  const FALLBACK_EXPRESSIONS: DailyExpression[] = [
+    {
+      expression: "break the ice",
+      meaning: "어색한 분위기를 깨다, 대화를 시작하다",
+      example: "I tried to break the ice by asking about his hobbies.",
+      example_ko: "그의 취미에 대해 물어보면서 분위기를 풀어보려고 했어.",
+      category: "daily"
+    },
+    {
+      expression: "hit the nail on the head",
+      meaning: "정곡을 찌르다, 정확히 맞추다",
+      example: "You hit the nail on the head with your analysis.",
+      example_ko: "네 분석이 정확히 맞았어.",
+      category: "daily"
+    },
+    {
+      expression: "a piece of cake",
+      meaning: "아주 쉬운 일",
+      example: "Don't worry, the exam was a piece of cake.",
+      example_ko: "걱정 마, 시험은 정말 쉬웠어.",
+      category: "daily"
+    },
+    {
+      expression: "once in a blue moon",
+      meaning: "아주 드물게",
+      example: "I only eat fast food once in a blue moon.",
+      example_ko: "나는 패스트푸드를 아주 가끔 먹어.",
+      category: "daily"
+    },
+    {
+      expression: "speak of the devil",
+      meaning: "호랑이도 제 말 하면 온다",
+      example: "Speak of the devil! We were just talking about you.",
+      example_ko: "호랑이도 제 말 하면 온다더니! 우리 방금 너 얘기 했어.",
+      category: "daily"
+    },
+    {
+      expression: "under the weather",
+      meaning: "몸이 안 좋다, 컨디션이 좋지 않다",
+      example: "I'm feeling a bit under the weather today.",
+      example_ko: "오늘 몸이 좀 안 좋아.",
+      category: "daily"
+    },
+    {
+      expression: "get out of hand",
+      meaning: "통제 불능이 되다, 손쓸 수 없게 되다",
+      example: "The party got out of hand and the neighbors called the police.",
+      example_ko: "파티가 통제 불능이 되어서 이웃들이 경찰을 불렀어.",
+      category: "daily"
+    },
+    {
+      expression: "cost an arm and a leg",
+      meaning: "엄청나게 비싸다",
+      example: "That new car must have cost an arm and a leg.",
+      example_ko: "그 새 차는 정말 비쌌겠다.",
+      category: "daily"
+    },
+    {
+      expression: "on the same page",
+      meaning: "같은 생각이다, 의견이 일치하다",
+      example: "Let's make sure we're all on the same page before the meeting.",
+      example_ko: "회의 전에 우리 모두 같은 생각인지 확인하자.",
+      category: "daily"
+    },
+    {
+      expression: "sleep on it",
+      meaning: "하룻밤 자면서 생각해 보다",
+      example: "It's a big decision. Why don't you sleep on it?",
+      example_ko: "중요한 결정이니까, 하룻밤 자면서 생각해 보는 게 어때?",
+      category: "daily"
+    },
+  ]
+
+  const fetchDailyExpression = async (forceRandom = false) => {
     setLoading(true)
     try {
-      const response = await fetch(`${API_BASE}/api/rag/daily-expression`)
+      // 새로고침 시 랜덤 파라미터 추가
+      const randomParam = forceRandom ? `?random=${Date.now()}` : ''
+      const response = await fetch(`${API_BASE}/api/rag/daily-expression${randomParam}`)
       if (response.ok) {
         const data = await response.json()
         setExpression(data)
       } else {
-        // 폴백: 하드코딩된 표현
-        setExpression({
-          expression: "break the ice",
-          meaning: "어색한 분위기를 깨다, 대화를 시작하다",
-          example: "I tried to break the ice by asking about his hobbies.",
-          example_ko: "그의 취미에 대해 물어보면서 분위기를 풀어보려고 했어.",
-          category: "daily"
-        })
+        // 폴백: 랜덤 표현
+        const randomIndex = Math.floor(Math.random() * FALLBACK_EXPRESSIONS.length)
+        setExpression(FALLBACK_EXPRESSIONS[randomIndex])
       }
     } catch {
-      setExpression({
-        expression: "break the ice",
-        meaning: "어색한 분위기를 깨다, 대화를 시작하다",
-        example: "I tried to break the ice by asking about his hobbies.",
-        example_ko: "그의 취미에 대해 물어보면서 분위기를 풀어보려고 했어.",
-        category: "daily"
-      })
+      // 폴백: 랜덤 표현
+      const randomIndex = Math.floor(Math.random() * FALLBACK_EXPRESSIONS.length)
+      setExpression(FALLBACK_EXPRESSIONS[randomIndex])
     } finally {
       setLoading(false)
     }
   }
 
   const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = 'en-US'
-      utterance.rate = 0.9
-      speechSynthesis.speak(utterance)
+    if (isSpeaking) {
+      stop()
+    } else {
+      speak(text)
     }
   }
 
   const handleRefresh = () => {
     setShowMeaning(false)
     setShowExample(false)
-    fetchDailyExpression()
+    fetchDailyExpression(true) // 강제 랜덤
   }
 
   return (

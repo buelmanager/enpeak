@@ -1,4 +1,4 @@
-const CACHE_NAME = 'enpeak-v2';
+const CACHE_NAME = 'enpeak-v1.0.1';
 const urlsToCache = [
   '/',
   '/chat',

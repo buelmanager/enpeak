@@ -119,8 +119,75 @@ function CommunityContent() {
   const [inputText, setInputText] = useState('')
   const [isRoleplayLoading, setIsRoleplayLoading] = useState(false)
   const [showRoleplayModal, setShowRoleplayModal] = useState(false)
+  const [isListening, setIsListening] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
+  const recognitionRef = useRef<any>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { speak, stop, isSpeaking } = useTTS()
+
+  // 음성 인식 초기화
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+      if (SpeechRecognition) {
+        setSpeechSupported(true)
+        const recognition = new SpeechRecognition()
+        recognition.continuous = false
+        recognition.interimResults = true
+        recognition.lang = 'en-US'
+
+        recognition.onresult = (event: any) => {
+          let finalTranscript = ''
+          let interimTranscript = ''
+
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript
+            if (event.results[i].isFinal) {
+              finalTranscript += transcript
+            } else {
+              interimTranscript += transcript
+            }
+          }
+
+          if (finalTranscript) {
+            setInputText(finalTranscript)
+          } else if (interimTranscript) {
+            setInputText(interimTranscript)
+          }
+        }
+
+        recognition.onend = () => {
+          setIsListening(false)
+        }
+
+        recognition.onerror = (event: any) => {
+          console.error('Speech recognition error:', event.error)
+          setIsListening(false)
+        }
+
+        recognitionRef.current = recognition
+      }
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.abort()
+      }
+    }
+  }, [])
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) return
+
+    if (isListening) {
+      recognitionRef.current.stop()
+      setIsListening(false)
+    } else {
+      setInputText('')
+      recognitionRef.current.start()
+      setIsListening(true)
+    }
+  }
 
   useEffect(() => {
     if (searchParams.get('published') === 'true') {
@@ -627,14 +694,43 @@ function CommunityContent() {
 
           {/* Input */}
           {!roleplaySession?.isComplete && (
-            <div className="bg-white border-t border-[#f0f0f0] px-4 py-3">
+            <div className="bg-white border-t border-[#f0f0f0] px-4 py-3 pb-safe">
+              {/* 음성 입력 중일 때 표시 */}
+              {isListening && (
+                <div className="flex items-center justify-center gap-2 mb-3 py-2">
+                  <div className="flex gap-1">
+                    <div className="w-1.5 h-4 bg-red-500 rounded-full animate-pulse" />
+                    <div className="w-1.5 h-6 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '100ms' }} />
+                    <div className="w-1.5 h-3 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '200ms' }} />
+                    <div className="w-1.5 h-5 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+                    <div className="w-1.5 h-4 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '400ms' }} />
+                  </div>
+                  <span className="text-sm text-red-500 font-medium ml-2">Listening...</span>
+                </div>
+              )}
               <div className="flex items-center gap-2">
+                {/* 마이크 버튼 */}
+                {speechSupported && (
+                  <button
+                    onClick={toggleListening}
+                    disabled={isRoleplayLoading}
+                    className={`p-2.5 rounded-full transition-all ${
+                      isListening
+                        ? 'bg-red-500 text-white animate-pulse'
+                        : 'bg-[#f5f5f5] text-[#8a8a8a] hover:bg-[#e5e5e5]'
+                    } disabled:opacity-50`}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                  </button>
+                )}
                 <input
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                  placeholder="Type your response..."
+                  placeholder={isListening ? 'Speak now...' : 'Type or speak your response...'}
                   className="flex-1 px-4 py-2.5 bg-[#f5f5f5] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/10"
                   disabled={isRoleplayLoading}
                 />
