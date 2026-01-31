@@ -272,16 +272,26 @@ Output ONLY the JSON:"""
             llm_output = llm_output.strip()
             print(f"[DEBUG] LLM raw output: {llm_output[:300]}")  # 강제 출력
 
+            # 마크다운 코드 블록 제거
             if llm_output.startswith("```"):
-                llm_output = llm_output.split("```")[1]
-                if llm_output.startswith("json"):
-                    llm_output = llm_output[4:]
+                parts = llm_output.split("```")
+                if len(parts) >= 2:
+                    llm_output = parts[1]
+                    if llm_output.startswith("json"):
+                        llm_output = llm_output[4:]
+                    llm_output = llm_output.strip()
+
+            # JSON 객체 추출 시도 (텍스트 중간에 JSON이 있을 수 있음)
+            import re
+            json_match = re.search(r'\{[^{}]*"response"[^{}]*"suggestions"[^{}]*\[.*?\][^{}]*\}', llm_output, re.DOTALL)
+            if json_match:
+                llm_output = json_match.group()
 
             parsed = json.loads(llm_output)
             ai_response = parsed.get("response", "")
             dynamic_suggestions = parsed.get("suggestions", [])
             print(f"[DEBUG] Parsed suggestions: {dynamic_suggestions}")  # 강제 출력
-        except json.JSONDecodeError as e:
+        except (json.JSONDecodeError, Exception) as e:
             # JSON 파싱 실패 시 텍스트 그대로 사용
             print(f"[DEBUG] JSON parse failed: {e}, output: {llm_output[:200]}")
             ai_response = llm_output
@@ -321,6 +331,20 @@ Output ONLY the JSON:"""
 
         # 다음 스테이지 정보
         stage_info = scenario["stages"][next_stage - 1] if next_stage <= len(scenario["stages"]) else current_stage
+
+        # 동적 추천이 없으면 AI 응답 기반으로 간단한 제안 생성
+        if not dynamic_suggestions and ai_response:
+            # AI가 질문을 했을 경우 기본 응답 생성
+            ai_lower = ai_response.lower()
+            if "hot or" in ai_lower or "iced" in ai_lower:
+                dynamic_suggestions = ["Hot, please.", "Iced, please.", "What do you recommend?"]
+            elif "size" in ai_lower or "small" in ai_lower or "large" in ai_lower:
+                dynamic_suggestions = ["Medium, please.", "Large, please.", "What sizes do you have?"]
+            elif "anything else" in ai_lower or "else" in ai_lower:
+                dynamic_suggestions = ["That's all, thanks.", "Yes, I'd also like a muffin.", "How much is it?"]
+            elif "?" in ai_response:
+                # 일반적인 질문에 대한 기본 응답
+                dynamic_suggestions = ["Yes, please.", "No, thank you.", "Could you repeat that?"]
 
         # 동적 추천이 있으면 사용, 없으면 스테이지 기본 추천 사용
         final_suggestions = dynamic_suggestions if dynamic_suggestions else stage_info.get("suggested_responses", [])
