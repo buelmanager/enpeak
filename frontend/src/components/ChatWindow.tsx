@@ -96,16 +96,6 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
     scrollToBottom()
   }, [messages])
 
-  // 녹음 상태 변경 시에도 스크롤
-  useEffect(() => {
-    if (isRecording) {
-      // 약간의 딜레이 후 스크롤 (ListeningIndicator 렌더링 후)
-      setTimeout(() => {
-        scrollToBottom()
-      }, 150)
-    }
-  }, [isRecording])
-
   // 페이지 이동 시 녹음 중지
   useEffect(() => {
     return () => {
@@ -344,11 +334,6 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
           </div>
         )}
 
-        {/* 녹음 중 표시 */}
-        {isRecording && settings.autoRecord && (
-          <ListeningIndicator isActive={isRecording} onCancel={handleCancelRecording} />
-        )}
-
         {loading && (
           <div className="flex items-center gap-3 text-[#8a8a8a]">
             <div className="flex gap-1">
@@ -406,6 +391,11 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
 
       {/* 처음 방문자를 위한 설정 가이드 */}
       <ChatSettingsGuide onOpenSettings={() => setShowSettings(true)} />
+
+      {/* 녹음 중 팝업 */}
+      {isRecording && settings.autoRecord && (
+        <ListeningIndicator isActive={isRecording} onCancel={handleCancelRecording} />
+      )}
     </div>
   )
 }
