@@ -87,6 +87,170 @@ def load_sentences_data() -> List[Dict]:
     return []
 
 
+# 일반 단어에 대한 실제 숙어/예문 데이터베이스
+COMMON_WORD_DATA = {
+    "man": {
+        "idioms": [
+            {"phrase": "man of his word", "meaning": "약속을 지키는 사람"},
+            {"phrase": "the man in the street", "meaning": "보통 사람, 일반인"},
+            {"phrase": "be your own man", "meaning": "독립적이다, 자기 주관이 있다"},
+            {"phrase": "odd man out", "meaning": "왕따, 이질적인 사람"},
+        ],
+        "sentences": [
+            {"en": "The man is waiting at the bus stop.", "ko": "그 남자는 버스 정류장에서 기다리고 있어요."},
+            {"en": "He's a man of few words.", "ko": "그는 말이 적은 사람이에요."},
+            {"en": "Every man has his price.", "ko": "모든 사람에게는 약점이 있다."},
+        ],
+        "related_words": ["person", "human", "male", "gentleman", "guy"],
+    },
+    "time": {
+        "idioms": [
+            {"phrase": "kill time", "meaning": "시간을 때우다"},
+            {"phrase": "in the nick of time", "meaning": "아슬아슬하게, 간신히"},
+            {"phrase": "time flies", "meaning": "시간이 빨리 지나가다"},
+            {"phrase": "from time to time", "meaning": "때때로, 가끔"},
+        ],
+        "sentences": [
+            {"en": "Time flies when you're having fun.", "ko": "즐거울 때는 시간이 빨리 가요."},
+            {"en": "What time is it now?", "ko": "지금 몇 시예요?"},
+            {"en": "I don't have time for this.", "ko": "이럴 시간이 없어요."},
+        ],
+        "related_words": ["hour", "minute", "moment", "period", "era"],
+    },
+    "hand": {
+        "idioms": [
+            {"phrase": "hands down", "meaning": "손쉽게, 확실히"},
+            {"phrase": "on the other hand", "meaning": "반면에, 다른 한편으로"},
+            {"phrase": "give someone a hand", "meaning": "도와주다"},
+            {"phrase": "get out of hand", "meaning": "통제 불능이 되다"},
+        ],
+        "sentences": [
+            {"en": "Can you give me a hand with this?", "ko": "이것 좀 도와줄 수 있어요?"},
+            {"en": "Raise your hand if you have a question.", "ko": "질문이 있으면 손을 드세요."},
+            {"en": "The situation got out of hand.", "ko": "상황이 통제 불능이 됐어요."},
+        ],
+        "related_words": ["finger", "arm", "palm", "wrist", "fist"],
+    },
+    "day": {
+        "idioms": [
+            {"phrase": "call it a day", "meaning": "오늘은 여기까지 하다"},
+            {"phrase": "day in, day out", "meaning": "매일 매일"},
+            {"phrase": "save the day", "meaning": "위기를 모면하다"},
+            {"phrase": "at the end of the day", "meaning": "결국, 궁극적으로"},
+        ],
+        "sentences": [
+            {"en": "Have a nice day!", "ko": "좋은 하루 보내세요!"},
+            {"en": "What day is it today?", "ko": "오늘 무슨 요일이에요?"},
+            {"en": "Let's call it a day.", "ko": "오늘은 여기까지 합시다."},
+        ],
+        "related_words": ["morning", "afternoon", "evening", "night", "week"],
+    },
+    "work": {
+        "idioms": [
+            {"phrase": "work out", "meaning": "운동하다 / 잘 되다"},
+            {"phrase": "work on", "meaning": "~에 집중하다, 작업하다"},
+            {"phrase": "all in a day's work", "meaning": "일상적인 일"},
+            {"phrase": "work wonders", "meaning": "놀라운 효과를 내다"},
+        ],
+        "sentences": [
+            {"en": "I have to work late today.", "ko": "오늘 야근해야 해요."},
+            {"en": "Hard work pays off.", "ko": "노력은 결실을 맺어요."},
+            {"en": "Everything will work out.", "ko": "모든 게 잘 될 거예요."},
+        ],
+        "related_words": ["job", "career", "office", "business", "task"],
+    },
+    "water": {
+        "idioms": [
+            {"phrase": "water under the bridge", "meaning": "지나간 일, 이미 끝난 일"},
+            {"phrase": "in hot water", "meaning": "곤경에 처한"},
+            {"phrase": "test the waters", "meaning": "상황을 살피다"},
+            {"phrase": "hold water", "meaning": "타당하다, 이치에 맞다"},
+        ],
+        "sentences": [
+            {"en": "Can I have a glass of water?", "ko": "물 한 잔 주시겠어요?"},
+            {"en": "The water is boiling.", "ko": "물이 끓고 있어요."},
+            {"en": "Don't waste water.", "ko": "물을 낭비하지 마세요."},
+        ],
+        "related_words": ["drink", "liquid", "river", "ocean", "rain"],
+    },
+    "head": {
+        "idioms": [
+            {"phrase": "head over heels", "meaning": "완전히 반한, 푹 빠진"},
+            {"phrase": "keep your head", "meaning": "침착하다"},
+            {"phrase": "over your head", "meaning": "이해하기 어려운"},
+            {"phrase": "heads up", "meaning": "조심해, 주의해"},
+        ],
+        "sentences": [
+            {"en": "Use your head!", "ko": "머리 좀 써!"},
+            {"en": "I have a headache.", "ko": "두통이 있어요."},
+            {"en": "Keep your head down.", "ko": "조용히 있어요. / 눈에 띄지 마세요."},
+        ],
+        "related_words": ["brain", "mind", "face", "hair", "neck"],
+    },
+    "heart": {
+        "idioms": [
+            {"phrase": "break someone's heart", "meaning": "마음을 아프게 하다"},
+            {"phrase": "by heart", "meaning": "암기하여"},
+            {"phrase": "have a heart", "meaning": "인정 좀 베풀어"},
+            {"phrase": "heart and soul", "meaning": "온 마음을 다해"},
+        ],
+        "sentences": [
+            {"en": "Follow your heart.", "ko": "마음 가는 대로 해."},
+            {"en": "I learned it by heart.", "ko": "그걸 암기했어요."},
+            {"en": "She has a kind heart.", "ko": "그녀는 착한 마음씨를 가졌어요."},
+        ],
+        "related_words": ["love", "soul", "feeling", "emotion", "passion"],
+    },
+    "eye": {
+        "idioms": [
+            {"phrase": "catch someone's eye", "meaning": "눈에 띄다"},
+            {"phrase": "see eye to eye", "meaning": "의견이 일치하다"},
+            {"phrase": "keep an eye on", "meaning": "주시하다, 감시하다"},
+            {"phrase": "turn a blind eye", "meaning": "모른 척하다"},
+        ],
+        "sentences": [
+            {"en": "Keep an eye on the kids.", "ko": "아이들을 잘 봐주세요."},
+            {"en": "I can't believe my eyes!", "ko": "내 눈을 믿을 수가 없어!"},
+            {"en": "We don't see eye to eye.", "ko": "우리는 의견이 다릅니다."},
+        ],
+        "related_words": ["vision", "sight", "look", "view", "watch"],
+    },
+    "food": {
+        "idioms": [
+            {"phrase": "food for thought", "meaning": "생각할 거리"},
+            {"phrase": "fast food", "meaning": "패스트푸드"},
+            {"phrase": "comfort food", "meaning": "위로가 되는 음식"},
+        ],
+        "sentences": [
+            {"en": "The food here is delicious.", "ko": "여기 음식이 맛있어요."},
+            {"en": "Let's order some food.", "ko": "음식 좀 주문합시다."},
+            {"en": "I love Korean food.", "ko": "한국 음식을 좋아해요."},
+        ],
+        "related_words": ["meal", "dish", "cuisine", "snack", "drink"],
+    },
+}
+
+
+def get_smart_fallback(word: str) -> Dict:
+    """단어에 맞는 스마트 폴백 데이터 반환"""
+    word_lower = word.lower()
+
+    # 데이터베이스에 있는 경우 해당 데이터 반환
+    if word_lower in COMMON_WORD_DATA:
+        return COMMON_WORD_DATA[word_lower]
+
+    # 없는 경우 일반적인 학습 문장 생성
+    return {
+        "idioms": [],  # 숙어는 없으면 빈 배열 (잘못된 템플릿보다 나음)
+        "sentences": [
+            {"en": f"I'm learning the word '{word}'.", "ko": f"'{word}'라는 단어를 배우고 있어요."},
+            {"en": f"Can you use '{word}' in a sentence?", "ko": f"'{word}'를 문장에서 사용해 볼 수 있나요?"},
+            {"en": f"How do you pronounce '{word}'?", "ko": f"'{word}'는 어떻게 발음하나요?"},
+        ],
+        "related_words": [],  # 관련 단어도 없으면 빈 배열
+    }
+
+
 async def validate_with_supervisor_ai(word: str, meaning: str, llm) -> Dict:
     """감시 AI로 콘텐츠 검증"""
     if not llm:
@@ -415,21 +579,17 @@ async def expand_vocabulary(expansion_req: WordExpansionRequest, request: Reques
         except Exception as e:
             print(f"AI expansion error: {e}")
 
-    # 데이터가 없으면 기본 샘플 제공
+    # 데이터가 없으면 스마트 폴백 제공
+    fallback_data = get_smart_fallback(word)
+
     if not result["idioms"]:
-        result["idioms"] = [
-            {"phrase": f"learn {word}", "meaning": f"{word}를 배우다"},
-            {"phrase": f"use {word}", "meaning": f"{word}를 사용하다"},
-        ]
+        result["idioms"] = fallback_data.get("idioms", [])
 
     if not result["sentences"]:
-        result["sentences"] = [
-            {"en": f"I want to learn {word}.", "ko": f"나는 {word}를 배우고 싶어요."},
-            {"en": f"Can you explain {word}?", "ko": f"{word}를 설명해 줄 수 있나요?"},
-        ]
+        result["sentences"] = fallback_data.get("sentences", [])
 
     if not result["related_words"]:
-        result["related_words"] = ["vocabulary", "practice", "study"]
+        result["related_words"] = fallback_data.get("related_words", [])
 
     return result
 
