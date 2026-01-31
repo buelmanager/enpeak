@@ -43,6 +43,7 @@ export const viewport: Viewport = {
   themeColor: '#faf9f7',
 }
 
+// Build cache buster: v1.0.10
 export default function RootLayout({
   children,
 }: {

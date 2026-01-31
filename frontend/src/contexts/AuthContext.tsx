@@ -8,6 +8,9 @@ import {
   syncDataFromFirebase
 } from '@/lib/userDataSync'
 
+// 빌드 타임스탬프 (청크 해시 변경용)
+const _buildTimestamp = process.env.BUILD_TIMESTAMP || ''
+
 interface AuthContextType {
   user: User | null
   loading: boolean

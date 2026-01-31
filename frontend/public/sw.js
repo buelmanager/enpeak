@@ -1,4 +1,4 @@
-const CACHE_VERSION = '1.0.8';
+const CACHE_VERSION = '1.0.10';
 const CACHE_NAME = `enpeak-v${CACHE_VERSION}`;
 
 // 캐시할 정적 리소스 (아이콘, 이미지 등)
