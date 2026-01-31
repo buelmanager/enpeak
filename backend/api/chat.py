@@ -237,15 +237,30 @@ async def translate(request: TranslateRequest, req: Request):
             raise HTTPException(status_code=503, detail="LLM not initialized")
 
         if request.target_lang == "ko":
-            prompt = f'Translate this English sentence to Korean. Output ONLY the Korean translation, nothing else:\n\n"{request.text}"'
+            prompt = f'''Translate this English sentence to natural, conversational Korean.
+- Do NOT translate literally (word-by-word)
+- Use natural Korean expressions that native speakers would actually use
+- Match the tone and register of the original
+- Keep it simple and easy to understand
+
+English: "{request.text}"
+
+Korean translation:'''
         else:
-            prompt = f'Translate this Korean sentence to English. Output ONLY the English translation, nothing else:\n\n"{request.text}"'
+            prompt = f'''Translate this Korean sentence to natural, conversational English.
+- Do NOT translate literally
+- Use expressions that native English speakers would use
+- Match the tone and register
+
+Korean: "{request.text}"
+
+English translation:'''
 
         result = llm.generate(
             prompt=prompt,
-            system_prompt="You are a translator. Output only the translation, no explanations.",
+            system_prompt="You are a professional translator who specializes in natural, context-aware translations. Output only the translation itself, nothing else.",
             max_tokens=200,
-            temperature=0.3,
+            temperature=0.4,
         )
 
         return TranslateResponse(translation=result.strip())

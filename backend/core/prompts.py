@@ -79,19 +79,20 @@ Current Stage: {stage_name} ({current_stage}/{total_stages})
 
 Stage Objective: {stage_objective}
 
-Conversation so far:
+IMPORTANT - Full conversation history (respond based on this context):
 {conversation_history}
 
-User just said: "{user_message}"
+The user's LATEST message is: "{user_message}"
 
-Instructions:
-1. Respond naturally as the {ai_role}
-2. Keep response appropriate for {difficulty} level learners
-3. Stay in character while being helpful
-4. Limit response to 1-2 short sentences
-5. Guide the conversation toward stage completion if user is stuck
+Critical Instructions:
+1. You MUST continue the conversation naturally - DO NOT repeat previous responses
+2. Read the conversation history carefully and give a NEW, DIFFERENT response
+3. If the user says the same thing again, acknowledge it differently or ask for clarification
+4. Respond as the {ai_role} character
+5. Keep response to 1-2 short sentences
+6. Move the conversation forward toward stage completion
 
-Respond in English only:"""
+Your NEW response in English:"""
 
 # 롤플레이 학습 팁 생성 프롬프트
 LEARNING_TIP_PROMPT = """Based on this roleplay exchange:

@@ -223,6 +223,7 @@ export default function ScenarioRoleplayPage() {
   const [stage, setStage] = useState(1)
   const [totalStages, setTotalStages] = useState(5)
   const [learningTip, setLearningTip] = useState('')
+  const [suggestedResponses, setSuggestedResponses] = useState<string[]>([])
   const [isCompleted, setIsCompleted] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -259,6 +260,7 @@ export default function ScenarioRoleplayPage() {
         setStage(data.current_stage || 1)
         setTotalStages(data.total_stages || 5)
         setLearningTip(data.learning_tip || '')
+        setSuggestedResponses(data.suggested_responses || [])
 
         if (data.ai_message) {
           const aiMsg: Message = {
@@ -297,6 +299,7 @@ export default function ScenarioRoleplayPage() {
     }
     setMessages(prev => [...prev, userMsg])
     setInputText('')
+    setSuggestedResponses([]) // 전송 시 제안 문장 초기화
     setIsLoading(true)
 
     try {
@@ -316,6 +319,7 @@ export default function ScenarioRoleplayPage() {
 
         if (data.current_stage) setStage(data.current_stage)
         if (data.learning_tip) setLearningTip(data.learning_tip)
+        if (data.suggested_responses) setSuggestedResponses(data.suggested_responses)
         if (data.is_completed) {
           setIsCompleted(true)
           // 학습 기록 저장
@@ -365,15 +369,24 @@ export default function ScenarioRoleplayPage() {
     ))
 
     try {
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(msg.content)}&langpair=en|ko`
-      )
+      // 백엔드 LLM 번역 API 사용 (자연스러운 번역)
+      const response = await fetch(`${API_BASE}/api/translate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: msg.content,
+          target_lang: 'ko',
+        }),
+      })
+
       if (response.ok) {
         const data = await response.json()
-        const translation = data.responseData?.translatedText || '번역 실패'
+        const translation = data.translation || '번역 실패'
         setMessages(prev => prev.map((m, i) =>
           i === idx ? { ...m, translation, isTranslating: false } : m
         ))
+      } else {
+        throw new Error('Translation API failed')
       }
     } catch {
       setMessages(prev => prev.map((m, i) =>
@@ -525,6 +538,25 @@ export default function ScenarioRoleplayPage() {
                 다른 상황 선택
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Suggested Responses */}
+      {suggestedResponses.length > 0 && !isCompleted && (
+        <div className="bg-white border-t border-[#f0f0f0] px-4 py-3">
+          <div className="flex flex-wrap gap-2">
+            {suggestedResponses.map((response, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setInputText(response)
+                }}
+                className="px-4 py-2 bg-[#f5f5f5] hover:bg-[#e8e8e8] rounded-full text-sm text-[#1a1a1a] transition-colors"
+              >
+                {response}
+              </button>
+            ))}
           </div>
         </div>
       )}

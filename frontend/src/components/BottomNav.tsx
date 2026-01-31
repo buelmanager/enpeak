@@ -19,7 +19,7 @@ export default function BottomNav() {
   }
 
   return (
-    <nav className="fixed left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]" style={{ bottom: '30px' }}>
+    <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]">
       <div className="flex items-center justify-around py-3">
         {navItems.map(item => (
           <Link
@@ -34,6 +34,8 @@ export default function BottomNav() {
           </Link>
         ))}
       </div>
+      {/* Safe area padding for iOS */}
+      <div className="h-[env(safe-area-inset-bottom)] bg-[#faf9f7]" />
     </nav>
   )
 }
