@@ -15,7 +15,10 @@ import {
 } from '@/lib/learningHistory'
 
 export default function Home() {
-  const { user, loading } = useAuth()
+  const { user, cachedUser, loading } = useAuth()
+
+  // Optimistic UI: 캐시된 사용자 또는 실제 사용자
+  const displayUser = user || cachedUser
   const [stats, setStats] = useState<TodayStats>({
     totalSessions: 0,
     totalMinutes: 0,
@@ -60,15 +63,16 @@ export default function Home() {
               오늘의 <span className="font-medium">영어</span>
             </h1>
           </div>
-          {loading ? (
-            <div className="w-10 h-10 rounded-full border border-[#e5e5e5]" />
-          ) : user ? (
+          {/* Optimistic UI: 캐시가 있으면 로딩 스피너 없이 즉시 표시 */}
+          {displayUser ? (
             <Link
               href="/my"
               className="w-10 h-10 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center text-xs font-medium"
             >
-              {user.displayName?.charAt(0) || user.email?.charAt(0).toUpperCase() || 'U'}
+              {displayUser.displayName?.charAt(0) || displayUser.email?.charAt(0).toUpperCase() || 'U'}
             </Link>
+          ) : loading ? (
+            <div className="w-10 h-10 rounded-full border border-[#e5e5e5]" />
           ) : (
             <Link
               href="/login"

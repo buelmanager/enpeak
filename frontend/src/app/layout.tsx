@@ -5,6 +5,7 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { TTSProvider } from '@/contexts/TTSContext'
 import { VersionCheck } from '@/components/VersionCheck'
 import PWAInstallGuide from '@/components/PWAInstallGuide'
+import AppShell from '@/components/AppShell'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://enpeak.web.app'),
@@ -69,8 +70,10 @@ export default function RootLayout({
         <VersionCheck />
         <AuthProvider>
           <TTSProvider>
-            {children}
-            <PWAInstallGuide />
+            <AppShell>
+              {children}
+              <PWAInstallGuide />
+            </AppShell>
           </TTSProvider>
         </AuthProvider>
         <ServiceWorkerRegister />

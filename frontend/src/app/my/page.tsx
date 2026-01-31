@@ -25,7 +25,10 @@ const RELEASE_NOTES: Record<string, string[]> = {
 export default function MyPage() {
   const [showReleaseNotes, setShowReleaseNotes] = useState(false)
   const router = useRouter()
-  const { user, loading } = useAuth()
+  const { user, cachedUser, loading } = useAuth()
+
+  // Optimistic UI: 캐시된 사용자 또는 실제 사용자
+  const displayUser = user || cachedUser
   const [showTTSSettings, setShowTTSSettings] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
@@ -73,24 +76,25 @@ export default function MyPage() {
         <div className="space-y-4">
           {/* Profile Section */}
           <section className="bg-white rounded-2xl p-4 shadow-sm">
-            {loading ? (
+            {/* Optimistic UI: 캐시가 있으면 로딩 스피너 없이 즉시 표시 */}
+            {displayUser ? (
+              <div className="flex items-center gap-4 py-2">
+                <div className="w-14 h-14 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white text-xl font-medium">
+                  {displayUser.displayName?.charAt(0) || displayUser.email?.charAt(0) || 'U'}
+                </div>
+                <div className="flex-1">
+                  <p className="text-[#1a1a1a] font-medium text-lg">
+                    {displayUser.displayName || '사용자'}
+                  </p>
+                  <p className="text-sm text-[#8a8a8a]">{displayUser.email}</p>
+                </div>
+              </div>
+            ) : loading ? (
               <div className="flex items-center gap-4 py-2">
                 <div className="w-14 h-14 bg-[#f0f0f0] rounded-full animate-pulse" />
                 <div className="flex-1">
                   <div className="h-5 bg-[#f0f0f0] rounded w-24 mb-2 animate-pulse" />
                   <div className="h-4 bg-[#f0f0f0] rounded w-40 animate-pulse" />
-                </div>
-              </div>
-            ) : user ? (
-              <div className="flex items-center gap-4 py-2">
-                <div className="w-14 h-14 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white text-xl font-medium">
-                  {user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
-                </div>
-                <div className="flex-1">
-                  <p className="text-[#1a1a1a] font-medium text-lg">
-                    {user.displayName || '사용자'}
-                  </p>
-                  <p className="text-sm text-[#8a8a8a]">{user.email}</p>
                 </div>
               </div>
             ) : (
@@ -243,7 +247,7 @@ export default function MyPage() {
           </section>
 
           {/* Logout Button - only when logged in */}
-          {user && (
+          {displayUser && (
             <button
               onClick={handleLogout}
               disabled={isLoggingOut}

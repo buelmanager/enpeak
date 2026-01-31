@@ -89,13 +89,16 @@ export default function PWAInstallGuide() {
       return
     }
 
-    // 이미 가이드를 닫은 적이 있는지 확인 (24시간 동안 다시 안 보여줌)
+    // 이미 가이드를 닫은 적이 있는지 확인 (영구적으로 다시 안 보여줌)
     const dismissed = localStorage.getItem('pwa-guide-dismissed')
     if (dismissed) {
-      const dismissedTime = parseInt(dismissed, 10)
-      if (Date.now() - dismissedTime < 24 * 60 * 60 * 1000) {
-        return
-      }
+      return
+    }
+
+    // 이번 세션에서 이미 표시했는지 확인 (페이지 이동 시 중복 표시 방지)
+    const sessionShown = sessionStorage.getItem('pwa-guide-shown')
+    if (sessionShown) {
+      return
     }
 
     // 브라우저 타입 감지
@@ -112,9 +115,12 @@ export default function PWAInstallGuide() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstall)
 
-    // 모바일에서 가이드 표시 (2초 후)
+    // 모바일에서 가이드 표시 (2초 후) - 세션에 표시 기록
     if (detected !== 'desktop') {
-      setTimeout(() => setShowGuide(true), 2000)
+      setTimeout(() => {
+        setShowGuide(true)
+        sessionStorage.setItem('pwa-guide-shown', 'true')
+      }, 2000)
     }
 
     return () => {

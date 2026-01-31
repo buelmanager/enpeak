@@ -9,9 +9,76 @@ import {
   onAuthStateChanged,
   setPersistence,
   browserLocalPersistence,
-  indexedDBLocalPersistence,
   User
 } from 'firebase/auth'
+
+// Optimistic Auth State: localStorage 캐시 키
+const AUTH_CACHE_KEY = 'enpeak_auth_user'
+
+// 캐시할 사용자 정보 (민감 정보 제외)
+interface CachedUser {
+  uid: string
+  email: string | null
+  displayName: string | null
+  photoURL: string | null
+  cachedAt: number
+}
+
+// 캐시 유효 시간: 7일 (Firebase Auth 세션 기본 유효 기간)
+const CACHE_VALIDITY_MS = 7 * 24 * 60 * 60 * 1000
+
+/**
+ * localStorage에서 캐시된 사용자 정보 읽기
+ * Firebase 초기화 전에 호출 가능 - 즉각적인 UI 렌더링용
+ */
+export function getCachedUser(): CachedUser | null {
+  if (typeof window === 'undefined') return null
+
+  try {
+    const cached = localStorage.getItem(AUTH_CACHE_KEY)
+    if (!cached) return null
+
+    const user: CachedUser = JSON.parse(cached)
+
+    // 캐시 만료 체크
+    if (Date.now() - user.cachedAt > CACHE_VALIDITY_MS) {
+      localStorage.removeItem(AUTH_CACHE_KEY)
+      return null
+    }
+
+    return user
+  } catch {
+    return null
+  }
+}
+
+/**
+ * 사용자 정보를 localStorage에 캐시
+ */
+export function cacheUser(user: User | null): void {
+  if (typeof window === 'undefined') return
+
+  if (user) {
+    const cached: CachedUser = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      cachedAt: Date.now()
+    }
+    localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify(cached))
+  } else {
+    localStorage.removeItem(AUTH_CACHE_KEY)
+  }
+}
+
+/**
+ * 캐시 무효화 (로그아웃 시)
+ */
+export function clearUserCache(): void {
+  if (typeof window === 'undefined') return
+  localStorage.removeItem(AUTH_CACHE_KEY)
+}
 import {
   getFirestore,
   doc,
@@ -84,6 +151,8 @@ export const signUpWithEmail = async (email: string, password: string) => {
 
 export const logOut = async () => {
   try {
+    // 캐시 먼저 삭제 (즉각적인 UI 반응)
+    clearUserCache()
     await signOut(auth)
     return { error: null }
   } catch (error: any) {
@@ -92,4 +161,4 @@ export const logOut = async () => {
 }
 
 export { auth, db, onAuthStateChanged, doc, getDoc, setDoc, updateDoc, serverTimestamp, collection, query, orderBy, onSnapshot, addDoc, deleteDoc }
-export type { User }
+export type { User, CachedUser }

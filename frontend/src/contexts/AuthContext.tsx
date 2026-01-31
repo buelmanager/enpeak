@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, ReactNode, useRef } from 'react'
-import { auth, onAuthStateChanged, User } from '@/lib/firebase'
+import { auth, onAuthStateChanged, User, getCachedUser, cacheUser, CachedUser } from '@/lib/firebase'
 import {
   setCurrentUserId,
   migrateLocalDataToFirebase,
@@ -13,44 +13,91 @@ const _buildTimestamp = process.env.BUILD_TIMESTAMP || ''
 
 interface AuthContextType {
   user: User | null
+  cachedUser: CachedUser | null  // 캐시된 사용자 정보 (즉시 사용 가능)
   loading: boolean
+  syncing: boolean  // 동기화 중 여부 (선택적 UI 표시용)
+  isVerified: boolean  // Firebase로 검증 완료 여부
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  cachedUser: null,
   loading: true,
+  syncing: false,
+  isVerified: false,
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  // Optimistic Auth: 캐시에서 먼저 읽기
+  // 주의: SSR에서는 null, 클라이언트에서 hydration 후 값이 있을 수 있음
+  const [cachedUser, setCachedUser] = useState<CachedUser | null>(null)
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [syncing, setSyncing] = useState(false)
+  const [isVerified, setIsVerified] = useState(false)
   const previousUserRef = useRef<User | null>(null)
+  const syncInProgressRef = useRef(false)
+  const initializedRef = useRef(false)
+
+  // 클라이언트에서 즉시 캐시 읽기 (hydration 후)
+  useEffect(() => {
+    if (!initializedRef.current) {
+      initializedRef.current = true
+      const cached = getCachedUser()
+      if (cached) {
+        setCachedUser(cached)
+        setLoading(false)  // 캐시가 있으면 즉시 로딩 완료
+      }
+    }
+  }, [])
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       const previousUser = previousUserRef.current
+      const isNewLogin = !previousUser && currentUser
 
       // 사용자 ID 설정 (동기화용)
       setCurrentUserId(currentUser?.uid || null)
 
-      // 로그인 감지 (이전에 null이었고 현재 사용자가 있으면)
-      if (!previousUser && currentUser) {
-        // 로컬 데이터를 Firebase로 마이그레이션
-        await migrateLocalDataToFirebase(currentUser.uid)
-        // Firebase 데이터를 로컬로 동기화
-        await syncDataFromFirebase(currentUser.uid)
-      }
-
+      // 로그인 상태 즉시 반영 (블로킹 없이!)
       previousUserRef.current = currentUser
       setUser(currentUser)
       setLoading(false)
+      setIsVerified(true)
+
+      // localStorage 캐시 업데이트
+      cacheUser(currentUser)
+      // cachedUser 상태도 업데이트 (로그아웃 시 null로)
+      setCachedUser(currentUser ? {
+        uid: currentUser.uid,
+        email: currentUser.email,
+        displayName: currentUser.displayName,
+        photoURL: currentUser.photoURL,
+        cachedAt: Date.now()
+      } : null)
+
+      // 동기화는 백그라운드에서 실행 (UI 블로킹 X)
+      if (isNewLogin && !syncInProgressRef.current) {
+        syncInProgressRef.current = true
+        setSyncing(true)
+
+        // 비동기 동기화 - await 없이 실행
+        Promise.resolve()
+          .then(() => migrateLocalDataToFirebase(currentUser.uid))
+          .then(() => syncDataFromFirebase(currentUser.uid))
+          .catch((error) => console.error('Background sync failed:', error))
+          .finally(() => {
+            syncInProgressRef.current = false
+            setSyncing(false)
+          })
+      }
     })
 
     return () => unsubscribe()
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, cachedUser, loading, syncing, isVerified }}>
       {children}
     </AuthContext.Provider>
   )
