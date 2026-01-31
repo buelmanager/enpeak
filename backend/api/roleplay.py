@@ -270,7 +270,7 @@ Output ONLY the JSON:"""
         dynamic_suggestions = []
         try:
             llm_output = llm_output.strip()
-            logger.info(f"LLM raw output: {llm_output[:200]}")  # 디버그 로그
+            print(f"[DEBUG] LLM raw output: {llm_output[:300]}")  # 강제 출력
 
             if llm_output.startswith("```"):
                 llm_output = llm_output.split("```")[1]
@@ -280,10 +280,10 @@ Output ONLY the JSON:"""
             parsed = json.loads(llm_output)
             ai_response = parsed.get("response", "")
             dynamic_suggestions = parsed.get("suggestions", [])
-            logger.info(f"Parsed suggestions: {dynamic_suggestions}")  # 디버그 로그
+            print(f"[DEBUG] Parsed suggestions: {dynamic_suggestions}")  # 강제 출력
         except json.JSONDecodeError as e:
             # JSON 파싱 실패 시 텍스트 그대로 사용
-            logger.warning(f"JSON parse failed: {e}, output: {llm_output[:100]}")
+            print(f"[DEBUG] JSON parse failed: {e}, output: {llm_output[:200]}")
             ai_response = llm_output
             dynamic_suggestions = []
 
@@ -324,7 +324,7 @@ Output ONLY the JSON:"""
 
         # 동적 추천이 있으면 사용, 없으면 스테이지 기본 추천 사용
         final_suggestions = dynamic_suggestions if dynamic_suggestions else stage_info.get("suggested_responses", [])
-        logger.info(f"Final suggestions: {final_suggestions}, dynamic: {len(dynamic_suggestions)}")
+        print(f"[DEBUG] Final suggestions: {final_suggestions}, dynamic count: {len(dynamic_suggestions)}")
 
         return RoleplayTurnResponse(
             session_id=request.session_id,
