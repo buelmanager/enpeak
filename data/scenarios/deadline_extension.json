@@ -1,0 +1,32 @@
+{
+  "id": "deadline_extension",
+  "title": "Deadline Extension",
+  "title_ko": "마감 연장",
+  "roles": {
+    "ai": "Manager",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice deadline extension",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Request",
+      "ai_opening": "How's the project coming along?",
+      "learning_tip": "'I need a bit more time because...'로 요청하세요",
+      "suggested_responses": [
+        "I need a bit more time because...",
+        "Could I get an extension?",
+        "There were some unexpected issues."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Deadline Extension!"
+}

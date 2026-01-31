@@ -1,0 +1,32 @@
+{
+  "id": "restaurant_reservation",
+  "title": "Making Reservation",
+  "title_ko": "예약하기",
+  "roles": {
+    "ai": "Host",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice making reservation",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Booking",
+      "ai_opening": "Thank you for calling. How may I help you?",
+      "learning_tip": "'I'd like to make a reservation'으로 요청하세요",
+      "suggested_responses": [
+        "I'd like to make a reservation.",
+        "Can I book a table for tonight?",
+        "Do you have availability?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Making Reservation!"
+}

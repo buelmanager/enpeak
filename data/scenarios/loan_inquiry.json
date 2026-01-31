@@ -1,0 +1,32 @@
+{
+  "id": "loan_inquiry",
+  "title": "Loan Inquiry",
+  "title_ko": "대출 문의",
+  "roles": {
+    "ai": "Loan Officer",
+    "user": "Customer"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice loan inquiry",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Loan",
+      "ai_opening": "Interested in a loan?",
+      "learning_tip": "'What are the interest rates?'로 물어보세요",
+      "suggested_responses": [
+        "What are the interest rates?",
+        "How much can I borrow?",
+        "What documents do I need?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "finance",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Loan Inquiry!"
+}

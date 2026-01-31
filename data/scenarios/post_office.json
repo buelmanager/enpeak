@@ -1,0 +1,32 @@
+{
+  "id": "post_office",
+  "title": "Post Office",
+  "title_ko": "우체국",
+  "roles": {
+    "ai": "Clerk",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice post office",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Mail",
+      "ai_opening": "Next! How can I help?",
+      "learning_tip": "'I'd like to send this'로 요청하세요",
+      "suggested_responses": [
+        "I'd like to send this package.",
+        "How much is international shipping?",
+        "I need to buy stamps."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Post Office!"
+}

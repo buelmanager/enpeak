@@ -1,0 +1,32 @@
+{
+  "id": "movie_discussion",
+  "title": "Discussing Movies",
+  "title_ko": "영화 토론",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice discussing movies",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Discussion",
+      "ai_opening": "Did you watch that new movie?",
+      "learning_tip": "'I thought it was...'로 의견을 말하세요",
+      "suggested_responses": [
+        "I thought it was amazing!",
+        "The plot was interesting.",
+        "The acting was great."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Discussing Movies!"
+}

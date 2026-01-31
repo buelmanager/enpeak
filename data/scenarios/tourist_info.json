@@ -1,0 +1,32 @@
+{
+  "id": "tourist_info",
+  "title": "Tourist Information",
+  "title_ko": "관광 정보",
+  "roles": {
+    "ai": "Staff",
+    "user": "Tourist"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice tourist information",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Info",
+      "ai_opening": "Welcome! How can I help?",
+      "learning_tip": "'What are the must-see places?'로 물어보세요",
+      "suggested_responses": [
+        "What are the must-see places?",
+        "Do you have a map?",
+        "What events are happening?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "travel",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Tourist Information!"
+}

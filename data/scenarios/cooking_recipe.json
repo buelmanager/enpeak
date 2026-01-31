@@ -1,0 +1,32 @@
+{
+  "id": "cooking_recipe",
+  "title": "Sharing Recipes",
+  "title_ko": "레시피 공유",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice sharing recipes",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Recipe",
+      "ai_opening": "This dish is amazing! Can you share the recipe?",
+      "learning_tip": "'First, you...'로 단계를 설명하세요",
+      "suggested_responses": [
+        "Sure! First, you need to...",
+        "It's easy! You just...",
+        "The secret is..."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Sharing Recipes!"
+}

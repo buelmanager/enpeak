@@ -1,0 +1,32 @@
+{
+  "id": "return_exchange",
+  "title": "Returns & Exchanges",
+  "title_ko": "환불 & 교환",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice returns & exchanges",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Return",
+      "ai_opening": "Hi, how can I help you?",
+      "learning_tip": "'I'd like to return this'로 말하세요",
+      "suggested_responses": [
+        "I'd like to return this.",
+        "Can I exchange this for a different size?",
+        "This is defective."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Returns & Exchanges!"
+}

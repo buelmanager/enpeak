@@ -1,0 +1,32 @@
+{
+  "id": "karaoke",
+  "title": "Karaoke Night",
+  "title_ko": "노래방",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice karaoke night",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Karaoke",
+      "ai_opening": "What song are you going to sing?",
+      "learning_tip": "'I'll sing...'로 노래를 선택하세요",
+      "suggested_responses": [
+        "I'll sing a pop song.",
+        "Do you have any Korean songs?",
+        "Let's do a duet!"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Karaoke Night!"
+}

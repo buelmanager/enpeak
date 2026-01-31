@@ -1,0 +1,32 @@
+{
+  "id": "lost_luggage",
+  "title": "Lost Luggage",
+  "title_ko": "분실 수하물",
+  "roles": {
+    "ai": "Staff",
+    "user": "Passenger"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice lost luggage",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Report",
+      "ai_opening": "How can I help you today?",
+      "learning_tip": "'My luggage didn't arrive'로 설명하세요",
+      "suggested_responses": [
+        "My luggage didn't arrive.",
+        "I can't find my suitcase.",
+        "My bag is missing."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "travel",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Lost Luggage!"
+}

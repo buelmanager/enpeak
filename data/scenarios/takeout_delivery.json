@@ -1,0 +1,32 @@
+{
+  "id": "takeout_delivery",
+  "title": "Takeout & Delivery",
+  "title_ko": "포장 & 배달",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice takeout & delivery",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Order",
+      "ai_opening": "Hi, is this for dine-in or takeout?",
+      "learning_tip": "'For takeout, please'로 말하세요",
+      "suggested_responses": [
+        "For takeout, please.",
+        "To go.",
+        "Can I get this delivered?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Takeout & Delivery!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "giving_advice",
+  "title": "Giving Advice",
+  "title_ko": "조언하기",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice giving advice",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Advice",
+      "ai_opening": "I don't know what to do. Can you help?",
+      "learning_tip": "'If I were you, I would...'로 조언하세요",
+      "suggested_responses": [
+        "If I were you, I would...",
+        "Have you considered...?",
+        "Maybe you should..."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Giving Advice!"
+}

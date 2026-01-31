@@ -1,0 +1,32 @@
+{
+  "id": "pet_care",
+  "title": "Pet Care",
+  "title_ko": "반려동물 돌봄",
+  "roles": {
+    "ai": "Vet",
+    "user": "Pet Owner"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice pet care",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Consultation",
+      "ai_opening": "Hello! How can I help you with your pet today?",
+      "learning_tip": "'My pet has been...'로 설명하세요",
+      "suggested_responses": [
+        "My dog hasn't been eating well.",
+        "I need advice on pet food.",
+        "My cat seems tired."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Pet Care!"
+}

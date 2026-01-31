@@ -1,0 +1,32 @@
+{
+  "id": "paying_bill",
+  "title": "Paying the Bill",
+  "title_ko": "계산하기",
+  "roles": {
+    "ai": "Waiter",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice paying the bill",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Bill",
+      "ai_opening": "Is there anything else I can get you?",
+      "learning_tip": "'Can I get the check?'로 요청하세요",
+      "suggested_responses": [
+        "Can I get the check, please?",
+        "We're ready for the bill.",
+        "Just the check, thanks."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Paying the Bill!"
+}

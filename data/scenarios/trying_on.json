@@ -1,0 +1,32 @@
+{
+  "id": "trying_on",
+  "title": "Trying On Clothes",
+  "title_ko": "옷 입어보기",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice trying on clothes",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Fitting",
+      "ai_opening": "Would you like to try that on?",
+      "learning_tip": "'Where's the fitting room?'으로 물어보세요",
+      "suggested_responses": [
+        "Yes, please. Where's the fitting room?",
+        "Can I try this on?",
+        "Do you have a larger size?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Trying On Clothes!"
+}

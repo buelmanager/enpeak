@@ -1,0 +1,32 @@
+{
+  "id": "concert_tickets",
+  "title": "Concert Tickets",
+  "title_ko": "콘서트 티켓",
+  "roles": {
+    "ai": "Staff",
+    "user": "Fan"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice concert tickets",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Tickets",
+      "ai_opening": "Welcome to the ticket office!",
+      "learning_tip": "'I'd like tickets for...'로 구매하세요",
+      "suggested_responses": [
+        "I'd like two tickets for Saturday.",
+        "Are there any good seats left?",
+        "How much are VIP tickets?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Concert Tickets!"
+}

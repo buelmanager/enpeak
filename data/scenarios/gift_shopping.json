@@ -1,0 +1,32 @@
+{
+  "id": "gift_shopping",
+  "title": "Gift Shopping",
+  "title_ko": "선물 쇼핑",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice gift shopping",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Gift",
+      "ai_opening": "Looking for a gift for someone?",
+      "learning_tip": "'I'm looking for a gift for...'로 말하세요",
+      "suggested_responses": [
+        "I'm looking for a gift for my mom.",
+        "What would you recommend?",
+        "Can you gift wrap this?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Gift Shopping!"
+}

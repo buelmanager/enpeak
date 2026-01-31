@@ -1,0 +1,32 @@
+{
+  "id": "credit_card",
+  "title": "Credit Card Issues",
+  "title_ko": "신용카드 문제",
+  "roles": {
+    "ai": "Support",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice credit card issues",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Issue",
+      "ai_opening": "Thank you for calling. How can I help?",
+      "learning_tip": "'I have a problem with my card'로 문제를 말하세요",
+      "suggested_responses": [
+        "I lost my credit card.",
+        "There's a charge I don't recognize.",
+        "My card was declined."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "finance",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Credit Card Issues!"
+}

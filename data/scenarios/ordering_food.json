@@ -1,0 +1,32 @@
+{
+  "id": "ordering_food",
+  "title": "Ordering Food",
+  "title_ko": "음식 주문",
+  "roles": {
+    "ai": "Waiter",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice ordering food",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Order",
+      "ai_opening": "Are you ready to order?",
+      "learning_tip": "'I'll have...'로 주문하세요",
+      "suggested_responses": [
+        "I'll have the steak, please.",
+        "I'd like the pasta.",
+        "Can I get the salmon?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Ordering Food!"
+}

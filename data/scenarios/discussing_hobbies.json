@@ -1,0 +1,32 @@
+{
+  "id": "discussing_hobbies",
+  "title": "Discussing Hobbies",
+  "title_ko": "취미 이야기",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice discussing hobbies",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Hobbies",
+      "ai_opening": "What do you like to do in your free time?",
+      "learning_tip": "'I enjoy...'로 취미를 말하세요",
+      "suggested_responses": [
+        "I enjoy reading.",
+        "I like playing sports.",
+        "I'm into photography."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Discussing Hobbies!"
+}

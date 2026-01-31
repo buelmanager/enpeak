@@ -1,0 +1,32 @@
+{
+  "id": "dry_cleaning",
+  "title": "Dry Cleaning",
+  "title_ko": "세탁소",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice dry cleaning",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Cleaning",
+      "ai_opening": "Hi! How can I help you?",
+      "learning_tip": "'I need this cleaned'로 요청하세요",
+      "suggested_responses": [
+        "I need this suit cleaned.",
+        "When will it be ready?",
+        "Can you remove this stain?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Dry Cleaning!"
+}

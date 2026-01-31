@@ -1,0 +1,32 @@
+{
+  "id": "apology",
+  "title": "Making Apology",
+  "title_ko": "사과하기",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice making apology",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Apology",
+      "ai_opening": "Hey, about yesterday...",
+      "learning_tip": "'I'm really sorry about...'로 사과하세요",
+      "suggested_responses": [
+        "I'm really sorry about that.",
+        "I didn't mean to upset you.",
+        "Can you forgive me?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Making Apology!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "complaint",
+  "title": "Making a Complaint",
+  "title_ko": "불만 표현",
+  "roles": {
+    "ai": "Manager",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice making a complaint",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Complaint",
+      "ai_opening": "Is everything okay with your meal?",
+      "learning_tip": "'I'm sorry, but...'로 문제를 말하세요",
+      "suggested_responses": [
+        "I'm sorry, but this isn't what I ordered.",
+        "The food is cold.",
+        "We've been waiting too long."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Making a Complaint!"
+}

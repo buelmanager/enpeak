@@ -1,0 +1,32 @@
+{
+  "id": "making_friends",
+  "title": "Making Friends",
+  "title_ko": "친구 사귀기",
+  "roles": {
+    "ai": "New Friend",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice making friends",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Meeting",
+      "ai_opening": "Hi! Mind if I sit here?",
+      "learning_tip": "'Sure, go ahead!'로 환영하세요",
+      "suggested_responses": [
+        "Sure, go ahead!",
+        "Of course! I'm [name].",
+        "Please, have a seat."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Making Friends!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "haircut",
+  "title": "Getting a Haircut",
+  "title_ko": "미용실",
+  "roles": {
+    "ai": "Stylist",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice getting a haircut",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Haircut",
+      "ai_opening": "Hi! What would you like today?",
+      "learning_tip": "'I'd like a trim'으로 요청하세요",
+      "suggested_responses": [
+        "I'd like a trim, please.",
+        "Just a little off the sides.",
+        "Can you suggest a style?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Getting a Haircut!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "dentist",
+  "title": "At the Dentist",
+  "title_ko": "치과에서",
+  "roles": {
+    "ai": "Dentist",
+    "user": "Patient"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice at the dentist",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Checkup",
+      "ai_opening": "Any problems with your teeth lately?",
+      "learning_tip": "'My tooth hurts...'로 설명하세요",
+      "suggested_responses": [
+        "My tooth hurts when I eat cold food.",
+        "I need a cleaning.",
+        "I think I have a cavity."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing At the Dentist!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "museum_visit",
+  "title": "Museum Visit",
+  "title_ko": "박물관 방문",
+  "roles": {
+    "ai": "Guide",
+    "user": "Visitor"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice museum visit",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Visit",
+      "ai_opening": "Welcome to the museum! Can I help you?",
+      "learning_tip": "'What's on display?'로 물어보세요",
+      "suggested_responses": [
+        "What's on display today?",
+        "Is there a guided tour?",
+        "Where's the main exhibition?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Museum Visit!"
+}

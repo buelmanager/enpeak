@@ -1,0 +1,32 @@
+{
+  "id": "roommate_talk",
+  "title": "Roommate Discussion",
+  "title_ko": "룸메이트 대화",
+  "roles": {
+    "ai": "Roommate",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice roommate discussion",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Rules",
+      "ai_opening": "Should we discuss some house rules?",
+      "learning_tip": "'How about we...'로 제안하세요",
+      "suggested_responses": [
+        "How about we take turns cleaning?",
+        "Let's split the bills equally.",
+        "I'll handle the groceries."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Roommate Discussion!"
+}

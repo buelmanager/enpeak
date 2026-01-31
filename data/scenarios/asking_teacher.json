@@ -1,0 +1,32 @@
+{
+  "id": "asking_teacher",
+  "title": "Asking the Teacher",
+  "title_ko": "선생님께 질문",
+  "roles": {
+    "ai": "Teacher",
+    "user": "Student"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice asking the teacher",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Question",
+      "ai_opening": "Yes? Do you have a question?",
+      "learning_tip": "'Could you explain...'로 질문하세요",
+      "suggested_responses": [
+        "Could you explain this again?",
+        "I don't understand this part.",
+        "Can you give an example?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Asking the Teacher!"
+}

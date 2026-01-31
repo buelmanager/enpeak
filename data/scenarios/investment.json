@@ -1,0 +1,32 @@
+{
+  "id": "investment",
+  "title": "Investment Discussion",
+  "title_ko": "투자 상담",
+  "roles": {
+    "ai": "Advisor",
+    "user": "Investor"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice investment discussion",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Investment",
+      "ai_opening": "What are your investment goals?",
+      "learning_tip": "'I'm interested in...'로 관심사를 말하세요",
+      "suggested_responses": [
+        "I'm interested in stocks.",
+        "What's a safe investment?",
+        "I want to save for retirement."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "finance",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Investment Discussion!"
+}

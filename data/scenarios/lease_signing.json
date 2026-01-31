@@ -1,0 +1,32 @@
+{
+  "id": "lease_signing",
+  "title": "Lease Signing",
+  "title_ko": "계약하기",
+  "roles": {
+    "ai": "Landlord",
+    "user": "Tenant"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice lease signing",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Contract",
+      "ai_opening": "Ready to sign the lease?",
+      "learning_tip": "'Before I sign, I'd like to ask...'로 확인하세요",
+      "suggested_responses": [
+        "Before I sign, what's the deposit?",
+        "How long is the lease?",
+        "Can I have pets?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Lease Signing!"
+}

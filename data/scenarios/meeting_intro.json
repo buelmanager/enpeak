@@ -1,0 +1,32 @@
+{
+  "id": "meeting_intro",
+  "title": "Meeting Introduction",
+  "title_ko": "회의 시작",
+  "roles": {
+    "ai": "Colleague",
+    "user": "Meeting Leader"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice meeting introduction",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Start",
+      "ai_opening": "Looks like everyone's here. Should we start?",
+      "learning_tip": "'Let's get started'로 회의를 시작하세요",
+      "suggested_responses": [
+        "Yes, let's get started.",
+        "Today we'll discuss...",
+        "First, let me share the agenda."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Meeting Introduction!"
+}

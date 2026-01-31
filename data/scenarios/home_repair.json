@@ -1,0 +1,32 @@
+{
+  "id": "home_repair",
+  "title": "Home Repair",
+  "title_ko": "집 수리",
+  "roles": {
+    "ai": "Repair Person",
+    "user": "Homeowner"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice home repair",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Problem",
+      "ai_opening": "Hi, I'm here for the repair. What's the problem?",
+      "learning_tip": "'The problem is...'로 설명하세요",
+      "suggested_responses": [
+        "The faucet is leaking.",
+        "The AC isn't working.",
+        "There's a problem with the heater."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Home Repair!"
+}

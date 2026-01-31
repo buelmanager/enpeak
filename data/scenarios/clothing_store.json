@@ -1,0 +1,32 @@
+{
+  "id": "clothing_store",
+  "title": "Clothing Store",
+  "title_ko": "옷 가게",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice clothing store",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Help",
+      "ai_opening": "Hi! Can I help you find something?",
+      "learning_tip": "'I'm looking for...'로 말하세요",
+      "suggested_responses": [
+        "I'm looking for a jacket.",
+        "Do you have this in blue?",
+        "Where are the jeans?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Clothing Store!"
+}

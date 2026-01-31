@@ -1,0 +1,32 @@
+{
+  "id": "food_allergy",
+  "title": "Food Allergies",
+  "title_ko": "음식 알레르기",
+  "roles": {
+    "ai": "Waiter",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice food allergies",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Allergy",
+      "ai_opening": "Welcome! Are you ready to order?",
+      "learning_tip": "'I'm allergic to...'로 알리세요",
+      "suggested_responses": [
+        "I'm allergic to nuts.",
+        "I can't eat shellfish.",
+        "Does this contain gluten?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Food Allergies!"
+}

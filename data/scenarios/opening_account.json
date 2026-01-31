@@ -1,0 +1,32 @@
+{
+  "id": "opening_account",
+  "title": "Opening Account",
+  "title_ko": "계좌 개설",
+  "roles": {
+    "ai": "Banker",
+    "user": "Customer"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice opening account",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Account",
+      "ai_opening": "Welcome! How can I help you today?",
+      "learning_tip": "'I'd like to open an account'로 요청하세요",
+      "suggested_responses": [
+        "I'd like to open a savings account.",
+        "What documents do I need?",
+        "Is there a minimum balance?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "finance",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Opening Account!"
+}

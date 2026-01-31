@@ -1,0 +1,32 @@
+{
+  "id": "viewing_apartment",
+  "title": "Viewing Apartment",
+  "title_ko": "집 보기",
+  "roles": {
+    "ai": "Landlord",
+    "user": "Renter"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice viewing apartment",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Viewing",
+      "ai_opening": "Welcome! Let me show you around.",
+      "learning_tip": "'Is... included?'로 포함 여부를 물어보세요",
+      "suggested_responses": [
+        "Is utilities included?",
+        "When is the move-in date?",
+        "Can I see the bedroom?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Viewing Apartment!"
+}

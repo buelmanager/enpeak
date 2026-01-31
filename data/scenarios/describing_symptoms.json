@@ -1,0 +1,32 @@
+{
+  "id": "describing_symptoms",
+  "title": "Describing Symptoms",
+  "title_ko": "증상 설명",
+  "roles": {
+    "ai": "Doctor",
+    "user": "Patient"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice describing symptoms",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Symptoms",
+      "ai_opening": "What brings you in today?",
+      "learning_tip": "'I've been having...'로 증상을 설명하세요",
+      "suggested_responses": [
+        "I've been having headaches.",
+        "My throat is sore.",
+        "I've had a fever for two days."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Describing Symptoms!"
+}

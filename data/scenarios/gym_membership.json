@@ -1,0 +1,32 @@
+{
+  "id": "gym_membership",
+  "title": "Gym Membership",
+  "title_ko": "헬스장 등록",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice gym membership",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Membership",
+      "ai_opening": "Hi! Are you interested in joining?",
+      "learning_tip": "'How much is a membership?'로 물어보세요",
+      "suggested_responses": [
+        "How much is a membership?",
+        "What facilities do you have?",
+        "Can I get a tour?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Gym Membership!"
+}

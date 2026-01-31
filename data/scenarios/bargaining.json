@@ -1,0 +1,32 @@
+{
+  "id": "bargaining",
+  "title": "Bargaining",
+  "title_ko": "흥정하기",
+  "roles": {
+    "ai": "Vendor",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice bargaining",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Price",
+      "ai_opening": "This one is $50.",
+      "learning_tip": "'Is there a discount?'로 물어보세요",
+      "suggested_responses": [
+        "Is there a discount?",
+        "That's too expensive.",
+        "Can you do $30?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Bargaining!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "emergency_room",
+  "title": "Emergency Room",
+  "title_ko": "응급실",
+  "roles": {
+    "ai": "Nurse",
+    "user": "Patient"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice emergency room",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Emergency",
+      "ai_opening": "What's the emergency?",
+      "learning_tip": "'I hurt my...' 또는 'I'm in pain'으로 설명하세요",
+      "suggested_responses": [
+        "I hurt my arm.",
+        "I'm in severe pain.",
+        "I think I broke my leg."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Emergency Room!"
+}

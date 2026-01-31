@@ -1,0 +1,32 @@
+{
+  "id": "atm_help",
+  "title": "ATM Assistance",
+  "title_ko": "ATM 도움",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice atm assistance",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Help",
+      "ai_opening": "Do you need help with the ATM?",
+      "learning_tip": "'How do I...'로 사용법을 물어보세요",
+      "suggested_responses": [
+        "How do I withdraw money?",
+        "The machine ate my card.",
+        "Can I deposit cash here?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "finance",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing ATM Assistance!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "mental_health",
+  "title": "Mental Health",
+  "title_ko": "정신 건강",
+  "roles": {
+    "ai": "Counselor",
+    "user": "Client"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice mental health",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Session",
+      "ai_opening": "How have you been feeling lately?",
+      "learning_tip": "'I've been feeling...'로 감정을 표현하세요",
+      "suggested_responses": [
+        "I've been feeling stressed.",
+        "I'm having trouble sleeping.",
+        "I feel overwhelmed."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Mental Health!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "moving_in",
+  "title": "Moving In",
+  "title_ko": "이사하기",
+  "roles": {
+    "ai": "Neighbor",
+    "user": "New Tenant"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice moving in",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Moving",
+      "ai_opening": "Hi! Are you the new neighbor?",
+      "learning_tip": "'Yes, I just moved in'으로 인사하세요",
+      "suggested_responses": [
+        "Yes, I just moved in today.",
+        "Nice to meet you!",
+        "Where's the trash area?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Moving In!"
+}

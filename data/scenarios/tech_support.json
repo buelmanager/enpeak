@@ -1,0 +1,32 @@
+{
+  "id": "tech_support",
+  "title": "Tech Support",
+  "title_ko": "기술 지원",
+  "roles": {
+    "ai": "Support",
+    "user": "Customer"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice tech support",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Support",
+      "ai_opening": "Tech support, how can I help?",
+      "learning_tip": "'I'm having trouble with...'로 문제를 설명하세요",
+      "suggested_responses": [
+        "I'm having trouble with my internet.",
+        "My computer won't start.",
+        "The app keeps crashing."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Tech Support!"
+}

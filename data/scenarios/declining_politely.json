@@ -1,0 +1,32 @@
+{
+  "id": "declining_politely",
+  "title": "Declining Politely",
+  "title_ko": "정중히 거절",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice declining politely",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Decline",
+      "ai_opening": "Want to come to the movies tonight?",
+      "learning_tip": "'I'd love to, but...'로 정중히 거절하세요",
+      "suggested_responses": [
+        "I'd love to, but I'm busy.",
+        "Sorry, I can't tonight.",
+        "Maybe next time?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Declining Politely!"
+}

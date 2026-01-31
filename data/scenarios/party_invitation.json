@@ -1,0 +1,32 @@
+{
+  "id": "party_invitation",
+  "title": "Party Invitation",
+  "title_ko": "파티 초대",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice party invitation",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Invitation",
+      "ai_opening": "Hey! I'm having a party this Saturday. Can you come?",
+      "learning_tip": "'I'd love to!'로 수락하세요",
+      "suggested_responses": [
+        "I'd love to! What time?",
+        "Sure! Can I bring anything?",
+        "I'll be there!"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Party Invitation!"
+}

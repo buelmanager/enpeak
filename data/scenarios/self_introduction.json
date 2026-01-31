@@ -1,0 +1,32 @@
+{
+  "id": "self_introduction",
+  "title": "Self Introduction",
+  "title_ko": "자기소개",
+  "roles": {
+    "ai": "Colleague",
+    "user": "New Employee"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice self introduction",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Introduction",
+      "ai_opening": "Hi! You must be new here. I'm Sarah.",
+      "learning_tip": "'I'm... Nice to meet you'로 인사하세요",
+      "suggested_responses": [
+        "Hi Sarah! I'm [name]. Nice to meet you.",
+        "Hello! I just started today.",
+        "Nice to meet you. I'm the new developer."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Self Introduction!"
+}

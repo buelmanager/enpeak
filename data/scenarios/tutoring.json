@@ -1,0 +1,32 @@
+{
+  "id": "tutoring",
+  "title": "Tutoring Session",
+  "title_ko": "과외 수업",
+  "roles": {
+    "ai": "Tutor",
+    "user": "Student"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice tutoring session",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Tutoring",
+      "ai_opening": "What would you like to work on today?",
+      "learning_tip": "'I need help with...'로 도움을 요청하세요",
+      "suggested_responses": [
+        "I need help with math.",
+        "Can we go over the homework?",
+        "I'm struggling with grammar."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Tutoring Session!"
+}

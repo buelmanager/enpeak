@@ -1,0 +1,32 @@
+{
+  "id": "electronics_store",
+  "title": "Electronics Store",
+  "title_ko": "전자제품 매장",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice electronics store",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Help",
+      "ai_opening": "Hello! Looking for something specific?",
+      "learning_tip": "'I need a...'로 원하는 것을 말하세요",
+      "suggested_responses": [
+        "I need a new laptop.",
+        "What's the difference between these?",
+        "Is this on sale?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Electronics Store!"
+}

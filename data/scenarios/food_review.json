@@ -1,0 +1,32 @@
+{
+  "id": "food_review",
+  "title": "Discussing Food",
+  "title_ko": "음식 평가",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice discussing food",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Review",
+      "ai_opening": "So, how do you like the food here?",
+      "learning_tip": "'It's delicious!'로 평가하세요",
+      "suggested_responses": [
+        "It's delicious!",
+        "The flavor is amazing.",
+        "It's a bit too salty."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Discussing Food!"
+}

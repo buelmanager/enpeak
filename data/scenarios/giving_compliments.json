@@ -1,0 +1,32 @@
+{
+  "id": "giving_compliments",
+  "title": "Giving Compliments",
+  "title_ko": "칭찬하기",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice giving compliments",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Compliment",
+      "ai_opening": "Do you like my new haircut?",
+      "learning_tip": "'It looks great!'로 칭찬하세요",
+      "suggested_responses": [
+        "It looks great!",
+        "I love it! It suits you.",
+        "You look amazing!"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Giving Compliments!"
+}

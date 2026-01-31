@@ -1,0 +1,32 @@
+{
+  "id": "study_group",
+  "title": "Study Group",
+  "title_ko": "스터디 그룹",
+  "roles": {
+    "ai": "Study Partner",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice study group",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Study",
+      "ai_opening": "Ready to start studying?",
+      "learning_tip": "'Let's review...'로 공부를 시작하세요",
+      "suggested_responses": [
+        "Let's review chapter 5.",
+        "Do you understand this concept?",
+        "Can we practice together?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Study Group!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "negotiation",
+  "title": "Negotiation",
+  "title_ko": "협상",
+  "roles": {
+    "ai": "Client",
+    "user": "You"
+  },
+  "estimated_time": "15 min",
+  "learning_objectives": [
+    "Practice negotiation",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Negotiation",
+      "ai_opening": "We'd like to discuss the terms of the contract.",
+      "learning_tip": "'We can offer...'로 제안하세요",
+      "suggested_responses": [
+        "We can offer a 10% discount.",
+        "What terms are you looking for?",
+        "Let's find a middle ground."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Negotiation!"
+}

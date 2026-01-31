@@ -1,0 +1,32 @@
+{
+  "id": "currency_exchange",
+  "title": "Currency Exchange",
+  "title_ko": "환전",
+  "roles": {
+    "ai": "Teller",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice currency exchange",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Exchange",
+      "ai_opening": "How much would you like to exchange?",
+      "learning_tip": "'I'd like to exchange...'로 환전하세요",
+      "suggested_responses": [
+        "I'd like to exchange $500 to euros.",
+        "What's the exchange rate?",
+        "Do you charge a fee?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "finance",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Currency Exchange!"
+}

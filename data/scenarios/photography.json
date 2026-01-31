@@ -1,0 +1,32 @@
+{
+  "id": "photography",
+  "title": "Photo Studio",
+  "title_ko": "사진관",
+  "roles": {
+    "ai": "Photographer",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice photo studio",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Photo",
+      "ai_opening": "Hi! What kind of photos do you need?",
+      "learning_tip": "'I need passport photos'로 요청하세요",
+      "suggested_responses": [
+        "I need passport photos.",
+        "Can you do family portraits?",
+        "How long will it take?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Photo Studio!"
+}

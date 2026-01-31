@@ -1,0 +1,32 @@
+{
+  "id": "asking_help",
+  "title": "Asking for Help",
+  "title_ko": "도움 요청",
+  "roles": {
+    "ai": "Colleague",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice asking for help",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Help",
+      "ai_opening": "Hey, you look confused. Need any help?",
+      "learning_tip": "'Could you help me with...'로 도움을 요청하세요",
+      "suggested_responses": [
+        "Could you help me with this report?",
+        "I'm not sure how to use this system.",
+        "Do you have a minute?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Asking for Help!"
+}

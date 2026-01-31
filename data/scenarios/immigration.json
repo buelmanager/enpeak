@@ -1,0 +1,32 @@
+{
+  "id": "immigration",
+  "title": "Immigration",
+  "title_ko": "입국 심사",
+  "roles": {
+    "ai": "Officer",
+    "user": "Traveler"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice immigration",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Purpose",
+      "ai_opening": "Good day. What is the purpose of your visit?",
+      "learning_tip": "'I'm here for...'로 목적을 말하세요",
+      "suggested_responses": [
+        "I'm here for tourism.",
+        "I'm visiting for business.",
+        "I'm here to see family."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "travel",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Immigration!"
+}

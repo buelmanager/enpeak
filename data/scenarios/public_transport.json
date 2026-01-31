@@ -1,0 +1,32 @@
+{
+  "id": "public_transport",
+  "title": "Public Transport",
+  "title_ko": "대중교통",
+  "roles": {
+    "ai": "Staff",
+    "user": "Passenger"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice public transport",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Directions",
+      "ai_opening": "Can I help you find your way?",
+      "learning_tip": "'How do I get to...?'로 물어보세요",
+      "suggested_responses": [
+        "How do I get to downtown?",
+        "Which line goes to the airport?",
+        "Where do I buy a ticket?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "travel",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Public Transport!"
+}

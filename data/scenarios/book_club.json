@@ -1,0 +1,32 @@
+{
+  "id": "book_club",
+  "title": "Book Club",
+  "title_ko": "독서 모임",
+  "roles": {
+    "ai": "Member",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice book club",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Discussion",
+      "ai_opening": "What did you think of this month's book?",
+      "learning_tip": "'I really enjoyed...'로 감상을 말하세요",
+      "suggested_responses": [
+        "I really enjoyed the characters.",
+        "The ending surprised me.",
+        "I couldn't put it down!"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Book Club!"
+}

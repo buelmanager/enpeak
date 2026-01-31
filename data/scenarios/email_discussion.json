@@ -1,0 +1,32 @@
+{
+  "id": "email_discussion",
+  "title": "Discussing Emails",
+  "title_ko": "이메일 논의",
+  "roles": {
+    "ai": "Colleague",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice discussing emails",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Email",
+      "ai_opening": "Did you see the email from the client?",
+      "learning_tip": "'Yes, I saw it. I think...'로 의견을 말하세요",
+      "suggested_responses": [
+        "Yes, I saw it. I think we should...",
+        "Not yet. What did it say?",
+        "I'll reply to them today."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Discussing Emails!"
+}

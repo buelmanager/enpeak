@@ -1,0 +1,32 @@
+{
+  "id": "resignation",
+  "title": "Resignation Talk",
+  "title_ko": "퇴사 대화",
+  "roles": {
+    "ai": "Manager",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice resignation talk",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Resignation",
+      "ai_opening": "You wanted to see me?",
+      "learning_tip": "'I've decided to resign'으로 말하세요",
+      "suggested_responses": [
+        "I've decided to resign.",
+        "I've accepted another position.",
+        "My last day would be..."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Resignation Talk!"
+}

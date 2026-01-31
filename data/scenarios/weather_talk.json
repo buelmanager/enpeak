@@ -1,0 +1,32 @@
+{
+  "id": "weather_talk",
+  "title": "Weather Small Talk",
+  "title_ko": "날씨 이야기",
+  "roles": {
+    "ai": "Colleague",
+    "user": "You"
+  },
+  "estimated_time": "3 min",
+  "learning_objectives": [
+    "Practice weather small talk",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Weather",
+      "ai_opening": "Wow, it's really hot today, isn't it?",
+      "learning_tip": "'Yes, it is!'로 동의하세요",
+      "suggested_responses": [
+        "Yes, it's so hot!",
+        "I know, right?",
+        "Yeah, I'm melting out here."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Weather Small Talk!"
+}

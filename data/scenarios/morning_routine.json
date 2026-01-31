@@ -1,0 +1,54 @@
+{
+  "id": "morning_routine",
+  "title": "Morning Routine",
+  "title_ko": "아침 일과",
+  "roles": {
+    "ai": "Family Member",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice morning routine",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Waking Up",
+      "ai_opening": "Good morning! Did you sleep well last night?",
+      "learning_tip": "'I slept well' 또는 'I'm still tired'로 대답하세요",
+      "suggested_responses": [
+        "Good morning! I slept great.",
+        "Morning! I'm still a bit tired.",
+        "Hi! Yes, I had a good rest."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Breakfast",
+      "ai_prompt": "Ask about breakfast plans",
+      "learning_tip": "'I'll have...'로 말해요",
+      "suggested_responses": [
+        "I'll have some toast and coffee.",
+        "I'm going to skip breakfast today.",
+        "Maybe just some cereal."
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "Daily Plans",
+      "ai_prompt": "Ask about plans for the day",
+      "learning_tip": "'I'm going to...'로 계획을 말해요",
+      "suggested_responses": [
+        "I'm going to work.",
+        "I have a meeting this morning.",
+        "I need to run some errands."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Morning Routine!"
+}

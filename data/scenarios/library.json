@@ -1,0 +1,32 @@
+{
+  "id": "library",
+  "title": "At the Library",
+  "title_ko": "도서관에서",
+  "roles": {
+    "ai": "Librarian",
+    "user": "Visitor"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice at the library",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Library",
+      "ai_opening": "How can I help you today?",
+      "learning_tip": "'I'm looking for a book about...'로 말하세요",
+      "suggested_responses": [
+        "I'm looking for a book about history.",
+        "Where's the reading room?",
+        "How do I borrow books?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing At the Library!"
+}

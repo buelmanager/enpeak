@@ -1,0 +1,32 @@
+{
+  "id": "pharmacy",
+  "title": "At the Pharmacy",
+  "title_ko": "약국에서",
+  "roles": {
+    "ai": "Pharmacist",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice at the pharmacy",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Medicine",
+      "ai_opening": "Hi, how can I help you?",
+      "learning_tip": "'I need something for...'로 말하세요",
+      "suggested_responses": [
+        "I need something for a cold.",
+        "Here's my prescription.",
+        "Do you have pain relievers?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing At the Pharmacy!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "asking_recommendation",
+  "title": "Asking for Recommendations",
+  "title_ko": "추천 요청",
+  "roles": {
+    "ai": "Waiter",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice asking for recommendations",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Recommendation",
+      "ai_opening": "Hello! Can I help you with the menu?",
+      "learning_tip": "'What do you recommend?'로 물어보세요",
+      "suggested_responses": [
+        "What do you recommend?",
+        "What's popular here?",
+        "What's your specialty?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "restaurant",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Asking for Recommendations!"
+}

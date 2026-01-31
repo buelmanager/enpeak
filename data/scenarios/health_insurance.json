@@ -1,0 +1,32 @@
+{
+  "id": "health_insurance",
+  "title": "Health Insurance",
+  "title_ko": "건강 보험",
+  "roles": {
+    "ai": "Agent",
+    "user": "Customer"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice health insurance",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Insurance",
+      "ai_opening": "How can I help with your insurance?",
+      "learning_tip": "'Is this covered by my insurance?'로 물어보세요",
+      "suggested_responses": [
+        "Is this covered by my insurance?",
+        "I want to file a claim.",
+        "What's my deductible?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Health Insurance!"
+}

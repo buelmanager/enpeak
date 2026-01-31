@@ -1,0 +1,32 @@
+{
+  "id": "eye_exam",
+  "title": "Eye Examination",
+  "title_ko": "안과 검진",
+  "roles": {
+    "ai": "Optometrist",
+    "user": "Patient"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice eye examination",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Exam",
+      "ai_opening": "When was your last eye exam?",
+      "learning_tip": "'I've been having trouble seeing...'로 설명하세요",
+      "suggested_responses": [
+        "I've been having trouble seeing far away.",
+        "I need new glasses.",
+        "My eyes feel tired."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "health",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Eye Examination!"
+}

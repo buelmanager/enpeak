@@ -1,0 +1,32 @@
+{
+  "id": "online_shopping",
+  "title": "Online Shopping Help",
+  "title_ko": "온라인 쇼핑 문의",
+  "roles": {
+    "ai": "Support",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice online shopping help",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Help",
+      "ai_opening": "Customer support, how may I help?",
+      "learning_tip": "'I have a question about my order'로 말하세요",
+      "suggested_responses": [
+        "I have a question about my order.",
+        "Where is my package?",
+        "I need to change my address."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Online Shopping Help!"
+}

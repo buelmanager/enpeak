@@ -1,0 +1,32 @@
+{
+  "id": "group_project",
+  "title": "Group Project",
+  "title_ko": "조별 과제",
+  "roles": {
+    "ai": "Classmate",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice group project",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Planning",
+      "ai_opening": "So, how should we divide the work?",
+      "learning_tip": "'I can work on...'로 역할을 정하세요",
+      "suggested_responses": [
+        "I can work on the research.",
+        "Let me handle the presentation.",
+        "Who wants to write the report?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Group Project!"
+}

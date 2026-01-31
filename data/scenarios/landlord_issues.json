@@ -1,0 +1,32 @@
+{
+  "id": "landlord_issues",
+  "title": "Landlord Issues",
+  "title_ko": "집주인 문제",
+  "roles": {
+    "ai": "Landlord",
+    "user": "Tenant"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice landlord issues",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Issue",
+      "ai_opening": "You wanted to talk to me?",
+      "learning_tip": "'There's a problem with...'로 문제를 말하세요",
+      "suggested_responses": [
+        "There's a problem with the heating.",
+        "The faucet is leaking.",
+        "When can you fix it?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Landlord Issues!"
+}

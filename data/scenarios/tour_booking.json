@@ -1,0 +1,32 @@
+{
+  "id": "tour_booking",
+  "title": "Booking Tours",
+  "title_ko": "투어 예약",
+  "roles": {
+    "ai": "Agent",
+    "user": "Tourist"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice booking tours",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Booking",
+      "ai_opening": "Hello! Are you interested in any tours?",
+      "learning_tip": "'What tours do you offer?'로 물어보세요",
+      "suggested_responses": [
+        "What tours do you offer?",
+        "Do you have a city tour?",
+        "How much is the day trip?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "travel",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Booking Tours!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "house_chores",
+  "title": "House Chores",
+  "title_ko": "집안일",
+  "roles": {
+    "ai": "Roommate",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice house chores",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Chores",
+      "ai_opening": "Hey, we need to clean up. Can you help?",
+      "learning_tip": "'Sure, I can...'로 대답하세요",
+      "suggested_responses": [
+        "Sure, I can vacuum.",
+        "I'll do the dishes.",
+        "Of course! What do you need?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing House Chores!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "graduation",
+  "title": "Graduation",
+  "title_ko": "졸업",
+  "roles": {
+    "ai": "Friend",
+    "user": "Graduate"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice graduation",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Graduation",
+      "ai_opening": "Congratulations on graduating!",
+      "learning_tip": "'Thank you! I'm so happy'로 감사하세요",
+      "suggested_responses": [
+        "Thank you! I'm so happy!",
+        "I can't believe it's over.",
+        "What are your plans now?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Graduation!"
+}

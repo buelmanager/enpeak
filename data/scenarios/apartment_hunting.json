@@ -1,0 +1,32 @@
+{
+  "id": "apartment_hunting",
+  "title": "Apartment Hunting",
+  "title_ko": "집 구하기",
+  "roles": {
+    "ai": "Agent",
+    "user": "Renter"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice apartment hunting",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Search",
+      "ai_opening": "What kind of apartment are you looking for?",
+      "learning_tip": "'I'm looking for a...'로 조건을 말하세요",
+      "suggested_responses": [
+        "I'm looking for a 2-bedroom.",
+        "My budget is around $1500.",
+        "I need something near downtown."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Apartment Hunting!"
+}

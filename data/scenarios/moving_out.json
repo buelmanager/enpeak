@@ -1,0 +1,32 @@
+{
+  "id": "moving_out",
+  "title": "Moving Out",
+  "title_ko": "이사 나가기",
+  "roles": {
+    "ai": "Landlord",
+    "user": "Tenant"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice moving out",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Moving Out",
+      "ai_opening": "So you're moving out?",
+      "learning_tip": "'When do I get my deposit back?'로 물어보세요",
+      "suggested_responses": [
+        "Yes, my last day is the 30th.",
+        "When do I get my deposit back?",
+        "Do I need to clean before leaving?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Moving Out!"
+}

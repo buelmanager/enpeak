@@ -1,0 +1,32 @@
+{
+  "id": "presentation",
+  "title": "Giving Presentation",
+  "title_ko": "프레젠테이션",
+  "roles": {
+    "ai": "Audience",
+    "user": "Presenter"
+  },
+  "estimated_time": "15 min",
+  "learning_objectives": [
+    "Practice giving presentation",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Opening",
+      "ai_opening": "The floor is yours.",
+      "learning_tip": "'Thank you for joining...'로 시작하세요",
+      "suggested_responses": [
+        "Thank you for joining today.",
+        "I'll be presenting on...",
+        "Let me share my screen."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "advanced",
+  "icon": "chat",
+  "completion_message": "Great job completing Giving Presentation!"
+}

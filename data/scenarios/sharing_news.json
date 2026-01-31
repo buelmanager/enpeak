@@ -1,0 +1,32 @@
+{
+  "id": "sharing_news",
+  "title": "Sharing Good News",
+  "title_ko": "좋은 소식 나누기",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice sharing good news",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "News",
+      "ai_opening": "You look happy! What's up?",
+      "learning_tip": "'Guess what!'로 소식을 전하세요",
+      "suggested_responses": [
+        "Guess what! I got promoted!",
+        "I have great news!",
+        "You won't believe this!"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Sharing Good News!"
+}

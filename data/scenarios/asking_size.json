@@ -1,0 +1,32 @@
+{
+  "id": "asking_size",
+  "title": "Asking for Size",
+  "title_ko": "사이즈 문의",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "3 min",
+  "learning_objectives": [
+    "Practice asking for size",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Size",
+      "ai_opening": "What size are you looking for?",
+      "learning_tip": "'Do you have this in...'로 물어보세요",
+      "suggested_responses": [
+        "Do you have this in medium?",
+        "I need a size large.",
+        "What sizes do you have?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "shopping",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Asking for Size!"
+}

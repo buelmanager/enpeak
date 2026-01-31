@@ -1,0 +1,32 @@
+{
+  "id": "car_service",
+  "title": "Car Service",
+  "title_ko": "자동차 정비",
+  "roles": {
+    "ai": "Mechanic",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice car service",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Service",
+      "ai_opening": "What seems to be the problem?",
+      "learning_tip": "'My car is making a strange noise'로 설명하세요",
+      "suggested_responses": [
+        "My car is making a strange noise.",
+        "I need an oil change.",
+        "The brakes feel soft."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Car Service!"
+}

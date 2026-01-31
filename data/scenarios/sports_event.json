@@ -1,0 +1,32 @@
+{
+  "id": "sports_event",
+  "title": "Sports Event",
+  "title_ko": "스포츠 경기",
+  "roles": {
+    "ai": "Fan",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice sports event",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Game",
+      "ai_opening": "Great game, isn't it?",
+      "learning_tip": "'Go team!'으로 응원하세요",
+      "suggested_responses": [
+        "Go team!",
+        "What a great play!",
+        "Did you see that goal?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "entertainment",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Sports Event!"
+}

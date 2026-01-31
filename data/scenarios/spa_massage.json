@@ -1,0 +1,32 @@
+{
+  "id": "spa_massage",
+  "title": "Spa & Massage",
+  "title_ko": "스파 & 마사지",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice spa & massage",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Booking",
+      "ai_opening": "Welcome! Would you like to book a treatment?",
+      "learning_tip": "'I'd like to book a massage'로 예약하세요",
+      "suggested_responses": [
+        "I'd like to book a massage.",
+        "What services do you offer?",
+        "Do you have availability today?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Spa & Massage!"
+}

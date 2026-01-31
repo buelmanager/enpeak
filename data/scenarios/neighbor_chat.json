@@ -1,0 +1,43 @@
+{
+  "id": "neighbor_chat",
+  "title": "Chatting with Neighbors",
+  "title_ko": "이웃과 대화",
+  "roles": {
+    "ai": "Neighbor",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice chatting with neighbors",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Greeting",
+      "ai_opening": "Oh, hello! Nice to see you. How have you been?",
+      "learning_tip": "'I've been good'로 대답하세요",
+      "suggested_responses": [
+        "Hi! I've been good, thanks.",
+        "Hello! Pretty busy lately.",
+        "Hey! I've been well."
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "Small Talk",
+      "ai_prompt": "Make casual conversation",
+      "learning_tip": "날씨나 동네 소식으로 대화해요",
+      "suggested_responses": [
+        "The weather is nice today.",
+        "Did you hear about the new cafe?",
+        "How's your family doing?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Chatting with Neighbors!"
+}

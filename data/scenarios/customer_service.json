@@ -1,0 +1,32 @@
+{
+  "id": "customer_service",
+  "title": "Customer Service",
+  "title_ko": "고객 서비스",
+  "roles": {
+    "ai": "Agent",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice customer service",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Service",
+      "ai_opening": "Thank you for calling. How may I assist you?",
+      "learning_tip": "'I have a complaint about...'로 불만을 말하세요",
+      "suggested_responses": [
+        "I have a complaint about my order.",
+        "I want to cancel my subscription.",
+        "Can I speak to a manager?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "services",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Customer Service!"
+}

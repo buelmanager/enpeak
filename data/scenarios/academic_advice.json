@@ -1,0 +1,32 @@
+{
+  "id": "academic_advice",
+  "title": "Academic Advice",
+  "title_ko": "학업 상담",
+  "roles": {
+    "ai": "Advisor",
+    "user": "Student"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice academic advice",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Advice",
+      "ai_opening": "What brings you in today?",
+      "learning_tip": "'I need advice about...'로 상담하세요",
+      "suggested_responses": [
+        "I need advice about my major.",
+        "I'm thinking of changing courses.",
+        "What classes do you recommend?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "education",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Academic Advice!"
+}

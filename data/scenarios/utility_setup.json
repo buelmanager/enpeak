@@ -1,0 +1,32 @@
+{
+  "id": "utility_setup",
+  "title": "Utility Setup",
+  "title_ko": "공과금 설정",
+  "roles": {
+    "ai": "Staff",
+    "user": "Customer"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice utility setup",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Setup",
+      "ai_opening": "Hi, how can I help you?",
+      "learning_tip": "'I'd like to set up...'로 신청하세요",
+      "suggested_responses": [
+        "I'd like to set up electricity.",
+        "I'm moving to a new address.",
+        "When can you start service?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "housing",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Utility Setup!"
+}

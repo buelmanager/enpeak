@@ -1,0 +1,32 @@
+{
+  "id": "giving_feedback",
+  "title": "Giving Feedback",
+  "title_ko": "피드백 주기",
+  "roles": {
+    "ai": "Team Member",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice giving feedback",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Feedback",
+      "ai_opening": "You wanted to talk about my presentation?",
+      "learning_tip": "'I think it was great, but...'로 피드백하세요",
+      "suggested_responses": [
+        "I think it was great, but...",
+        "Overall, you did well.",
+        "Here are some suggestions."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Giving Feedback!"
+}

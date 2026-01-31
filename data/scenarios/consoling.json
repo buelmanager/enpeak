@@ -1,0 +1,32 @@
+{
+  "id": "consoling",
+  "title": "Consoling a Friend",
+  "title_ko": "위로하기",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "7 min",
+  "learning_objectives": [
+    "Practice consoling a friend",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Console",
+      "ai_opening": "I just got some bad news...",
+      "learning_tip": "'I'm so sorry to hear that'로 위로하세요",
+      "suggested_responses": [
+        "I'm so sorry to hear that.",
+        "Is there anything I can do?",
+        "I'm here for you."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Consoling a Friend!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "hotel_request",
+  "title": "Hotel Requests",
+  "title_ko": "호텔 요청",
+  "roles": {
+    "ai": "Staff",
+    "user": "Guest"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice hotel requests",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Request",
+      "ai_opening": "Front desk, how may I assist you?",
+      "learning_tip": "'Could I get...'로 요청하세요",
+      "suggested_responses": [
+        "Could I get extra towels?",
+        "I need a wake-up call.",
+        "Is room service available?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "travel",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Hotel Requests!"
+}

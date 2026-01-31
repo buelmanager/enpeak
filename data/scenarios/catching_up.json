@@ -1,0 +1,32 @@
+{
+  "id": "catching_up",
+  "title": "Catching Up",
+  "title_ko": "근황 나누기",
+  "roles": {
+    "ai": "Old Friend",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice catching up",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Reunion",
+      "ai_opening": "Wow, it's been so long! How have you been?",
+      "learning_tip": "'I've been great! I...'로 근황을 말하세요",
+      "suggested_responses": [
+        "I've been great! I got a new job.",
+        "So much has happened!",
+        "Time flies! I'm doing well."
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "social",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Catching Up!"
+}

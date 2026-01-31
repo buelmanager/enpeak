@@ -1,0 +1,32 @@
+{
+  "id": "weekend_plans",
+  "title": "Weekend Plans",
+  "title_ko": "주말 계획",
+  "roles": {
+    "ai": "Friend",
+    "user": "You"
+  },
+  "estimated_time": "5 min",
+  "learning_objectives": [
+    "Practice weekend plans",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Plans",
+      "ai_opening": "Hey! Do you have any plans for the weekend?",
+      "learning_tip": "'I'm planning to...'로 말하세요",
+      "suggested_responses": [
+        "I'm planning to relax at home.",
+        "I might go hiking.",
+        "Not yet. Any suggestions?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "daily",
+  "difficulty": "beginner",
+  "icon": "chat",
+  "completion_message": "Great job completing Weekend Plans!"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "networking",
+  "title": "Networking Event",
+  "title_ko": "네트워킹",
+  "roles": {
+    "ai": "Professional",
+    "user": "You"
+  },
+  "estimated_time": "10 min",
+  "learning_objectives": [
+    "Practice networking event",
+    "Learn common expressions"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "name": "Introduction",
+      "ai_opening": "Hi! I don't think we've met. I'm Alex from Tech Corp.",
+      "learning_tip": "'Nice to meet you. I'm...'로 인사하세요",
+      "suggested_responses": [
+        "Nice to meet you, Alex. I'm [name].",
+        "What do you do at Tech Corp?",
+        "How long have you been in the industry?"
+      ]
+    }
+  ],
+  "key_vocabulary": [],
+  "category": "work",
+  "difficulty": "intermediate",
+  "icon": "chat",
+  "completion_message": "Great job completing Networking Event!"
+}
