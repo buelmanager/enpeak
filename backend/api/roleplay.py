@@ -76,7 +76,14 @@ class RoleplayReport(BaseModel):
 roleplay_sessions: dict = {}
 
 # 시나리오 데이터 디렉토리
-SCENARIOS_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "data", "scenarios")
+# Docker 환경: /app/data/scenarios
+# 로컬 환경: backend/../data/scenarios
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SCENARIOS_DIR = os.path.join(_BASE_DIR, "data", "scenarios")
+
+# Docker 환경에서 /app/data/scenarios 경로 확인
+if not os.path.exists(SCENARIOS_DIR) and os.path.exists("/app/data/scenarios"):
+    SCENARIOS_DIR = "/app/data/scenarios"
 
 
 def load_scenario(scenario_id: str) -> dict:
