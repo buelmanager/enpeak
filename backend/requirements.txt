@@ -16,3 +16,6 @@ python-multipart==0.0.6
 # RAG / Vector DB
 chromadb>=0.4.0
 sentence-transformers>=2.2.0
+
+# Firebase
+firebase-admin>=6.4.0

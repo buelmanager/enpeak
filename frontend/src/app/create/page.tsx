@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface ScenarioContext {
   place: string
@@ -38,7 +39,9 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function CreateScenarioPage() {
   const router = useRouter()
+  const { user, loading: authLoading } = useAuth()
   const [step, setStep] = useState<'context' | 'chat' | 'review'>('context')
+  const [showLoginModal, setShowLoginModal] = useState(false)
   const [context, setContext] = useState<ScenarioContext>({
     place: '',
     time: '',
@@ -179,14 +182,29 @@ export default function CreateScenarioPage() {
   }
 
   const handlePublish = async () => {
+    // 로그인 체크
+    if (!user) {
+      setShowLoginModal(true)
+      return
+    }
+
     setLoading(true)
     try {
+      // 사용자 정보와 함께 저장
+      const authorName = user.displayName || user.email?.split('@')[0] || 'Anonymous'
+      const scenarioWithAuthor = {
+        ...generatedScenario,
+        title: scenarioTitle || generatedScenario.title || `${context.place}에서 ${context.situation}`,
+        title_ko: scenarioTitle || `${context.place}에서 ${context.situation}`,
+        authorId: user.uid,
+      }
+
       const response = await fetch(`${API_BASE}/api/community/scenarios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          scenario: generatedScenario,
-          author: 'Anonymous', // TODO: Use actual user
+          scenario: scenarioWithAuthor,
+          author: authorName,
         }),
       })
 
@@ -464,6 +482,31 @@ export default function CreateScenarioPage() {
                 className="flex-1 py-4 bg-[#1a1a1a] text-white rounded-xl font-medium disabled:opacity-50"
               >
                 {loading ? '저장 중...' : '커뮤니티에 공유'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Login Required Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl p-6 mx-6 max-w-sm w-full">
+            <h3 className="text-lg font-medium mb-2">로그인이 필요합니다</h3>
+            <p className="text-sm text-[#8a8a8a] mb-6">
+              시나리오를 커뮤니티에 공유하려면 로그인이 필요합니다.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="flex-1 py-3 border border-[#e5e5e5] rounded-xl text-sm font-medium"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => router.push('/login?redirect=/create')}
+                className="flex-1 py-3 bg-[#1a1a1a] text-white rounded-xl text-sm font-medium"
+              >
+                로그인하기
               </button>
             </div>
           </div>

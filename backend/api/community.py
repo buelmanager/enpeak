@@ -12,10 +12,12 @@ from datetime import datetime
 import json
 import re
 
+from core.firebase import community_store
+
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
-# 인메모리 저장소 (프로덕션에서는 DB 사용)
+# 인메모리 저장소 (Firestore 폴백용)
 community_scenarios: Dict[str, Any] = {}
 scenario_stats: Dict[str, Dict[str, int]] = {}
 
@@ -380,6 +382,10 @@ async def publish_scenario(request: PublishScenarioRequest):
         "approved": True,  # 자동 승인 (콘텐츠 필터 통과)
     }
 
+    # Firestore에 저장 (폴백: 인메모리)
+    await community_store.save_scenario(scenario_id, community_scenario)
+
+    # 인메모리에도 캐시
     community_scenarios[scenario_id] = community_scenario
     scenario_stats[scenario_id] = {"likes": 0, "plays": 0}
 
@@ -395,18 +401,22 @@ async def publish_scenario(request: PublishScenarioRequest):
 @router.get("/community/scenarios")
 async def get_community_scenarios(sort: str = "popular", limit: int = 20):
     """커뮤니티 시나리오 목록 조회"""
-    scenarios = list(community_scenarios.values())
+    # Firestore에서 조회 (폴백: 인메모리)
+    scenarios = await community_store.get_all_scenarios(sort=sort, limit=limit)
 
-    # 정렬
-    if sort == "popular":
-        scenarios.sort(key=lambda x: x.get('likes', 0) + x.get('plays', 0), reverse=True)
-    elif sort == "recent":
-        scenarios.sort(key=lambda x: x.get('createdAt', ''), reverse=True)
-    elif sort == "beginner":
-        scenarios = [s for s in scenarios if s.get('difficulty') == 'beginner']
+    # Firestore에 데이터가 없으면 인메모리 사용
+    if not scenarios and community_scenarios:
+        scenarios = list(community_scenarios.values())
+        if sort == "popular":
+            scenarios.sort(key=lambda x: x.get('likes', 0) + x.get('plays', 0), reverse=True)
+        elif sort == "recent":
+            scenarios.sort(key=lambda x: x.get('createdAt', ''), reverse=True)
+        elif sort == "beginner":
+            scenarios = [s for s in scenarios if s.get('difficulty') == 'beginner']
+        scenarios = scenarios[:limit]
 
     return {
-        "scenarios": scenarios[:limit],
+        "scenarios": scenarios,
         "total": len(scenarios)
     }
 
@@ -414,15 +424,18 @@ async def get_community_scenarios(sort: str = "popular", limit: int = 20):
 @router.get("/community/scenarios/{scenario_id}")
 async def get_scenario(scenario_id: str):
     """특정 시나리오 조회"""
-    if scenario_id not in community_scenarios:
+    # Firestore에서 조회
+    scenario = await community_store.get_scenario(scenario_id)
+
+    # 폴백: 인메모리
+    if not scenario:
+        scenario = community_scenarios.get(scenario_id)
+
+    if not scenario:
         raise HTTPException(status_code=404, detail="Scenario not found")
 
-    scenario = community_scenarios[scenario_id]
-
     # 플레이 카운트 증가
-    if scenario_id in scenario_stats:
-        scenario_stats[scenario_id]["plays"] += 1
-        scenario["plays"] = scenario_stats[scenario_id]["plays"]
+    await community_store.update_stats(scenario_id, "plays", 1)
 
     return scenario
 
@@ -430,27 +443,41 @@ async def get_scenario(scenario_id: str):
 @router.post("/community/scenarios/{scenario_id}/like")
 async def like_scenario(scenario_id: str):
     """시나리오 좋아요"""
-    if scenario_id not in community_scenarios:
+    # Firestore에서 확인
+    scenario = await community_store.get_scenario(scenario_id)
+    if not scenario and scenario_id not in community_scenarios:
         raise HTTPException(status_code=404, detail="Scenario not found")
 
-    if scenario_id in scenario_stats:
-        scenario_stats[scenario_id]["likes"] += 1
-        community_scenarios[scenario_id]["likes"] = scenario_stats[scenario_id]["likes"]
+    # 좋아요 증가
+    await community_store.update_stats(scenario_id, "likes", 1)
 
-    return {"likes": community_scenarios[scenario_id].get("likes", 0)}
+    # 현재 좋아요 수 반환
+    updated = await community_store.get_scenario(scenario_id)
+    likes = updated.get("likes", 0) if updated else 0
+
+    return {"likes": likes}
 
 
 @router.delete("/community/scenarios/{scenario_id}")
 async def delete_scenario(scenario_id: str, author: str):
     """시나리오 삭제 (작성자만 가능)"""
-    if scenario_id not in community_scenarios:
+    # Firestore에서 조회
+    scenario = await community_store.get_scenario(scenario_id)
+    if not scenario:
+        scenario = community_scenarios.get(scenario_id)
+
+    if not scenario:
         raise HTTPException(status_code=404, detail="Scenario not found")
 
-    scenario = community_scenarios[scenario_id]
-    if scenario.get("author") != author:
+    if scenario.get("author") != author and scenario.get("authorId") != author:
         raise HTTPException(status_code=403, detail="Only the author can delete this scenario")
 
-    del community_scenarios[scenario_id]
+    # Firestore에서 삭제
+    await community_store.delete_scenario(scenario_id)
+
+    # 인메모리에서도 삭제
+    if scenario_id in community_scenarios:
+        del community_scenarios[scenario_id]
     if scenario_id in scenario_stats:
         del scenario_stats[scenario_id]
 
@@ -475,19 +502,20 @@ async def start_community_roleplay(request: CommunityRoleplayStartRequest, req: 
     """커뮤니티 시나리오로 롤플레이 시작"""
     scenario_id = request.scenario_id
 
-    if scenario_id not in community_scenarios:
-        raise HTTPException(status_code=404, detail="Scenario not found")
+    # Firestore에서 조회
+    scenario = await community_store.get_scenario(scenario_id)
+    if not scenario:
+        scenario = community_scenarios.get(scenario_id)
 
-    scenario = community_scenarios[scenario_id]
+    if not scenario:
+        raise HTTPException(status_code=404, detail="Scenario not found")
     stages = scenario.get("stages", [])
 
     if not stages:
         raise HTTPException(status_code=400, detail="This scenario has no stages")
 
     # 플레이 카운트 증가
-    if scenario_id in scenario_stats:
-        scenario_stats[scenario_id]["plays"] += 1
-        scenario["plays"] = scenario_stats[scenario_id]["plays"]
+    await community_store.update_stats(scenario_id, "plays", 1)
 
     # 세션 생성
     session_id = str(uuid.uuid4())

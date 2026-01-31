@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import {
   signInWithGoogle,
@@ -10,8 +10,10 @@ import {
   signUpWithEmail
 } from '@/lib/firebase'
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/'
   const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,7 +34,7 @@ export default function LoginPage() {
     if (error) {
       setError(error)
     } else if (user) {
-      router.push('/')
+      router.push(redirectTo)
     }
   }
 
@@ -45,7 +47,7 @@ export default function LoginPage() {
     if (error) {
       setError(error)
     } else if (user) {
-      router.push('/')
+      router.push(redirectTo)
     }
   }
 
@@ -58,7 +60,7 @@ export default function LoginPage() {
     if (error) {
       setError(error)
     } else if (user) {
-      router.push('/')
+      router.push(redirectTo)
     }
   }
 
@@ -191,5 +193,13 @@ export default function LoginPage() {
         </p>
       </footer>
     </main>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#faf9f7] flex items-center justify-center"><p className="text-[#8a8a8a]">로딩 중...</p></div>}>
+      <LoginContent />
+    </Suspense>
   )
 }

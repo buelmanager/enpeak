@@ -50,6 +50,11 @@ async def lifespan(app: FastAPI):
 
     # 모듈 초기화
     try:
+        # Firebase 초기화
+        from backend.core.firebase import community_store
+        community_store.initialize()
+        logger.info("Firebase/Firestore initialized")
+
         # LLM 초기화
         from backend.core.llm import LLMManager
 
