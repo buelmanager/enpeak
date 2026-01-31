@@ -2,8 +2,9 @@
 
 import { useState, useEffect, Suspense, useRef } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { useTTS } from '@/contexts/TTSContext'
+import { useAuth } from '@/contexts/AuthContext'
 import BottomNav from '@/components/BottomNav'
 
 interface CommunityScenario {
@@ -103,10 +104,13 @@ const SAMPLE_SCENARIOS: CommunityScenario[] = [
 
 function CommunityContent() {
   const searchParams = useSearchParams()
+  const router = useRouter()
+  const { user } = useAuth()
   const [scenarios, setScenarios] = useState<CommunityScenario[]>(SAMPLE_SCENARIOS)
   const [loading, setLoading] = useState(false)
   const [filter, setFilter] = useState<'popular' | 'recent' | 'beginner'>('popular')
   const [showPublishedToast, setShowPublishedToast] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
 
   // 롤플레이 모달 상태
   const [selectedScenario, setSelectedScenario] = useState<CommunityScenario | null>(null)
@@ -379,11 +383,20 @@ function CommunityContent() {
             </svg>
           </Link>
           <h1 className="font-medium">커뮤니티</h1>
-          <Link href="/create" className="p-2 -mr-2">
+          <button
+            onClick={() => {
+              if (!user) {
+                setShowLoginModal(true)
+              } else {
+                router.push('/create')
+              }
+            }}
+            className="p-2 -mr-2"
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
             </svg>
-          </Link>
+          </button>
         </div>
 
         {/* Filter Tabs */}
@@ -637,6 +650,32 @@ function CommunityContent() {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Login Required Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl p-6 mx-6 max-w-sm w-full">
+            <h3 className="text-lg font-medium mb-2">로그인이 필요합니다</h3>
+            <p className="text-sm text-[#8a8a8a] mb-6">
+              시나리오를 만들려면 로그인이 필요합니다.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="flex-1 py-3 border border-[#e5e5e5] rounded-xl text-sm font-medium"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => router.push('/login?redirect=/create')}
+                className="flex-1 py-3 bg-[#1a1a1a] text-white rounded-xl text-sm font-medium"
+              >
+                로그인하기
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

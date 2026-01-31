@@ -210,6 +210,84 @@ async def get_related_content(
         raise HTTPException(status_code=500, detail=f"검색 오류: {str(e)}")
 
 
+@router.get("/daily-expression")
+async def get_daily_expression():
+    """
+    오늘의 표현 API
+    - 매일 다른 표현/숙어를 랜덤으로 반환
+    """
+    import random
+    from datetime import date
+
+    collection = get_collection()
+    if collection is None:
+        raise HTTPException(status_code=503, detail="RAG 서비스를 사용할 수 없습니다.")
+
+    try:
+        # 오늘 날짜를 시드로 사용 (하루 동안 같은 표현)
+        today_seed = date.today().toordinal()
+        random.seed(today_seed)
+
+        # idiom 타입에서 우선 검색 (더 좋은 표현 데이터)
+        results = collection.get(
+            where={"type": "idiom"},
+            limit=200
+        )
+
+        if not results['ids']:
+            # 폴백: expression 타입
+            results = collection.get(
+                where={"type": "expression"},
+                limit=200
+            )
+
+        if not results['ids']:
+            raise HTTPException(status_code=404, detail="표현 데이터를 찾을 수 없습니다.")
+
+        # 랜덤 선택
+        idx = random.randint(0, len(results['ids']) - 1)
+        doc = results['documents'][idx] if results['documents'] else ""
+        meta = results['metadatas'][idx] if results['metadatas'] else {}
+
+        # 텍스트 파싱 (형식: "Expression: 뜻" 또는 "Expression - 뜻")
+        expression = ""
+        meaning = ""
+
+        if ": " in doc:
+            parts = doc.split(": ", 1)
+            expression = parts[0].strip()
+            meaning = parts[1].strip() if len(parts) > 1 else ""
+        elif " - " in doc:
+            parts = doc.split(" - ", 1)
+            expression = parts[0].strip()
+            meaning = parts[1].strip() if len(parts) > 1 else ""
+        else:
+            expression = doc.strip()
+            meaning = meta.get("meaning_ko", "")
+
+        # 메타데이터에서 추가 정보
+        if not meaning:
+            meaning = meta.get("meaning_ko") or meta.get("meaning") or ""
+
+        # 예문 생성 (간단한 예문)
+        example = meta.get("example") or meta.get("example_en") or f"Let me show you how to use '{expression}'."
+        example_ko = meta.get("example_ko") or meta.get("translation") or ""
+
+        return {
+            "expression": expression,
+            "meaning": meaning,
+            "example": example,
+            "example_ko": example_ko,
+            "category": meta.get("category") or "daily",
+            "level": meta.get("level") or "B1"
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"오류: {str(e)}")
+
+
 @router.get("/stats")
 async def get_rag_stats():
     """RAG 데이터 통계"""

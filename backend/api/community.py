@@ -12,7 +12,7 @@ from datetime import datetime
 import json
 import re
 
-from core.firebase import community_store
+from backend.core.firebase import community_store
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

@@ -135,17 +135,17 @@ export default function Home() {
           <div className="flex-1 h-px bg-[#e5e5e5]" />
         </div>
 
-        {/* Quick Actions - Two main features */}
+        {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-4">
-          <Link href="/conversations" className="block">
+          <Link href="/daily" className="block">
             <div className="bg-white rounded-2xl p-5 border border-[#f0f0f0] text-center">
               <div className="w-12 h-12 rounded-full bg-[#f5f5f5] flex items-center justify-center mb-3 mx-auto">
                 <svg className="w-6 h-6 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                 </svg>
               </div>
-              <h3 className="font-medium text-sm">상황별 회화</h3>
-              <p className="text-xs text-[#8a8a8a] mt-1">100개+ 시나리오</p>
+              <h3 className="font-medium text-sm">오늘의 표현</h3>
+              <p className="text-xs text-[#8a8a8a] mt-1">매일 새로운 표현</p>
             </div>
           </Link>
 
