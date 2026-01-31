@@ -541,7 +541,7 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
     # 현재 스테이지 정보
     current_stage = stages[current_stage_num - 1] if current_stage_num <= len(stages) else stages[-1]
 
-    # LLM으로 응답 생성
+    # LLM으로 응답 생성 (응답과 추천을 함께 JSON으로)
     ai_response = ""
     suggested_responses = []
 
@@ -553,50 +553,57 @@ async def community_roleplay_turn(request: CommunityRoleplayTurnRequest, req: Re
                 for m in session["conversation_history"][-6:]
             ])
 
-            # 먼저 AI 응답 생성
-            response_prompt = f"""You are an English conversation partner in this scenario:
+            # 응답과 추천을 함께 JSON으로 생성 (자유대화 방식 참고)
+            prompt = f"""You are an English conversation partner in this scenario:
 - Title: {scenario.get('title')}
 - Place: {scenario.get('place')}
 - Situation: {scenario.get('situation')}
 - Current stage: {current_stage.get('name', f'Stage {current_stage_num}')}
 
-Conversation so far:
+CONVERSATION SO FAR:
 {history_text}
 
-Respond naturally as an English speaker would. Keep your response concise (1-2 sentences).
-Do NOT use any emojis."""
+USER NOW SAYS: "{request.user_message}"
 
-            ai_response = llm.generate(
-                prompt=response_prompt,
-                system_prompt="You are a helpful English conversation partner. Respond naturally in English. No emojis.",
-                max_tokens=100,
+Respond as JSON with this format:
+{{"response": "Your natural English response (1-2 sentences)", "suggestions": ["What user could say next 1", "What user could say next 2"]}}
+
+RULES:
+- NEVER repeat your previous responses - check the conversation history
+- Respond directly to what the user just said
+- Stay in character for this scenario
+- The suggestions should be natural follow-ups based on YOUR response
+- Keep suggestions short (5-10 words each)
+- No emojis
+
+Output ONLY valid JSON:"""
+
+            llm_output = llm.generate(
+                prompt=prompt,
+                system_prompt="Output only valid JSON. No emojis. No markdown.",
+                max_tokens=200,
                 temperature=0.8,
             )
 
-            # 추천 응답 생성 (별도 호출)
-            suggestion_prompt = f"""Based on this conversation, suggest 2 short responses the user could say next.
-
-AI just said: "{ai_response}"
-
-Output ONLY a JSON array with 2 suggestions, like: ["Response 1", "Response 2"]
-Keep each suggestion under 10 words. No emojis."""
-
+            # JSON 파싱
             try:
-                suggestion_output = llm.generate(
-                    prompt=suggestion_prompt,
-                    system_prompt="Output only a JSON array. No explanation.",
-                    max_tokens=80,
-                    temperature=0.7,
-                )
+                llm_output = llm_output.strip()
+                if llm_output.startswith("```"):
+                    llm_output = llm_output.split("```")[1]
+                    if llm_output.startswith("json"):
+                        llm_output = llm_output[4:]
 
-                suggestion_output = suggestion_output.strip()
-                # JSON 배열 추출
-                if "[" in suggestion_output and "]" in suggestion_output:
-                    start = suggestion_output.index("[")
-                    end = suggestion_output.rindex("]") + 1
-                    suggested_responses = json.loads(suggestion_output[start:end])
-            except Exception as e:
-                logger.warning(f"Suggestion generation failed: {e}")
+                parsed = json.loads(llm_output)
+                ai_response = parsed.get("response", "")
+                suggested_responses = parsed.get("suggestions", [])
+
+                # 응답에서 앞뒤 따옴표 제거
+                if ai_response:
+                    ai_response = ai_response.strip().strip('"').strip("'")
+            except json.JSONDecodeError:
+                # JSON 파싱 실패 시 텍스트 그대로 사용
+                ai_response = llm_output.strip().strip('"').strip("'")
+                suggested_responses = []
 
         if not ai_response:
             ai_response = "That sounds great! Is there anything else I can help you with?"

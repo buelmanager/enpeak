@@ -266,9 +266,13 @@ Output ONLY valid JSON:"""
             parsed = json.loads(llm_output)
             ai_response = parsed.get("response", "")
             dynamic_suggestions = parsed.get("suggestions", [])
+
+            # 응답에서 앞뒤 따옴표 제거
+            if ai_response:
+                ai_response = ai_response.strip().strip('"').strip("'")
         except json.JSONDecodeError:
-            # JSON 파싱 실패 시 텍스트 그대로 사용
-            ai_response = llm_output
+            # JSON 파싱 실패 시 텍스트 그대로 사용 (따옴표 제거)
+            ai_response = llm_output.strip().strip('"').strip("'")
             dynamic_suggestions = []
 
         if not ai_response:

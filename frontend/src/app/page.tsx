@@ -9,8 +9,10 @@ import {
   getStats,
   getWeeklyActivity,
   getWeeklyStats,
+  getDayRecords,
   type TodayStats,
   type WeeklyStats,
+  type DayRecord,
 } from '@/lib/learningHistory'
 
 export default function Home() {
@@ -31,6 +33,8 @@ export default function Home() {
     conversations: 0,
     chatSessions: 0,
   })
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
+  const [selectedDayRecord, setSelectedDayRecord] = useState<DayRecord | null>(null)
 
   useEffect(() => {
     const hour = new Date().getHours()
@@ -165,45 +169,115 @@ export default function Home() {
           <div className="flex-1 h-px bg-[#e5e5e5]" />
         </div>
 
-        {/* Weekly Stats Summary */}
-        <div className="bg-white rounded-2xl p-4 border border-[#f0f0f0]">
-          <div className="grid grid-cols-4 gap-3 text-center">
-            <div>
-              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.totalDays}</p>
-              <p className="text-[10px] text-[#8a8a8a] mt-1">학습일</p>
-            </div>
-            <div>
-              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.conversations}</p>
-              <p className="text-[10px] text-[#8a8a8a] mt-1">회화</p>
-            </div>
-            <div>
-              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.vocabularyWords}</p>
-              <p className="text-[10px] text-[#8a8a8a] mt-1">단어</p>
-            </div>
-            <div>
-              <p className="text-2xl font-light text-[#1a1a1a]">{weeklyStats.chatSessions}</p>
-              <p className="text-[10px] text-[#8a8a8a] mt-1">대화</p>
-            </div>
-          </div>
-
-          {/* Weekly Activity Dots */}
-          <div className="flex justify-between mt-4 pt-4 border-t border-[#f0f0f0]">
+        {/* Weekly Progress Bar Style */}
+        <div className="space-y-4">
+          {/* Day Progress */}
+          <div className="flex items-center gap-2">
             {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
-              <div key={day} className="flex flex-col items-center gap-1">
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] ${
-                  weeklyActivity[idx]
-                    ? 'bg-[#1a1a1a] text-white'
-                    : 'bg-[#f5f5f5] text-[#c5c5c5]'
+              <button
+                key={day}
+                onClick={() => {
+                  if (selectedDay === idx) {
+                    setSelectedDay(null)
+                    setSelectedDayRecord(null)
+                  } else {
+                    setSelectedDay(idx)
+                    setSelectedDayRecord(getDayRecords(idx))
+                  }
+                }}
+                className={`flex-1 flex flex-col items-center gap-2 transition-all ${
+                  selectedDay === idx ? 'scale-105' : ''
+                }`}
+              >
+                <div className={`w-full h-12 rounded-lg flex items-center justify-center transition-all ${
+                  selectedDay === idx
+                    ? 'bg-[#555] ring-2 ring-[#999]'
+                    : weeklyActivity[idx]
+                    ? 'bg-[#1a1a1a]'
+                    : 'bg-[#f0f0f0]'
                 }`}>
-                  {weeklyActivity[idx] ? (
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  {weeklyActivity[idx] && (
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                  ) : day}
+                  )}
                 </div>
-              </div>
+                <span className={`text-[10px] ${
+                  selectedDay === idx
+                    ? 'text-[#1a1a1a] font-medium'
+                    : weeklyActivity[idx]
+                    ? 'text-[#1a1a1a] font-medium'
+                    : 'text-[#c5c5c5]'
+                }`}>
+                  {day}
+                </span>
+              </button>
             ))}
           </div>
+
+          {/* Selected Day Detail or Weekly Stats */}
+          {selectedDayRecord ? (
+            <div className="bg-[#f0f0f0] rounded-xl px-5 py-4 border border-[#e0e0e0]">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-sm font-medium text-[#1a1a1a]">
+                  {selectedDayRecord.date.split('-').slice(1).join('/')} ({['월', '화', '수', '목', '금', '토', '일'][selectedDay || 0]})
+                </p>
+                <button
+                  onClick={() => {
+                    setSelectedDay(null)
+                    setSelectedDayRecord(null)
+                  }}
+                  className="text-xs text-[#666]"
+                >
+                  닫기
+                </button>
+              </div>
+              {selectedDayRecord.totalSessions > 0 ? (
+                <div className="flex gap-6 text-center">
+                  <div className="flex-1">
+                    <p className="text-2xl font-medium text-[#1a1a1a]">{selectedDayRecord.conversations}</p>
+                    <p className="text-[10px] text-[#666]">회화</p>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-2xl font-medium text-[#1a1a1a]">{selectedDayRecord.vocabularyWords}</p>
+                    <p className="text-[10px] text-[#666]">단어</p>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-2xl font-medium text-[#1a1a1a]">{selectedDayRecord.chatSessions}</p>
+                    <p className="text-[10px] text-[#666]">대화</p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-[#888] text-center py-2">학습 기록이 없습니다</p>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center justify-between bg-[#f8f8f8] rounded-xl px-5 py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#1a1a1a] flex items-center justify-center">
+                  <span className="text-white text-sm font-medium">{weeklyStats.totalDays}</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium">/{7}일 학습</p>
+                  <p className="text-xs text-[#8a8a8a]">이번 주</p>
+                </div>
+              </div>
+              <div className="flex gap-6 text-center">
+                <div>
+                  <p className="text-lg font-medium">{weeklyStats.conversations}</p>
+                  <p className="text-[10px] text-[#8a8a8a]">회화</p>
+                </div>
+                <div>
+                  <p className="text-lg font-medium">{weeklyStats.vocabularyWords}</p>
+                  <p className="text-[10px] text-[#8a8a8a]">단어</p>
+                </div>
+                <div>
+                  <p className="text-lg font-medium">{weeklyStats.chatSessions}</p>
+                  <p className="text-[10px] text-[#8a8a8a]">대화</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

@@ -228,6 +228,43 @@ export interface WeeklyStats {
   chatSessions: number       // 자유 대화 세션 수
 }
 
+// 특정 날짜의 학습 기록 가져오기
+export interface DayRecord {
+  date: string
+  conversations: number
+  vocabularyWords: number
+  chatSessions: number
+  totalSessions: number
+}
+
+export function getDayRecords(dayIndex: number): DayRecord {
+  if (typeof window === 'undefined') {
+    return { date: '', conversations: 0, vocabularyWords: 0, chatSessions: 0, totalSessions: 0 }
+  }
+
+  const records = getAllRecords()
+  const today = new Date()
+  const dayOfWeek = today.getDay() // 0 = Sunday
+  const monday = new Date(today)
+  monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1))
+  monday.setHours(0, 0, 0, 0)
+
+  // 선택한 요일의 날짜 계산
+  const targetDate = new Date(monday)
+  targetDate.setDate(monday.getDate() + dayIndex)
+  const targetDateStr = targetDate.toISOString().split('T')[0]
+
+  const dayRecords = records.filter(r => r.completedAt.startsWith(targetDateStr))
+
+  return {
+    date: targetDateStr,
+    conversations: dayRecords.filter(r => r.type === 'conversation').length,
+    vocabularyWords: dayRecords.filter(r => r.type === 'vocabulary').length,
+    chatSessions: dayRecords.filter(r => r.type === 'chat').length,
+    totalSessions: dayRecords.length,
+  }
+}
+
 export function getWeeklyStats(): WeeklyStats {
   if (typeof window === 'undefined') {
     return {
