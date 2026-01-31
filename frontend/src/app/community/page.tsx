@@ -5,7 +5,10 @@ import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useTTS } from '@/contexts/TTSContext'
 import { useAuth } from '@/contexts/AuthContext'
+import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 import BottomNav from '@/components/BottomNav'
+import ListeningIndicator from '@/components/ListeningIndicator'
+import ConversationSettingsPanel from '@/components/ConversationSettingsPanel'
 
 interface CommunityScenario {
   id: string
@@ -123,7 +126,10 @@ function CommunityContent() {
   const [speechSupported, setSpeechSupported] = useState(false)
   const recognitionRef = useRef<any>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { speak, stop, isSpeaking } = useTTS()
+  const { speak, speakWithCallback, stop, isSpeaking } = useTTS()
+  const { settings } = useConversationSettings()
+  const [showSettings, setShowSettings] = useState(false)
+  const [shouldAutoRecord, setShouldAutoRecord] = useState(false)
 
   // 음성 인식 초기화
   useEffect(() => {
@@ -220,6 +226,33 @@ function CommunityContent() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  // AI 응답 후 자동 TTS 재생
+  useEffect(() => {
+    if (!settings.autoTTS || isRoleplayLoading || messages.length === 0 || !showRoleplayModal) return
+
+    const lastMessage = messages[messages.length - 1]
+    if (lastMessage.role === 'assistant') {
+      // TTS 재생 후 자동 녹음 시작
+      speakWithCallback(lastMessage.content, () => {
+        if (settings.autoRecord) {
+          setShouldAutoRecord(true)
+        }
+      })
+    }
+  }, [messages, isRoleplayLoading, settings.autoTTS, settings.autoRecord, showRoleplayModal])
+
+  // 자동 녹음 트리거
+  useEffect(() => {
+    if (shouldAutoRecord && !isSpeaking && !isRoleplayLoading && showRoleplayModal) {
+      if (recognitionRef.current && !isListening) {
+        setInputText('')
+        recognitionRef.current.start()
+        setIsListening(true)
+      }
+      setShouldAutoRecord(false)
+    }
+  }, [shouldAutoRecord, isSpeaking, isRoleplayLoading, showRoleplayModal, isListening])
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -345,6 +378,14 @@ function CommunityContent() {
   }
 
   const closeRoleplay = () => {
+    // TTS 및 녹음 중지
+    stop()
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop()
+    }
+    setIsListening(false)
+    setShouldAutoRecord(false)
+
     setShowRoleplayModal(false)
     setSelectedScenario(null)
     setRoleplaySession(null)
@@ -587,7 +628,16 @@ function CommunityContent() {
                 </p>
               )}
             </div>
-            <div className="w-9" />
+            <button
+              onClick={() => setShowSettings(true)}
+              className="p-2 -mr-2 text-[#8a8a8a] hover:text-[#1a1a1a] transition-colors"
+              title="대화 설정"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
           </header>
 
           {/* Learning Tip */}
@@ -694,22 +744,22 @@ function CommunityContent() {
             </div>
           )}
 
+          {/* 녹음 중 인디케이터 (입력창 바로 위) */}
+          {isListening && settings.autoRecord && (
+            <ListeningIndicator
+              isActive={isListening}
+              onCancel={() => {
+                if (recognitionRef.current) {
+                  recognitionRef.current.stop()
+                }
+                setIsListening(false)
+              }}
+            />
+          )}
+
           {/* Input */}
           {!roleplaySession?.isComplete && (
             <div className="bg-white border-t border-[#f0f0f0] px-4 py-3 pb-safe">
-              {/* 음성 입력 중일 때 표시 */}
-              {isListening && (
-                <div className="flex items-center justify-center gap-2 mb-3 py-2">
-                  <div className="flex gap-1">
-                    <div className="w-1.5 h-4 bg-red-500 rounded-full animate-pulse" />
-                    <div className="w-1.5 h-6 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '100ms' }} />
-                    <div className="w-1.5 h-3 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '200ms' }} />
-                    <div className="w-1.5 h-5 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
-                    <div className="w-1.5 h-4 bg-red-500 rounded-full animate-pulse" style={{ animationDelay: '400ms' }} />
-                  </div>
-                  <span className="text-sm text-red-500 font-medium ml-2">Listening...</span>
-                </div>
-              )}
               <div className="flex items-center gap-2">
                 {/* 마이크 버튼 */}
                 {speechSupported && (
@@ -748,6 +798,12 @@ function CommunityContent() {
               </div>
             </div>
           )}
+
+          {/* 설정 패널 */}
+          <ConversationSettingsPanel
+            isOpen={showSettings}
+            onClose={() => setShowSettings(false)}
+          />
         </div>
       )}
 
