@@ -30,6 +30,10 @@ class ScenarioInfo(BaseModel):
 class RoleplayStartRequest(BaseModel):
     scenario_id: str
     user_level: Optional[str] = "intermediate"
+    category: Optional[str] = None  # 프론트엔드 호환성
+
+    class Config:
+        extra = "ignore"  # 추가 필드 무시
 
 
 class RoleplayStartResponse(BaseModel):
@@ -45,6 +49,11 @@ class RoleplayStartResponse(BaseModel):
 class RoleplayTurnRequest(BaseModel):
     session_id: str
     user_message: str
+    scenario_id: Optional[str] = None  # 프론트엔드 호환성
+    category: Optional[str] = None  # 프론트엔드 호환성
+
+    class Config:
+        extra = "ignore"  # 추가 필드 무시
 
 
 class RoleplayTurnResponse(BaseModel):
