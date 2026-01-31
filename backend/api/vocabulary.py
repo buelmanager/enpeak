@@ -563,7 +563,8 @@ Respond in JSON format:
 """
 
     try:
-        response = await llm.generate(expansion_prompt)
+        # llm.generate()는 sync 함수
+        response = llm.generate(prompt=expansion_prompt, max_tokens=500, temperature=0.7)
         import re
         json_match = re.search(r'\{[\s\S]*\}', response)
         if json_match:
