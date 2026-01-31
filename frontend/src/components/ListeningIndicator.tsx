@@ -9,48 +9,40 @@ export default function ListeningIndicator({ isActive, onCancel }: ListeningIndi
   if (!isActive) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="flex flex-col items-center gap-4 p-8 bg-white rounded-3xl shadow-2xl">
-        {/* 파동 애니메이션 */}
-        <div className="relative">
-          {/* 외부 파동 1 */}
-          <div className="absolute inset-[-20px] rounded-full border-2 border-[#1a1a1a] opacity-20 animate-ping" style={{ animationDuration: '1.5s' }} />
-          {/* 외부 파동 2 */}
-          <div className="absolute inset-[-10px] rounded-full border-2 border-[#1a1a1a] opacity-30 animate-pulse" />
-          {/* 중앙 원 */}
-          <div className="w-24 h-24 rounded-full bg-[#1a1a1a] flex items-center justify-center shadow-lg">
-            {/* 마이크 아이콘 */}
-            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-              />
-            </svg>
-          </div>
+    <div className="flex items-center justify-between px-6 py-3 bg-[#1a1a1a] text-white">
+      <div className="flex items-center gap-3">
+        {/* 음파 애니메이션 */}
+        <div className="flex items-center gap-[3px] h-5">
+          <div className="w-[3px] bg-white rounded-full animate-soundwave" style={{ animationDelay: '0ms' }} />
+          <div className="w-[3px] bg-white rounded-full animate-soundwave" style={{ animationDelay: '150ms' }} />
+          <div className="w-[3px] bg-white rounded-full animate-soundwave" style={{ animationDelay: '300ms' }} />
+          <div className="w-[3px] bg-white rounded-full animate-soundwave" style={{ animationDelay: '450ms' }} />
+          <div className="w-[3px] bg-white rounded-full animate-soundwave" style={{ animationDelay: '200ms' }} />
         </div>
-
-        {/* 텍스트 */}
-        <p className="text-base text-[#1a1a1a] font-medium tracking-wide">듣고 있어요...</p>
-
-        {/* 취소 버튼 */}
-        {onCancel && (
-          <button
-            onClick={onCancel}
-            className="px-8 py-2.5 text-sm text-[#8a8a8a] border border-[#e5e5e5] rounded-full hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors"
-          >
-            취소
-          </button>
-        )}
+        <span className="text-sm font-medium">듣고 있어요...</span>
       </div>
 
+      {/* 취소 버튼 */}
+      {onCancel && (
+        <button
+          onClick={onCancel}
+          className="px-4 py-1.5 text-sm text-white/80 border border-white/30 rounded-full hover:bg-white/10 hover:text-white transition-colors"
+        >
+          취소
+        </button>
+      )}
+
       <style jsx>{`
-        @keyframes ping {
-          75%, 100% {
-            transform: scale(1.5);
-            opacity: 0;
+        @keyframes soundwave {
+          0%, 100% {
+            height: 8px;
           }
+          50% {
+            height: 20px;
+          }
+        }
+        .animate-soundwave {
+          animation: soundwave 0.8s ease-in-out infinite;
         }
       `}</style>
     </div>

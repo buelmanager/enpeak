@@ -348,6 +348,11 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
         <div ref={messagesEndRef} className="h-20" />
       </div>
 
+      {/* 녹음 중 인디케이터 (입력창 바로 위) */}
+      {isRecording && settings.autoRecord && (
+        <ListeningIndicator isActive={isRecording} onCancel={handleCancelRecording} />
+      )}
+
       {/* Input Area */}
       <div className="border-t border-[#f0f0f0] bg-[#faf9f7] px-6 py-4">
         <form onSubmit={handleSubmit} className="flex items-center gap-3">
@@ -391,11 +396,6 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
 
       {/* 처음 방문자를 위한 설정 가이드 */}
       <ChatSettingsGuide onOpenSettings={() => setShowSettings(true)} />
-
-      {/* 녹음 중 팝업 */}
-      {isRecording && settings.autoRecord && (
-        <ListeningIndicator isActive={isRecording} onCancel={handleCancelRecording} />
-      )}
     </div>
   )
 }
