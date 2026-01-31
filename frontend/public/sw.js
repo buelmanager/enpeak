@@ -1,12 +1,8 @@
-const CACHE_VERSION = '1.0.2';
+const CACHE_VERSION = '1.0.3';
 const CACHE_NAME = `enpeak-v${CACHE_VERSION}`;
-const urlsToCache = [
-  '/',
-  '/chat',
-  '/create',
-  '/community',
-  '/vocabulary',
-  '/roleplay',
+
+// 캐시할 정적 리소스 (아이콘, 이미지 등)
+const STATIC_CACHE = [
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png'
@@ -19,7 +15,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Opened cache:', CACHE_NAME);
-        return cache.addAll(urlsToCache);
+        return cache.addAll(STATIC_CACHE);
       })
       .catch((error) => {
         console.log('Cache failed:', error);
@@ -54,33 +50,59 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch event - Network first, fallback to cache
+// Fetch event - Network first for HTML/JS/CSS, cache first for static assets
 self.addEventListener('fetch', (event) => {
-  // version.json은 항상 네트워크에서 가져옴 (캐시 안함)
-  if (event.request.url.includes('version.json')) {
+  const url = new URL(event.request.url);
+
+  // version.json은 항상 네트워크에서 가져옴
+  if (url.pathname.includes('version.json')) {
     event.respondWith(fetch(event.request));
     return;
   }
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Clone the response
-        const responseClone = response.clone();
+  // HTML, JS, CSS 파일은 항상 네트워크 우선
+  const isDocument = event.request.mode === 'navigate';
+  const isScript = url.pathname.includes('.js');
+  const isStyle = url.pathname.includes('.css');
+  const isNextChunk = url.pathname.includes('/_next/');
 
-        // Cache successful responses
-        if (response.status === 200) {
-          caches.open(CACHE_NAME)
-            .then((cache) => {
+  if (isDocument || isScript || isStyle || isNextChunk) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // 성공하면 캐시 업데이트
+          if (response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
               cache.put(event.request, responseClone);
             });
-        }
+          }
+          return response;
+        })
+        .catch(() => {
+          // 네트워크 실패 시 캐시 폴백
+          return caches.match(event.request);
+        })
+    );
+    return;
+  }
 
-        return response;
-      })
-      .catch(() => {
-        // Fallback to cache
-        return caches.match(event.request);
+  // 이미지, 폰트 등 정적 리소스는 캐시 우선
+  event.respondWith(
+    caches.match(event.request)
+      .then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request).then((response) => {
+          if (response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        });
       })
   );
 });
