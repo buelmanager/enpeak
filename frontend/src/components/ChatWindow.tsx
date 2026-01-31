@@ -5,6 +5,7 @@ import MessageBubble from './MessageBubble'
 import VoiceRecorder, { VoiceRecorderRef } from './VoiceRecorder'
 import ListeningIndicator from './ListeningIndicator'
 import ConversationSettingsPanel from './ConversationSettingsPanel'
+import ChatSettingsGuide from './ChatSettingsGuide'
 import { useTTS } from '@/contexts/TTSContext'
 import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 
@@ -377,6 +378,9 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
       />
+
+      {/* 처음 방문자를 위한 설정 가이드 */}
+      <ChatSettingsGuide onOpenSettings={() => setShowSettings(true)} />
     </div>
   )
 }
