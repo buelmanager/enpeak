@@ -4,16 +4,12 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { syncToFirebaseIfLoggedIn } from '@/lib/userDataSync'
 
 export interface ConversationSettings {
-  autoTTS: boolean           // AI 응답 자동 읽기
-  autoRecord: boolean        // 사용자 턴 자동 녹음
-  inputMode: 'voice' | 'text' | 'both'  // 입력 방식
+  inputMode: 'voice' | 'text'  // 입력 방식: 음성 또는 텍스트
 }
 
 interface ConversationSettingsContextType {
   settings: ConversationSettings
   updateSettings: (updates: Partial<ConversationSettings>) => void
-  toggleAutoTTS: () => void
-  toggleAutoRecord: () => void
   setInputMode: (mode: ConversationSettings['inputMode']) => void
   isLoaded: boolean
 }
@@ -21,9 +17,7 @@ interface ConversationSettingsContextType {
 const ConversationSettingsContext = createContext<ConversationSettingsContextType | null>(null)
 
 const DEFAULT_SETTINGS: ConversationSettings = {
-  autoTTS: false,
-  autoRecord: false,
-  inputMode: 'both',
+  inputMode: 'voice',  // 기본값: 음성 입력
 }
 
 const STORAGE_KEY = 'enpeak-conversation-settings'
@@ -76,14 +70,6 @@ export function ConversationSettingsProvider({ children }: { children: ReactNode
     saveSettings(newSettings)
   }
 
-  const toggleAutoTTS = () => {
-    updateSettings({ autoTTS: !settings.autoTTS })
-  }
-
-  const toggleAutoRecord = () => {
-    updateSettings({ autoRecord: !settings.autoRecord })
-  }
-
   const setInputMode = (mode: ConversationSettings['inputMode']) => {
     updateSettings({ inputMode: mode })
   }
@@ -92,8 +78,6 @@ export function ConversationSettingsProvider({ children }: { children: ReactNode
     <ConversationSettingsContext.Provider value={{
       settings,
       updateSettings,
-      toggleAutoTTS,
-      toggleAutoRecord,
       setInputMode,
       isLoaded,
     }}>

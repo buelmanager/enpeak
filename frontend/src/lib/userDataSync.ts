@@ -35,9 +35,7 @@ export interface UserData {
     pitch: number
   } | null
   conversationSettings?: {
-    autoTTS: boolean
-    autoRecord: boolean
-    inputMode: 'voice' | 'text' | 'both'
+    inputMode: 'voice' | 'text'
   }
   createdAt?: any
   updatedAt?: any
