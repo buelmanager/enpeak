@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { href: '/talk', label: '홈', icon: 'home' },
+  { href: '/', label: '홈', icon: 'home' },
   { href: '/cards', label: 'Cards', icon: 'cards' },
   { href: '/my', label: 'My', icon: 'my' },
 ]
@@ -64,7 +64,10 @@ function NavIcon({ icon, active }: { icon: string; active: boolean }) {
 export default function BottomNav() {
   const pathname = usePathname()
 
-  const isActive = (href: string) => pathname.startsWith(href)
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   return (
     <nav

@@ -7,7 +7,6 @@ import ChatWindow from '@/components/ChatWindow'
 import { ModeSelector, TalkMode } from '@/components/ModeSelector'
 import { ScenarioSelector, BUILT_IN_SCENARIOS, type Scenario } from '@/components/ScenarioSelector'
 import { useTalk } from '@/contexts/TalkContext'
-import BottomNav from '@/components/BottomNav'
 
 interface DailyExpression {
   expression: string
@@ -149,22 +148,18 @@ function TalkContent() {
   }
 
   return (
-    <main className="h-screen bg-[#faf9f7] text-[#1a1a1a] flex flex-col pb-16">
-      {/* Top safe area */}
+    <main className="h-screen bg-[#faf9f7] text-[#1a1a1a] flex flex-col">
       <div className="h-[30px] bg-[#faf9f7] flex-shrink-0" />
 
-      {/* Header */}
       <header className="bg-[#faf9f7] border-b border-[#f0f0f0] flex-shrink-0">
         <div className="max-w-2xl mx-auto px-6 py-3 flex items-center justify-between">
-          <h1 className="text-lg font-semibold tracking-tight">EnPeak</h1>
-          <Link 
-            href="/my" 
-            className="w-8 h-8 rounded-full bg-[#1a1a1a] flex items-center justify-center"
-          >
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          <Link href="/" className="p-1 -ml-1">
+            <svg className="w-5 h-5 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
+          <h1 className="text-sm font-medium">Talk</h1>
+          <div className="w-5" />
         </div>
       </header>
 
@@ -261,7 +256,7 @@ function TalkContent() {
         </div>
       )}
 
-      <BottomNav />
+      <div className="h-[env(safe-area-inset-bottom)] bg-[#faf9f7] flex-shrink-0" />
     </main>
   )
 }
