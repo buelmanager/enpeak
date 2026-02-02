@@ -138,53 +138,39 @@ export default function Home() {
           )}
         </div>
 
-        {stats.streak > 0 && (
-          <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#1a1a1a]/[0.04]">
+        <div className="flex items-center justify-center gap-4 mb-2">
+          {stats.streak > 0 && (
+            <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]" />
-              <span className="text-[13px] text-[#1a1a1a] font-medium">{stats.streak}일 연속 학습</span>
+              <span className="text-[13px] text-[#1a1a1a] font-medium">{stats.streak}일 연속</span>
             </div>
-          </div>
-        )}
+          )}
+          {stats.streak > 0 && stats.totalSessions > 0 && (
+            <div className="w-px h-3 bg-[#e0e0e0]" />
+          )}
+          {stats.totalSessions > 0 && (
+            <span className="text-[13px] text-[#8a8a8a]">오늘 {stats.totalSessions}회</span>
+          )}
+        </div>
 
         <Link href="/talk" className="block">
-          <div className="flex flex-col items-center pt-8 pb-10">
-            <div className="relative w-52 h-52 flex items-center justify-center mb-8">
-              <div className="ripple-3 absolute w-52 h-52 rounded-full border border-[#e8e8e8]" />
-              <div className="ripple-2 absolute w-40 h-40 rounded-full border border-[#dedede]" />
-              <div className="ripple-1 absolute w-28 h-28 rounded-full border border-[#d0d0d0]" />
-              <div className="cta-button w-20 h-20 rounded-full bg-[#1a1a1a] flex items-center justify-center z-10 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-transform active:scale-95">
-                <svg className="w-9 h-9 text-white" fill="none" viewBox="0 0 24 24">
+          <div className="flex flex-col items-center pt-6 pb-8">
+            <div className="relative w-48 h-48 flex items-center justify-center mb-6">
+              <div className="ripple-3 absolute w-48 h-48 rounded-full border border-[#e8e8e8]" />
+              <div className="ripple-2 absolute w-36 h-36 rounded-full border border-[#dedede]" />
+              <div className="ripple-1 absolute w-24 h-24 rounded-full border border-[#d0d0d0]" />
+              <div className="cta-button w-16 h-16 rounded-full bg-[#1a1a1a] flex items-center justify-center z-10 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-transform active:scale-95">
+                <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M12 3C6.5 3 2 6.58 2 11c0 2.13 1.02 4.04 2.66 5.44L3.5 20l3.84-1.92C8.64 18.68 10.28 19 12 19c5.5 0 10-3.58 10-8s-4.5-8-10-8zm-3 9.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/>
                 </svg>
               </div>
             </div>
-            <h2 className="text-xl font-semibold text-[#1a1a1a] mb-2 tracking-tight">대화를 시작해보세요</h2>
-            <p className="text-[14px] text-[#8a8a8a] text-center leading-relaxed max-w-[240px]">
-              영어로 자유롭게 이야기해보세요.<br/>AI가 대화를 도와드립니다.
+            <h2 className="text-lg font-semibold text-[#1a1a1a] mb-1 tracking-tight">대화를 시작해보세요</h2>
+            <p className="text-[13px] text-[#8a8a8a] text-center leading-relaxed">
+              영어로 자유롭게 이야기해보세요
             </p>
           </div>
         </Link>
-
-        <div className="border-t border-[#f0f0f0] mt-6 pt-5">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
-            <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Today</span>
-          </div>
-          <div className="flex items-center justify-between text-[14px]">
-            <span className="text-[#8a8a8a]">대화</span>
-            <span className="text-[#1a1a1a] font-medium">{stats.totalSessions}회</span>
-          </div>
-          {stats.totalMinutes > 0 && (
-            <>
-              <div className="border-t border-[#f5f5f5] my-2" />
-              <div className="flex items-center justify-between text-[14px]">
-                <span className="text-[#8a8a8a]">학습 시간</span>
-                <span className="text-[#1a1a1a] font-medium">{stats.totalMinutes}분</span>
-              </div>
-            </>
-          )}
-        </div>
 
         {expression && (
           <Link 
