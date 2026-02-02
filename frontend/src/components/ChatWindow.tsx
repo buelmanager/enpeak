@@ -66,13 +66,24 @@ interface PracticeExpression {
 
 interface ChatWindowProps {
   practiceExpression?: PracticeExpression
+  onExpressionComplete?: () => void
+  mode?: 'free' | 'expression' | 'roleplay'
+  scenarioId?: string
+  onReset?: () => void
 }
 
-export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
+export default function ChatWindow({ 
+  practiceExpression,
+  onExpressionComplete,
+  mode = 'free',
+  scenarioId,
+  onReset,
+}: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | null>(null)
+  const [roleplaySessionId, setRoleplaySessionId] = useState<string | null>(null)
   const [initialized, setInitialized] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
@@ -156,6 +167,10 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
   const sendMessage = async (text: string) => {
     if (!text.trim()) return
 
+    if (mode === 'roleplay' && !scenarioId && !roleplaySessionId) {
+      return
+    }
+
     // TTS 중이면 중지
     stopTTS()
 
@@ -170,47 +185,105 @@ export default function ChatWindow({ practiceExpression }: ChatWindowProps) {
     setLoading(true)
 
     try {
-      const response = await fetch(`${API_BASE}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          conversation_id: conversationId,
-        }),
-      })
+      if (mode === 'roleplay') {
+        if (!roleplaySessionId) {
+          const response = await fetch(`${API_BASE}/api/roleplay/start`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              scenario_id: scenarioId,
+            }),
+          })
 
-      if (!response.ok) throw new Error('Failed to get response')
+          if (!response.ok) throw new Error('Failed to start roleplay')
 
-      const data = await response.json()
+          const data = await response.json()
+          setRoleplaySessionId(data.session_id)
 
-      if (!conversationId) {
-        setConversationId(data.conversation_id)
-      }
-
-      // 이전 사용자 메시지에 더 나은 표현 추가
-      if (data.better_expressions && data.better_expressions.length > 0) {
-        setMessages(prev => {
-          const updated = [...prev]
-          const lastUserIdx = updated.length - 1
-          if (lastUserIdx >= 0 && updated[lastUserIdx].role === 'user') {
-            updated[lastUserIdx] = {
-              ...updated[lastUserIdx],
-              betterExpressions: data.better_expressions,
-            }
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: data.ai_message,
+            suggestions: data.suggested_responses?.slice(0, 2),
+            learningTip: data.learning_tip,
           }
-          return updated
+
+          setMessages(prev => [...prev, assistantMessage])
+
+          if (data.is_complete) {
+            onReset?.()
+          }
+        } else {
+          const response = await fetch(`${API_BASE}/api/roleplay/turn`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              session_id: roleplaySessionId,
+              user_message: text,
+            }),
+          })
+
+          if (!response.ok) throw new Error('Failed to continue roleplay')
+
+          const data = await response.json()
+
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: data.ai_message,
+            suggestions: data.suggested_responses?.slice(0, 2),
+            learningTip: data.learning_tip,
+          }
+
+          setMessages(prev => [...prev, assistantMessage])
+
+          if (data.is_complete) {
+            onReset?.()
+          }
+        }
+      } else {
+        const response = await fetch(`${API_BASE}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            conversation_id: conversationId,
+          }),
         })
-      }
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: data.message,
-        suggestions: data.suggestions?.slice(0, 2), // 2개만 저장
-        learningTip: data.learning_tip,
-      }
+        if (!response.ok) throw new Error('Failed to get response')
 
-      setMessages(prev => [...prev, assistantMessage])
+        const data = await response.json()
+
+        if (!conversationId) {
+          setConversationId(data.conversation_id)
+        }
+
+        // 이전 사용자 메시지에 더 나은 표현 추가
+        if (data.better_expressions && data.better_expressions.length > 0) {
+          setMessages(prev => {
+            const updated = [...prev]
+            const lastUserIdx = updated.length - 1
+            if (lastUserIdx >= 0 && updated[lastUserIdx].role === 'user') {
+              updated[lastUserIdx] = {
+                ...updated[lastUserIdx],
+                betterExpressions: data.better_expressions,
+              }
+            }
+            return updated
+          })
+        }
+
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: data.message,
+          suggestions: data.suggestions?.slice(0, 2), // 2개만 저장
+          learningTip: data.learning_tip,
+        }
+
+        setMessages(prev => [...prev, assistantMessage])
+      }
     } catch (error) {
       console.error('Chat error:', error)
       const errorMessage: Message = {
