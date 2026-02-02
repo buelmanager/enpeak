@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
 import { useAuth } from '@/contexts/AuthContext'
-import { getStats, getWeeklyActivity, getWeeklyStats, type TodayStats, type WeeklyStats } from '@/lib/learningHistory'
+import { getStats, type TodayStats } from '@/lib/learningHistory'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
@@ -27,8 +27,6 @@ export default function Home() {
 
   const [greeting, setGreeting] = useState('Good morning')
   const [stats, setStats] = useState<TodayStats>({ totalSessions: 0, totalMinutes: 0, vocabularyWords: 0, conversationScenarios: 0, streak: 0 })
-  const [weeklyActivity, setWeeklyActivity] = useState<boolean[]>([false, false, false, false, false, false, false])
-  const [weeklyStats, setWeeklyStats] = useState<WeeklyStats>({ totalSessions: 0, totalDays: 0, vocabularyWords: 0, conversations: 0, chatSessions: 0 })
   const [expression, setExpression] = useState<DailyExpression | null>(null)
 
   useEffect(() => {
@@ -38,8 +36,6 @@ export default function Home() {
     else setGreeting('Good evening')
 
     setStats(getStats())
-    setWeeklyActivity(getWeeklyActivity())
-    setWeeklyStats(getWeeklyStats())
     fetchExpression()
   }, [])
 
@@ -193,39 +189,7 @@ export default function Home() {
           </Link>
         )}
 
-        <Link href="/stats" className="block mt-3">
-          <div className="bg-white rounded-2xl px-5 py-4 border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.98]">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Today</span>
-                {stats.totalSessions > 0 ? (
-                  <>
-                    <span className="text-[15px] font-semibold text-[#1a1a1a]">{stats.totalSessions}회</span>
-                    {stats.totalMinutes > 0 && (
-                      <span className="text-[13px] text-[#8a8a8a]">{stats.totalMinutes}분</span>
-                    )}
-                  </>
-                ) : (
-                  <span className="text-[14px] text-[#666]">오늘 첫 대화를 시작해보세요</span>
-                )}
-              </div>
-              <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex gap-1.5">
-                {weeklyActivity.map((active, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`w-5 h-5 rounded-full ${active ? 'bg-[#1a1a1a]' : 'bg-[#f0f0f0]'}`}
-                  />
-                ))}
-              </div>
-              <span className="text-[13px] text-[#8a8a8a]">{weeklyStats.totalDays}일 / {weeklyStats.conversations + weeklyStats.chatSessions}회화</span>
-            </div>
-          </div>
-        </Link>
+
       </div>
 
       <BottomNav />
