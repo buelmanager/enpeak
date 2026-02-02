@@ -198,9 +198,15 @@ export default function Home() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Today</span>
-                <span className="text-[15px] font-semibold text-[#1a1a1a]">{stats.totalSessions}회</span>
-                {stats.totalMinutes > 0 && (
-                  <span className="text-[13px] text-[#8a8a8a]">{stats.totalMinutes}분</span>
+                {stats.totalSessions > 0 ? (
+                  <>
+                    <span className="text-[15px] font-semibold text-[#1a1a1a]">{stats.totalSessions}회</span>
+                    {stats.totalMinutes > 0 && (
+                      <span className="text-[13px] text-[#8a8a8a]">{stats.totalMinutes}분</span>
+                    )}
+                  </>
+                ) : (
+                  <span className="text-[14px] text-[#666]">오늘 첫 대화를 시작해보세요</span>
                 )}
               </div>
               <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
