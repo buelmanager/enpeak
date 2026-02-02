@@ -4,6 +4,7 @@ import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { TTSProvider } from '@/contexts/TTSContext'
 import { ConversationSettingsProvider } from '@/contexts/ConversationSettingsContext'
+import { TalkProvider } from '@/contexts/TalkContext'
 import { VersionCheck } from '@/components/VersionCheck'
 import PWAInstallGuide from '@/components/PWAInstallGuide'
 import AppShell from '@/components/AppShell'
@@ -72,10 +73,12 @@ export default function RootLayout({
         <AuthProvider>
           <TTSProvider>
             <ConversationSettingsProvider>
-              <AppShell>
-                {children}
-                <PWAInstallGuide />
-              </AppShell>
+              <TalkProvider>
+                <AppShell>
+                  {children}
+                  <PWAInstallGuide />
+                </AppShell>
+              </TalkProvider>
             </ConversationSettingsProvider>
           </TTSProvider>
         </AuthProvider>
