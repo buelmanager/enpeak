@@ -84,14 +84,19 @@ export default function Home() {
         </div>
 
         <Link href="/talk" className="block mb-12">
-          <div className="bg-[#1a1a1a] rounded-2xl p-8 text-white text-center">
-            <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-5">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
+          <div className="flex flex-col items-center">
+            <div className="relative flex items-center justify-center mb-8">
+              <div className="absolute w-44 h-44 rounded-full border border-[#e5e5e5]" />
+              <div className="absolute w-36 h-36 rounded-full border border-[#e0e0e0]" />
+              <div className="absolute w-28 h-28 rounded-full border border-[#d5d5d5]" />
+              <div className="w-20 h-20 rounded-full bg-[#1a1a1a] flex items-center justify-center z-10">
+                <svg className="w-9 h-9 text-white" fill="none" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M12 3C6.5 3 2 6.58 2 11c0 2.13 1.02 4.04 2.66 5.44L3.5 20l3.84-1.92C8.64 18.68 10.28 19 12 19c5.5 0 10-3.58 10-8s-4.5-8-10-8zm-3 9.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/>
+                </svg>
+              </div>
             </div>
-            <p className="text-lg font-medium mb-1">대화 시작하기</p>
-            <p className="text-sm text-white/60">AI와 영어로 대화해보세요</p>
+            <p className="text-xl font-medium text-[#1a1a1a] mb-2">대화를 시작해보세요</p>
+            <p className="text-sm text-[#8a8a8a] text-center leading-relaxed">영어로 자유롭게 이야기해보세요.<br/>AI가 대화를 도와드립니다.</p>
           </div>
         </Link>
 
