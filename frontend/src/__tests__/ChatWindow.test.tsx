@@ -54,6 +54,61 @@ describe('ChatWindow', () => {
     vi.clearAllMocks();
   });
 
+  describe('Empty state suggestions', () => {
+    it('shows suggestions in empty state for free chat mode', () => {
+      render(<ChatWindow mode="free" />);
+
+      expect(screen.getByText('Hello!')).toBeInTheDocument();
+      expect(screen.getByText('What should we talk about?')).toBeInTheDocument();
+      expect(screen.getByText('How are you?')).toBeInTheDocument();
+    });
+
+    it('sends message when suggestion is clicked', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          conversation_id: 'conv-123',
+          message: 'Hi there! How can I help you today?',
+        }),
+      });
+
+      render(<ChatWindow mode="free" />);
+
+      const helloButton = screen.getByText('Hello!');
+      fireEvent.click(helloButton);
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${API_BASE}/api/chat`,
+          expect.objectContaining({
+            method: 'POST',
+            body: expect.stringContaining('"message":"Hello!"'),
+          })
+        );
+      });
+    });
+
+    it('displays AI response after sending message', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          conversation_id: 'conv-123',
+          message: 'Hi there! Nice to meet you!',
+        }),
+      });
+
+      render(<ChatWindow mode="free" />);
+
+      const input = screen.getByPlaceholderText(/영어로 입력하세요/i);
+      fireEvent.change(input, { target: { value: 'Hello' } });
+      fireEvent.submit(input.closest('form')!);
+
+      await waitFor(() => {
+        expect(screen.getByText('Hi there! Nice to meet you!')).toBeInTheDocument();
+      });
+    });
+  });
+
   describe('mode=free (default)', () => {
     it('uses /api/chat endpoint for free mode', async () => {
       fetchMock.mockResolvedValueOnce({

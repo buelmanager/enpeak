@@ -367,7 +367,7 @@ export default function ChatWindow({
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {['Hello!', 'How are you?', "Nice to meet you"].map(suggestion => (
+              {['Hello!', 'What should we talk about?', 'How are you?'].map(suggestion => (
                 <button
                   key={suggestion}
                   onClick={() => sendMessage(suggestion)}

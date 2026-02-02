@@ -55,9 +55,14 @@ import { TalkProvider } from '@/contexts/TalkContext'
 
 // Mock ChatWindow to avoid complex dependencies
 vi.mock('@/components/ChatWindow', () => ({
-  default: ({ mode }: { mode?: string }) => (
-    <div data-testid="chat-window" data-mode={mode || 'free'}>
+  default: ({ mode, practiceExpression }: { mode?: string; practiceExpression?: { expression: string; meaning: string } }) => (
+    <div 
+      data-testid="chat-window" 
+      data-mode={mode || 'free'}
+      data-practice-expression={practiceExpression?.expression || ''}
+    >
       ChatWindow (mode: {mode || 'free'})
+      {practiceExpression && <span data-testid="practice-mode">Practice: {practiceExpression.expression}</span>}
     </div>
   ),
 }))
@@ -187,6 +192,50 @@ describe('Talk Page', () => {
     // Check back link exists
     const backLink = document.querySelector('a[href="/"]')
     expect(backLink).toBeInTheDocument()
+  })
+})
+
+describe('Free Chat Mode', () => {
+  beforeEach(() => {
+    sessionStorageMock.clear()
+    vi.clearAllMocks()
+    mockSearchParams.delete('mode')
+  })
+
+  afterEach(() => {
+    sessionStorageMock.clear()
+  })
+
+  it('passes mode="free" to ChatWindow when 자유 대화 selected', async () => {
+    render(
+      <TestWrapper>
+        <TalkPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => {
+      const chatWindow = screen.getByTestId('chat-window')
+      expect(chatWindow).toHaveAttribute('data-mode', 'free')
+    })
+  })
+
+  it('maintains free mode when ?mode=free URL param is provided', async () => {
+    mockSearchParams.set('mode', 'free')
+
+    render(
+      <TestWrapper>
+        <TalkPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => {
+      const chatWindow = screen.getByTestId('chat-window')
+      expect(chatWindow).toHaveAttribute('data-mode', 'free')
+    })
+
+    // Verify '자유 대화' button is active
+    const freeButton = screen.getByText('자유 대화')
+    expect(freeButton).toHaveClass('bg-[#1a1a1a]', 'text-white')
   })
 })
 
