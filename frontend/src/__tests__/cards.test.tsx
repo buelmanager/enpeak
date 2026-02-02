@@ -293,7 +293,7 @@ describe('Navigation', () => {
       expect(screen.getByTestId('expanded-content')).toBeInTheDocument()
       const practiceLink = screen.getByText('이 단어로 대화 연습하기')
       expect(practiceLink).toBeInTheDocument()
-      expect(practiceLink.closest('a')).toHaveAttribute('href', expect.stringContaining('/chat?context=vocabulary'))
+      expect(practiceLink.closest('a')).toHaveAttribute('href', expect.stringContaining('/talk?context=vocabulary'))
     })
   })
 })
