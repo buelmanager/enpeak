@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
+import WordPopup from './WordPopup'
 
 interface Message {
   id: string
@@ -19,6 +20,7 @@ interface MessageBubbleProps {
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
+const LONG_PRESS_DURATION = 500
 
 // 한국어 번역 추출 함수
 function extractKorean(text: string): { english: string; korean: string | null } {
@@ -55,8 +57,58 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
   const [showBetterExpressions, setShowBetterExpressions] = useState(true)
   const [translatedText, setTranslatedText] = useState<string | null>(null)
   const [isTranslating, setIsTranslating] = useState(false)
+  const [selectedWord, setSelectedWord] = useState<{ word: string; position: { x: number; y: number } } | null>(null)
+  
+  const longPressTimer = useRef<NodeJS.Timeout | null>(null)
+  const pressedWord = useRef<string | null>(null)
 
   const { english, korean } = extractKorean(message.content)
+
+  const handleWordPress = useCallback((word: string, e: React.TouchEvent | React.MouseEvent) => {
+    const cleanWord = word.replace(/[.,!?;:'"()]/g, '').toLowerCase()
+    if (cleanWord.length < 2) return
+    
+    pressedWord.current = cleanWord
+    const rect = (e.target as HTMLElement).getBoundingClientRect()
+    
+    longPressTimer.current = setTimeout(() => {
+      if (pressedWord.current) {
+        setSelectedWord({
+          word: pressedWord.current,
+          position: { x: rect.left, y: rect.bottom }
+        })
+      }
+    }, LONG_PRESS_DURATION)
+  }, [])
+
+  const handleWordRelease = useCallback(() => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current)
+      longPressTimer.current = null
+    }
+    pressedWord.current = null
+  }, [])
+
+  const renderInteractiveText = (text: string) => {
+    const words = text.split(/(\s+)/)
+    return words.map((word, idx) => {
+      if (/^\s+$/.test(word)) return word
+      return (
+        <span
+          key={idx}
+          className="cursor-pointer select-none"
+          onTouchStart={(e) => handleWordPress(word, e)}
+          onTouchEnd={handleWordRelease}
+          onTouchCancel={handleWordRelease}
+          onMouseDown={(e) => handleWordPress(word, e)}
+          onMouseUp={handleWordRelease}
+          onMouseLeave={handleWordRelease}
+        >
+          {word}
+        </span>
+      )
+    })
+  }
 
   // 번역 함수
   const translateText = async () => {
@@ -146,7 +198,9 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
               : 'bg-white text-[#1a1a1a] rounded-bl-sm border border-[#e5e5e5]'
           }`}
         >
-          <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{english}</p>
+          <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
+            {renderInteractiveText(english)}
+          </p>
 
           {/* 한국어 번역 (토글) */}
           {!isUser && showKorean && (translatedText || korean) && (
@@ -248,6 +302,14 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
             </button>
           ))}
         </div>
+      )}
+
+      {selectedWord && (
+        <WordPopup
+          word={selectedWord.word}
+          position={selectedWord.position}
+          onClose={() => setSelectedWord(null)}
+        />
       )}
     </div>
   )
