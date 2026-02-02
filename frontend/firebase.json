@@ -12,6 +12,33 @@
       "**/node_modules/**"
     ],
     "cleanUrls": true,
+    "redirects": [
+      {
+        "source": "/chat",
+        "destination": "/talk",
+        "type": 301
+      },
+      {
+        "source": "/vocabulary",
+        "destination": "/cards",
+        "type": 301
+      },
+      {
+        "source": "/community",
+        "destination": "/talk",
+        "type": 301
+      },
+      {
+        "source": "/roleplay",
+        "destination": "/talk",
+        "type": 301
+      },
+      {
+        "source": "/conversations",
+        "destination": "/talk",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "**",
