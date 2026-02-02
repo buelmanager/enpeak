@@ -23,9 +23,10 @@ Speak과 유사한 AI 기반 영어 학습 PWA 앱.
 ## 기술 스택
 
 ### 서버 인프라
-- **프론트엔드 배포**: Firebase Hosting (https://enpeak.web.app)
+- **프론트엔드 배포**: Firebase Hosting
 - **백엔드 배포**: HuggingFace Spaces (Docker)
 - **포트**: 7860 (HF Spaces 표준)
+- **URL 설정**: .env 파일의 NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_API_URL 참조
 
 ### AI 모델
 - **LLM**: Groq API (llama-3.1-70b) 또는 Mistral API (open-mixtral-8x7b)
@@ -166,7 +167,7 @@ CHROMADB_PATH=./vectordb
 DEBUG=false
 
 # CORS
-ALLOWED_ORIGINS=https://enpeak.web.app,http://localhost:3000
+ALLOWED_ORIGINS=https://your-app.web.app,http://localhost:3000
 ```
 
 ---
@@ -197,13 +198,14 @@ cd frontend
 npm run build
 npx firebase deploy --only hosting
 ```
-- **프로젝트**: gothic-space-672
-- **URL**: https://enpeak.web.app
+- **프로젝트**: .firebaserc 파일 참조
+- **URL**: .env의 NEXT_PUBLIC_APP_URL 참조
 
 ### HuggingFace Spaces (백엔드)
 1. HF Spaces 생성 (Docker)
 2. GitHub 연결
 3. 환경변수 설정 (GROQ_API_KEY 등)
+4. URL: .env의 NEXT_PUBLIC_API_URL 참조
 
 ---
 
@@ -372,17 +374,17 @@ python index_to_chromadb.py
 ## 배포 현황
 
 ### GitHub
-- **Repository**: https://github.com/buelmanager/enpeak (Private)
+- **Repository**: Private repository
 
 ### Firebase Hosting (프론트엔드)
-- **URL**: https://enpeak.web.app
-- **Project**: gothic-space-672
+- **URL**: .env의 NEXT_PUBLIC_APP_URL 참조
+- **Project**: .firebaserc 파일 참조
 - **Status**: Active
 
 ### HuggingFace Spaces (백엔드)
-- **URL**: https://wonchulhee-enpeak.hf.space
+- **URL**: .env의 NEXT_PUBLIC_API_URL 참조
 - **Status**: Running
-- **환경변수**: MISTRAL_API_KEY 설정됨
+- **환경변수**: GROQ_API_KEY 설정 필요
 
 ---
 
@@ -472,7 +474,7 @@ npx firebase deploy --only hosting
 - 수동 재시작: HF Spaces 대시보드에서 "Restart Space"
 
 배포 후 확인:
-1. https://enpeak.web.app 접속
+1. 프론트엔드 URL 접속 (NEXT_PUBLIC_APP_URL)
 2. 개발자 도구 > Network 탭에서 API 호출 확인
 3. `/api/health` 버전 확인
 4. 단어 연습 > 정답 체크 테스트

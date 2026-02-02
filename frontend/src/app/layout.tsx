@@ -9,7 +9,7 @@ import PWAInstallGuide from '@/components/PWAInstallGuide'
 import AppShell from '@/components/AppShell'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://enpeak.web.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: 'EnPeak - AI English Learning',
   description: 'AI와 함께하는 영어 회화 연습 앱',
   manifest: '/manifest.json',

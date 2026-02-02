@@ -757,7 +757,7 @@ DEBUG=false                  # Enable debug logging
 # CORS Configuration
 # ===================
 # Comma-separated list of allowed origins
-ALLOWED_ORIGINS=https://enpeak.web.app,http://localhost:3000
+ALLOWED_ORIGINS=https://your-app.web.app,http://localhost:3000
 
 # ===================
 # RAG Configuration
@@ -813,7 +813,7 @@ ALLOWED_ORIGINS=http://localhost:3000
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/buelmanager/enpeak.git
+git clone https://github.com/your-username/enpeak.git
 cd enpeak
 
 # 2. Create virtual environment
@@ -914,7 +914,7 @@ npm run build
 npx firebase deploy --only hosting
 
 # Deployment complete!
-# URL: https://enpeak.web.app
+# URL: https://your-app.web.app (set in NEXT_PUBLIC_APP_URL)
 ```
 
 **Firebase Configuration (`firebase.json`):**
@@ -927,7 +927,7 @@ npx firebase deploy --only hosting
     "rewrites": [
       {
         "source": "/api/**",
-        "destination": "https://wonchulhee-enpeak.hf.space/api/**"
+        "destination": "https://your-backend.hf.space/api/**"
       },
       {
         "source": "**",

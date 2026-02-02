@@ -145,14 +145,16 @@ export default function PWAInstallGuide() {
     localStorage.setItem('pwa-guide-dismissed', Date.now().toString())
   }
 
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://enpeak.web.app'
+
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText('https://enpeak.web.app')
+    navigator.clipboard.writeText(appUrl)
     alert('URL이 복사되었습니다. 브라우저에 붙여넣기 하세요!')
   }
 
   const handleOpenInBrowser = () => {
     // 외부 브라우저로 열기 시도
-    const url = 'https://enpeak.web.app'
+    const url = appUrl
 
     // Android Intent URL
     if (browserType === 'android-webview') {
@@ -560,7 +562,7 @@ export default function PWAInstallGuide() {
             <div className="bg-[#f8f8f8] rounded-xl p-4">
               <p className="text-sm font-medium mb-2">모바일에서 접속하기</p>
               <p className="text-xs text-[#8a8a8a]">
-                enpeak.web.app 을 모바일 브라우저에서 열어주세요
+                앱 URL을 모바일 브라우저에서 열어주세요
               </p>
             </div>
 
