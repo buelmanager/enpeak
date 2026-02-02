@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const navItems = [
-  { href: '/talk', label: 'Talk', icon: 'talk' },
+  { href: '/talk', label: '홈', icon: 'home' },
   { href: '/cards', label: 'Cards', icon: 'cards' },
   { href: '/my', label: 'My', icon: 'my' },
 ]
@@ -13,11 +13,11 @@ function NavIcon({ icon, active }: { icon: string; active: boolean }) {
   const color = active ? '#1a1a1a' : '#8a8a8a'
 
   switch (icon) {
-    case 'talk':
+    case 'home':
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
-            d="M12 3C6.477 3 2 6.582 2 11c0 2.118.962 4.043 2.54 5.48L3 21l4.9-2.45C9.18 19.17 10.547 19.5 12 19.5c5.523 0 10-3.582 10-8.5S17.523 3 12 3z"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
             stroke={color}
             strokeWidth="1.75"
             strokeLinecap="round"
