@@ -46,15 +46,33 @@ Speak과 유사한 AI 기반 영어 학습 PWA 앱.
 
 ## 핵심 기능
 
-### 1. 자유 회화 (Free Conversation)
+### Talk 페이지 (/talk) - 통합 대화
+3가지 모드를 하나의 페이지에서 제공:
+
+#### 1. 자유 대화 (Free Chat)
 - AI와 자유롭게 영어로 대화
 - 실시간 문법 피드백
 - 음성 입력/출력 지원
 
-### 2. 상황별 롤플레이 (Roleplay)
-- 카페 주문, 호텔 체크인, 면접 등
+#### 2. 표현 연습 (Expression Practice)
+- 오늘의 표현 학습
+- 표현을 활용한 대화 연습
+- 새 표현 새로고침 기능
+
+#### 3. 롤플레이 (Roleplay)
+- 기본 시나리오 6개 (카페, 호텔, 레스토랑 등)
+- 커뮤니티 시나리오 연동
 - 단계별 가이드 및 힌트
-- 세션 완료 후 리포트
+
+### Cards 페이지 (/cards) - 단어 학습
+- A1~C2 레벨별 단어 카드
+- 뜻 가리기 / 단어 가리기 모드
+- 관련 숙어 & 예문 확장
+
+### My 페이지 (/my)
+- 주간 학습 통계 (학습일, 단어, 회화)
+- 연속 학습 스트릭
+- 음성 설정, 앱 업데이트
 
 ---
 
@@ -81,17 +99,26 @@ enpeak/
 ├── frontend/
 │   ├── package.json
 │   ├── next.config.js
+│   ├── middleware.ts              # 라우트 리다이렉트
 │   ├── public/
 │   │   └── manifest.json          # PWA 설정
 │   └── src/
 │       ├── app/
-│       │   ├── page.tsx           # 홈
-│       │   ├── chat/              # 자유 회화
-│       │   └── roleplay/          # 롤플레이
-│       └── components/
-│           ├── ChatWindow.tsx
-│           ├── VoiceRecorder.tsx
-│           └── MessageBubble.tsx
+│       │   ├── talk/              # 통합 대화 (자유회화, 표현연습, 롤플레이)
+│       │   ├── cards/             # 단어 카드 학습
+│       │   ├── my/                # 마이페이지 + 주간통계
+│       │   ├── daily/             # 오늘의 표현
+│       │   ├── create/            # 시나리오 생성
+│       │   ├── feedback/          # 기능 요청
+│       │   └── login/             # 로그인
+│       ├── components/
+│       │   ├── ChatWindow.tsx     # 통합 채팅 컴포넌트
+│       │   ├── ModeSelector.tsx   # 대화 모드 선택
+│       │   ├── ScenarioSelector.tsx # 시나리오 선택 (기본+커뮤니티)
+│       │   ├── BottomNav.tsx      # Talk/Cards/My 네비게이션
+│       │   └── VoiceRecorder.tsx
+│       └── contexts/
+│           └── TalkContext.tsx    # 대화 모드 상태 관리
 ├── data/
 │   ├── scenarios/                 # 롤플레이 시나리오 JSON (14개)
 │   ├── collected/                 # 수집된 원본 데이터
@@ -235,8 +262,33 @@ npx firebase deploy --only hosting
 
 ## 버전 정보
 
-- **APP_VERSION**: 0.2.8
-- **BUILD_DATE**: 2026-01-31
+- **APP_VERSION**: 1.0.0
+- **BUILD_DATE**: 2026-02-02
+
+---
+
+## 프론트엔드 라우트
+
+### 현재 라우트
+| 라우트 | 설명 |
+|--------|------|
+| `/talk` | 통합 대화 (자유대화, 표현연습, 롤플레이) |
+| `/cards` | 단어 카드 학습 |
+| `/my` | 마이페이지 + 주간 학습 통계 |
+| `/daily` | 오늘의 표현 |
+| `/create` | 커뮤니티 시나리오 생성 |
+| `/feedback` | 기능 요청 |
+| `/login` | 로그인 |
+
+### 리다이렉트 (middleware.ts)
+| 기존 라우트 | 리다이렉트 |
+|-------------|------------|
+| `/` | `/talk` |
+| `/chat` | `/talk` |
+| `/vocabulary` | `/cards` |
+| `/community` | `/talk?mode=roleplay` |
+| `/roleplay` | `/talk?mode=roleplay` |
+| `/conversations` | `/talk?mode=roleplay` |
 
 ---
 
