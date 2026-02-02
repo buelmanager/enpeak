@@ -166,6 +166,26 @@ export default function Home() {
           </div>
         </Link>
 
+        <div className="border-t border-[#f0f0f0] mt-6 pt-5">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+            <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Today</span>
+          </div>
+          <div className="flex items-center justify-between text-[14px]">
+            <span className="text-[#8a8a8a]">대화</span>
+            <span className="text-[#1a1a1a] font-medium">{stats.totalSessions}회</span>
+          </div>
+          {stats.totalMinutes > 0 && (
+            <>
+              <div className="border-t border-[#f5f5f5] my-2" />
+              <div className="flex items-center justify-between text-[14px]">
+                <span className="text-[#8a8a8a]">학습 시간</span>
+                <span className="text-[#1a1a1a] font-medium">{stats.totalMinutes}분</span>
+              </div>
+            </>
+          )}
+        </div>
+
         {expression && (
           <Link 
             href={`/talk?mode=expression&expression=${encodeURIComponent(expression.expression)}&meaning=${encodeURIComponent(expression.meaning)}`}
