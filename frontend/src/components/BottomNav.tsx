@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 
 const navItems = [
   { href: '/', label: '홈', icon: 'home' },
+  { href: '/stats', label: '통계', icon: 'stats' },
   { href: '/my', label: 'My', icon: 'my' },
 ]
 
@@ -40,6 +41,18 @@ function NavIcon({ icon, active }: { icon: string; active: boolean }) {
             d="M6 8V6a2 2 0 012-2h8a2 2 0 012 2v2"
             stroke={color}
             strokeWidth="1.75"
+          />
+        </svg>
+      )
+    case 'stats':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M9 19V13M12 19V9M15 19V5M5 21H19"
+            stroke={color}
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       )

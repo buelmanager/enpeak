@@ -8,7 +8,7 @@ import TTSSettingsModal from '@/components/TTSSettingsModal'
 import { APP_VERSION, BUILD_DATE } from '@/lib/version'
 import { useAuth } from '@/contexts/AuthContext'
 import { logOut } from '@/lib/firebase'
-import { getWeeklyActivity, getWeeklyStats, getStats, WeeklyStats } from '@/lib/learningHistory'
+
 
 // 버전별 릴리스 노트
 const RELEASE_NOTES: Record<string, string[]> = {
@@ -33,21 +33,6 @@ export default function MyPage() {
   const [showTTSSettings, setShowTTSSettings] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const [weeklyActivity, setWeeklyActivity] = useState<boolean[]>([false, false, false, false, false, false, false])
-  const [weeklyStats, setWeeklyStats] = useState<WeeklyStats>({
-    totalSessions: 0,
-    totalDays: 0,
-    vocabularyWords: 0,
-    conversations: 0,
-    chatSessions: 0,
-  })
-  const [streak, setStreak] = useState(0)
-
-  useEffect(() => {
-    setWeeklyActivity(getWeeklyActivity())
-    setWeeklyStats(getWeeklyStats())
-    setStreak(getStats().streak)
-  }, [])
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -128,54 +113,6 @@ export default function MyPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
-            )}
-          </section>
-
-          {/* Weekly Stats Section */}
-          <section className="bg-white rounded-2xl p-4 shadow-sm">
-            <h2 className="text-sm font-medium text-[#8a8a8a] mb-4">이번 주 학습</h2>
-            
-            {/* Day dots (Mon-Sun) */}
-            <div className="flex justify-between mb-4">
-              {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
-                <div key={day} className="flex flex-col items-center gap-1">
-                  <span className="text-xs text-[#8a8a8a]">{day}</span>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    weeklyActivity[idx] ? 'bg-[#1a1a1a]' : 'bg-[#f0f0f0]'
-                  }`}>
-                    {weeklyActivity[idx] && (
-                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Stats summary */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-[#f5f5f5] rounded-xl p-3 text-center">
-                <p className="text-2xl font-bold text-[#1a1a1a]">{weeklyStats.totalDays}</p>
-                <p className="text-xs text-[#8a8a8a]">학습일</p>
-              </div>
-              <div className="bg-[#f5f5f5] rounded-xl p-3 text-center">
-                <p className="text-2xl font-bold text-[#1a1a1a]">{weeklyStats.vocabularyWords}</p>
-                <p className="text-xs text-[#8a8a8a]">단어</p>
-              </div>
-              <div className="bg-[#f5f5f5] rounded-xl p-3 text-center">
-                <p className="text-2xl font-bold text-[#1a1a1a]">{weeklyStats.conversations + weeklyStats.chatSessions}</p>
-                <p className="text-xs text-[#8a8a8a]">회화</p>
-              </div>
-            </div>
-            
-            {/* Streak */}
-            {streak > 0 && (
-              <div className="mt-4 flex items-center justify-center gap-2 text-sm">
-                <span className="text-[#f59e0b]">연속</span>
-                <span className="font-bold">{streak}일째</span>
-                <span className="text-[#f59e0b]">학습 중</span>
-              </div>
             )}
           </section>
 
