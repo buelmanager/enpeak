@@ -14,6 +14,10 @@ export interface ScenarioData {
   title: string
 }
 
+export interface SituationData {
+  situation: string
+}
+
 interface TalkContextType {
   mode: TalkMode
   setMode: (mode: TalkMode) => void
@@ -21,6 +25,8 @@ interface TalkContextType {
   setExpression: (data: ExpressionData | null) => void
   scenarioData: ScenarioData | null
   setScenario: (data: ScenarioData | null) => void
+  situationData: SituationData | null
+  setSituation: (data: SituationData | null) => void
   clearConversation: () => void
 }
 
@@ -54,6 +60,7 @@ export function TalkProvider({ children }: { children: ReactNode }) {
   })
   const [expressionData, setExpressionState] = useState<ExpressionData | null>(null)
   const [scenarioData, setScenarioState] = useState<ScenarioData | null>(null)
+  const [situationData, setSituationState] = useState<SituationData | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
   // 컴포넌트 마운트 후 로드 완료 표시
@@ -86,10 +93,15 @@ export function TalkProvider({ children }: { children: ReactNode }) {
     setScenarioState(data)
   }
 
+  const setSituation = (data: SituationData | null) => {
+    setSituationState(data)
+  }
+
   const clearConversation = () => {
     setModeState(DEFAULT_MODE)
     setExpressionState(null)
     setScenarioState(null)
+    setSituationState(null)
     try {
       sessionStorage.setItem(STORAGE_KEY, DEFAULT_MODE)
     } catch {
@@ -106,6 +118,8 @@ export function TalkProvider({ children }: { children: ReactNode }) {
         setExpression,
         scenarioData,
         setScenario,
+        situationData,
+        setSituation,
         clearConversation,
       }}
     >

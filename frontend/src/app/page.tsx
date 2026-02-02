@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
 import { useAuth } from '@/contexts/AuthContext'
-import { getStats, type TodayStats } from '@/lib/learningHistory'
+import { getStats, getWeeklyActivity, type TodayStats } from '@/lib/learningHistory'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
@@ -27,6 +27,7 @@ export default function Home() {
 
   const [greeting, setGreeting] = useState('Good morning')
   const [stats, setStats] = useState<TodayStats>({ totalSessions: 0, totalMinutes: 0, vocabularyWords: 0, conversationScenarios: 0, streak: 0 })
+  const [weeklyActivity, setWeeklyActivity] = useState<boolean[]>([false, false, false, false, false, false, false])
   const [expression, setExpression] = useState<DailyExpression | null>(null)
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Home() {
     else setGreeting('Good evening')
 
     setStats(getStats())
+    setWeeklyActivity(getWeeklyActivity())
     fetchExpression()
   }, [])
 
@@ -188,6 +190,45 @@ export default function Home() {
             </div>
           </Link>
         )}
+
+        <Link href="/my" className="block mt-3">
+          <div className="bg-white rounded-2xl p-5 border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.98]">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+                  <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">This Week</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
+                    <div key={day} className="flex flex-col items-center gap-2">
+                      <span className="text-[11px] text-[#8a8a8a]">{day}</span>
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center ${
+                        weeklyActivity[idx] ? 'bg-[#1a1a1a]' : 'bg-[#f0f0f0]'
+                      }`}>
+                        {weeklyActivity[idx] && (
+                          <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-[14px] text-[#666] mt-4">
+                  {weeklyActivity.filter(Boolean).length > 0 
+                    ? `${weeklyActivity.filter(Boolean).length}일 학습 완료`
+                    : '이번 주 첫 학습을 시작해보세요'}
+                </p>
+              </div>
+              <div className="ml-4 mt-1">
+                <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </Link>
       </div>
 
       <BottomNav />

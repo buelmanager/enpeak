@@ -69,6 +69,7 @@ interface ChatWindowProps {
   onExpressionComplete?: () => void
   mode?: 'free' | 'expression' | 'roleplay'
   scenarioId?: string
+  situation?: string
   onReset?: () => void
 }
 
@@ -77,6 +78,7 @@ export default function ChatWindow({
   onExpressionComplete,
   mode = 'free',
   scenarioId,
+  situation,
   onReset,
 }: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([])
@@ -128,7 +130,6 @@ export default function ChatWindow({
       setMessages([initialMessage])
       setInitialized(true)
 
-      // AI가 먼저 상황을 제시하는 메시지 추가
       setTimeout(() => {
         const situationMessage: Message = {
           id: 'situation',
@@ -140,6 +141,45 @@ export default function ChatWindow({
       }, 500)
     }
   }, [practiceExpression, initialized])
+
+  // 상황 설정 모드일 때 초기 메시지 설정
+  useEffect(() => {
+    if (situation && !initialized && mode === 'free') {
+      setInitialized(true)
+      setLoading(true)
+
+      fetch(`${API_BASE}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: '__START_SITUATION__',
+          situation: situation,
+        }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.conversation_id) {
+            setConversationId(data.conversation_id)
+          }
+          const assistantMessage: Message = {
+            id: 'situation-start',
+            role: 'assistant',
+            content: data.response,
+            suggestions: data.suggestions,
+          }
+          setMessages([assistantMessage])
+        })
+        .catch(() => {
+          const fallbackMessage: Message = {
+            id: 'situation-start',
+            role: 'assistant',
+            content: "Hello! How can I help you today?",
+          }
+          setMessages([fallbackMessage])
+        })
+        .finally(() => setLoading(false))
+    }
+  }, [situation, initialized, mode])
 
   // AI 응답 후 자동 TTS 재생
   useEffect(() => {
@@ -248,6 +288,7 @@ export default function ChatWindow({
           body: JSON.stringify({
             message: text,
             conversation_id: conversationId,
+            situation: situation,
           }),
         })
 

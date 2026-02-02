@@ -7,8 +7,7 @@ interface ModeSelectorProps {
 
 const modes: { key: TalkMode; label: string }[] = [
   { key: 'free', label: '자유 대화' },
-  { key: 'expression', label: '오늘의 표현' },
-  { key: 'roleplay', label: '롤플레이' },
+  { key: 'expression', label: '표현 연습' },
 ];
 
 export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {

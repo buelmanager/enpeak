@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import ChatWindow from '@/components/ChatWindow'
 import { ModeSelector, TalkMode } from '@/components/ModeSelector'
-import { ScenarioSelector, BUILT_IN_SCENARIOS, type Scenario } from '@/components/ScenarioSelector'
 import { useTalk } from '@/contexts/TalkContext'
 
 interface DailyExpression {
@@ -17,6 +16,16 @@ interface DailyExpression {
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
+
+// Preset situations for free chat
+const PRESET_SITUATIONS = [
+  { id: 'cafe', label: '카페 주문', situation: 'You are a barista at a coffee shop. The customer (user) is ordering.' },
+  { id: 'restaurant', label: '레스토랑', situation: 'You are a waiter at a restaurant. Help the customer (user) with their order.' },
+  { id: 'hotel', label: '호텔 체크인', situation: 'You are a hotel receptionist. The guest (user) is checking in.' },
+  { id: 'airport', label: '공항', situation: 'You are an airport staff member. Help the traveler (user) with their questions.' },
+  { id: 'shopping', label: '쇼핑', situation: 'You are a shop assistant. Help the customer (user) find what they need.' },
+  { id: 'interview', label: '면접', situation: 'You are an interviewer conducting a job interview with the candidate (user).' },
+]
 
 // Fallback expressions for when API fails
 const FALLBACK_EXPRESSIONS: DailyExpression[] = [
@@ -59,11 +68,11 @@ const FALLBACK_EXPRESSIONS: DailyExpression[] = [
 
 function TalkContent() {
   const searchParams = useSearchParams()
-  const { mode, setMode, expressionData, setExpression, scenarioData, setScenario, clearConversation } = useTalk()
+  const { mode, setMode, expressionData, setExpression, situationData, setSituation, clearConversation } = useTalk()
   const initializedRef = useRef(false)
   const chatKeyRef = useRef(0)
   const [expressionLoading, setExpressionLoading] = useState(false)
-  const [roleplayStage, setRoleplayStage] = useState({ current: 1, total: 4 })
+  const [showSituationPicker, setShowSituationPicker] = useState(false)
 
   const fetchExpression = useCallback(async (forceRandom = false) => {
     setExpressionLoading(true)
@@ -106,20 +115,15 @@ function TalkContent() {
         setMode('expression')
         setExpression({ expression, meaning: meaning || '' })
       }
-    } else if (urlMode === 'roleplay') {
-      const scenario = searchParams.get('scenario')
-      if (scenario) {
-        setMode('roleplay')
-        setScenario({ id: scenario, title: scenario })
-      }
     }
-  }, [searchParams, setMode, setExpression, setScenario])
+  }, [searchParams, setMode, setExpression])
 
   const handleModeChange = (newMode: TalkMode) => {
     if (newMode !== mode) {
       clearConversation()
       setMode(newMode)
       chatKeyRef.current += 1
+      setShowSituationPicker(false)
       
       if (newMode === 'expression') {
         fetchExpression()
@@ -132,19 +136,15 @@ function TalkContent() {
     fetchExpression(true)
   }
 
-  const handleScenarioSelect = (scenario: Scenario) => {
-    setScenario({ id: scenario.id, title: scenario.title })
+  const handleSituationSelect = (situation: string) => {
+    setSituation({ situation })
+    setShowSituationPicker(false)
     chatKeyRef.current += 1
   }
 
-  const handleScenarioReset = () => {
-    setScenario(null)
+  const handleSituationClear = () => {
+    setSituation(null)
     chatKeyRef.current += 1
-    setRoleplayStage({ current: 1, total: 4 })
-  }
-
-  const handleRoleplayComplete = () => {
-    setScenario(null)
   }
 
   return (
@@ -170,6 +170,69 @@ function TalkContent() {
         </div>
       </div>
 
+      {/* Free Mode - Situation Setting */}
+      {mode === 'free' && (
+        <div className="bg-[#faf9f7] flex-shrink-0">
+          <div className="max-w-2xl mx-auto px-6 pb-4">
+            {situationData ? (
+              <div className="bg-white rounded-2xl p-4 border border-[#f0f0f0]">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center">
+                      <svg className="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium text-[#1a1a1a]">
+                      {PRESET_SITUATIONS.find(s => s.situation === situationData.situation)?.label || '상황 설정됨'}
+                    </span>
+                  </div>
+                  <button
+                    onClick={handleSituationClear}
+                    className="px-3 py-1.5 text-xs font-medium text-[#666] bg-[#f5f5f5] rounded-lg hover:bg-[#eee] transition-colors"
+                  >
+                    해제
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={() => setShowSituationPicker(!showSituationPicker)}
+                  className="w-full bg-white rounded-2xl p-4 border border-[#f0f0f0] flex items-center justify-between hover:border-[#d0d0d0] transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center">
+                      <svg className="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-[#666]">상황 설정하기</span>
+                  </div>
+                  <svg className={`w-4 h-4 text-[#666] transition-transform ${showSituationPicker ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {showSituationPicker && (
+                  <div className="mt-3 grid grid-cols-3 gap-2">
+                    {PRESET_SITUATIONS.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => handleSituationSelect(item.situation)}
+                        className="bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#1a1a1a] transition-colors text-center"
+                      >
+                        <span className="text-sm font-medium text-[#1a1a1a]">{item.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Expression Card */}
       {mode === 'expression' && (
         <div className="bg-[#faf9f7] flex-shrink-0">
@@ -179,23 +242,15 @@ function TalkContent() {
                 <div className="w-5 h-5 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
               </div>
             ) : expressionData ? (
-              <div 
-                className="bg-white rounded-2xl p-5 border border-[#f0f0f0]"
-                data-testid="expression-card"
-              >
+              <div className="bg-white rounded-2xl p-5 border border-[#f0f0f0]">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <p className="text-lg font-medium text-[#1a1a1a] mb-1" data-testid="expression-text">
-                      {expressionData.expression}
-                    </p>
-                    <p className="text-sm text-[#666]" data-testid="expression-meaning">
-                      {expressionData.meaning}
-                    </p>
+                    <p className="text-lg font-medium text-[#1a1a1a] mb-1">{expressionData.expression}</p>
+                    <p className="text-sm text-[#666]">{expressionData.meaning}</p>
                   </div>
                   <button
                     onClick={handleRefreshExpression}
                     className="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-[#666] bg-[#f5f5f5] rounded-lg hover:bg-[#eee] transition-colors"
-                    data-testid="refresh-expression-btn"
                   >
                     새 표현
                   </button>
@@ -206,55 +261,15 @@ function TalkContent() {
         </div>
       )}
 
-      {/* Roleplay Mode Content */}
-      {mode === 'roleplay' && !scenarioData && (
-        <div className="max-w-2xl mx-auto w-full flex-1 overflow-y-auto" data-testid="scenario-selector-container">
-          <ScenarioSelector onSelect={handleScenarioSelect} />
-        </div>
-      )}
-
-      {/* Roleplay Header (when scenario selected) */}
-      {mode === 'roleplay' && scenarioData && (
-        <div className="bg-[#faf9f7] flex-shrink-0">
-          <div className="max-w-2xl mx-auto px-6 pb-4">
-            <div 
-              className="bg-white rounded-2xl p-4 border border-[#f0f0f0]"
-              data-testid="roleplay-header"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium text-[#1a1a1a]" data-testid="roleplay-title">
-                    {BUILT_IN_SCENARIOS.find(s => s.id === scenarioData.id)?.title || scenarioData.title}
-                  </p>
-                  <p className="text-sm text-[#8a8a8a] mt-0.5" data-testid="roleplay-stage">
-                    Stage {roleplayStage.current}/{roleplayStage.total}
-                  </p>
-                </div>
-                <button
-                  onClick={handleScenarioReset}
-                  className="px-3 py-1.5 text-xs font-medium text-[#666] bg-[#f5f5f5] rounded-lg hover:bg-[#eee] transition-colors"
-                  data-testid="change-scenario-btn"
-                >
-                  다른 시나리오
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Chat Area */}
-      {(mode !== 'roleplay' || scenarioData) && (
-        <div className="max-w-2xl mx-auto w-full flex-1 overflow-hidden">
-          <ChatWindow 
-            key={chatKeyRef.current} 
-            mode={mode}
-            practiceExpression={mode === 'expression' && expressionData ? expressionData : undefined}
-            scenarioId={mode === 'roleplay' && scenarioData ? scenarioData.id : undefined}
-            onReset={mode === 'roleplay' ? handleRoleplayComplete : undefined}
-          />
-        </div>
-      )}
+      <div className="max-w-2xl mx-auto w-full flex-1 overflow-hidden">
+        <ChatWindow 
+          key={chatKeyRef.current} 
+          mode={mode}
+          practiceExpression={mode === 'expression' && expressionData ? expressionData : undefined}
+          situation={mode === 'free' && situationData ? situationData.situation : undefined}
+        />
+      </div>
 
       <div className="h-[env(safe-area-inset-bottom)] bg-[#faf9f7] flex-shrink-0" />
     </main>
