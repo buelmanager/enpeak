@@ -423,12 +423,12 @@ export default function CardsPage() {
               )}
 
               {/* Practice Button */}
-              <Link
-                href={`/chat?context=vocabulary&word=${expandedWord}`}
-                className="block w-full py-3 bg-[#1a1a1a] text-white rounded-xl text-sm text-center font-medium"
-              >
-                이 단어로 대화 연습하기
-              </Link>
+               <Link
+                 href={`/talk?context=vocabulary&word=${expandedWord}`}
+                 className="block w-full py-3 bg-[#1a1a1a] text-white rounded-xl text-sm text-center font-medium"
+               >
+                 이 단어로 대화 연습하기
+               </Link>
             </div>
           )}
         </div>
