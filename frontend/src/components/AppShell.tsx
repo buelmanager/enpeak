@@ -46,7 +46,7 @@ export default function AppShell({ children }: AppShellProps) {
     if (isPublicPath) {
       // 이미 로그인된 상태에서 로그인 페이지 접근 시 홈으로
       if (isAuthenticated) {
-        router.replace('/talk')
+        router.replace('/')
         return
       }
       setAppReady(true)

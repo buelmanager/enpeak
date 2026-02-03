@@ -197,12 +197,14 @@ export default function ChatWindow({
       setConversationStarted(true)
       setLoading(true)
 
+      // situation을 포함한 시작 메시지 구성
+      const startMessage = `[Situation: ${situation}] Hello, I'd like to start a conversation in this scenario.`
+
       fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: '__START_SITUATION__',
-          situation: situation,
+          message: startMessage,
         }),
       })
         .then(res => res.json())
@@ -210,7 +212,8 @@ export default function ChatWindow({
           if (data.conversation_id) {
             setConversationId(data.conversation_id)
           }
-          const responseContent = data.response
+          // API 응답이 response 또는 message 필드를 사용할 수 있음
+          const responseContent = data.response || data.message || "Hello! How can I help you today?"
           const assistantMessage: Message = {
             id: 'situation-start',
             role: 'assistant',

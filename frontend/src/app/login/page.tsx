@@ -13,7 +13,7 @@ import { useAuth } from '@/contexts/AuthContext'
 function LoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirectTo = searchParams.get('redirect') || '/talk'
+  const redirectTo = searchParams.get('redirect') || '/'
   const { isAuthenticated, isReady } = useAuth()
 
   const [isSignUp, setIsSignUp] = useState(false)
