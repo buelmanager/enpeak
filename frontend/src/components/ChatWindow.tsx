@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import MessageBubble from './MessageBubble'
 import VoiceRecorder, { VoiceRecorderRef } from './VoiceRecorder'
@@ -15,6 +15,8 @@ interface Message {
   suggestions?: string[]
   betterExpressions?: string[]
   learningTip?: string
+  // TTS 재생 완료 여부 (자동 사이클용)
+  ttsPlayed?: boolean
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
@@ -86,13 +88,21 @@ export default function ChatWindow({
   const [roleplaySessionId, setRoleplaySessionId] = useState<string | null>(null)
   const [initialized, setInitialized] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
+  // 자동 음성 사이클 활성화 여부 (음성 모드일 때만)
+  const [voiceCycleActive, setVoiceCycleActive] = useState(false)
+  // 대화 시작 여부 (사용자가 처음 녹음 버튼을 누르거나, AI가 먼저 시작할 때)
+  const [conversationStarted, setConversationStarted] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const voiceRecorderRef = useRef<VoiceRecorderRef>(null)
   const pathname = usePathname()
+  // TTS 완료 후 자동 녹음을 위한 플래그
+  const shouldAutoRecordRef = useRef(false)
 
-  const { isSpeaking, stop: stopTTS } = useTTS()
+  const { isSpeaking, stop: stopTTS, speakWithCallback } = useTTS()
   const { settings, setInputMode } = useConversationSettings()
+
+  const isVoiceMode = settings.inputMode === 'voice'
 
   const scrollToBottom = () => {
     // 메시지 컨테이너를 맨 아래로 스크롤
@@ -111,8 +121,43 @@ export default function ChatWindow({
       // 컴포넌트 언마운트 시 녹음 중지
       voiceRecorderRef.current?.stopRecording()
       stopTTS()
+      setVoiceCycleActive(false)
+      shouldAutoRecordRef.current = false
     }
   }, [pathname])
+
+  // 자동 녹음 시작 함수
+  const startAutoRecording = useCallback(() => {
+    if (isVoiceMode && voiceCycleActive && !loading && !isSpeaking) {
+      // 약간의 딜레이 후 녹음 시작 (자연스러운 UX)
+      setTimeout(() => {
+        voiceRecorderRef.current?.startRecording()
+      }, 500)
+    }
+  }, [isVoiceMode, voiceCycleActive, loading, isSpeaking])
+
+  // AI 응답에 대해 TTS 재생 후 자동 녹음 시작
+  const speakAndStartRecording = useCallback((text: string) => {
+    if (!isVoiceMode || !voiceCycleActive) return
+
+    shouldAutoRecordRef.current = true
+    speakWithCallback(text, () => {
+      // TTS 완료 후 자동 녹음 시작
+      if (shouldAutoRecordRef.current && voiceCycleActive && isVoiceMode) {
+        startAutoRecording()
+      }
+    })
+  }, [isVoiceMode, voiceCycleActive, speakWithCallback, startAutoRecording])
+
+  // 음성 모드 변경 시 사이클 처리
+  useEffect(() => {
+    if (!isVoiceMode) {
+      // 텍스트 모드로 변경 시 사이클 중지
+      setVoiceCycleActive(false)
+      shouldAutoRecordRef.current = false
+      voiceRecorderRef.current?.stopRecording()
+    }
+  }, [isVoiceMode])
 
   // 표현 연습 모드일 때 초기 메시지 설정
   useEffect(() => {
@@ -125,23 +170,31 @@ export default function ChatWindow({
       }
       setMessages([initialMessage])
       setInitialized(true)
+      setConversationStarted(true)
 
       setTimeout(() => {
+        const situationContent = getConversationStarter(practiceExpression.expression)
         const situationMessage: Message = {
           id: 'situation',
           role: 'assistant',
-          content: getConversationStarter(practiceExpression.expression),
+          content: situationContent,
           suggestions: getSuggestions(practiceExpression.expression),
         }
         setMessages(prev => [...prev, situationMessage])
+
+        // 음성 모드이고 사이클이 활성화되면 TTS 재생 후 녹음 시작
+        if (isVoiceMode && voiceCycleActive) {
+          speakAndStartRecording(situationContent)
+        }
       }, 500)
     }
-  }, [practiceExpression, initialized])
+  }, [practiceExpression, initialized, isVoiceMode, voiceCycleActive, speakAndStartRecording])
 
   // 상황 설정 모드일 때 초기 메시지 설정
   useEffect(() => {
     if (situation && !initialized && mode === 'free') {
       setInitialized(true)
+      setConversationStarted(true)
       setLoading(true)
 
       fetch(`${API_BASE}/api/chat`, {
@@ -157,25 +210,37 @@ export default function ChatWindow({
           if (data.conversation_id) {
             setConversationId(data.conversation_id)
           }
+          const responseContent = data.response
           const assistantMessage: Message = {
             id: 'situation-start',
             role: 'assistant',
-            content: data.response,
+            content: responseContent,
             suggestions: data.suggestions,
           }
           setMessages([assistantMessage])
+
+          // 음성 모드이고 사이클이 활성화되면 TTS 재생 후 녹음 시작
+          if (isVoiceMode && voiceCycleActive && responseContent) {
+            speakAndStartRecording(responseContent)
+          }
         })
         .catch(() => {
+          const fallbackContent = "Hello! How can I help you today?"
           const fallbackMessage: Message = {
             id: 'situation-start',
             role: 'assistant',
-            content: "Hello! How can I help you today?",
+            content: fallbackContent,
           }
           setMessages([fallbackMessage])
+
+          // 폴백 메시지도 TTS 재생
+          if (isVoiceMode && voiceCycleActive) {
+            speakAndStartRecording(fallbackContent)
+          }
         })
         .finally(() => setLoading(false))
     }
-  }, [situation, initialized, mode])
+  }, [situation, initialized, mode, isVoiceMode, voiceCycleActive, speakAndStartRecording])
 
 
 
@@ -225,6 +290,11 @@ export default function ChatWindow({
 
           setMessages(prev => [...prev, assistantMessage])
 
+          // 음성 모드 + 사이클 활성화 시 자동 TTS
+          if (isVoiceMode && voiceCycleActive && data.ai_message) {
+            speakAndStartRecording(data.ai_message)
+          }
+
           if (data.is_complete) {
             onReset?.()
           }
@@ -251,6 +321,11 @@ export default function ChatWindow({
           }
 
           setMessages(prev => [...prev, assistantMessage])
+
+          // 음성 모드 + 사이클 활성화 시 자동 TTS
+          if (isVoiceMode && voiceCycleActive && data.ai_message) {
+            speakAndStartRecording(data.ai_message)
+          }
 
           if (data.is_complete) {
             onReset?.()
@@ -299,6 +374,11 @@ export default function ChatWindow({
         }
 
         setMessages(prev => [...prev, assistantMessage])
+
+        // 음성 모드 + 사이클 활성화 시 자동 TTS
+        if (isVoiceMode && voiceCycleActive && data.message) {
+          speakAndStartRecording(data.message)
+        }
       }
     } catch (error) {
       console.error('Chat error:', error)
@@ -328,19 +408,27 @@ export default function ChatWindow({
 
   const handleRecordingChange = (recording: boolean) => {
     setIsRecording(recording)
+
+    // 녹음이 시작되면 음성 사이클 활성화
+    if (recording && isVoiceMode) {
+      setVoiceCycleActive(true)
+      setConversationStarted(true)
+    }
   }
 
   const handleCancelRecording = () => {
     voiceRecorderRef.current?.stopRecording()
     setIsRecording(false)
+    // 녹음 취소 시 사이클 중지
+    setVoiceCycleActive(false)
+    shouldAutoRecordRef.current = false
+    stopTTS()
   }
 
   // 마지막 AI 메시지 인덱스 찾기
   const lastAssistantIndex = messages.reduce((lastIdx, msg, idx) =>
     msg.role === 'assistant' ? idx : lastIdx, -1
   )
-
-  const isVoiceMode = settings.inputMode === 'voice'
 
   return (
     <div className="flex flex-col h-full bg-[#faf9f7]">
