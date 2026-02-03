@@ -131,18 +131,20 @@ export default function ChatWindow({
     if (isVoiceMode && voiceCycleActive && !loading && !isSpeaking) {
       // 약간의 딜레이 후 녹음 시작 (자연스러운 UX)
       setTimeout(() => {
-        voiceRecorderRef.current?.startRecording()
+        if (voiceCycleActive && isVoiceMode) {
+          voiceRecorderRef.current?.startRecording()
+        }
       }, 500)
     }
   }, [isVoiceMode, voiceCycleActive, loading, isSpeaking])
 
-  // AI 응답에 대해 TTS 재생 후 자동 녹음 시작
+  // AI 응답에 대해 TTS 재생 (사이클 활성화 시 녹음도 시작)
   const speakAndStartRecording = useCallback((text: string) => {
-    if (!isVoiceMode || !voiceCycleActive) return
+    if (!isVoiceMode) return
 
     shouldAutoRecordRef.current = true
     speakWithCallback(text, () => {
-      // TTS 완료 후 자동 녹음 시작
+      // TTS 완료 후, 사이클이 활성화되어 있으면 자동 녹음 시작
       if (shouldAutoRecordRef.current && voiceCycleActive && isVoiceMode) {
         startAutoRecording()
       }
@@ -182,13 +184,13 @@ export default function ChatWindow({
         }
         setMessages(prev => [...prev, situationMessage])
 
-        // 음성 모드이고 사이클이 활성화되면 TTS 재생 후 녹음 시작
-        if (isVoiceMode && voiceCycleActive) {
+        // 음성 모드면 TTS 재생 (사이클 활성화 여부와 관계없이)
+        if (isVoiceMode) {
           speakAndStartRecording(situationContent)
         }
       }, 500)
     }
-  }, [practiceExpression, initialized, isVoiceMode, voiceCycleActive, speakAndStartRecording])
+  }, [practiceExpression, initialized, isVoiceMode, speakAndStartRecording])
 
   // 상황 설정 모드일 때 초기 메시지 설정
   useEffect(() => {
@@ -222,8 +224,8 @@ export default function ChatWindow({
           }
           setMessages([assistantMessage])
 
-          // 음성 모드이고 사이클이 활성화되면 TTS 재생 후 녹음 시작
-          if (isVoiceMode && voiceCycleActive && responseContent) {
+          // 음성 모드면 TTS 재생 (사이클 활성화 여부와 관계없이)
+          if (isVoiceMode && responseContent) {
             speakAndStartRecording(responseContent)
           }
         })
@@ -237,13 +239,13 @@ export default function ChatWindow({
           setMessages([fallbackMessage])
 
           // 폴백 메시지도 TTS 재생
-          if (isVoiceMode && voiceCycleActive) {
+          if (isVoiceMode) {
             speakAndStartRecording(fallbackContent)
           }
         })
         .finally(() => setLoading(false))
     }
-  }, [situation, initialized, mode, isVoiceMode, voiceCycleActive, speakAndStartRecording])
+  }, [situation, initialized, mode, isVoiceMode, speakAndStartRecording])
 
 
 
@@ -293,8 +295,8 @@ export default function ChatWindow({
 
           setMessages(prev => [...prev, assistantMessage])
 
-          // 음성 모드 + 사이클 활성화 시 자동 TTS
-          if (isVoiceMode && voiceCycleActive && data.ai_message) {
+          // 음성 모드면 TTS 재생 (사이클 활성화 시 자동 녹음도)
+          if (isVoiceMode && data.ai_message) {
             speakAndStartRecording(data.ai_message)
           }
 
@@ -325,8 +327,8 @@ export default function ChatWindow({
 
           setMessages(prev => [...prev, assistantMessage])
 
-          // 음성 모드 + 사이클 활성화 시 자동 TTS
-          if (isVoiceMode && voiceCycleActive && data.ai_message) {
+          // 음성 모드면 TTS 재생 (사이클 활성화 시 자동 녹음도)
+          if (isVoiceMode && data.ai_message) {
             speakAndStartRecording(data.ai_message)
           }
 
@@ -378,8 +380,8 @@ export default function ChatWindow({
 
         setMessages(prev => [...prev, assistantMessage])
 
-        // 음성 모드 + 사이클 활성화 시 자동 TTS
-        if (isVoiceMode && voiceCycleActive && data.message) {
+        // 음성 모드면 TTS 재생 (사이클 활성화 시 자동 녹음도)
+        if (isVoiceMode && data.message) {
           speakAndStartRecording(data.message)
         }
       }
