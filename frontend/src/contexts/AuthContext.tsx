@@ -17,6 +17,8 @@ interface AuthContextType {
   loading: boolean
   syncing: boolean  // 동기화 중 여부 (선택적 UI 표시용)
   isVerified: boolean  // Firebase로 검증 완료 여부
+  isReady: boolean  // 인증 상태가 완전히 확정됨 (앱 표시 가능)
+  isAuthenticated: boolean  // 로그인 여부 (user 또는 cachedUser 있음)
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -25,6 +27,8 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
   syncing: false,
   isVerified: false,
+  isReady: false,
+  isAuthenticated: false,
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -35,9 +39,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
+  const [isReady, setIsReady] = useState(false)
   const previousUserRef = useRef<User | null>(null)
   const syncInProgressRef = useRef(false)
   const initializedRef = useRef(false)
+
+  // 인증 여부 계산
+  const isAuthenticated = !!(user || cachedUser)
 
   // 클라이언트에서 즉시 캐시 읽기 (hydration 후)
   useEffect(() => {
@@ -48,6 +56,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setCachedUser(cached)
         setLoading(false)  // 캐시가 있으면 즉시 로딩 완료
       }
+      // 캐시 체크 완료 후 isReady 설정 (Firebase 검증과 별개로)
+      // Firebase 검증은 백그라운드에서 계속 진행
     }
   }, [])
 
@@ -64,6 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(currentUser)
       setLoading(false)
       setIsVerified(true)
+      setIsReady(true)  // Firebase 검증 완료 = 앱 표시 가능
 
       // localStorage 캐시 업데이트
       cacheUser(currentUser)
@@ -97,7 +108,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, cachedUser, loading, syncing, isVerified }}>
+    <AuthContext.Provider value={{ user, cachedUser, loading, syncing, isVerified, isReady, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )

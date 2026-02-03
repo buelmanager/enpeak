@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -8,16 +8,27 @@ import {
   signInWithEmail,
   signUpWithEmail
 } from '@/lib/firebase'
+import { useAuth } from '@/contexts/AuthContext'
 
 function LoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirectTo = searchParams.get('redirect') || '/'
+  const redirectTo = searchParams.get('redirect') || '/talk'
+  const { isAuthenticated, isReady } = useAuth()
+
   const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [waitingForAuth, setWaitingForAuth] = useState(false)
+
+  // 로그인 성공 후 인증 상태가 준비되면 리다이렉트
+  useEffect(() => {
+    if (waitingForAuth && isReady && isAuthenticated) {
+      router.replace(redirectTo)
+    }
+  }, [waitingForAuth, isReady, isAuthenticated, redirectTo, router])
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,12 +39,12 @@ function LoginContent() {
       ? await signUpWithEmail(email, password)
       : await signInWithEmail(email, password)
 
-    setLoading(false)
-
     if (error) {
       setError(error)
+      setLoading(false)
     } else if (user) {
-      router.push(redirectTo)
+      // 로그인 성공 - 인증 상태 안정화 대기
+      setWaitingForAuth(true)
     }
   }
 
@@ -41,13 +52,26 @@ function LoginContent() {
     setError('')
     setLoading(true)
     const { user, error } = await signInWithGoogle()
-    setLoading(false)
 
     if (error) {
       setError(error)
+      setLoading(false)
     } else if (user) {
-      router.push(redirectTo)
+      // 로그인 성공 - 인증 상태 안정화 대기
+      setWaitingForAuth(true)
     }
+  }
+
+  // 로그인 처리 중 로딩 화면
+  if (waitingForAuth) {
+    return (
+      <main className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm text-[#8a8a8a]">Signing in...</p>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -57,7 +81,7 @@ function LoginContent() {
 
       {/* Header */}
       <header className="px-6 pt-6 pb-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-[#8a8a8a] text-sm">
+        <Link href="/talk" className="inline-flex items-center gap-2 text-[#8a8a8a] text-sm">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
           </svg>
@@ -124,7 +148,7 @@ function LoginContent() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
+              placeholder="********"
               className="w-full border border-[#e5e5e5] p-4 bg-transparent text-sm tracking-wide placeholder:text-[#c5c5c5] focus:border-[#1a1a1a] focus:outline-none transition-colors"
               required
               minLength={6}
