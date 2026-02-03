@@ -177,6 +177,12 @@ export default function ChatWindow({
     })
   }, [isVoiceMode, speakWithCallback])
 
+  // speakAndStartRecording을 ref로 저장 (useEffect에서 의존성 없이 사용)
+  const speakAndStartRecordingRef = useRef(speakAndStartRecording)
+  useEffect(() => {
+    speakAndStartRecordingRef.current = speakAndStartRecording
+  }, [speakAndStartRecording])
+
   // 음성 모드 변경 시 사이클 처리
   useEffect(() => {
     if (!isVoiceMode) {
@@ -217,11 +223,11 @@ export default function ChatWindow({
           console.log('[VoiceCycle] Expression mode: activating cycle and starting TTS')
           voiceCycleActiveRef.current = true
           setVoiceCycleActive(true)
-          speakAndStartRecording(situationContent, true)
+          speakAndStartRecordingRef.current(situationContent, true)
         }
       }, 500)
     }
-  }, [practiceExpression, initialized, isVoiceMode, speakAndStartRecording])
+  }, [practiceExpression, initialized, isVoiceMode])
 
   // 상황 설정 모드일 때 초기 메시지 설정
   useEffect(() => {
@@ -260,7 +266,7 @@ export default function ChatWindow({
             console.log('[VoiceCycle] Situation mode: activating cycle and starting TTS')
             voiceCycleActiveRef.current = true
             setVoiceCycleActive(true)
-            speakAndStartRecording(responseContent, true)
+            speakAndStartRecordingRef.current(responseContent, true)
           }
         })
         .catch(() => {
@@ -277,12 +283,12 @@ export default function ChatWindow({
             console.log('[VoiceCycle] Fallback mode: activating cycle and starting TTS')
             voiceCycleActiveRef.current = true
             setVoiceCycleActive(true)
-            speakAndStartRecording(fallbackContent, true)
+            speakAndStartRecordingRef.current(fallbackContent, true)
           }
         })
         .finally(() => setLoading(false))
     }
-  }, [situation, initialized, mode, isVoiceMode, speakAndStartRecording])
+  }, [situation, initialized, mode, isVoiceMode])
 
 
 
