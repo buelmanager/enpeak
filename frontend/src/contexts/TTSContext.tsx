@@ -231,6 +231,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   // 음성 재생 + 완료 콜백
   const speakWithCallback = (text: string, onEnd?: () => void) => {
     if (!('speechSynthesis' in window)) {
+      console.log('[TTS] speechSynthesis not available, calling onEnd')
       onEnd?.()
       return
     }
@@ -238,8 +239,23 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     const synth = window.speechSynthesis
     synth.cancel() // 기존 재생 중지
 
-    const utterance = createUtterance(text, onEnd)
+    const utterance = createUtterance(text, () => {
+      console.log('[TTS] utterance ended, calling onEnd callback')
+      onEnd?.()
+    })
+
+    console.log('[TTS] Starting speech:', text.substring(0, 50) + '...')
     synth.speak(utterance)
+
+    // Chrome에서 TTS가 시작되지 않을 경우를 위한 타임아웃
+    // (autoplay policy로 인해 발생할 수 있음)
+    setTimeout(() => {
+      if (!synth.speaking && !synth.pending) {
+        console.log('[TTS] Speech did not start (possibly blocked), calling onEnd')
+        setIsSpeaking(false)
+        onEnd?.()
+      }
+    }, 500)
   }
 
   // 재생 중지

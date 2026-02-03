@@ -104,6 +104,15 @@ export default function ChatWindow({
 
   const isVoiceMode = settings.inputMode === 'voice'
 
+  // 사이클 활성화 상태를 ref로 관리 (콜백에서 최신 값 참조)
+  const voiceCycleActiveRef = useRef(false)
+
+  // voiceCycleActive 상태와 ref 동기화
+  useEffect(() => {
+    voiceCycleActiveRef.current = voiceCycleActive
+    console.log('[VoiceCycle] voiceCycleActive changed to:', voiceCycleActive)
+  }, [voiceCycleActive])
+
   const scrollToBottom = () => {
     // 메시지 컨테이너를 맨 아래로 스크롤
     if (messagesContainerRef.current) {
@@ -141,26 +150,39 @@ export default function ChatWindow({
   // AI 응답에 대해 TTS 재생 (사이클 활성화 시 녹음도 시작)
   // forceAutoRecord: true면 사이클 상태와 관계없이 TTS 후 자동 녹음
   const speakAndStartRecording = useCallback((text: string, forceAutoRecord = false) => {
-    if (!isVoiceMode) return
+    console.log('[VoiceCycle] speakAndStartRecording called, forceAutoRecord:', forceAutoRecord, 'isVoiceMode:', isVoiceMode)
+
+    if (!isVoiceMode) {
+      console.log('[VoiceCycle] Not in voice mode, skipping')
+      return
+    }
 
     shouldAutoRecordRef.current = true
+    console.log('[VoiceCycle] Starting TTS...')
+
     speakWithCallback(text, () => {
       // TTS 완료 후, 사이클이 활성화되어 있거나 강제 녹음이면 자동 녹음 시작
-      if (shouldAutoRecordRef.current && isVoiceMode && (voiceCycleActive || forceAutoRecord)) {
+      // ref를 사용해서 최신 값 참조
+      const shouldAutoRecord = shouldAutoRecordRef.current && (voiceCycleActiveRef.current || forceAutoRecord)
+      console.log('[VoiceCycle] TTS ended callback, shouldAutoRecord:', shouldAutoRecord, 'voiceCycleActiveRef:', voiceCycleActiveRef.current, 'forceAutoRecord:', forceAutoRecord)
+
+      if (shouldAutoRecord) {
         // 약간의 딜레이 후 녹음 시작 (자연스러운 UX)
+        console.log('[VoiceCycle] Will start recording in 500ms...')
         setTimeout(() => {
-          if (isVoiceMode) {
-            voiceRecorderRef.current?.startRecording()
-          }
+          console.log('[VoiceCycle] Starting recording now')
+          voiceRecorderRef.current?.startRecording()
         }, 500)
       }
     })
-  }, [isVoiceMode, voiceCycleActive, speakWithCallback])
+  }, [isVoiceMode, speakWithCallback])
 
   // 음성 모드 변경 시 사이클 처리
   useEffect(() => {
     if (!isVoiceMode) {
       // 텍스트 모드로 변경 시 사이클 중지
+      console.log('[VoiceCycle] Switched to text mode, stopping cycle')
+      voiceCycleActiveRef.current = false
       setVoiceCycleActive(false)
       shouldAutoRecordRef.current = false
       voiceRecorderRef.current?.stopRecording()
@@ -192,6 +214,8 @@ export default function ChatWindow({
 
         // 음성 모드면 사이클 활성화 후 TTS 재생 + 자동 녹음
         if (isVoiceMode) {
+          console.log('[VoiceCycle] Expression mode: activating cycle and starting TTS')
+          voiceCycleActiveRef.current = true
           setVoiceCycleActive(true)
           speakAndStartRecording(situationContent, true)
         }
@@ -233,6 +257,8 @@ export default function ChatWindow({
 
           // 음성 모드면 사이클 활성화 후 TTS 재생 + 자동 녹음
           if (isVoiceMode && responseContent) {
+            console.log('[VoiceCycle] Situation mode: activating cycle and starting TTS')
+            voiceCycleActiveRef.current = true
             setVoiceCycleActive(true)
             speakAndStartRecording(responseContent, true)
           }
@@ -248,6 +274,8 @@ export default function ChatWindow({
 
           // 폴백 메시지도 TTS 재생 + 자동 녹음
           if (isVoiceMode) {
+            console.log('[VoiceCycle] Fallback mode: activating cycle and starting TTS')
+            voiceCycleActiveRef.current = true
             setVoiceCycleActive(true)
             speakAndStartRecording(fallbackContent, true)
           }
@@ -422,18 +450,23 @@ export default function ChatWindow({
 
   const handleRecordingChange = (recording: boolean) => {
     setIsRecording(recording)
+    console.log('[VoiceCycle] Recording changed to:', recording)
 
     // 녹음이 시작되면 음성 사이클 활성화
     if (recording && isVoiceMode) {
+      console.log('[VoiceCycle] User started recording, activating cycle')
+      voiceCycleActiveRef.current = true
       setVoiceCycleActive(true)
       setConversationStarted(true)
     }
   }
 
   const handleCancelRecording = () => {
+    console.log('[VoiceCycle] Recording cancelled, stopping cycle')
     voiceRecorderRef.current?.stopRecording()
     setIsRecording(false)
     // 녹음 취소 시 사이클 중지
+    voiceCycleActiveRef.current = false
     setVoiceCycleActive(false)
     shouldAutoRecordRef.current = false
     stopTTS()
