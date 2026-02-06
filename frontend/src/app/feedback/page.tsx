@@ -76,8 +76,14 @@ export default function FeedbackPage() {
   const [newCategory, setNewCategory] = useState<'feature' | 'bug' | 'improvement' | 'other'>('feature')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // 게시글 목록 불러오기
+  // 게시글 목록 불러오기 (로그인한 경우에만)
   useEffect(() => {
+    if (!user) {
+      setPosts([])
+      setLoading(false)
+      return
+    }
+
     const q = query(
       collection(db, 'feedback'),
       orderBy('createdAt', 'desc')
@@ -96,7 +102,7 @@ export default function FeedbackPage() {
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [user])
 
   // 댓글 불러오기
   useEffect(() => {
@@ -276,7 +282,7 @@ export default function FeedbackPage() {
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a]">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0]">
-        <div className="h-[30px]" />
+        <div style={{ height: 'env(safe-area-inset-top, 0px)' }} />
         <div className="px-6 py-4 flex items-center justify-between">
           <Link href="/my" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -319,7 +325,7 @@ export default function FeedbackPage() {
       </header>
 
       {/* Spacer */}
-      <div className="h-[140px]" />
+      <div style={{ height: 'calc(env(safe-area-inset-top, 0px) + 110px)' }} />
 
       {/* Sort */}
       <div className="px-6 py-2 flex justify-end">
@@ -412,7 +418,7 @@ export default function FeedbackPage() {
       {/* Write Modal */}
       {showWriteModal && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-end justify-center">
-          <div className="bg-white rounded-t-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-t-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto" style={{ paddingBottom: 'max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px))' }}>
             <div className="sticky top-0 bg-white px-6 py-4 border-b border-[#f0f0f0] flex items-center justify-between">
               <button onClick={() => setShowWriteModal(false)} className="text-[#8a8a8a]">
                 취소

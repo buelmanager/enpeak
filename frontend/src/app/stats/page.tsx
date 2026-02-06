@@ -32,7 +32,7 @@ export default function StatsPage() {
 
   return (
     <div className="min-h-screen bg-[#faf9f7] pb-32">
-      <div className="h-[env(safe-area-inset-top,30px)]" />
+      <div style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       <div className="px-6 pt-6">
         <h1 className="text-2xl font-bold text-[#1a1a1a] mb-6">통계</h1>

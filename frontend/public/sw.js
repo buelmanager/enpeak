@@ -52,6 +52,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - Network first for HTML/JS/CSS, cache first for static assets
 self.addEventListener('fetch', (event) => {
+  // POST 등 GET이 아닌 요청은 캐시 불가 - 바로 네트워크로
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   const url = new URL(event.request.url);
 
   // version.json은 항상 네트워크에서 가져옴

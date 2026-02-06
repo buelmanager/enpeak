@@ -87,6 +87,7 @@ export default function ChatWindow({
   const [conversationId, setConversationId] = useState<string | null>(null)
   const [roleplaySessionId, setRoleplaySessionId] = useState<string | null>(null)
   const [initialized, setInitialized] = useState(false)
+  const initializedRef = useRef(false)
   const [isRecording, setIsRecording] = useState(false)
   // 자동 음성 사이클 활성화 여부 (음성 모드일 때만)
   const [voiceCycleActive, setVoiceCycleActive] = useState(false)
@@ -150,29 +151,39 @@ export default function ChatWindow({
   // AI 응답에 대해 TTS 재생 (사이클 활성화 시 녹음도 시작)
   // forceAutoRecord: true면 사이클 상태와 관계없이 TTS 후 자동 녹음
   const speakAndStartRecording = useCallback((text: string, forceAutoRecord = false) => {
-    console.log('[VoiceCycle] speakAndStartRecording called, forceAutoRecord:', forceAutoRecord, 'isVoiceMode:', isVoiceMode)
+    console.log('[VoiceCycle] speakAndStartRecording called')
+    console.log('[VoiceCycle]   text:', text.substring(0, 80))
+    console.log('[VoiceCycle]   forceAutoRecord:', forceAutoRecord)
+    console.log('[VoiceCycle]   isVoiceMode:', isVoiceMode)
+    console.log('[VoiceCycle]   voiceCycleActiveRef:', voiceCycleActiveRef.current)
+    console.log('[VoiceCycle]   shouldAutoRecordRef:', shouldAutoRecordRef.current)
 
     if (!isVoiceMode) {
-      console.log('[VoiceCycle] Not in voice mode, skipping')
+      console.log('[VoiceCycle] Not in voice mode, skipping TTS')
       return
     }
 
     shouldAutoRecordRef.current = true
-    console.log('[VoiceCycle] Starting TTS...')
+    console.log('[VoiceCycle] Set shouldAutoRecordRef=true, calling speakWithCallback...')
 
     speakWithCallback(text, () => {
       // TTS 완료 후, 사이클이 활성화되어 있거나 강제 녹음이면 자동 녹음 시작
       // ref를 사용해서 최신 값 참조
       const shouldAutoRecord = shouldAutoRecordRef.current && (voiceCycleActiveRef.current || forceAutoRecord)
-      console.log('[VoiceCycle] TTS ended callback, shouldAutoRecord:', shouldAutoRecord, 'voiceCycleActiveRef:', voiceCycleActiveRef.current, 'forceAutoRecord:', forceAutoRecord)
+      console.log('[VoiceCycle] TTS ended callback fired')
+      console.log('[VoiceCycle]   shouldAutoRecordRef.current:', shouldAutoRecordRef.current)
+      console.log('[VoiceCycle]   voiceCycleActiveRef.current:', voiceCycleActiveRef.current)
+      console.log('[VoiceCycle]   forceAutoRecord:', forceAutoRecord)
+      console.log('[VoiceCycle]   => shouldAutoRecord:', shouldAutoRecord)
 
       if (shouldAutoRecord) {
-        // 약간의 딜레이 후 녹음 시작 (자연스러운 UX)
         console.log('[VoiceCycle] Will start recording in 500ms...')
         setTimeout(() => {
-          console.log('[VoiceCycle] Starting recording now')
+          console.log('[VoiceCycle] Starting recording now, voiceRecorderRef exists:', !!voiceRecorderRef.current)
           voiceRecorderRef.current?.startRecording()
         }, 500)
+      } else {
+        console.log('[VoiceCycle] Not starting auto recording')
       }
     })
   }, [isVoiceMode, speakWithCallback])
@@ -197,7 +208,8 @@ export default function ChatWindow({
 
   // 표현 연습 모드일 때 초기 메시지 설정
   useEffect(() => {
-    if (practiceExpression && !initialized) {
+    if (practiceExpression && !initializedRef.current) {
+      initializedRef.current = true
       const initialMessage: Message = {
         id: 'initial',
         role: 'assistant',
@@ -231,7 +243,8 @@ export default function ChatWindow({
 
   // 상황 설정 모드일 때 초기 메시지 설정
   useEffect(() => {
-    if (situation && !initialized && mode === 'free') {
+    if (situation && !initializedRef.current && mode === 'free') {
+      initializedRef.current = true
       setInitialized(true)
       setConversationStarted(true)
       setLoading(true)
@@ -299,7 +312,10 @@ export default function ChatWindow({
       return
     }
 
+    console.log('[SendMessage] Called with text:', text.substring(0, 50), 'mode:', mode, 'isVoiceMode:', isVoiceMode, 'voiceCycleActive:', voiceCycleActive)
+
     // TTS 중이면 중지
+    console.log('[SendMessage] Stopping TTS before sending')
     stopTTS()
 
     const userMessage: Message = {
@@ -339,7 +355,9 @@ export default function ChatWindow({
           setMessages(prev => [...prev, assistantMessage])
 
           // 음성 모드면 TTS 재생 (사이클 활성화 시 자동 녹음도)
+          console.log('[SendMessage] Roleplay start - isVoiceMode:', isVoiceMode, 'ai_message:', data.ai_message?.substring(0, 50))
           if (isVoiceMode && data.ai_message) {
+            console.log('[SendMessage] Calling speakAndStartRecording for roleplay start')
             speakAndStartRecording(data.ai_message)
           }
 
@@ -371,7 +389,9 @@ export default function ChatWindow({
           setMessages(prev => [...prev, assistantMessage])
 
           // 음성 모드면 TTS 재생 (사이클 활성화 시 자동 녹음도)
+          console.log('[SendMessage] Roleplay turn - isVoiceMode:', isVoiceMode, 'ai_message:', data.ai_message?.substring(0, 50))
           if (isVoiceMode && data.ai_message) {
+            console.log('[SendMessage] Calling speakAndStartRecording for roleplay turn')
             speakAndStartRecording(data.ai_message)
           }
 
@@ -390,9 +410,13 @@ export default function ChatWindow({
           }),
         })
 
-        if (!response.ok) throw new Error('Failed to get response')
+        if (!response.ok) {
+          console.error('[SendMessage] API response not ok:', response.status, response.statusText)
+          throw new Error('Failed to get response')
+        }
 
         const data = await response.json()
+        console.log('[SendMessage] Free chat API response keys:', Object.keys(data), 'message:', data.message?.substring(0, 50), 'response:', data.response?.substring(0, 50))
 
         if (!conversationId) {
           setConversationId(data.conversation_id)
@@ -424,12 +448,16 @@ export default function ChatWindow({
         setMessages(prev => [...prev, assistantMessage])
 
         // 음성 모드면 TTS 재생 (사이클 활성화 시 자동 녹음도)
+        console.log('[SendMessage] Free chat - isVoiceMode:', isVoiceMode, 'data.message:', !!data.message, 'data.response:', !!data.response)
         if (isVoiceMode && data.message) {
+          console.log('[SendMessage] Calling speakAndStartRecording for free chat, text:', data.message.substring(0, 50))
           speakAndStartRecording(data.message)
+        } else if (isVoiceMode && !data.message) {
+          console.warn('[SendMessage] isVoiceMode but data.message is falsy! Full data keys:', Object.keys(data))
         }
       }
     } catch (error) {
-      console.error('Chat error:', error)
+      console.error('[SendMessage] Chat error:', error)
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -447,6 +475,7 @@ export default function ChatWindow({
   }
 
   const handleVoiceResult = (text: string) => {
+    console.log('[VoiceCycle] handleVoiceResult called with text:', text.substring(0, 50), 'isVoiceMode:', isVoiceMode, 'voiceCycleActive:', voiceCycleActive)
     sendMessage(text)
   }
 

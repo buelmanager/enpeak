@@ -153,16 +153,29 @@ export default function PWAInstallGuide() {
   }
 
   const handleOpenInBrowser = () => {
-    // 외부 브라우저로 열기 시도
     const url = appUrl
+    const ua = window.navigator.userAgent.toLowerCase()
 
-    // Android Intent URL
-    if (browserType === 'android-webview') {
-      window.location.href = `intent://${url.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`
+    // 카카오톡: 전용 URL 스킴으로 외부 브라우저 열기
+    if (/kakaotalk/i.test(ua)) {
+      window.location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(url)
       return
     }
 
-    // iOS에서는 Safari로 직접 열기 어려움 - URL 복사 안내
+    // 라인: openExternalBrowser 파라미터
+    if (/\bline\b/i.test(ua)) {
+      const separator = url.includes('?') ? '&' : '?'
+      window.location.href = url + separator + 'openExternalBrowser=1'
+      return
+    }
+
+    // Android 웹뷰 (네이버, 페이스북, 인스타그램, 밴드 등): Chrome Intent
+    if (browserType === 'android-webview') {
+      window.location.href = `intent://${url.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(url)};end`
+      return
+    }
+
+    // iOS 웹뷰: 자동 열기 불가, URL 복사 안내
     handleCopyUrl()
   }
 
@@ -172,7 +185,7 @@ export default function PWAInstallGuide() {
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/50 flex items-end justify-center">
-      <div className="bg-white rounded-t-3xl w-full max-w-lg p-6 pb-8 animate-slide-up max-h-[85vh] overflow-y-auto">
+      <div className="bg-white rounded-t-3xl w-full max-w-lg p-6 animate-slide-up max-h-[85vh] overflow-y-auto" style={{ paddingBottom: 'max(32px, calc(env(safe-area-inset-bottom, 0px) + 24px))' }}>
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-medium">앱 설치하기</h2>
@@ -307,18 +320,43 @@ export default function PWAInstallGuide() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <button
-                onClick={handleCopyUrl}
-                className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                URL 복사하기
-              </button>
-              <p className="text-xs text-center text-[#8a8a8a]">
-                복사 후 브라우저 주소창에 붙여넣기
-              </p>
+              {(browserType === 'android-webview' || /kakaotalk|\bline\b/i.test(typeof window !== 'undefined' ? window.navigator.userAgent : '')) ? (
+                <>
+                  <button
+                    onClick={handleOpenInBrowser}
+                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    브라우저에서 열기
+                  </button>
+                  <button
+                    onClick={handleCopyUrl}
+                    className="w-full py-3 border border-[#e5e5e5] rounded-xl text-sm flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    URL 복사하기
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={handleCopyUrl}
+                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    URL 복사하기
+                  </button>
+                  <p className="text-xs text-center text-[#8a8a8a]">
+                    복사 후 브라우저 주소창에 붙여넣기
+                  </p>
+                </>
+              )}
               <button
                 onClick={handleDismiss}
                 className="w-full py-3 border border-[#e5e5e5] rounded-xl text-sm"
@@ -428,62 +466,87 @@ export default function PWAInstallGuide() {
         )}
 
         {/* iOS Chrome */}
-        {browserType === 'ios-chrome' && (
-          <div className="space-y-4">
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-              <p className="text-sm text-blue-800">
-                iOS에서는 Safari에서만 앱 설치가 가능해요.
-                Safari로 열어주세요!
-              </p>
+        {browserType === 'ios-chrome' && (() => {
+          const iosMatch = navigator.userAgent.match(/OS (\d+)_(\d+)/)
+          const iosVersion = iosMatch ? parseFloat(`${iosMatch[1]}.${iosMatch[2]}`) : 0
+          const canShareInstall = iosVersion >= 16.4
+
+          return (
+            <div className="space-y-4">
+              {canShareInstall ? (
+                <>
+                  <p className="text-sm text-[#666]">
+                    Chrome에서도 홈 화면에 추가할 수 있어요
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">공유 버튼 탭</p>
+                        <p className="text-xs text-[#8a8a8a] mt-1">
+                          브라우저 우측 상단의 공유 버튼을 탭하세요
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
+                        <p className="text-xs text-[#8a8a8a] mt-1">
+                          목록에서 <span className="font-medium">홈 화면에 추가</span>를 탭하세요
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleDismiss}
+                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+                  >
+                    확인했어요
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                    <p className="text-sm text-blue-800">
+                      iOS에서는 Safari에서만 앱 설치가 가능해요.
+                      Safari로 열어주세요!
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div className="flex-1"><p className="text-sm font-medium">아래 URL 복사</p></div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="flex-1"><p className="text-sm font-medium">Safari 앱 열기</p></div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div className="flex-1"><p className="text-sm font-medium">주소창에 붙여넣기</p></div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleCopyUrl}
+                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    URL 복사하기
+                  </button>
+                  <button
+                    onClick={handleDismiss}
+                    className="w-full py-3 border border-[#e5e5e5] rounded-xl text-sm"
+                  >
+                    나중에
+                  </button>
+                </>
+              )}
             </div>
-
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  1
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">아래 URL 복사</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  2
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Safari 앱 열기</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  3
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">주소창에 붙여넣기</p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={handleCopyUrl}
-              className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              URL 복사하기
-            </button>
-
-            <button
-              onClick={handleDismiss}
-              className="w-full py-3 border border-[#e5e5e5] rounded-xl text-sm"
-            >
-              나중에
-            </button>
-          </div>
-        )}
+          )
+        })()}
 
         {/* Android Chrome / Samsung */}
         {(browserType === 'android-chrome' || browserType === 'android-samsung') && (

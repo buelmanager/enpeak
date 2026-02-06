@@ -33,6 +33,8 @@ export default function MyPage() {
   const [showTTSSettings, setShowTTSSettings] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [updateResult, setUpdateResult] = useState<'latest' | 'available' | 'error' | null>(null)
+  const [serverVersion, setServerVersion] = useState<string | null>(null)
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -43,8 +45,24 @@ export default function MyPage() {
 
   const handleUpdate = async () => {
     setIsUpdating(true)
+    setUpdateResult(null)
 
     try {
+      // 서버 버전 확인
+      const res = await fetch(`/version.json?t=${Date.now()}`)
+      if (res.ok) {
+        const data = await res.json()
+        setServerVersion(data.version)
+
+        if (data.version === APP_VERSION) {
+          setUpdateResult('latest')
+          setIsUpdating(false)
+          return
+        }
+
+        setUpdateResult('available')
+      }
+
       // 서비스 워커 업데이트
       if ('serviceWorker' in navigator) {
         const registration = await navigator.serviceWorker.ready
@@ -57,19 +75,19 @@ export default function MyPage() {
         await Promise.all(cacheNames.map(name => caches.delete(name)))
       }
 
-      // 페이지 새로고침
-      window.location.reload()
+      // 새 버전이 있으면 새로고침
+      setTimeout(() => window.location.reload(), 1000)
     } catch (error) {
       console.error('Update failed:', error)
-      // 실패해도 새로고침 시도
-      window.location.reload()
+      setUpdateResult('error')
+      setIsUpdating(false)
     }
   }
 
   return (
     <div className="min-h-screen bg-[#faf9f7] pb-32">
-      {/* Top safe area - 30px */}
-      <div className="h-[30px] bg-[#faf9f7]" />
+      {/* Top safe area */}
+      <div className="bg-[#faf9f7]" style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       <div className="px-6 py-8">
         <h1 className="text-2xl font-bold text-[#1a1a1a] mb-8">My</h1>
@@ -145,10 +163,18 @@ export default function MyPage() {
               className="w-full flex items-center justify-between py-3"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#f5f5f5] rounded-full flex items-center justify-center">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  updateResult === 'latest' ? 'bg-green-50' :
+                  updateResult === 'available' ? 'bg-blue-50' :
+                  'bg-[#f5f5f5]'
+                }`}>
                   {isUpdating ? (
                     <svg className="w-5 h-5 text-[#8a8a8a] animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  ) : updateResult === 'latest' ? (
+                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   ) : (
                     <svg className="w-5 h-5 text-[#8a8a8a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,8 +183,19 @@ export default function MyPage() {
                   )}
                 </div>
                 <div className="text-left">
-                  <p className="text-[#1a1a1a] font-medium">업데이트 확인</p>
-                  <p className="text-xs text-[#8a8a8a]">최신 버전으로 업데이트</p>
+                  <p className="text-[#1a1a1a] font-medium">
+                    {updateResult === 'latest' ? '최신 버전입니다' :
+                     updateResult === 'available' ? '업데이트 중...' :
+                     updateResult === 'error' ? '확인 실패' :
+                     '업데이트 확인'}
+                  </p>
+                  <p className="text-xs text-[#8a8a8a]">
+                    {updateResult === 'latest'
+                      ? `v${APP_VERSION} (최신)`
+                      : updateResult === 'available' && serverVersion
+                      ? `v${APP_VERSION} → v${serverVersion}`
+                      : `현재 v${APP_VERSION}`}
+                  </p>
                 </div>
               </div>
               <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,9 +234,15 @@ export default function MyPage() {
 
             <div className="space-y-3">
               <div className="flex items-center justify-between py-2">
-                <span className="text-[#1a1a1a]">버전</span>
-                <span className="text-[#8a8a8a]">{APP_VERSION}</span>
+                <span className="text-[#1a1a1a]">현재 버전</span>
+                <span className="text-[#8a8a8a]">v{APP_VERSION}</span>
               </div>
+              {serverVersion && serverVersion !== APP_VERSION && (
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-[#1a1a1a]">최신 버전</span>
+                  <span className="text-blue-500 font-medium">v{serverVersion}</span>
+                </div>
+              )}
               <div className="flex items-center justify-between py-2">
                 <span className="text-[#1a1a1a]">빌드 날짜</span>
                 <span className="text-[#8a8a8a]">{BUILD_DATE}</span>

@@ -111,7 +111,7 @@ export default function Home() {
         }
       `}</style>
 
-      <div className="h-[env(safe-area-inset-top,20px)]" />
+      <div style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       <div className="px-6 pt-6">
         <div className="flex items-center justify-between mb-6">

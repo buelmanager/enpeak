@@ -149,7 +149,7 @@ function TalkContent() {
 
   return (
     <main className="h-screen bg-[#faf9f7] text-[#1a1a1a] flex flex-col">
-      <div className="h-[30px] bg-[#faf9f7] flex-shrink-0" />
+      <div className="bg-[#faf9f7] flex-shrink-0" style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       <header className="bg-[#faf9f7] border-b border-[#f0f0f0] flex-shrink-0">
         <div className="max-w-2xl mx-auto px-6 py-3 flex items-center justify-between">

@@ -224,11 +224,11 @@ export default function CreateScenarioPage() {
 
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-8">
-      {/* Top safe area - 30px */}
-      <div className="h-[30px] bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" />
+      {/* Top safe area */}
+      <div className="bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
-      {/* Header - Fixed at 30px from top */}
-      <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: '30px' }}>
+      {/* Header */}
+      <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: 'env(safe-area-inset-top, 0px)' }}>
         <div className="flex items-center justify-between">
           <Link href="/" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -248,7 +248,7 @@ export default function CreateScenarioPage() {
       </header>
 
       {/* Spacer for fixed header */}
-      <div className="h-32" />
+      <div style={{ height: 'calc(env(safe-area-inset-top, 0px) + 110px)' }} />
 
       {/* Context Step */}
       {step === 'context' && (
@@ -468,7 +468,7 @@ export default function CreateScenarioPage() {
           </div>
 
           {/* Actions */}
-          <div className="fixed bottom-0 left-0 right-0 p-6 bg-[#faf9f7] border-t border-[#f0f0f0]">
+          <div className="fixed bottom-0 left-0 right-0 p-6 bg-[#faf9f7] border-t border-[#f0f0f0]" style={{ paddingBottom: 'max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px))' }}>
             <div className="flex gap-3">
               <button
                 onClick={() => setStep('chat')}

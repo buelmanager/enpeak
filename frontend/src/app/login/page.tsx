@@ -76,8 +76,8 @@ function LoginContent() {
 
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] flex flex-col">
-      {/* Top safe area - 30px */}
-      <div className="h-[30px] bg-[#faf9f7] flex-shrink-0" />
+      {/* Top safe area */}
+      <div className="bg-[#faf9f7] flex-shrink-0" style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       {/* Header */}
       <header className="px-6 pt-6 pb-8">

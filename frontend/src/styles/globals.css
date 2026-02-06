@@ -5,6 +5,8 @@
 :root {
   --safe-area-inset-top: env(safe-area-inset-top, 0px);
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
 }
 
 * {
@@ -23,6 +25,8 @@ body {
   min-height: 100dvh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   letter-spacing: -0.01em;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 /* 미니멀 스크롤바 */
@@ -87,28 +91,28 @@ body {
 
 /* Safe area padding */
 .safe-area-top {
-  padding-top: var(--safe-area-inset-top);
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .safe-area-bottom {
-  padding-bottom: max(16px, var(--safe-area-inset-bottom));
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
 }
 
-/* Tailwind-like safe area utilities - 30px 고정 */
+/* Safe area utilities using env() */
 .pt-safe {
-  padding-top: 30px;
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .pb-safe {
-  padding-bottom: 30px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .mt-safe {
-  margin-top: 30px;
+  margin-top: env(safe-area-inset-top, 0px);
 }
 
 .mb-safe {
-  margin-bottom: 30px;
+  margin-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* 버튼 스타일 - 미니멀 */

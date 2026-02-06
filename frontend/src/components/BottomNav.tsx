@@ -86,6 +86,9 @@ export default function BottomNav() {
       className="fixed bottom-0 left-0 right-0 bg-[#faf9f7] border-t border-[#f0f0f0]"
       role="navigation"
       aria-label="Main navigation"
+      style={{
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+      }}
     >
       <div className="flex items-center justify-around py-2">
         {navItems.map(item => {
@@ -110,8 +113,6 @@ export default function BottomNav() {
           )
         })}
       </div>
-      {/* Safe area padding for iOS */}
-      <div className="h-[env(safe-area-inset-bottom)] bg-[#faf9f7]" />
     </nav>
   )
 }

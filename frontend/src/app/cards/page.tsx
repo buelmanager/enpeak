@@ -197,10 +197,10 @@ export default function CardsPage() {
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-32">
       {/* Top safe area */}
-      <div className="h-[30px] bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" />
+      <div className="bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       {/* Header */}
-      <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: '30px' }}>
+      <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: 'env(safe-area-inset-top, 0px)' }}>
         <div className="flex items-center justify-between">
           <Link href="/talk" className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,8 +230,8 @@ export default function CardsPage() {
         </div>
       </header>
 
-      {/* Spacer */}
-      <div className="h-32" />
+      {/* Spacer for fixed header */}
+      <div style={{ height: 'calc(env(safe-area-inset-top, 0px) + 100px)' }} />
 
       {/* Mode Selector */}
       <div className="px-6 py-4">

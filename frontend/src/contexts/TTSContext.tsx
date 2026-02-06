@@ -204,12 +204,17 @@ export function TTSProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    utterance.onstart = () => setIsSpeaking(true)
+    utterance.onstart = () => {
+      console.log('[TTS] utterance.onstart fired')
+      setIsSpeaking(true)
+    }
     utterance.onend = () => {
+      console.log('[TTS] utterance.onend fired')
       setIsSpeaking(false)
       onEnd?.()
     }
-    utterance.onerror = () => {
+    utterance.onerror = (event) => {
+      console.error('[TTS] utterance.onerror fired:', event.error, 'charIndex:', event.charIndex)
       setIsSpeaking(false)
       onEnd?.()
     }
@@ -230,6 +235,9 @@ export function TTSProvider({ children }: { children: ReactNode }) {
 
   // 음성 재생 + 완료 콜백
   const speakWithCallback = (text: string, onEnd?: () => void) => {
+    console.log('[TTS] speakWithCallback called, text length:', text.length, 'text:', text.substring(0, 80))
+    console.log('[TTS] speechSynthesis available:', 'speechSynthesis' in window)
+
     if (!('speechSynthesis' in window)) {
       console.log('[TTS] speechSynthesis not available, calling onEnd')
       onEnd?.()
@@ -237,21 +245,26 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     }
 
     const synth = window.speechSynthesis
+    console.log('[TTS] Before cancel - speaking:', synth.speaking, 'pending:', synth.pending, 'paused:', synth.paused)
     synth.cancel() // 기존 재생 중지
+    console.log('[TTS] After cancel - speaking:', synth.speaking, 'pending:', synth.pending)
 
     const utterance = createUtterance(text, () => {
-      console.log('[TTS] utterance ended, calling onEnd callback')
+      console.log('[TTS] utterance onend fired, calling onEnd callback')
       onEnd?.()
     })
 
-    console.log('[TTS] Starting speech:', text.substring(0, 50) + '...')
+    console.log('[TTS] utterance created, voice:', utterance.voice?.name, 'lang:', utterance.lang, 'rate:', utterance.rate, 'pitch:', utterance.pitch)
+    console.log('[TTS] Calling synth.speak()...')
     synth.speak(utterance)
+    console.log('[TTS] After synth.speak() - speaking:', synth.speaking, 'pending:', synth.pending)
 
     // Chrome에서 TTS가 시작되지 않을 경우를 위한 타임아웃
     // (autoplay policy로 인해 발생할 수 있음)
     setTimeout(() => {
+      console.log('[TTS] 500ms timeout check - speaking:', synth.speaking, 'pending:', synth.pending, 'paused:', synth.paused)
       if (!synth.speaking && !synth.pending) {
-        console.log('[TTS] Speech did not start (possibly blocked), calling onEnd')
+        console.warn('[TTS] Speech did not start after 500ms (possibly blocked by autoplay policy), calling onEnd')
         setIsSpeaking(false)
         onEnd?.()
       }
@@ -260,8 +273,11 @@ export function TTSProvider({ children }: { children: ReactNode }) {
 
   // 재생 중지
   const stop = () => {
+    console.log('[TTS] stop() called')
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel()
+      const synth = window.speechSynthesis
+      console.log('[TTS] stop - before cancel: speaking:', synth.speaking, 'pending:', synth.pending)
+      synth.cancel()
       setIsSpeaking(false)
     }
   }
