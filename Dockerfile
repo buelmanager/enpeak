@@ -20,11 +20,14 @@ COPY backend/ ./backend/
 # DATA_VERSION: 2026-01-31-v2
 ARG DATA_CACHE_BUST=2026-01-31-v2
 
-# Copy data (scenarios - 112 files)
+# Copy data (scenarios + rag_chunks)
 COPY data/ ./data/
 
-# Create directories
-RUN mkdir -p ./vectordb
+# Copy indexing script
+COPY scripts/index_to_chromadb.py ./scripts/index_to_chromadb.py
+
+# Build ChromaDB index from rag_chunks
+RUN mkdir -p ./vectordb && python scripts/index_to_chromadb.py
 
 # Environment
 ENV PYTHONUNBUFFERED=1
