@@ -1,6 +1,6 @@
 ---
 title: EnPeak
-emoji: EN
+emoji: 🗣️
 colorFrom: blue
 colorTo: green
 sdk: docker
