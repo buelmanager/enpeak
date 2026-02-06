@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
+import { useTTS } from '@/contexts/TTSContext'
 import WordPopup from './WordPopup'
 
 interface Message {
@@ -16,6 +17,8 @@ interface MessageBubbleProps {
   message: Message
   onSpeak?: (text: string) => void
   onSuggestionClick?: (suggestion: string) => void
+  onPronunciationPractice?: (text: string) => void
+  onWordLookup?: () => void
   isLatest?: boolean
 }
 
@@ -51,8 +54,9 @@ function extractKorean(text: string): { english: string; korean: string | null }
   return { english: text, korean: null }
 }
 
-export default function MessageBubble({ message, onSpeak, onSuggestionClick, isLatest }: MessageBubbleProps) {
+export default function MessageBubble({ message, onSpeak, onSuggestionClick, onPronunciationPractice, onWordLookup, isLatest }: MessageBubbleProps) {
   const isUser = message.role === 'user'
+  const { speak: ttsSpeak } = useTTS()
   const [showKorean, setShowKorean] = useState(false)
   const [showBetterExpressions, setShowBetterExpressions] = useState(true)
   const [translatedText, setTranslatedText] = useState<string | null>(null)
@@ -77,9 +81,10 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
           word: pressedWord.current,
           position: { x: rect.left, y: rect.bottom }
         })
+        onWordLookup?.()
       }
     }, LONG_PRESS_DURATION)
-  }, [])
+  }, [onWordLookup])
 
   const handleWordRelease = useCallback(() => {
     if (longPressTimer.current) {
@@ -165,22 +170,8 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
   const handleSpeak = () => {
     if (onSpeak) {
       onSpeak(english)
-    } else if ('speechSynthesis' in window) {
-      const synth = window.speechSynthesis
-      synth.cancel() // 기존 재생 중지
-
-      const utterance = new SpeechSynthesisUtterance(english)
-      utterance.lang = 'en-US'
-      utterance.rate = 0.85
-
-      // 영어 음성 찾기
-      const voices = synth.getVoices()
-      const englishVoice = voices.find(v => v.lang.startsWith('en-'))
-      if (englishVoice) {
-        utterance.voice = englishVoice
-      }
-
-      synth.speak(utterance)
+    } else {
+      ttsSpeak(english)
     }
   }
 
@@ -273,6 +264,20 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, isL
                 </svg>
               )}
             </button>
+
+            {/* 발음 연습 버튼 */}
+            {onPronunciationPractice && (
+              <button
+                onClick={() => onPronunciationPractice(english)}
+                className="p-1.5 text-[#c5c5c5] hover:text-[#1a1a1a] transition-colors"
+                title="발음 연습"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 4l-4 4m4 0l-4-4" />
+                </svg>
+              </button>
+            )}
           </div>
         )}
 

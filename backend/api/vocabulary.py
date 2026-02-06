@@ -737,6 +737,71 @@ def search_example_sentences(word: str) -> List[Dict]:
     return examples[:10]
 
 
+@router.get("/lookup")
+async def lookup_word(word: str, request: Request):
+    """
+    단어 뜻 조회 API
+    - RAG 데이터에서 먼저 검색
+    - 없으면 LLM으로 생성
+    """
+    word = word.strip().lower()
+    if not word:
+        raise HTTPException(status_code=400, detail="Word is required")
+
+    # 1. vocabulary_chunks.json에서 검색
+    vocab_chunks_file = DATA_DIR / "rag_chunks" / "vocabulary_chunks.json"
+    if vocab_chunks_file.exists():
+        try:
+            with open(vocab_chunks_file, "r", encoding="utf-8") as f:
+                chunks = json.load(f)
+            for chunk in chunks:
+                chunk_word = (chunk.get("word") or chunk.get("metadata", {}).get("word", "")).lower()
+                if chunk_word == word:
+                    meaning = chunk.get("meaning") or chunk.get("metadata", {}).get("meaning_ko", "")
+                    example = chunk.get("example") or chunk.get("metadata", {}).get("example", "")
+                    pronunciation = chunk.get("metadata", {}).get("pronunciation", "")
+                    return {
+                        "word": word,
+                        "meaning": meaning,
+                        "pronunciation": pronunciation or None,
+                        "examples": [example] if example else [],
+                    }
+        except Exception:
+            pass
+
+    # 2. LLM으로 뜻 생성
+    llm = getattr(request.app.state, "llm", None)
+    if llm:
+        try:
+            prompt = f'Translate the English word "{word}" to Korean. Output ONLY the Korean meaning (1-3 words). No explanation.'
+            meaning = llm.generate(
+                prompt=prompt,
+                system_prompt="You are a dictionary. Output only the Korean translation.",
+                max_tokens=30,
+                temperature=0.3,
+            ).strip()
+
+            # 예문 생성
+            example_prompt = f'Write one short example sentence using "{word}". Output ONLY the sentence.'
+            example = llm.generate(
+                prompt=example_prompt,
+                system_prompt="Output only the example sentence.",
+                max_tokens=40,
+                temperature=0.5,
+            ).strip()
+
+            return {
+                "word": word,
+                "meaning": meaning,
+                "pronunciation": None,
+                "examples": [example] if example else [],
+            }
+        except Exception as e:
+            print(f"LLM lookup error: {e}")
+
+    raise HTTPException(status_code=404, detail="Word not found")
+
+
 @router.post("/add", response_model=VocabularyResponse)
 async def add_vocabulary(word_input: WordInput, request: Request):
     """
@@ -941,7 +1006,7 @@ async def remove_vocabulary(word: str, user_id: str = "default"):
 
 
 @router.get("/level/{level}")
-async def get_vocabulary_by_level(level: str, limit: int = 10):
+async def get_vocabulary_by_level(level: str, limit: int = 500):
     """
     레벨별 단어 조회 (A1-C2)
     """

@@ -5,6 +5,7 @@ import { syncToFirebaseIfLoggedIn } from '@/lib/userDataSync'
 
 export interface ConversationSettings {
   inputMode: 'voice' | 'text'  // 입력 방식: 음성 또는 텍스트
+  sttFallbackEnabled: boolean  // 백엔드 Whisper STT 폴백 사용 여부
 }
 
 interface ConversationSettingsContextType {
@@ -18,6 +19,7 @@ const ConversationSettingsContext = createContext<ConversationSettingsContextTyp
 
 const DEFAULT_SETTINGS: ConversationSettings = {
   inputMode: 'voice',  // 기본값: 음성 입력
+  sttFallbackEnabled: true,  // 기본값: 폴백 활성화
 }
 
 const STORAGE_KEY = 'enpeak-conversation-settings'

@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react'
 import { syncToFirebaseIfLoggedIn } from '@/lib/userDataSync'
 
 export interface TTSVoice {
@@ -10,18 +10,28 @@ export interface TTSVoice {
   voiceURI: string
 }
 
+export interface HDVoice {
+  id: string
+  name: string
+  gender: 'male' | 'female'
+  accent: string
+}
+
 interface TTSSettings {
   selectedVoice: TTSVoice | null
   rate: number  // 0.5 - 2.0
   pitch: number // 0.5 - 2.0
+  ttsMode: 'device' | 'hd'
+  hdVoice: string
 }
 
 interface TTSContextType {
   voices: TTSVoice[]
+  hdVoices: HDVoice[]
   settings: TTSSettings
   setSettings: (settings: TTSSettings) => void
   speak: (text: string) => void
-  speakWithCallback: (text: string, onEnd?: () => void) => void
+  speakWithCallback: (text: string, onEnd?: () => void, lang?: string) => void
   stop: () => void
   isSpeaking: boolean
   isLoaded: boolean
@@ -29,11 +39,25 @@ interface TTSContextType {
 
 const TTSContext = createContext<TTSContextType | null>(null)
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
+
+export const HD_VOICES: HDVoice[] = [
+  { id: 'en-US-AriaNeural', name: 'Aria', gender: 'female', accent: 'US' },
+  { id: 'en-US-JennyNeural', name: 'Jenny', gender: 'female', accent: 'US' },
+  { id: 'en-US-GuyNeural', name: 'Guy', gender: 'male', accent: 'US' },
+  { id: 'en-US-AnaNeural', name: 'Ana', gender: 'female', accent: 'US' },
+  { id: 'en-GB-SoniaNeural', name: 'Sonia', gender: 'female', accent: 'UK' },
+  { id: 'en-GB-RyanNeural', name: 'Ryan', gender: 'male', accent: 'UK' },
+  { id: 'en-AU-NatashaNeural', name: 'Natasha', gender: 'female', accent: 'AU' },
+]
+
 // 기본 설정
 const DEFAULT_SETTINGS: TTSSettings = {
   selectedVoice: null,
   rate: 1.0,
   pitch: 1.2,
+  ttsMode: 'hd',
+  hdVoice: 'en-US-AriaNeural',
 }
 
 // 모바일 우선 음성 순위 (iOS/Android에서 품질 좋은 음성)
@@ -77,15 +101,38 @@ function detectGender(voice: SpeechSynthesisVoice): 'male' | 'female' | 'unknown
   return 'unknown'
 }
 
+// HD TTS 오디오 캐시 (최대 50개)
+const audioCache = new Map<string, string>()
+const MAX_CACHE_SIZE = 50
+
+function getCacheKey(text: string, voice: string, rate: number): string {
+  return `${voice}:${rate}:${text}`
+}
+
+function addToCache(key: string, blobUrl: string) {
+  if (audioCache.size >= MAX_CACHE_SIZE) {
+    // 가장 오래된 항목 삭제
+    const firstKey = audioCache.keys().next().value
+    if (firstKey) {
+      const oldUrl = audioCache.get(firstKey)
+      if (oldUrl) URL.revokeObjectURL(oldUrl)
+      audioCache.delete(firstKey)
+    }
+  }
+  audioCache.set(key, blobUrl)
+}
+
 export function TTSProvider({ children }: { children: ReactNode }) {
   const [voices, setVoices] = useState<TTSVoice[]>([])
   const [settings, setSettingsState] = useState<TTSSettings>(DEFAULT_SETTINGS)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   // 음성 목록 로드
   useEffect(() => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      setIsLoaded(true)
       return
     }
 
@@ -119,6 +166,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
           // 저장된 음성이 사용 가능한지 확인
           const savedVoice = englishVoices.find(v => v.voiceURI === parsed.selectedVoice?.voiceURI)
           setSettingsState({
+            ...DEFAULT_SETTINGS,
             ...parsed,
             selectedVoice: savedVoice || englishVoices[0] || null,
           })
@@ -173,35 +221,36 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     syncToFirebaseIfLoggedIn({ ttsSettings: newSettings })
   }
 
-  // 음성 재생 (내부 헬퍼)
-  const createUtterance = (text: string, onEnd?: () => void): SpeechSynthesisUtterance => {
+  // ===== Web Speech API (기기 음성) =====
+
+  const createUtterance = (text: string, onEnd?: () => void, lang?: string): SpeechSynthesisUtterance => {
     const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = 'en-US'
-    // 값이 유효한지 확인하고 기본값 적용
-    utterance.rate = Number.isFinite(settings.rate) ? settings.rate : DEFAULT_SETTINGS.rate
+    const targetLang = lang || 'en-US'
+    utterance.lang = targetLang
+    const isNonEnglish = targetLang && !targetLang.startsWith('en')
+    utterance.rate = isNonEnglish ? 0.9 : (Number.isFinite(settings.rate) ? settings.rate : DEFAULT_SETTINGS.rate)
     utterance.pitch = Number.isFinite(settings.pitch) ? settings.pitch : DEFAULT_SETTINGS.pitch
 
     const synth = window.speechSynthesis
     const availableVoices = synth.getVoices()
 
-    // 선택된 음성 찾기
-    if (settings.selectedVoice) {
+    const langPrefix = targetLang.split('-')[0]
+
+    if (langPrefix !== 'en') {
+      // 비영어: 해당 언어 음성 자동 선택
+      const langVoice = availableVoices.find(v => v.lang.startsWith(langPrefix))
+      if (langVoice) utterance.voice = langVoice
+    } else if (settings.selectedVoice) {
       const voice = availableVoices.find(v => v.voiceURI === settings.selectedVoice?.voiceURI)
       if (voice) {
         utterance.voice = voice
       } else {
-        // 선택된 음성을 찾을 수 없으면 영어 음성 사용
         const englishVoice = availableVoices.find(v => v.lang.startsWith('en'))
-        if (englishVoice) {
-          utterance.voice = englishVoice
-        }
+        if (englishVoice) utterance.voice = englishVoice
       }
     } else {
-      // 선택된 음성이 없으면 영어 음성 사용
       const englishVoice = availableVoices.find(v => v.lang.startsWith('en'))
-      if (englishVoice) {
-        utterance.voice = englishVoice
-      }
+      if (englishVoice) utterance.voice = englishVoice
     }
 
     utterance.onstart = () => {
@@ -222,69 +271,168 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     return utterance
   }
 
-  // 음성 재생
-  const speak = (text: string) => {
+  const speakWebSpeech = (text: string) => {
     if (!('speechSynthesis' in window)) return
 
     const synth = window.speechSynthesis
-    synth.cancel() // 기존 재생 중지
+    synth.cancel()
 
     const utterance = createUtterance(text)
     synth.speak(utterance)
   }
 
-  // 음성 재생 + 완료 콜백
-  const speakWithCallback = (text: string, onEnd?: () => void) => {
-    console.log('[TTS] speakWithCallback called, text length:', text.length, 'text:', text.substring(0, 80))
-    console.log('[TTS] speechSynthesis available:', 'speechSynthesis' in window)
+  const speakWebSpeechWithCallback = (text: string, onEnd?: () => void, lang?: string) => {
+    console.log('[TTS] speakWebSpeechWithCallback called, text length:', text.length, 'lang:', lang)
 
     if (!('speechSynthesis' in window)) {
-      console.log('[TTS] speechSynthesis not available, calling onEnd')
       onEnd?.()
       return
     }
 
     const synth = window.speechSynthesis
-    console.log('[TTS] Before cancel - speaking:', synth.speaking, 'pending:', synth.pending, 'paused:', synth.paused)
-    synth.cancel() // 기존 재생 중지
-    console.log('[TTS] After cancel - speaking:', synth.speaking, 'pending:', synth.pending)
+    synth.cancel()
 
-    const utterance = createUtterance(text, () => {
-      console.log('[TTS] utterance onend fired, calling onEnd callback')
-      onEnd?.()
-    })
-
-    console.log('[TTS] utterance created, voice:', utterance.voice?.name, 'lang:', utterance.lang, 'rate:', utterance.rate, 'pitch:', utterance.pitch)
-    console.log('[TTS] Calling synth.speak()...')
+    const utterance = createUtterance(text, onEnd, lang)
     synth.speak(utterance)
-    console.log('[TTS] After synth.speak() - speaking:', synth.speaking, 'pending:', synth.pending)
 
     // Chrome에서 TTS가 시작되지 않을 경우를 위한 타임아웃
-    // (autoplay policy로 인해 발생할 수 있음)
     setTimeout(() => {
-      console.log('[TTS] 500ms timeout check - speaking:', synth.speaking, 'pending:', synth.pending, 'paused:', synth.paused)
       if (!synth.speaking && !synth.pending) {
-        console.warn('[TTS] Speech did not start after 500ms (possibly blocked by autoplay policy), calling onEnd')
+        console.warn('[TTS] Speech did not start after 500ms, calling onEnd')
         setIsSpeaking(false)
         onEnd?.()
       }
     }, 500)
   }
 
-  // 재생 중지
+  // ===== HD TTS (Edge TTS via backend) =====
+
+  const speakHD = async (text: string, onEnd?: () => void) => {
+    console.log('[TTS-HD] speakHD called, text length:', text.length)
+
+    // 기존 재생 중지
+    stopAudio()
+
+    // UI 피드백 즉시 제공
+    setIsSpeaking(true)
+
+    const cacheKey = getCacheKey(text, settings.hdVoice, settings.rate)
+    let blobUrl = audioCache.get(cacheKey)
+
+    if (!blobUrl) {
+      try {
+        const response = await fetch(`${API_BASE}/api/speech/tts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text,
+            language: 'en',
+            speed: settings.rate,
+            voice: settings.hdVoice,
+            engine: 'edge',
+          }),
+        })
+
+        if (!response.ok) throw new Error(`TTS API error: ${response.status}`)
+
+        const data = await response.json()
+        const audioBytes = Uint8Array.from(atob(data.audio_base64), c => c.charCodeAt(0))
+        const blob = new Blob([audioBytes], { type: 'audio/mp3' })
+        blobUrl = URL.createObjectURL(blob)
+        addToCache(cacheKey, blobUrl)
+      } catch (error) {
+        console.warn('[TTS-HD] Failed, falling back to device voice:', error)
+        setIsSpeaking(false)
+        // Web Speech API 폴백
+        if (onEnd) {
+          speakWebSpeechWithCallback(text, onEnd)
+        } else {
+          speakWebSpeech(text)
+        }
+        return
+      }
+    }
+
+    try {
+      const audio = new Audio(blobUrl)
+      audioRef.current = audio
+
+      audio.onended = () => {
+        console.log('[TTS-HD] audio.onended fired')
+        audioRef.current = null
+        setIsSpeaking(false)
+        onEnd?.()
+      }
+      audio.onerror = () => {
+        console.error('[TTS-HD] audio.onerror fired')
+        audioRef.current = null
+        setIsSpeaking(false)
+        // 재생 실패 시 Web Speech API 폴백
+        if (onEnd) {
+          speakWebSpeechWithCallback(text, onEnd)
+        } else {
+          speakWebSpeech(text)
+        }
+      }
+
+      await audio.play()
+    } catch (error) {
+      console.warn('[TTS-HD] audio.play() failed, falling back:', error)
+      audioRef.current = null
+      setIsSpeaking(false)
+      if (onEnd) {
+        speakWebSpeechWithCallback(text, onEnd)
+      } else {
+        speakWebSpeech(text)
+      }
+    }
+  }
+
+  // ===== 통합 인터페이스 =====
+
+  const speak = (text: string) => {
+    if (settings.ttsMode === 'hd') {
+      speakHD(text)
+    } else {
+      speakWebSpeech(text)
+    }
+  }
+
+  const speakWithCallback = (text: string, onEnd?: () => void, lang?: string) => {
+    console.log('[TTS] speakWithCallback called, mode:', settings.ttsMode, 'lang:', lang)
+    // 비영어는 HD TTS 미지원, Web Speech API 직접 사용
+    if (lang && !lang.startsWith('en')) {
+      speakWebSpeechWithCallback(text, onEnd, lang)
+      return
+    }
+    if (settings.ttsMode === 'hd') {
+      speakHD(text, onEnd)
+    } else {
+      speakWebSpeechWithCallback(text, onEnd)
+    }
+  }
+
+  const stopAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+      audioRef.current = null
+    }
+  }
+
   const stop = () => {
     console.log('[TTS] stop() called')
+    stopAudio()
     if ('speechSynthesis' in window) {
-      const synth = window.speechSynthesis
-      console.log('[TTS] stop - before cancel: speaking:', synth.speaking, 'pending:', synth.pending)
-      synth.cancel()
-      setIsSpeaking(false)
+      window.speechSynthesis.cancel()
     }
+    setIsSpeaking(false)
   }
 
   return (
     <TTSContext.Provider value={{
       voices,
+      hdVoices: HD_VOICES,
       settings,
       setSettings,
       speak,

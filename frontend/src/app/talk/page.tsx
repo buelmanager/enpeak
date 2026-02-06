@@ -17,16 +17,6 @@ interface DailyExpression {
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
-// Preset situations for free chat
-const PRESET_SITUATIONS = [
-  { id: 'cafe', label: '카페 주문', situation: 'You are a barista at a coffee shop. The customer (user) is ordering.' },
-  { id: 'restaurant', label: '레스토랑', situation: 'You are a waiter at a restaurant. Help the customer (user) with their order.' },
-  { id: 'hotel', label: '호텔 체크인', situation: 'You are a hotel receptionist. The guest (user) is checking in.' },
-  { id: 'airport', label: '공항', situation: 'You are an airport staff member. Help the traveler (user) with their questions.' },
-  { id: 'shopping', label: '쇼핑', situation: 'You are a shop assistant. Help the customer (user) find what they need.' },
-  { id: 'interview', label: '면접', situation: 'You are an interviewer conducting a job interview with the candidate (user).' },
-]
-
 // Fallback expressions for when API fails
 const FALLBACK_EXPRESSIONS: DailyExpression[] = [
   {
@@ -72,7 +62,6 @@ function TalkContent() {
   const initializedRef = useRef(false)
   const chatKeyRef = useRef(0)
   const [expressionLoading, setExpressionLoading] = useState(false)
-  const [showSituationPicker, setShowSituationPicker] = useState(false)
 
   const fetchExpression = useCallback(async (forceRandom = false) => {
     setExpressionLoading(true)
@@ -123,8 +112,7 @@ function TalkContent() {
       clearConversation()
       setMode(newMode)
       chatKeyRef.current += 1
-      setShowSituationPicker(false)
-      
+
       if (newMode === 'expression') {
         fetchExpression()
       }
@@ -136,9 +124,8 @@ function TalkContent() {
     fetchExpression(true)
   }
 
-  const handleSituationSelect = (situation: string) => {
-    setSituation({ situation })
-    setShowSituationPicker(false)
+  const handleSituationSet = (situation: string, label: string) => {
+    setSituation({ situation, label })
     chatKeyRef.current += 1
   }
 
@@ -158,7 +145,7 @@ function TalkContent() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <h1 className="text-sm font-medium">Talk</h1>
+          <h1 className="text-xl font-medium">Talk</h1>
           <div className="w-5" />
         </div>
       </header>
@@ -169,69 +156,6 @@ function TalkContent() {
           <ModeSelector currentMode={mode} onModeChange={handleModeChange} />
         </div>
       </div>
-
-      {/* Free Mode - Situation Setting */}
-      {mode === 'free' && (
-        <div className="bg-[#faf9f7] flex-shrink-0">
-          <div className="max-w-2xl mx-auto px-6 pb-4">
-            {situationData ? (
-              <div className="bg-white rounded-2xl p-4 border border-[#f0f0f0]">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center">
-                      <svg className="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <span className="text-sm font-medium text-[#1a1a1a]">
-                      {PRESET_SITUATIONS.find(s => s.situation === situationData.situation)?.label || '상황 설정됨'}
-                    </span>
-                  </div>
-                  <button
-                    onClick={handleSituationClear}
-                    className="px-3 py-1.5 text-xs font-medium text-[#666] bg-[#f5f5f5] rounded-lg hover:bg-[#eee] transition-colors"
-                  >
-                    해제
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <button
-                  onClick={() => setShowSituationPicker(!showSituationPicker)}
-                  className="w-full bg-white rounded-2xl p-4 border border-[#f0f0f0] flex items-center justify-between hover:border-[#d0d0d0] transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center">
-                      <svg className="w-4 h-4 text-[#666]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                    </div>
-                    <span className="text-sm text-[#666]">상황 설정하기</span>
-                  </div>
-                  <svg className={`w-4 h-4 text-[#666] transition-transform ${showSituationPicker ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {showSituationPicker && (
-                  <div className="mt-3 grid grid-cols-3 gap-2">
-                    {PRESET_SITUATIONS.map((item) => (
-                      <button
-                        key={item.id}
-                        onClick={() => handleSituationSelect(item.situation)}
-                        className="bg-white rounded-xl p-3 border border-[#f0f0f0] hover:border-[#1a1a1a] transition-colors text-center"
-                      >
-                        <span className="text-sm font-medium text-[#1a1a1a]">{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* Expression Card */}
       {mode === 'expression' && (
@@ -263,11 +187,14 @@ function TalkContent() {
 
       {/* Chat Area */}
       <div className="max-w-2xl mx-auto w-full flex-1 overflow-hidden">
-        <ChatWindow 
-          key={chatKeyRef.current} 
+        <ChatWindow
+          key={chatKeyRef.current}
           mode={mode}
           practiceExpression={mode === 'expression' && expressionData ? expressionData : undefined}
           situation={mode === 'free' && situationData ? situationData.situation : undefined}
+          situationLabel={mode === 'free' && situationData ? situationData.label : undefined}
+          onSituationSet={handleSituationSet}
+          onSituationClear={handleSituationClear}
         />
       </div>
 

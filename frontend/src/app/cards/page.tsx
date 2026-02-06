@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
 import { useTTS } from '@/contexts/TTSContext'
 import { addLearningRecord } from '@/lib/learningHistory'
+import { getSavedWords, removeWord, SavedWord } from '@/lib/savedWords'
 
 interface VocabWord {
   word: string
@@ -38,6 +40,7 @@ const LEVEL_COLORS: Record<string, string> = {
 }
 
 export default function CardsPage() {
+  const router = useRouter()
   const { speak } = useTTS()
   const [state, setState] = useState<LearningState>({
     currentWord: null,
@@ -58,11 +61,47 @@ export default function CardsPage() {
   const [expandedWord, setExpandedWord] = useState<string | null>(null)
   const [relatedContent, setRelatedContent] = useState<any>(null)
   const [loadingExpand, setLoadingExpand] = useState(false)
+  const [tab, setTab] = useState<'level' | 'saved'>('level')
+  const [savedWords, setSavedWords] = useState<SavedWord[]>([])
+
+  useEffect(() => {
+    setSavedWords(getSavedWords())
+  }, [tab])
 
   const fetchWords = useCallback(async (level: string) => {
     setLoading(true)
     try {
-      const response = await fetch(`${API_BASE}/api/vocabulary/level/${level}?limit=20`)
+      // 정적 파일에서 전체 단어 로드
+      const response = await fetch('/data/vocabulary.json')
+      if (response.ok) {
+        const data = await response.json()
+        const levelWords: { w: string; m: string; e: string }[] = data[level] || []
+        if (levelWords.length > 0) {
+          // 셔플
+          const shuffled = [...levelWords].sort(() => Math.random() - 0.5)
+          const words: VocabWord[] = shuffled.map(v => ({
+            word: v.w,
+            meaning: v.m,
+            level,
+            example: v.e || undefined,
+          }))
+          setState(prev => ({
+            ...prev,
+            words,
+            currentWord: words[0],
+            currentIndex: 0,
+            currentLevel: level,
+            revealed: false,
+          }))
+          return
+        }
+      }
+    } catch {
+      // 정적 파일 실패 시 API 폴백
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/api/vocabulary/level/${level}?limit=500`)
       if (response.ok) {
         const data = await response.json()
         if (data.words?.length > 0) {
@@ -74,34 +113,32 @@ export default function CardsPage() {
             currentLevel: level,
             revealed: false,
           }))
+          return
         }
       }
-    } catch (error) {
-      console.log('Using sample words')
-      const sampleWords: VocabWord[] = [
-        { word: 'hello', meaning: '안녕하세요', level: 'A1', example: 'Hello, how are you?', example_ko: '안녕하세요, 어떻게 지내세요?' },
-        { word: 'goodbye', meaning: '안녕히 가세요', level: 'A1', example: 'Goodbye, see you later!', example_ko: '안녕히 가세요, 나중에 봐요!' },
-        { word: 'thank you', meaning: '감사합니다', level: 'A1', example: 'Thank you for your help.', example_ko: '도와주셔서 감사합니다.' },
-        { word: 'please', meaning: '부탁드립니다', level: 'A1', example: 'Please help me.', example_ko: '도와주세요.' },
-        { word: 'sorry', meaning: '죄송합니다', level: 'A1', example: "I'm sorry for being late.", example_ko: '늦어서 죄송합니다.' },
-        { word: 'friend', meaning: '친구', level: 'A1', example: 'She is my best friend.', example_ko: '그녀는 내 가장 친한 친구야.' },
-        { word: 'family', meaning: '가족', level: 'A1', example: 'I love my family.', example_ko: '나는 가족을 사랑해.' },
-        { word: 'water', meaning: '물', level: 'A1', example: 'Can I have some water?', example_ko: '물 좀 주시겠어요?' },
-        { word: 'food', meaning: '음식', level: 'A1', example: 'The food is delicious.', example_ko: '음식이 맛있어요.' },
-        { word: 'happy', meaning: '행복한', level: 'A1', example: "I'm so happy today!", example_ko: '오늘 정말 행복해!' },
-      ]
-      setState(prev => ({
-        ...prev,
-        words: sampleWords,
-        currentWord: sampleWords[0],
-        currentIndex: 0,
-        currentLevel: level,
-        revealed: false,
-      }))
-    } finally {
-      setLoading(false)
+    } catch {
+      // API도 실패
     }
+
+    // 최종 폴백
+    const sampleWords: VocabWord[] = [
+      { word: 'hello', meaning: '안녕하세요', level: 'A1', example: 'Hello, how are you?' },
+      { word: 'goodbye', meaning: '안녕히 가세요', level: 'A1', example: 'Goodbye, see you later!' },
+      { word: 'thank you', meaning: '감사합니다', level: 'A1', example: 'Thank you for your help.' },
+      { word: 'happy', meaning: '행복한', level: 'A1', example: "I'm so happy today!" },
+    ]
+    setState(prev => ({
+      ...prev,
+      words: sampleWords,
+      currentWord: sampleWords[0],
+      currentIndex: 0,
+      currentLevel: level,
+      revealed: false,
+    }))
   }, [])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { setLoading(false) }, [state.words])
 
   useEffect(() => {
     fetchWords('A1')
@@ -202,38 +239,118 @@ export default function CardsPage() {
       {/* Header */}
       <header className="fixed left-0 right-0 z-10 bg-[#faf9f7] border-b border-[#f0f0f0] px-6 py-4" style={{ top: 'env(safe-area-inset-top, 0px)' }}>
         <div className="flex items-center justify-between">
-          <Link href="/talk" className="p-2 -ml-2">
+          <button onClick={() => router.back()} className="p-2 -ml-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
             </svg>
-          </Link>
+          </button>
           <h1 className="font-medium">Cards</h1>
           <div className="flex items-center gap-2">
-            <span className={`px-2 py-1 rounded text-xs text-white ${LEVEL_COLORS[state.currentLevel]}`}>
-              {state.currentLevel}
-            </span>
+            {tab === 'level' && (
+              <span className={`px-2 py-1 rounded text-xs text-white ${LEVEL_COLORS[state.currentLevel]}`}>
+                {state.currentLevel}
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Progress */}
-        <div className="mt-3">
-          <div className="flex items-center justify-between text-xs text-[#8a8a8a] mb-1">
-            <span>{state.currentIndex + 1} / {state.words.length}</span>
-            <span>학습: {state.learnedCount}개</span>
-          </div>
-          <div className="h-1.5 bg-[#e5e5e5] rounded-full overflow-hidden">
-            <div
-              className={`h-full transition-all duration-300 ${LEVEL_COLORS[state.currentLevel]}`}
-              style={{ width: `${((state.currentIndex + 1) / state.words.length) * 100}%` }}
-            />
-          </div>
+        {/* Tab Selector */}
+        <div className="flex mt-3 bg-[#f0f0f0] rounded-xl p-0.5">
+          <button
+            onClick={() => setTab('level')}
+            className={`flex-1 py-1.5 rounded-[10px] text-[13px] font-medium transition-all ${
+              tab === 'level' ? 'bg-white text-[#1a1a1a] shadow-sm' : 'text-[#8a8a8a]'
+            }`}
+          >
+            레벨별
+          </button>
+          <button
+            onClick={() => setTab('saved')}
+            className={`flex-1 py-1.5 rounded-[10px] text-[13px] font-medium transition-all relative ${
+              tab === 'saved' ? 'bg-white text-[#1a1a1a] shadow-sm' : 'text-[#8a8a8a]'
+            }`}
+          >
+            내 단어장
+            {savedWords.length > 0 && tab !== 'saved' && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
+                {savedWords.length}
+              </span>
+            )}
+          </button>
         </div>
+
+        {/* Progress (level tab only) */}
+        {tab === 'level' && (
+          <div className="mt-3">
+            <div className="flex items-center justify-between text-xs text-[#8a8a8a] mb-1">
+              <span>{state.currentIndex + 1} / {state.words.length}</span>
+              <span>학습: {state.learnedCount}개</span>
+            </div>
+            <div className="h-1.5 bg-[#e5e5e5] rounded-full overflow-hidden">
+              <div
+                className={`h-full transition-all duration-300 ${LEVEL_COLORS[state.currentLevel]}`}
+                style={{ width: `${((state.currentIndex + 1) / state.words.length) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Spacer for fixed header */}
-      <div style={{ height: 'calc(env(safe-area-inset-top, 0px) + 100px)' }} />
+      <div style={{ height: `calc(env(safe-area-inset-top, 0px) + ${tab === 'level' ? '160px' : '120px'})` }} />
 
-      {/* Mode Selector */}
+      {/* Saved Words Tab */}
+      {tab === 'saved' && (
+        <div className="px-6 py-4">
+          {savedWords.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <svg className="w-12 h-12 text-[#d5d5d5] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              <p className="text-[#8a8a8a] text-sm mb-1">저장된 단어가 없습니다</p>
+              <p className="text-[#c5c5c5] text-xs">대화 중 모르는 단어를 길게 눌러 저장해보세요</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {savedWords.map((sw) => (
+                <div key={sw.word} className="bg-white rounded-xl border border-[#f0f0f0] p-4 flex items-start justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-medium text-[#1a1a1a]">{sw.word}</span>
+                      <button
+                        onClick={() => speak(sw.word)}
+                        className="text-[#8a8a8a] hover:text-[#1a1a1a] flex-shrink-0"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p className="text-sm text-[#666]">{sw.meaning}</p>
+                    {sw.example && (
+                      <p className="text-xs text-[#8a8a8a] mt-1 italic">{sw.example}</p>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => {
+                      removeWord(sw.word)
+                      setSavedWords(getSavedWords())
+                    }}
+                    className="text-[#c5c5c5] hover:text-red-400 p-1 flex-shrink-0"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Mode Selector (level tab only) */}
+      {tab === 'level' && (
       <div className="px-6 py-4">
         <div className="flex gap-2">
           <button
@@ -258,9 +375,10 @@ export default function CardsPage() {
           </button>
         </div>
       </div>
+      )}
 
       {/* Flashcard */}
-      {state.currentWord && (
+      {tab === 'level' && state.currentWord && (
         <div className="px-6">
           <div
             className="bg-white rounded-3xl border border-[#f0f0f0] p-8 min-h-[280px] flex flex-col items-center justify-center cursor-pointer active:bg-[#fafafa] transition-colors"
@@ -435,6 +553,7 @@ export default function CardsPage() {
       )}
 
       {/* Level Selector */}
+      {tab === 'level' && (
       <div className="px-6 mt-8">
         <p className="text-sm font-medium mb-3">레벨 선택</p>
         <div className="flex gap-2 overflow-x-auto pb-2" data-testid="level-selector">
@@ -454,6 +573,7 @@ export default function CardsPage() {
           ))}
         </div>
       </div>
+      )}
 
       <style jsx>{`
         @keyframes fade-in {

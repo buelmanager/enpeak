@@ -19,6 +19,7 @@ class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2000, description="User message")
     conversation_id: Optional[str] = Field(None, description="Conversation session ID")
     user_level: Optional[str] = Field("intermediate", description="beginner/intermediate/advanced")
+    system_prompt: Optional[str] = Field(None, description="Custom system prompt override")
 
 
 class ChatResponse(BaseModel):
@@ -70,7 +71,7 @@ async def chat(request: ChatRequest, req: Request):
         # LLM 응답 생성
         response = llm.generate(
             prompt=prompt,
-            system_prompt=SYSTEM_PROMPT_ENGLISH_TUTOR,
+            system_prompt=request.system_prompt or SYSTEM_PROMPT_ENGLISH_TUTOR,
             max_tokens=300,
             temperature=0.8,
         )

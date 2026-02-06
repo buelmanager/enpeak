@@ -16,6 +16,7 @@ export interface ScenarioData {
 
 export interface SituationData {
   situation: string
+  label: string
 }
 
 interface TalkContextType {

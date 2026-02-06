@@ -13,6 +13,12 @@ interface DailyExpression {
   meaning: string
 }
 
+interface VocabWord {
+  word: string
+  meaning: string
+  level: string
+}
+
 const FALLBACK_EXPRESSIONS: DailyExpression[] = [
   { expression: "break the ice", meaning: "어색한 분위기를 깨다" },
   { expression: "a piece of cake", meaning: "아주 쉬운 일" },
@@ -29,6 +35,7 @@ export default function Home() {
   const [stats, setStats] = useState<TodayStats>({ totalSessions: 0, totalMinutes: 0, vocabularyWords: 0, conversationScenarios: 0, streak: 0 })
   const [weeklyActivity, setWeeklyActivity] = useState<boolean[]>([false, false, false, false, false, false, false])
   const [expression, setExpression] = useState<DailyExpression | null>(null)
+  const [vocabWords, setVocabWords] = useState<VocabWord[]>([])
 
   useEffect(() => {
     const hour = new Date().getHours()
@@ -39,7 +46,26 @@ export default function Home() {
     setStats(getStats())
     setWeeklyActivity(getWeeklyActivity())
     fetchExpression()
+    fetchVocabWords()
   }, [])
+
+  const fetchVocabWords = async () => {
+    try {
+      const response = await fetch(`${API_BASE}/api/vocabulary/level/A1?limit=5`)
+      if (response.ok) {
+        const data = await response.json()
+        if (data.words?.length > 0) {
+          setVocabWords(data.words)
+        }
+      }
+    } catch {
+      setVocabWords([
+        { word: 'hello', meaning: '안녕하세요', level: 'A1' },
+        { word: 'thank you', meaning: '감사합니다', level: 'A1' },
+        { word: 'please', meaning: '부탁합니다', level: 'A1' },
+      ])
+    }
+  }
 
   const fetchExpression = async () => {
     try {
@@ -58,59 +84,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-24">
-      <style jsx>{`
-        @keyframes ripple-pulse {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.6;
-          }
-          50% {
-            transform: scale(1.03);
-            opacity: 0.3;
-          }
-        }
-        @keyframes ripple-pulse-delayed {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.04);
-            opacity: 0.25;
-          }
-        }
-        @keyframes ripple-pulse-slow {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.4;
-          }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.2;
-          }
-        }
-        .ripple-1 {
-          animation: ripple-pulse 3s ease-in-out infinite;
-        }
-        .ripple-2 {
-          animation: ripple-pulse-delayed 3s ease-in-out infinite 0.5s;
-        }
-        .ripple-3 {
-          animation: ripple-pulse-slow 3s ease-in-out infinite 1s;
-        }
-        @keyframes subtle-float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-4px);
-          }
-        }
-        .cta-button {
-          animation: subtle-float 4s ease-in-out infinite;
-        }
-      `}</style>
-
       <div style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
       <div className="px-6 pt-6">
@@ -155,22 +128,39 @@ export default function Home() {
 
         <Link href="/talk" className="block">
           <div className="flex flex-col items-center pt-6 pb-8">
-            <div className="relative w-48 h-48 flex items-center justify-center mb-6">
-              <div className="ripple-3 absolute w-48 h-48 rounded-full border border-[#e8e8e8]" />
-              <div className="ripple-2 absolute w-36 h-36 rounded-full border border-[#dedede]" />
-              <div className="ripple-1 absolute w-24 h-24 rounded-full border border-[#d0d0d0]" />
-              <div className="cta-button w-16 h-16 rounded-full bg-[#1a1a1a] flex items-center justify-center z-10 shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-transform active:scale-95">
-                <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M12 3C6.5 3 2 6.58 2 11c0 2.13 1.02 4.04 2.66 5.44L3.5 20l3.84-1.92C8.64 18.68 10.28 19 12 19c5.5 0 10-3.58 10-8s-4.5-8-10-8zm-3 9.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/>
-                </svg>
-              </div>
-            </div>
             <h2 className="text-lg font-semibold text-[#1a1a1a] mb-1 tracking-tight">대화를 시작해보세요</h2>
             <p className="text-[13px] text-[#8a8a8a] text-center leading-relaxed">
               영어로 자유롭게 이야기해보세요
             </p>
           </div>
         </Link>
+
+        {vocabWords.length > 0 && (
+          <Link href="/cards" className="block mt-2">
+            <div className="bg-white rounded-2xl border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.98] overflow-hidden">
+              <div className="flex items-center justify-between px-5 pt-5 pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+                  <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Vocabulary</span>
+                </div>
+                <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+              <div className="flex gap-2 overflow-x-auto px-5 pb-5">
+                {vocabWords.map((w) => (
+                  <div
+                    key={w.word}
+                    className="flex-shrink-0 bg-[#f5f5f5] rounded-xl px-4 py-3 min-w-[110px]"
+                  >
+                    <p className="text-[15px] font-semibold text-[#1a1a1a] mb-0.5">{w.word}</p>
+                    <p className="text-[12px] text-[#888]">{w.meaning}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Link>
+        )}
 
         {expression && (
           <Link 

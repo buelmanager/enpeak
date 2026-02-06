@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { saveWord, isWordSaved } from '@/lib/savedWords'
 
 interface WordPopupProps {
   word: string
@@ -20,45 +21,60 @@ interface WordInfo {
 export default function WordPopup({ word, position, onClose }: WordPopupProps) {
   const [wordInfo, setWordInfo] = useState<WordInfo | null>(null)
   const [loading, setLoading] = useState(true)
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(() => isWordSaved(word))
 
   useEffect(() => {
     const fetchWordInfo = async () => {
       setLoading(true)
       try {
+        // 1. 백엔드 lookup 시도
         const response = await fetch(`${API_BASE}/api/vocabulary/lookup?word=${encodeURIComponent(word)}`)
         if (response.ok) {
           const data = await response.json()
-          setWordInfo(data)
-        } else {
-          setWordInfo({ word, meaning: '뜻을 찾을 수 없습니다' })
+          if (data.meaning && data.meaning !== '뜻을 찾을 수 없습니다') {
+            setWordInfo(data)
+            return
+          }
         }
       } catch {
-        setWordInfo({ word, meaning: '뜻을 찾을 수 없습니다' })
-      } finally {
-        setLoading(false)
+        // 백엔드 실패 - 폴백 시도
       }
+
+      try {
+        // 2. 백엔드 번역 API 폴백
+        const translateRes = await fetch(`${API_BASE}/api/translate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: word, target_lang: 'ko' }),
+        })
+        if (translateRes.ok) {
+          const data = await translateRes.json()
+          if (data.translation) {
+            setWordInfo({ word, meaning: data.translation })
+            return
+          }
+        }
+      } catch {
+        // 번역 API도 실패
+      }
+
+      setWordInfo({ word, meaning: '뜻을 찾을 수 없습니다' })
     }
-    
-    fetchWordInfo()
+
+    fetchWordInfo().finally(() => setLoading(false))
   }, [word])
 
-  const handleSaveWord = async () => {
+  const handleSaveWord = () => {
     if (!wordInfo) return
-    
-    try {
-      const response = await fetch(`${API_BASE}/api/vocabulary/add`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ word: wordInfo.word, meaning: wordInfo.meaning }),
-      })
-      if (response.ok) {
-        setSaved(true)
-        setTimeout(() => onClose(), 1000)
-      }
-    } catch {
-      console.error('Failed to save word')
-    }
+
+    saveWord({
+      word: wordInfo.word,
+      meaning: wordInfo.meaning,
+      pronunciation: wordInfo.pronunciation,
+      example: wordInfo.examples?.[0],
+    })
+    setSaved(true)
+    setTimeout(() => onClose(), 800)
   }
 
   const popupStyle: React.CSSProperties = {

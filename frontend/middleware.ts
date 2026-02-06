@@ -6,7 +6,6 @@ export function middleware(request: NextRequest) {
 
   // Redirect mappings for backward compatibility
   const redirects: Record<string, string> = {
-    '/': '/talk',
     '/vocabulary': '/cards',
     '/chat': '/talk',
     '/community': '/talk?mode=roleplay',
@@ -24,5 +23,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/vocabulary', '/chat', '/community', '/roleplay', '/conversations'],
+  matcher: ['/vocabulary', '/chat', '/community', '/roleplay', '/conversations'],
 }
