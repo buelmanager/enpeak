@@ -1,4 +1,4 @@
-const CACHE_VERSION = '1.0.12';
+const CACHE_VERSION = '1.0.13';
 const CACHE_NAME = `enpeak-v${CACHE_VERSION}`;
 
 // 캐시할 정적 리소스 (아이콘, 이미지 등)
@@ -59,9 +59,8 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url);
 
-  // version.json은 항상 네트워크에서 가져옴
+  // version.json은 항상 네트워크에서 가져옴 (SW가 가로채지 않음)
   if (url.pathname.includes('version.json')) {
-    event.respondWith(fetch(event.request));
     return;
   }
 
@@ -86,7 +85,9 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => {
           // 네트워크 실패 시 캐시 폴백
-          return caches.match(event.request);
+          return caches.match(event.request).then((cached) => {
+            return cached || new Response('Offline', { status: 503 });
+          });
         })
     );
     return;
@@ -108,6 +109,9 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         });
+      })
+      .catch(() => {
+        return new Response('Offline', { status: 503 });
       })
   );
 });
