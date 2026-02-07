@@ -8,7 +8,7 @@ import SplashScreen from './SplashScreen'
 const SPLASH_SHOWN_KEY = 'enpeak_splash_shown'
 
 // 인증이 필요하지 않은 페이지들
-const PUBLIC_PATHS = ['/login']
+const PUBLIC_PATHS = ['/login', '/landing']
 
 interface AppShellProps {
   children: ReactNode
