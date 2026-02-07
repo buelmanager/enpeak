@@ -33,7 +33,7 @@ export default function CommunityHighlights() {
   const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section id="community" className="py-20 sm:py-28 bg-hp-cream px-4 sm:px-6">
+    <section id="community" className="py-20 sm:py-28 bg-hp-cream px-4 sm:px-6" aria-label="커뮤니티">
       <div className="max-w-7xl mx-auto">
         <div
           ref={ref}

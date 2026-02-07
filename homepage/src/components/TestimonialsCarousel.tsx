@@ -7,7 +7,7 @@ export default function TestimonialsCarousel() {
   const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section className="py-20 sm:py-28 bg-white px-4 sm:px-6">
+    <section className="py-20 sm:py-28 bg-white px-4 sm:px-6" aria-label="학습자 후기">
       <div className="max-w-7xl mx-auto">
         <div
           ref={ref}
@@ -27,7 +27,7 @@ export default function TestimonialsCarousel() {
         </div>
 
         <div className="relative -mx-4 sm:mx-0">
-          <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory px-4 sm:px-0 pb-4 scrollbar-hide">
+          <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory px-4 sm:px-0 pb-4 scrollbar-hide" role="region" aria-label="후기 캐러셀" tabIndex={0}>
             {TESTIMONIALS.map((t, i) => (
               <div
                 key={t.name}

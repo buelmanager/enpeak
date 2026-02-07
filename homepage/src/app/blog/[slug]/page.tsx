@@ -1,10 +1,9 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getAllSlugs, getArticleBySlug } from '@/lib/blog'
+import { SITE_URL } from '@/lib/constants'
 import HomepageNav from '@/components/HomepageNav'
 import HomepageFooter from '@/components/HomepageFooter'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
 
 export const dynamicParams = false
 

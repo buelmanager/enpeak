@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getAllArticles } from '@/lib/blog'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://enpeak.example.com'
+import { SITE_URL } from '@/lib/constants'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles()

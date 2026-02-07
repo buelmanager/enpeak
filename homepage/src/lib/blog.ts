@@ -15,39 +15,63 @@ export interface BlogArticle {
 }
 
 const BLOG_DIR = path.join(process.cwd(), 'blog', 'release')
+const CHARS_PER_MINUTE_KO = 500
 
 function calculateReadTime(text: string): string {
-  const charCount = text.replace(/\s/g, '').length
-  const minutes = Math.max(1, Math.ceil(charCount / 500))
+  const plain = text.replace(/[#*\->\[\]()_`~|]/g, '').replace(/\s+/g, ' ')
+  const charCount = plain.replace(/\s/g, '').length
+  const minutes = Math.max(1, Math.ceil(charCount / CHARS_PER_MINUTE_KO))
   return `${minutes}분`
 }
 
+function parseFrontmatter(
+  data: Record<string, unknown>,
+  slug: string,
+) {
+  const title = typeof data.title === 'string' ? data.title : slug
+  const date = typeof data.date === 'string' ? data.date : ''
+  const tags = Array.isArray(data.tags)
+    ? data.tags.filter((t): t is string => typeof t === 'string')
+    : []
+  const description =
+    typeof data.description === 'string' ? data.description : ''
+  const featured = data.featured === true
+
+  return { title, date, tags, description, featured }
+}
+
 export function getAllSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) return []
-  return fs
-    .readdirSync(BLOG_DIR)
-    .filter((f) => f.endsWith('.md'))
-    .map((f) => f.replace(/\.md$/, ''))
+  try {
+    if (!fs.existsSync(BLOG_DIR)) return []
+    return fs
+      .readdirSync(BLOG_DIR)
+      .filter((f) => f.endsWith('.md'))
+      .map((f) => f.replace(/\.md$/, ''))
+  } catch (e) {
+    console.error(`[blog] Failed to read blog directory: ${e}`)
+    return []
+  }
 }
 
 export function getArticleBySlug(slug: string): BlogArticle | null {
   const filePath = path.join(BLOG_DIR, `${slug}.md`)
-  if (!fs.existsSync(filePath)) return null
+  try {
+    if (!fs.existsSync(filePath)) return null
 
-  const raw = fs.readFileSync(filePath, 'utf-8')
-  const { data, content } = matter(raw)
+    const raw = fs.readFileSync(filePath, 'utf-8')
+    const { data, content } = matter(raw)
+    const meta = parseFrontmatter(data, slug)
+    const html = marked.parse(content) as string
 
-  const html = marked(content) as string
-
-  return {
-    slug,
-    title: data.title || slug,
-    date: data.date || '',
-    tags: data.tags || [],
-    description: data.description || '',
-    featured: data.featured === true,
-    readTime: calculateReadTime(content),
-    content: html,
+    return {
+      slug,
+      ...meta,
+      readTime: calculateReadTime(content),
+      content: html,
+    }
+  } catch (e) {
+    console.error(`[blog] Failed to read article "${slug}": ${e}`)
+    return null
   }
 }
 

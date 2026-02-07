@@ -8,7 +8,7 @@ export default function DailyChallengePreview() {
   const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section id="challenge" className="py-20 sm:py-28 bg-white px-4 sm:px-6">
+    <section id="challenge" className="py-20 sm:py-28 bg-white px-4 sm:px-6" aria-label="오늘의 챌린지">
       <div className="max-w-3xl mx-auto">
         <div
           ref={ref}
@@ -34,10 +34,10 @@ export default function DailyChallengePreview() {
 
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6 max-w-md mx-auto">
                 <p className="text-xl font-semibold mb-2">&ldquo;Break the ice&rdquo;</p>
-                <p className="text-white/60 text-sm blur-[2px] hover:blur-none transition-all duration-300 cursor-pointer select-none">
+                <p className="text-white/60 text-sm blur-[2px] hover:blur-none focus:blur-none transition-all duration-300 cursor-pointer select-none" tabIndex={0}>
                   어색한 분위기를 깨다
                 </p>
-                <p className="text-xs text-white/40 mt-2">마우스를 올려 뜻을 확인하세요</p>
+                <p className="text-xs text-white/40 mt-2">마우스를 올리거나 탭하여 뜻을 확인하세요</p>
               </div>
 
               <p className="text-white/70 text-sm mb-6">

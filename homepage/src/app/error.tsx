@@ -1,11 +1,13 @@
 'use client'
 
 export default function ErrorPage({
+  error,
   reset,
 }: {
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  console.error(error)
   return (
     <div className="min-h-screen bg-hp-cream flex items-center justify-center px-4">
       <div className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-100 max-w-md w-full text-center">

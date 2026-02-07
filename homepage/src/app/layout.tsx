@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import '../styles/globals.css'
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
+import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: {

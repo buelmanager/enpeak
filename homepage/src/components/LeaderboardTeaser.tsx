@@ -9,7 +9,7 @@ export default function LeaderboardTeaser() {
   const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section className="py-20 sm:py-28 bg-hp-cream px-4 sm:px-6">
+    <section className="py-20 sm:py-28 bg-hp-cream px-4 sm:px-6" aria-label="주간 학습 순위">
       <div className="max-w-2xl mx-auto">
         <div
           ref={ref}

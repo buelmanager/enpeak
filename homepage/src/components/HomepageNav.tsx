@@ -21,6 +21,15 @@ export default function HomepageNav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!mobileOpen) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [mobileOpen])
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault()
@@ -70,6 +79,7 @@ export default function HomepageNav() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 text-hp-text"
             aria-label={mobileOpen ? '메뉴 닫기' : '메뉴 열기'}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? (
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +95,7 @@ export default function HomepageNav() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100">
+        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100" role="dialog" aria-modal="true">
           <div className="px-4 py-4 space-y-3">
             {NAV_LINKS.map((link) => (
               <a
