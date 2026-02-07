@@ -44,10 +44,10 @@ export default function BlogListPage() {
               Blog
             </Link>
             <Link
-              href="/login"
+              href="/landing"
               className="bg-[#0D9488] text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:bg-[#0B8278] active:scale-95"
             >
-              시작하기
+              Flu 자세히 보기
             </Link>
           </div>
         </div>
