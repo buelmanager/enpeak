@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import '../styles/globals.css'
+import '../../styles/globals.css'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { TTSProvider } from '@/contexts/TTSContext'
@@ -47,7 +47,7 @@ export const viewport: Viewport = {
 }
 
 // Build cache buster: v1.0.10
-export default function RootLayout({
+export default function MainLayout({
   children,
 }: {
   children: React.ReactNode

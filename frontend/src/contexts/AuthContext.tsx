@@ -62,49 +62,71 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const previousUser = previousUserRef.current
-      const isNewLogin = !previousUser && currentUser
-
-      // 사용자 ID 설정 (동기화용)
-      setCurrentUserId(currentUser?.uid || null)
-
-      // 로그인 상태 즉시 반영 (블로킹 없이!)
-      previousUserRef.current = currentUser
-      setUser(currentUser)
-      setLoading(false)
-      setIsVerified(true)
-      setIsReady(true)  // Firebase 검증 완료 = 앱 표시 가능
-
-      // localStorage 캐시 업데이트
-      cacheUser(currentUser)
-      // cachedUser 상태도 업데이트 (로그아웃 시 null로)
-      setCachedUser(currentUser ? {
-        uid: currentUser.uid,
-        email: currentUser.email,
-        displayName: currentUser.displayName,
-        photoURL: currentUser.photoURL,
-        cachedAt: Date.now()
-      } : null)
-
-      // 동기화는 백그라운드에서 실행 (UI 블로킹 X)
-      if (isNewLogin && !syncInProgressRef.current) {
-        syncInProgressRef.current = true
-        setSyncing(true)
-
-        // 비동기 동기화 - await 없이 실행
-        Promise.resolve()
-          .then(() => migrateLocalDataToFirebase(currentUser.uid))
-          .then(() => syncDataFromFirebase(currentUser.uid))
-          .catch((error) => console.error('Background sync failed:', error))
-          .finally(() => {
-            syncInProgressRef.current = false
-            setSyncing(false)
-          })
+    // Firebase 초기화 실패 시 타임아웃으로 isReady 설정 (3초)
+    const readyTimeout = setTimeout(() => {
+      if (!isReady) {
+        console.warn('Firebase auth timeout - setting isReady=true')
+        setLoading(false)
+        setIsReady(true)
       }
-    })
+    }, 3000)
 
-    return () => unsubscribe()
+    let unsubscribe: (() => void) | undefined
+    try {
+      unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        clearTimeout(readyTimeout)
+        const previousUser = previousUserRef.current
+        const isNewLogin = !previousUser && currentUser
+
+        // 사용자 ID 설정 (동기화용)
+        setCurrentUserId(currentUser?.uid || null)
+
+        // 로그인 상태 즉시 반영 (블로킹 없이!)
+        previousUserRef.current = currentUser
+        setUser(currentUser)
+        setLoading(false)
+        setIsVerified(true)
+        setIsReady(true)  // Firebase 검증 완료 = 앱 표시 가능
+
+        // localStorage 캐시 업데이트
+        cacheUser(currentUser)
+        // cachedUser 상태도 업데이트 (로그아웃 시 null로)
+        setCachedUser(currentUser ? {
+          uid: currentUser.uid,
+          email: currentUser.email,
+          displayName: currentUser.displayName,
+          photoURL: currentUser.photoURL,
+          cachedAt: Date.now()
+        } : null)
+
+        // 동기화는 백그라운드에서 실행 (UI 블로킹 X)
+        if (isNewLogin && !syncInProgressRef.current) {
+          syncInProgressRef.current = true
+          setSyncing(true)
+
+          // 비동기 동기화 - await 없이 실행
+          Promise.resolve()
+            .then(() => migrateLocalDataToFirebase(currentUser.uid))
+            .then(() => syncDataFromFirebase(currentUser.uid))
+            .catch((error) => console.error('Background sync failed:', error))
+            .finally(() => {
+              syncInProgressRef.current = false
+              setSyncing(false)
+            })
+        }
+      })
+    } catch (error) {
+      // Firebase 초기화 실패 시에도 앱이 동작하도록
+      console.error('Firebase auth initialization failed:', error)
+      clearTimeout(readyTimeout)
+      setLoading(false)
+      setIsReady(true)
+    }
+
+    return () => {
+      clearTimeout(readyTimeout)
+      unsubscribe?.()
+    }
   }, [])
 
   return (
