@@ -8,6 +8,8 @@ import ListeningIndicator from './ListeningIndicator'
 import STTConfirmationBanner from './STTConfirmationBanner'
 import PronunciationModal from './PronunciationModal'
 import PronunciationPracticeSheet from './PronunciationPracticeSheet'
+import SituationPicker from './SituationPicker'
+import { buildSituationPrompt, SituationPreset } from '@/data/situationPresets'
 import { useTTS } from '@/contexts/TTSContext'
 import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 import { useAudioRecorder } from '@/hooks/useAudioRecorder'
@@ -139,6 +141,8 @@ export default function ChatWindow({
   const [situationSetupPhase, setSituationSetupPhase] = useState(false)
   const setupMessagesRef = useRef<{ role: string; content: string }[]>([])
   const [setupUserMsgCount, setSetupUserMsgCount] = useState(0)
+  // 상황 선택 UI 표시 여부
+  const [showSituationPicker, setShowSituationPicker] = useState(false)
   // 단어 팁 배너 표시 여부
   const [showWordTip, setShowWordTip] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -334,14 +338,14 @@ export default function ChatWindow({
       setConversationStarted(true)
       setLoading(true)
 
-      const startMessage = "Hello, I'd like to start a conversation in this scenario."
+      const startMessage = `[SCENARIO INSTRUCTIONS]\n${situation}\n[END INSTRUCTIONS]\n\nPlease start the conversation with your opening line in character.`
 
       apiFetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: startMessage,
-          situation: situation,
+          system_prompt: situation,
         }),
       })
         .then(res => res.json())
@@ -663,13 +667,17 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
         const controller = new AbortController()
         chatAbortRef.current = controller
 
+        const messageWithContext = situation
+          ? `[SCENARIO: ${situation}]\n\nUser: ${text}`
+          : text
+
         const response = await apiFetch(`${API_BASE}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            message: text,
+            message: messageWithContext,
             conversation_id: conversationId,
-            situation: situation,
+            system_prompt: situation,
           }),
           signal: controller.signal,
         })
@@ -942,47 +950,61 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
       {/* Messages */}
       <div ref={messagesContainerRef} className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full py-12">
-            {/* Breathing Circle */}
-            <div className="relative mb-8">
-              <div className="w-32 h-32 rounded-full border border-[#e5e5e5] flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full border border-[#d5d5d5] flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#0D9488] flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
+          showSituationPicker && mode === 'free' && !situation && onSituationSet ? (
+            <SituationPicker
+              onSelect={(preset: SituationPreset) => {
+                setShowSituationPicker(false)
+                onSituationSet(buildSituationPrompt(preset), preset.label)
+              }}
+              onCustomSetup={() => {
+                setShowSituationPicker(false)
+                startSituationSetup()
+              }}
+              onClose={() => setShowSituationPicker(false)}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full py-12">
+              {/* Breathing Circle */}
+              <div className="relative mb-8">
+                <div className="w-32 h-32 rounded-full border border-[#e5e5e5] flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full border border-[#d5d5d5] flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-[#0D9488] flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <h2 className="text-lg font-light text-[#1a1a1a] mb-2 tracking-wide">대화를 시작해보세요</h2>
-            <p className="text-sm text-[#8a8a8a] max-w-xs text-center leading-relaxed">
-              영어로 자유롭게 이야기해보세요. AI가 대화를 도와드립니다.
-            </p>
+              <h2 className="text-lg font-light text-[#1a1a1a] mb-2 tracking-wide">대화를 시작해보세요</h2>
+              <p className="text-sm text-[#8a8a8a] max-w-xs text-center leading-relaxed">
+                영어로 자유롭게 이야기해보세요. AI가 대화를 도와드립니다.
+              </p>
 
-            {/* Situation Setup CTA */}
-            {mode === 'free' && !situation && onSituationSet && (
-              <button
-                onClick={startSituationSetup}
-                className="mt-6 px-5 py-2.5 bg-[#0D9488] text-white rounded-full text-sm font-medium hover:bg-[#0F766E] transition-colors"
-              >
-                원하는 상황을 설정하세요
-              </button>
-            )}
-
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {['Hello!', 'What should we talk about?', 'How are you?'].map(suggestion => (
+              {/* Situation Setup CTA */}
+              {mode === 'free' && !situation && onSituationSet && (
                 <button
-                  key={suggestion}
-                  onClick={() => sendMessage(suggestion)}
-                  className="px-4 py-2 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:border-[#0D9488] transition-colors"
+                  onClick={() => setShowSituationPicker(true)}
+                  className="mt-6 px-5 py-2.5 bg-[#0D9488] text-white rounded-full text-sm font-medium hover:bg-[#0F766E] transition-colors"
                 >
-                  {suggestion}
+                  상황 설정하기
                 </button>
-              ))}
+              )}
+
+              <div className="mt-8 flex flex-wrap justify-center gap-2">
+                {['Hello!', 'What should we talk about?', 'How are you?'].map(suggestion => (
+                  <button
+                    key={suggestion}
+                    onClick={() => sendMessage(suggestion)}
+                    className="px-4 py-2 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:border-[#0D9488] transition-colors"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )
         ) : (
           messages.map((message, idx) => (
             <MessageBubble
