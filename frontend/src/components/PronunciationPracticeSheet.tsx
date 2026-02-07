@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import VoiceRecorder, { VoiceRecorderRef, STTResultMetadata } from './VoiceRecorder'
 import { useTTS } from '@/contexts/TTSContext'
 import { useAudioLevel } from '@/hooks/useAudioLevel'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 import recAnimation from '../../public/rec.json'
@@ -18,7 +19,6 @@ interface PronunciationPracticeSheetProps {
   targetText: string
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 // Stop words - 빈칸에서 제외할 기능어
 const STOP_WORDS = new Set([
@@ -201,7 +201,7 @@ export default function PronunciationPracticeSheet({ isOpen, onClose, targetText
       }
 
       try {
-        const backendResponse = await fetch(`${API_BASE}/api/translate`, {
+        const backendResponse = await apiFetch(`${API_BASE}/api/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: targetText, target_lang: 'ko' }),

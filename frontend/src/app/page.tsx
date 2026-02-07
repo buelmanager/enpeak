@@ -5,8 +5,8 @@ import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
 import { useAuth } from '@/contexts/AuthContext'
 import { getStats, getWeeklyActivity, getTodayRecords, type TodayStats, type LearningRecord } from '@/lib/learningHistory'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 interface DailyExpression {
   expression: string
@@ -249,7 +249,7 @@ export default function Home() {
 
   const fetchVocabWords = async () => {
     try {
-      const response = await fetch(`${API_BASE}/api/vocabulary/level/A1?limit=5`)
+      const response = await apiFetch(`${API_BASE}/api/vocabulary/level/A1?limit=5`)
       if (response.ok) {
         const data = await response.json()
         if (data.words?.length > 0) {
@@ -267,7 +267,7 @@ export default function Home() {
 
   const fetchExpression = async () => {
     try {
-      const response = await fetch(`${API_BASE}/api/rag/daily-expression`)
+      const response = await apiFetch(`${API_BASE}/api/rag/daily-expression`)
       if (response.ok) {
         const data = await response.json()
         setExpression({ expression: data.expression, meaning: data.meaning })

@@ -1,4 +1,4 @@
-import { API_BASE } from '@/shared/constants/api'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 import { Result, ok, err } from '@/shared/types/Result'
 
 export class BaseApi {
@@ -13,7 +13,7 @@ export class BaseApi {
     options?: RequestInit
   ): Promise<Result<T>> {
     try {
-      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+      const response = await apiFetch(`${this.baseUrl}${endpoint}`, {
         ...options,
         headers: {
           'Content-Type': 'application/json',

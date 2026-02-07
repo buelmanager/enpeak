@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface ScenarioContext {
   place: string
@@ -35,7 +36,6 @@ const SITUATION_SUGGESTIONS = [
   '면접', '프레젠테이션', '전화 통화', '이메일 논의'
 ]
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function CreateScenarioPage() {
   const router = useRouter()
@@ -63,7 +63,7 @@ export default function CreateScenarioPage() {
 
     // AI에게 시나리오 설명 요청
     try {
-      const response = await fetch(`${API_BASE}/api/scenario/create`, {
+      const response = await apiFetch(`${API_BASE}/api/scenario/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ context }),
@@ -107,7 +107,7 @@ export default function CreateScenarioPage() {
     setLoading(true)
 
     try {
-      const response = await fetch(`${API_BASE}/api/scenario/refine`, {
+      const response = await apiFetch(`${API_BASE}/api/scenario/refine`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -146,7 +146,7 @@ export default function CreateScenarioPage() {
   const handleFinalize = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`${API_BASE}/api/scenario/finalize`, {
+      const response = await apiFetch(`${API_BASE}/api/scenario/finalize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -199,7 +199,7 @@ export default function CreateScenarioPage() {
         authorId: user.uid,
       }
 
-      const response = await fetch(`${API_BASE}/api/community/scenarios`, {
+      const response = await apiFetch(`${API_BASE}/api/community/scenarios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

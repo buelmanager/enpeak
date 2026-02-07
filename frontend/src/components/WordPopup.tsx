@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { saveWord, isWordSaved } from '@/lib/savedWords'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface WordPopupProps {
   word: string
@@ -9,7 +10,6 @@ interface WordPopupProps {
   onClose: () => void
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 interface WordInfo {
   word: string
@@ -31,7 +31,7 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
       setLoading(true)
       try {
         // 1. 백엔드 lookup 시도
-        const response = await fetch(`${API_BASE}/api/vocabulary/lookup?word=${encodeURIComponent(word)}`, { signal })
+        const response = await apiFetch(`${API_BASE}/api/vocabulary/lookup?word=${encodeURIComponent(word)}`, { signal })
         if (response.ok) {
           const data = await response.json()
           if (data.meaning && data.meaning !== '뜻을 찾을 수 없습니다') {
@@ -46,7 +46,7 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
 
       try {
         // 2. 백엔드 번역 API 폴백
-        const translateRes = await fetch(`${API_BASE}/api/translate`, {
+        const translateRes = await apiFetch(`${API_BASE}/api/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: word, target_lang: 'ko' }),

@@ -12,6 +12,7 @@ import { useTTS } from '@/contexts/TTSContext'
 import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 import { useAudioRecorder } from '@/hooks/useAudioRecorder'
 import { useAudioLevel } from '@/hooks/useAudioLevel'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface Message {
   id: string
@@ -24,7 +25,6 @@ interface Message {
   ttsPlayed?: boolean
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 // 표현별 대화 시작 문장
 function getConversationStarter(expression: string): string {
@@ -336,7 +336,7 @@ export default function ChatWindow({
 
       const startMessage = "Hello, I'd like to start a conversation in this scenario."
 
-      fetch(`${API_BASE}/api/chat`, {
+      apiFetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -410,7 +410,7 @@ export default function ChatWindow({
         new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
       )
 
-      const response = await fetch(`${API_BASE}/api/speech/stt`, {
+      const response = await apiFetch(`${API_BASE}/api/speech/stt`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -472,7 +472,7 @@ export default function ChatWindow({
     try {
       const setupSystemPrompt = '너는 반드시 한국어로만 답변해야 한다. 영어 사용 절대 금지. 어떤 입력이 들어와도 반드시 한국어로만 답변해라.\n\n역할: 사용자가 영어 회화 연습 상황을 설정하는 것을 도와주는 한국어 도우미.\n규칙:\n1. 모든 답변은 반드시 한국어로만 작성\n2. 영어 단어, 영어 문장 절대 사용 금지\n3. 사용자가 설명한 내용을 짧게 확인하고 "더 추가하고 싶은 내용이 있나요?"라고 물어봐\n4. 1~2문장으로 짧게 답변\n5. 영어 대화를 시작하지 마\n6. 사용자가 의미없는 입력을 하면 "어떤 상황에서 연습하고 싶은지 알려주세요"라고 한국어로 다시 물어봐'
 
-      const response = await fetch(`${API_BASE}/api/chat`, {
+      const response = await apiFetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -529,7 +529,7 @@ export default function ChatWindow({
 LABEL: <short Korean label, max 10 characters, e.g. "카페 주문">
 PROMPT: <English system prompt for an AI to role-play this scenario with the user>`
 
-      const response = await fetch(`${API_BASE}/api/chat`, {
+      const response = await apiFetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -595,7 +595,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
     try {
       if (mode === 'roleplay') {
         if (!roleplaySessionId) {
-          const response = await fetch(`${API_BASE}/api/roleplay/start`, {
+          const response = await apiFetch(`${API_BASE}/api/roleplay/start`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -626,7 +626,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
             onReset?.()
           }
         } else {
-          const response = await fetch(`${API_BASE}/api/roleplay/turn`, {
+          const response = await apiFetch(`${API_BASE}/api/roleplay/turn`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -663,7 +663,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
         const controller = new AbortController()
         chatAbortRef.current = controller
 
-        const response = await fetch(`${API_BASE}/api/chat`, {
+        const response = await apiFetch(`${API_BASE}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

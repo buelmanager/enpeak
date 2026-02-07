@@ -7,6 +7,7 @@ import BottomNav from '@/components/BottomNav'
 import { useTTS } from '@/contexts/TTSContext'
 import { addLearningRecord } from '@/lib/learningHistory'
 import { getSavedWords, removeWord, SavedWord } from '@/lib/savedWords'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface VocabWord {
   word: string
@@ -27,7 +28,6 @@ interface LearningState {
   currentIndex: number
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 const LEVEL_COLORS: Record<string, string> = {
@@ -102,7 +102,7 @@ export default function CardsPage() {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/vocabulary/level/${level}?limit=500`, { signal })
+      const response = await apiFetch(`${API_BASE}/api/vocabulary/level/${level}?limit=500`, { signal })
       if (response.ok) {
         const data = await response.json()
         if (data.words?.length > 0) {
@@ -183,7 +183,7 @@ export default function CardsPage() {
     setLoadingExpand(true)
 
     try {
-      const response = await fetch(`${API_BASE}/api/vocabulary/expand`, {
+      const response = await apiFetch(`${API_BASE}/api/vocabulary/expand`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ word: state.currentWord.word }),

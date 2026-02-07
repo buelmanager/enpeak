@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react'
 import { syncToFirebaseIfLoggedIn } from '@/lib/userDataSync'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 export interface TTSVoice {
   name: string
@@ -39,7 +40,6 @@ interface TTSContextType {
 
 const TTSContext = createContext<TTSContextType | null>(null)
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export const HD_VOICES: HDVoice[] = [
   { id: 'en-US-AriaNeural', name: 'Aria', gender: 'female', accent: 'US' },
@@ -336,7 +336,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
 
     if (!blobUrl) {
       try {
-        const response = await fetch(`${API_BASE}/api/speech/tts`, {
+        const response = await apiFetch(`${API_BASE}/api/speech/tts`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

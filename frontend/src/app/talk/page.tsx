@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import ChatWindow from '@/components/ChatWindow'
 import { ModeSelector, TalkMode } from '@/components/ModeSelector'
 import { useTalk } from '@/contexts/TalkContext'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface DailyExpression {
   expression: string
@@ -15,7 +16,6 @@ interface DailyExpression {
   category: string
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 // Fallback expressions for when API fails
 const FALLBACK_EXPRESSIONS: DailyExpression[] = [
@@ -67,7 +67,7 @@ function TalkContent() {
     setExpressionLoading(true)
     try {
       const randomParam = forceRandom ? `?random=${Date.now()}` : ''
-      const response = await fetch(`${API_BASE}/api/rag/daily-expression${randomParam}`)
+      const response = await apiFetch(`${API_BASE}/api/rag/daily-expression${randomParam}`)
       if (response.ok) {
         const data = await response.json()
         setExpression({ expression: data.expression, meaning: data.meaning })

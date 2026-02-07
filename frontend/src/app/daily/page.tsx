@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import BottomNav from '@/components/BottomNav'
 import { useTTS } from '@/contexts/TTSContext'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface DailyExpression {
   expression: string
@@ -14,7 +15,6 @@ interface DailyExpression {
   category: string
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function DailyExpressionPage() {
   const router = useRouter()
@@ -107,7 +107,7 @@ export default function DailyExpressionPage() {
     try {
       // 새로고침 시 랜덤 파라미터 추가
       const randomParam = forceRandom ? `?random=${Date.now()}` : ''
-      const response = await fetch(`${API_BASE}/api/rag/daily-expression${randomParam}`)
+      const response = await apiFetch(`${API_BASE}/api/rag/daily-expression${randomParam}`)
       if (response.ok) {
         const data = await response.json()
         setExpression(data)

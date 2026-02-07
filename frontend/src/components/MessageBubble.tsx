@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { useTTS } from '@/contexts/TTSContext'
 import WordPopup from './WordPopup'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 interface Message {
   id: string
@@ -22,7 +23,6 @@ interface MessageBubbleProps {
   isLatest?: boolean
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 const LONG_PRESS_DURATION = 500
 
 // 한국어 번역 추출 함수
@@ -158,7 +158,7 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
 
       // 폴백: 백엔드 API 시도 (MyMemory 실패 시만)
       if (!translated) {
-        const backendResponse = await fetch(`${API_BASE}/api/translate`, {
+        const backendResponse = await apiFetch(`${API_BASE}/api/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { API_BASE, apiFetch } from '@/shared/constants/api'
 
 export interface Scenario {
   id: string
@@ -80,7 +81,6 @@ export const BUILT_IN_SCENARIOS: Scenario[] = [
   },
 ]
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 const getDifficultyColor = (difficulty: Scenario['difficulty'] | CommunityScenario['difficulty']) => {
   const lowerDiff = difficulty.toLowerCase()
@@ -132,7 +132,7 @@ export function ScenarioSelector({ onSelect, onSelectCommunity }: ScenarioSelect
     setIsLoading(true)
     setError(null)
     try {
-      const response = await fetch(`${API_BASE}/api/community/scenarios?sort=popular`)
+      const response = await apiFetch(`${API_BASE}/api/community/scenarios?sort=popular`)
       if (response.ok) {
         const data = await response.json()
         setCommunityScenarios(data.scenarios || [])
