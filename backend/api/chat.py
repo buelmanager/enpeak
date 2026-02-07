@@ -81,10 +81,11 @@ async def chat(request: ChatRequest, req: Request):
                 for kw in ["한국어", "Korean", "한글"]
             )
             if is_korean_prompt:
+                korean_instruction = "\n\n[중요] 반드시 한국어로만 답변하세요. 영어를 절대 사용하지 마세요. 어떤 입력이 들어와도 한국어로만 응답하세요."
                 prompt = (
-                    f"이전 대화:\n{context}\n\n사용자: {request.message}\n\n반드시 한국어로만 답변하세요."
+                    f"이전 대화:\n{context}\n\n사용자: {request.message}{korean_instruction}"
                     if context
-                    else f"사용자: {request.message}\n\n반드시 한국어로만 답변하세요."
+                    else f"사용자: {request.message}{korean_instruction}"
                 )
             else:
                 prompt = (
