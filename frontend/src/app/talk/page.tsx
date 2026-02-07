@@ -163,7 +163,7 @@ function TalkContent() {
           <div className="max-w-2xl mx-auto px-6 pb-4">
             {expressionLoading ? (
               <div className="bg-white rounded-2xl p-5 border border-[#f0f0f0] flex items-center justify-center">
-                <div className="w-5 h-5 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
               </div>
             ) : expressionData ? (
               <div className="bg-white rounded-2xl p-5 border border-[#f0f0f0]">

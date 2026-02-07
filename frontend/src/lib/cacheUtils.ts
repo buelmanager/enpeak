@@ -19,5 +19,5 @@ export async function forceRefresh(): Promise<void> {
     await Promise.all(registrations.map((r) => r.unregister()))
   }
 
-  window.location.href = '/talk'
+  window.location.reload()
 }

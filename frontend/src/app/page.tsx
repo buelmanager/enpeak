@@ -301,12 +301,12 @@ export default function Home() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <p className="text-[13px] text-[#8a8a8a] tracking-wide">{greeting}</p>
-            <h1 className="text-[22px] font-semibold tracking-tight mt-0.5">EnPeak</h1>
+            <h1 className="text-[22px] font-semibold tracking-tight mt-0.5">Flu</h1>
           </div>
           {displayUser ? (
             <Link
               href="/my"
-              className="w-10 h-10 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center text-sm font-medium transition-transform active:scale-95"
+              className="w-10 h-10 rounded-full bg-[#0D9488] text-white flex items-center justify-center text-sm font-medium transition-transform active:scale-95"
             >
               {displayUser.displayName?.charAt(0) || displayUser.email?.charAt(0).toUpperCase() || 'U'}
             </Link>
@@ -326,7 +326,7 @@ export default function Home() {
         <div className="flex items-center justify-center gap-4 mb-5">
           {stats.streak > 0 && (
             <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a]" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0D9488]" />
               <span className="text-[13px] text-[#1a1a1a] font-medium">{stats.streak}일 연속</span>
             </div>
           )}
@@ -342,7 +342,7 @@ export default function Home() {
         <div className="grid grid-cols-3 gap-2 mb-4">
           <Link href="/talk" className="block">
             <div className="bg-white rounded-2xl p-4 border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.96] text-center">
-              <div className="w-10 h-10 rounded-xl bg-[#1a1a1a] flex items-center justify-center mx-auto mb-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#0D9488] flex items-center justify-center mx-auto mb-2.5">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
@@ -359,7 +359,7 @@ export default function Home() {
             className="block"
           >
             <div className="bg-white rounded-2xl p-4 border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.96] text-center">
-              <div className="w-10 h-10 rounded-xl bg-[#1a1a1a] flex items-center justify-center mx-auto mb-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#0D9488] flex items-center justify-center mx-auto mb-2.5">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                 </svg>
@@ -370,7 +370,7 @@ export default function Home() {
           </Link>
           <Link href="/talk?mode=roleplay" className="block">
             <div className="bg-white rounded-2xl p-4 border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.96] text-center">
-              <div className="w-10 h-10 rounded-xl bg-[#1a1a1a] flex items-center justify-center mx-auto mb-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#0D9488] flex items-center justify-center mx-auto mb-2.5">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                 </svg>
@@ -383,7 +383,7 @@ export default function Home() {
 
         {/* --- NEW: Daily Challenge Card --- */}
         {challenge && (
-          <div className="bg-[#1a1a1a] rounded-2xl p-5 mb-3">
+          <div className="bg-[#0D9488] rounded-2xl p-5 mb-3">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -456,7 +456,7 @@ export default function Home() {
           <div className="bg-white rounded-2xl p-5 border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-3">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+                <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
                 <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Quick Quiz</span>
               </div>
               {quizScore > 0 && (
@@ -510,7 +510,7 @@ export default function Home() {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+                    <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
                     <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Today&apos;s Expression</span>
                   </div>
                   <p className="text-[17px] font-semibold text-[#1a1a1a] mb-1.5 tracking-tight">{expression.expression}</p>
@@ -530,7 +530,7 @@ export default function Home() {
         <div className="mb-3">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+              <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
               <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Scenarios</span>
             </div>
             <Link href="/talk?mode=roleplay" className="text-[12px] text-[#8a8a8a]">
@@ -568,7 +568,7 @@ export default function Home() {
             <div className="bg-white rounded-2xl border border-[#ebebeb] shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all active:scale-[0.98] overflow-hidden">
               <div className="flex items-center justify-between px-5 pt-5 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+                  <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
                   <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Vocabulary</span>
                 </div>
                 <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -596,7 +596,7 @@ export default function Home() {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-1 h-4 bg-[#1a1a1a] rounded-full" />
+                  <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
                   <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">This Week</span>
                 </div>
                 <div className="flex justify-between">
@@ -604,7 +604,7 @@ export default function Home() {
                     <div key={day} className="flex flex-col items-center gap-1.5">
                       <span className="text-[10px] text-[#8a8a8a]">{day}</span>
                       <div className={`w-8 h-8 rounded-lg ${
-                        weeklyActivity[idx] ? 'bg-[#1a1a1a]' : 'bg-[#f0f0f0]'
+                        weeklyActivity[idx] ? 'bg-[#0D9488]' : 'bg-[#f0f0f0]'
                       }`} />
                     </div>
                   ))}

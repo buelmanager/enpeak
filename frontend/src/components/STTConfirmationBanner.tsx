@@ -74,11 +74,11 @@ export default function STTConfirmationBanner({
             type="text"
             value={editText}
             onChange={e => setEditText(e.target.value)}
-            className="flex-1 px-3 py-2 bg-[#f5f5f5] border border-[#e5e5e5] rounded-lg text-sm text-[#1a1a1a] focus:outline-none focus:border-[#1a1a1a]"
+            className="flex-1 px-3 py-2 bg-[#f5f5f5] border border-[#e5e5e5] rounded-lg text-sm text-[#1a1a1a] focus:outline-none focus:border-[#0D9488]"
           />
           <button
             type="submit"
-            className="px-3 py-2 bg-[#1a1a1a] text-white text-sm rounded-lg hover:bg-[#333]"
+            className="px-3 py-2 bg-[#0D9488] text-white text-sm rounded-lg hover:bg-[#0F766E]"
           >
             전송
           </button>
@@ -106,13 +106,13 @@ export default function STTConfirmationBanner({
         <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={handleEdit}
-            className="px-2.5 py-1.5 text-xs border border-[#e5e5e5] rounded-lg text-[#8a8a8a] hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors"
+            className="px-2.5 py-1.5 text-xs border border-[#e5e5e5] rounded-lg text-[#8a8a8a] hover:border-[#0D9488] hover:text-[#0D9488] transition-colors"
           >
             수정
           </button>
           <button
             onClick={() => onConfirm(transcript)}
-            className="px-2.5 py-1.5 text-xs bg-[#1a1a1a] text-white rounded-lg hover:bg-[#333] transition-colors"
+            className="px-2.5 py-1.5 text-xs bg-[#0D9488] text-white rounded-lg hover:bg-[#0F766E] transition-colors"
           >
             전송
           </button>
@@ -122,7 +122,7 @@ export default function STTConfirmationBanner({
       {/* 자동 전송 진행 바 */}
       <div className="mt-2 h-0.5 bg-[#f0f0f0] rounded-full overflow-hidden">
         <div
-          className="h-full bg-[#1a1a1a] rounded-full transition-all duration-100"
+          className="h-full bg-[#0D9488] rounded-full transition-all duration-100"
           style={{ width: `${(1 - countdown / (autoSendDelay / 1000)) * 100}%` }}
         />
       </div>

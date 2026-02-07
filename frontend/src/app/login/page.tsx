@@ -68,7 +68,7 @@ function LoginContent() {
     return (
       <main className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+          <div className="w-10 h-10 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
           <p className="text-sm text-[#8a8a8a]">Signing in...</p>
         </div>
       </main>
@@ -106,7 +106,7 @@ function LoginContent() {
           <button
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full border border-[#1a1a1a] p-4 flex items-center justify-center gap-3 transition-all active:bg-[#1a1a1a] active:text-white disabled:opacity-50"
+            className="w-full border border-[#0D9488] p-4 flex items-center justify-center gap-3 transition-all active:bg-[#0D9488] active:text-white disabled:opacity-50"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -136,7 +136,7 @@ function LoginContent() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full border border-[#e5e5e5] p-4 bg-transparent text-sm tracking-wide placeholder:text-[#c5c5c5] focus:border-[#1a1a1a] focus:outline-none transition-colors"
+              className="w-full border border-[#e5e5e5] p-4 bg-transparent text-sm tracking-wide placeholder:text-[#c5c5c5] focus:border-[#0D9488] focus:outline-none transition-colors"
               required
             />
           </div>
@@ -150,7 +150,7 @@ function LoginContent() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="********"
-              className="w-full border border-[#e5e5e5] p-4 bg-transparent text-sm tracking-wide placeholder:text-[#c5c5c5] focus:border-[#1a1a1a] focus:outline-none transition-colors"
+              className="w-full border border-[#e5e5e5] p-4 bg-transparent text-sm tracking-wide placeholder:text-[#c5c5c5] focus:border-[#0D9488] focus:outline-none transition-colors"
               required
               minLength={6}
             />
@@ -163,7 +163,7 @@ function LoginContent() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full border-2 border-[#1a1a1a] p-4 text-sm tracking-wide font-medium transition-all active:bg-[#1a1a1a] active:text-white disabled:opacity-50"
+            className="w-full border-2 border-[#0D9488] p-4 text-sm tracking-wide font-medium transition-all active:bg-[#0D9488] active:text-white disabled:opacity-50"
           >
             {loading ? '...' : isSignUp ? '회원가입' : '로그인'}
           </button>

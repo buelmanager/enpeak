@@ -154,8 +154,8 @@ export default function FeedbackPage() {
     }
   }
 
-  // 좋아요 토글
-  const [likingPostId, setLikingPostId] = useState<string | null>(null)
+  // 좋아요 토글 (여러 게시글 동시 좋아요 가능)
+  const [likingPostIds, setLikingPostIds] = useState<Set<string>>(new Set())
 
   const handleLike = async (post: FeedbackPost, e: React.MouseEvent) => {
     e.stopPropagation()
@@ -163,9 +163,9 @@ export default function FeedbackPage() {
       router.push('/login?redirect=/feedback')
       return
     }
-    if (likingPostId) return // 중복 클릭 방지
+    if (likingPostIds.has(post.id)) return // 같은 게시글 중복 클릭 방지
 
-    setLikingPostId(post.id)
+    setLikingPostIds(prev => new Set(prev).add(post.id))
     const postRef = doc(db, 'feedback', post.id)
     const isLiked = post.likes.includes(user.uid)
 
@@ -182,7 +182,11 @@ export default function FeedbackPage() {
     } catch (error) {
       console.error('Error updating like:', error)
     } finally {
-      setLikingPostId(null)
+      setLikingPostIds(prev => {
+        const next = new Set(prev)
+        next.delete(post.id)
+        return next
+      })
     }
   }
 
@@ -320,7 +324,7 @@ export default function FeedbackPage() {
               onClick={() => setFilter(cat.key as any)}
               className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap transition-colors ${
                 filter === cat.key
-                  ? 'bg-[#1a1a1a] text-white'
+                  ? 'bg-[#0D9488] text-white'
                   : 'bg-white border border-[#e5e5e5]'
               }`}
             >
@@ -349,7 +353,7 @@ export default function FeedbackPage() {
       <div className="px-6 pb-8 space-y-3">
         {loading ? (
           <div className="text-center py-12">
-            <div className="w-8 h-8 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin mx-auto" />
+            <div className="w-8 h-8 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin mx-auto" />
           </div>
         ) : filteredPosts.length === 0 ? (
           <div className="text-center py-12">
@@ -361,7 +365,7 @@ export default function FeedbackPage() {
             <p className="text-[#8a8a8a] mb-4">아직 요청이 없어요</p>
             <button
               onClick={() => user ? setShowWriteModal(true) : router.push('/login?redirect=/feedback')}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] text-white rounded-full text-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#0D9488] text-white rounded-full text-sm"
             >
               첫 번째 요청 작성하기
             </button>
@@ -450,7 +454,7 @@ export default function FeedbackPage() {
                       onClick={() => setNewCategory(cat.key as any)}
                       className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
                         newCategory === cat.key
-                          ? 'bg-[#1a1a1a] text-white'
+                          ? 'bg-[#0D9488] text-white'
                           : 'bg-[#f5f5f5] text-[#666]'
                       }`}
                     >
@@ -468,7 +472,7 @@ export default function FeedbackPage() {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="어떤 기능이 필요하신가요?"
-                  className="w-full px-4 py-3 bg-[#f5f5f5] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/10"
+                  className="w-full px-4 py-3 bg-[#f5f5f5] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/10"
                   maxLength={100}
                 />
               </div>
@@ -481,7 +485,7 @@ export default function FeedbackPage() {
                   onChange={(e) => setNewContent(e.target.value)}
                   placeholder="구체적으로 설명해주세요"
                   rows={6}
-                  className="w-full px-4 py-3 bg-[#f5f5f5] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1a1a]/10 resize-none"
+                  className="w-full px-4 py-3 bg-[#f5f5f5] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488]/10 resize-none"
                   maxLength={1000}
                 />
                 <p className="text-xs text-[#c5c5c5] text-right mt-1">{newContent.length}/1000</p>
@@ -554,7 +558,7 @@ export default function FeedbackPage() {
                   <div key={comment.id} className="bg-white rounded-xl p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2 mb-2">
-                        <div className="w-6 h-6 rounded-full bg-[#1a1a1a] text-white flex items-center justify-center text-[10px]">
+                        <div className="w-6 h-6 rounded-full bg-[#0D9488] text-white flex items-center justify-center text-[10px]">
                           {comment.userName?.charAt(0).toUpperCase()}
                         </div>
                         <span className="text-xs font-medium">{comment.userName}</span>
@@ -599,7 +603,7 @@ export default function FeedbackPage() {
               <button
                 onClick={handleSubmitComment}
                 disabled={!user || !newComment.trim() || isSubmittingComment}
-                className="p-2.5 bg-[#1a1a1a] text-white rounded-full disabled:opacity-50"
+                className="p-2.5 bg-[#0D9488] text-white rounded-full disabled:opacity-50"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />

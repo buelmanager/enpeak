@@ -161,7 +161,7 @@ export default function DailyExpressionPage() {
       <div className="px-6 space-y-6">
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : expression ? (
           <>
@@ -250,7 +250,7 @@ export default function DailyExpressionPage() {
                 })
                 router.push(`/talk?${params.toString()}`)
               }}
-              className="w-full py-4 bg-[#1a1a1a] text-white rounded-xl font-medium"
+              className="w-full py-4 bg-[#0D9488] text-white rounded-xl font-medium"
             >
               이 표현으로 대화 연습하기
             </button>

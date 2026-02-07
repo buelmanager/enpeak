@@ -90,10 +90,7 @@ export default function MyPage() {
     }
 
     setUpdateResult('available')
-    // 업데이트 발견 시 2초 후 강제 새로고침
-    setTimeout(() => {
-      forceRefresh()
-    }, 2000)
+    setIsUpdating(false)
   }
 
   return (
@@ -110,7 +107,7 @@ export default function MyPage() {
             {/* Optimistic UI: 캐시가 있으면 로딩 스피너 없이 즉시 표시 */}
             {displayUser ? (
               <div className="flex items-center gap-4 py-2">
-                <div className="w-14 h-14 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white text-xl font-medium">
+                <div className="w-14 h-14 bg-[#0D9488] rounded-full flex items-center justify-center text-white text-xl font-medium">
                   {displayUser.displayName?.charAt(0) || displayUser.email?.charAt(0) || 'U'}
                 </div>
                 <div className="flex-1">
@@ -162,7 +159,7 @@ export default function MyPage() {
                 </div>
                 <div className="text-left">
                   <p className="text-[#1a1a1a] font-medium">음성 설정</p>
-                  <p className="text-xs text-[#8a8a8a]">TTS 음성, 속도, 높낮이 설정</p>
+                  <p className="text-xs text-[#8a8a8a]">HD 음성, 속도 설정</p>
                 </div>
               </div>
               <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,7 +203,7 @@ export default function MyPage() {
 
             {/* 업데이트 확인 */}
             <button
-              onClick={handleUpdate}
+              onClick={updateResult === 'available' ? forceRefresh : handleUpdate}
               disabled={isUpdating}
               className="w-full flex items-center justify-between py-3"
             >
@@ -233,7 +230,7 @@ export default function MyPage() {
                 <div className="text-left">
                   <p className="text-[#1a1a1a] font-medium">
                     {updateResult === 'latest' ? '최신 버전입니다' :
-                     updateResult === 'available' ? '업데이트 중...' :
+                     updateResult === 'available' ? '업데이트 적용하기' :
                      updateResult === 'error' ? '확인 실패' :
                      '업데이트 확인'}
                   </p>
@@ -321,7 +318,7 @@ export default function MyPage() {
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium text-[#1a1a1a]">v{version}</span>
                           {version === APP_VERSION && (
-                            <span className="text-xs bg-[#1a1a1a] text-white px-2 py-0.5 rounded-full">현재</span>
+                            <span className="text-xs bg-[#0D9488] text-white px-2 py-0.5 rounded-full">현재</span>
                           )}
                         </div>
                         <ul className="space-y-1 pl-3">

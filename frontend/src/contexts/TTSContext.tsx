@@ -169,6 +169,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
             ...DEFAULT_SETTINGS,
             ...parsed,
             selectedVoice: savedVoice || englishVoices[0] || null,
+            ttsMode: 'hd',  // Force HD mode (device mode removed from UI)
           })
         } catch {
           // 기본 음성 선택
@@ -237,7 +238,7 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     utterance.lang = targetLang
     const isNonEnglish = targetLang && !targetLang.startsWith('en')
     utterance.rate = isNonEnglish ? 0.9 : (Number.isFinite(settings.rate) ? settings.rate : DEFAULT_SETTINGS.rate)
-    utterance.pitch = Number.isFinite(settings.pitch) ? settings.pitch : DEFAULT_SETTINGS.pitch
+    utterance.pitch = isNonEnglish ? 1.0 : (Number.isFinite(settings.pitch) ? settings.pitch : DEFAULT_SETTINGS.pitch)
 
     const synth = window.speechSynthesis
     const availableVoices = synth.getVoices()
@@ -262,11 +263,9 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     }
 
     utterance.onstart = () => {
-      console.log('[TTS] utterance.onstart fired')
       setIsSpeaking(true)
     }
     utterance.onend = () => {
-      console.log('[TTS] utterance.onend fired')
       setIsSpeaking(false)
       onEnd?.()
     }
@@ -290,8 +289,6 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   }
 
   const speakWebSpeechWithCallback = (text: string, onEnd?: () => void, lang?: string) => {
-    console.log('[TTS] speakWebSpeechWithCallback called, text length:', text.length, 'lang:', lang)
-
     if (!('speechSynthesis' in window)) {
       onEnd?.()
       return
@@ -328,8 +325,6 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   // ===== HD TTS (Edge TTS via backend) =====
 
   const speakHD = async (text: string, onEnd?: () => void) => {
-    console.log('[TTS-HD] speakHD called, text length:', text.length)
-
     // 기존 재생 중지
     stopAudio()
 
@@ -378,7 +373,6 @@ export function TTSProvider({ children }: { children: ReactNode }) {
       audioRef.current = audio
 
       audio.onended = () => {
-        console.log('[TTS-HD] audio.onended fired')
         audioRef.current = null
         setIsSpeaking(false)
         onEnd?.()
@@ -419,7 +413,6 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   }
 
   const speakWithCallback = (text: string, onEnd?: () => void, lang?: string) => {
-    console.log('[TTS] speakWithCallback called, mode:', settings.ttsMode, 'lang:', lang)
     // 비영어는 HD TTS 미지원, Web Speech API 직접 사용
     if (lang && !lang.startsWith('en')) {
       speakWebSpeechWithCallback(text, onEnd, lang)
@@ -441,7 +434,6 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   }
 
   const stop = () => {
-    console.log('[TTS] stop() called')
     stopAudio()
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel()

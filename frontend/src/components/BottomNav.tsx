@@ -9,7 +9,7 @@ const navItems = [
 ]
 
 function NavIcon({ icon, active }: { icon: string; active: boolean }) {
-  const color = active ? '#1a1a1a' : '#8a8a8a'
+  const color = active ? '#0D9488' : '#8a8a8a'
 
   switch (icon) {
     case 'home':
@@ -66,7 +66,7 @@ export default function BottomNav() {
           href="/talk"
           aria-label="Talk"
           aria-current={isTalkActive ? 'page' : undefined}
-          className="w-[72px] h-[72px] rounded-full bg-[#1a1a1a] flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-transform active:scale-95"
+          className="w-[72px] h-[72px] rounded-full bg-[#0D9488] flex items-center justify-center shadow-[0_4px_20px_rgba(13,148,136,0.35)] transition-transform active:scale-95"
         >
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
@@ -97,7 +97,7 @@ export default function BottomNav() {
                   <NavIcon icon={item.icon} active={active} />
                   <span
                     className={`text-[10px] tracking-wide ${
-                      active ? 'text-[#1a1a1a] font-medium' : 'text-[#8a8a8a]'
+                      active ? 'text-[#0D9488] font-medium' : 'text-[#8a8a8a]'
                     }`}
                   >
                     {item.label}

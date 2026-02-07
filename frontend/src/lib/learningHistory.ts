@@ -114,7 +114,7 @@ export function getStats(): TodayStats {
   if (stats.todayStats.date !== getTodayString()) {
     const yesterday = new Date()
     yesterday.setDate(yesterday.getDate() - 1)
-    const yesterdayStr = yesterday.toISOString().split('T')[0]
+    const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`
 
     // 어제 활동했으면 streak 유지, 아니면 리셋
     if (stats.lastActiveDate === yesterdayStr) {
@@ -175,7 +175,7 @@ function updateStats(record: LearningRecord): StatsData {
   if (stats.todayStats.date !== today) {
     const yesterday = new Date()
     yesterday.setDate(yesterday.getDate() - 1)
-    const yesterdayStr = yesterday.toISOString().split('T')[0]
+    const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`
 
     if (stats.lastActiveDate === yesterdayStr) {
       stats.streak += 1
@@ -194,7 +194,7 @@ function updateStats(record: LearningRecord): StatsData {
     // 오늘 첫 활동
     const yesterday = new Date()
     yesterday.setDate(yesterday.getDate() - 1)
-    const yesterdayStr = yesterday.toISOString().split('T')[0]
+    const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`
 
     if (stats.lastActiveDate === yesterdayStr) {
       stats.streak += 1
@@ -279,7 +279,7 @@ export function getDayRecords(dayIndex: number): DayRecord {
   // 선택한 요일의 날짜 계산
   const targetDate = new Date(monday)
   targetDate.setDate(monday.getDate() + dayIndex)
-  const targetDateStr = targetDate.toISOString().split('T')[0]
+  const targetDateStr = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`
 
   const dayRecords = records.filter(r => r.completedAt.startsWith(targetDateStr))
 

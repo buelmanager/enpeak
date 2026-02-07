@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
-// ─── Convo Brand Colors ───
+// ─── Flu Brand Colors ───
 // Primary Teal: #0D9488
 // Secondary Warm White: #FAFAF8
 // Accent Coral: #F87171
@@ -80,7 +80,7 @@ function MockupHomeScreen() {
       <div className="flex justify-between items-center mb-3">
         <div>
           <p className="text-[8px] text-[#8a8a8a]">Good morning</p>
-          <p className="text-[13px] font-semibold text-[#1C1917]">Convo</p>
+          <p className="text-[13px] font-semibold text-[#1C1917]">Flu</p>
         </div>
         <div className="w-6 h-6 rounded-full bg-[#0D9488]" />
       </div>
@@ -231,7 +231,7 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-[#1C1917] tracking-tight">Convo</span>
+            <span className="text-lg font-bold text-[#1C1917] tracking-tight">Flu</span>
           </div>
           <Link
             href="/login"
@@ -263,10 +263,16 @@ export default function LandingPage() {
               </FadeInSection>
 
               <FadeInSection delay={200}>
-                <p className="text-lg text-[#64748B] leading-relaxed mb-8 max-w-md mx-auto lg:mx-0">
+                <p className="text-lg text-[#64748B] leading-relaxed mb-4 max-w-md mx-auto lg:mx-0">
                   AI와 자유롭게 영어로 대화하세요.
                   112개 실전 시나리오로 진짜 쓸 수 있는 영어를 연습합니다.
                 </p>
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0D9488]/10 to-[#0B8278]/10 border border-[#0D9488]/30 rounded-full px-4 py-2 mb-8">
+                  <svg className="w-4 h-4 text-[#0D9488]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span className="text-sm text-[#0D9488] font-semibold">Flu Crew 50명 한정 평생 무료</span>
+                </div>
               </FadeInSection>
 
               <FadeInSection delay={300}>
@@ -278,10 +284,13 @@ export default function LandingPage() {
                     무료로 시작하기
                   </Link>
                   <a
-                    href="#features"
-                    className="bg-white text-[#1C1917] font-medium px-8 py-4 rounded-2xl text-base border border-[#E2E8F0] transition-all hover:bg-[#F8FAFC] active:scale-[0.97]"
+                    href="#flu-crew"
+                    className="bg-white text-[#1C1917] font-medium px-8 py-4 rounded-2xl text-base border border-[#E2E8F0] transition-all hover:bg-[#F8FAFC] active:scale-[0.97] inline-flex items-center gap-2"
                   >
-                    기능 둘러보기
+                    Flu Crew 자세히 보기
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </a>
                 </div>
               </FadeInSection>
@@ -342,6 +351,120 @@ export default function LandingPage() {
               </div>
             </FadeInSection>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Flu Crew Early Bird ─── */}
+      <section id="flu-crew" className="py-20 px-6 bg-gradient-to-br from-[#0D9488] to-[#0B8278] relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl" />
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <FadeInSection>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-5 py-2 mb-6">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span className="text-sm text-white font-semibold">Flu Crew 모집</span>
+            </div>
+          </FadeInSection>
+
+          <FadeInSection delay={100}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
+              처음 함께한 50명,<br />
+              <span className="text-[#FAFAF8]">평생 무료</span>
+            </h2>
+          </FadeInSection>
+
+          <FadeInSection delay={200}>
+            <p className="text-lg text-white/90 leading-relaxed mb-8 max-w-2xl mx-auto">
+              Flu Crew가 되어주세요.<br />
+              AI와 영어로 대화하며 실력을 키우는 새로운 방법,<br />
+              <span className="font-semibold text-white">Flu Crew 50명</span>에게 평생 무료 이용권을 드립니다.
+            </p>
+          </FadeInSection>
+
+          <FadeInSection delay={300}>
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-8 max-w-2xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="text-left">
+                  <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-[#FAFAF8]" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Flu Crew 혜택
+                  </h3>
+                  <ul className="space-y-2 text-sm text-white/80">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>무제한 AI 대화</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>112개 전체 시나리오</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>A1-C2 전 레벨 단어</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>향후 추가되는 모든 기능</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-[#FAFAF8]" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                    </svg>
+                    참여 조건
+                  </h3>
+                  <ul className="space-y-2 text-sm text-white/80">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>선착순 50명</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>간단한 피드백 제출 (1회)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FAFAF8] mt-0.5">•</span>
+                      <span>마감 시 즉시 종료</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </FadeInSection>
+
+          <FadeInSection delay={400}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/login"
+                className="bg-white text-[#0D9488] font-bold px-10 py-4 rounded-2xl text-lg transition-all hover:bg-[#FAFAF8] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.2)] inline-flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                </svg>
+                Flu Crew 참여하기
+              </Link>
+              <div className="text-white/80 text-sm">
+                <p className="font-semibold">남은 자리: <span className="text-[#FAFAF8] text-lg">50</span>명</p>
+              </div>
+            </div>
+          </FadeInSection>
+
+          <FadeInSection delay={500}>
+            <p className="text-white/60 text-xs mt-6">
+              * 평생 무료 혜택은 Flu Crew 50명에게만 제공됩니다
+            </p>
+          </FadeInSection>
         </div>
       </section>
 
@@ -503,7 +626,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <FadeInSection>
             <div className="text-center mb-14">
-              <p className="text-[#0D9488] text-sm font-medium uppercase tracking-wider mb-3">Why Convo</p>
+              <p className="text-[#0D9488] text-sm font-medium uppercase tracking-wider mb-3">Why Flu</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1917] tracking-tight">
                 다른 앱과 무엇이 다른가요?
               </h2>
@@ -517,7 +640,7 @@ export default function LandingPage() {
                   <thead>
                     <tr className="border-b border-[#E2E8F0]">
                       <th className="text-left px-6 py-4 text-sm text-[#94A3B8] font-medium">기능</th>
-                      <th className="px-6 py-4 text-sm font-bold text-[#0D9488] bg-[#F0FDFA]">Convo</th>
+                      <th className="px-6 py-4 text-sm font-bold text-[#0D9488] bg-[#F0FDFA]">Flu</th>
                       <th className="px-6 py-4 text-sm text-[#94A3B8] font-medium">S사</th>
                       <th className="px-6 py-4 text-sm text-[#94A3B8] font-medium">D사</th>
                     </tr>
@@ -715,9 +838,9 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-sm font-semibold text-white">Convo</span>
+            <span className="text-sm font-semibold text-white">Flu</span>
           </div>
-          <p className="text-xs text-[#64748B]">2026 Convo. All rights reserved.</p>
+          <p className="text-xs text-[#64748B]">2026 Flu. All rights reserved.</p>
         </div>
       </footer>
     </div>

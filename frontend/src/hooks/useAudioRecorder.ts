@@ -124,6 +124,15 @@ export function useAudioRecorder(options?: UseAudioRecorderOptions): UseAudioRec
       // onstop 핸들러에서 resolve를 호출하도록 ref에 저장
       resolveStopRef.current = resolve
       recorder.stop()
+
+      // MediaRecorder 행 방지: 5초 타임아웃
+      setTimeout(() => {
+        if (resolveStopRef.current) {
+          resolveStopRef.current(audioBlobRef.current)
+          resolveStopRef.current = null
+          setIsRecording(false)
+        }
+      }, 5000)
     })
   }, [])
 

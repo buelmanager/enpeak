@@ -139,6 +139,8 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
 
     setIsTranslating(true)
     try {
+      let translated = false
+
       // MyMemory 무료 번역 API 사용
       const encodedText = encodeURIComponent(english)
       const response = await fetch(
@@ -150,11 +152,12 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
         if (data.responseStatus === 200 && data.responseData?.translatedText) {
           setTranslatedText(data.responseData.translatedText)
           setShowKorean(true)
+          translated = true
         }
       }
 
-      // 폴백: 백엔드 API 시도
-      if (!translatedText) {
+      // 폴백: 백엔드 API 시도 (MyMemory 실패 시만)
+      if (!translated) {
         const backendResponse = await fetch(`${API_BASE}/api/translate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -194,7 +197,7 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
         <div
           className={`px-4 py-3 rounded-2xl ${
             isUser
-              ? 'bg-[#1a1a1a] text-white rounded-br-sm'
+              ? 'bg-[#0D9488] text-white rounded-br-sm'
               : 'bg-white text-[#1a1a1a] rounded-bl-sm border border-[#e5e5e5]'
           }`}
         >
@@ -326,7 +329,7 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
             <button
               key={idx}
               onClick={() => onSuggestionClick(suggestion)}
-              className="px-3 py-1.5 bg-[#f5f5f5] border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:bg-white hover:border-[#1a1a1a] transition-colors"
+              className="px-3 py-1.5 bg-[#f5f5f5] border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:bg-white hover:border-[#0D9488] transition-colors"
             >
               {suggestion}
             </button>

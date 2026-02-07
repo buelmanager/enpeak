@@ -52,7 +52,7 @@ export default function GlobalError({
 
             <button
               onClick={() => window.location.reload()}
-              className="w-full px-6 py-3 bg-[#1a1a1a] text-white rounded-xl font-medium hover:bg-[#333]"
+              className="w-full px-6 py-3 bg-[#0D9488] text-white rounded-xl font-medium hover:bg-[#0F766E]"
             >
               새로고침
             </button>

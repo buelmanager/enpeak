@@ -32,7 +32,7 @@ export default function ListeningIndicator({ isActive, onCancel, audioLevel, war
         </div>
       )}
 
-      <div className="flex items-center justify-between px-6 py-3 bg-[#1a1a1a] text-white">
+      <div className="flex items-center justify-between px-6 py-3 bg-[#0D9488] text-white">
         <div className="flex items-center gap-3">
           {/* 음파 애니메이션 */}
           <div className="flex items-center gap-[3px] h-5">

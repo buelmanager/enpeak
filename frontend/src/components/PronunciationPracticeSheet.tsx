@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import VoiceRecorder, { VoiceRecorderRef, STTResultMetadata } from './VoiceRecorder'
 import { useTTS } from '@/contexts/TTSContext'
@@ -76,6 +76,22 @@ interface WordResult {
   isBlank?: boolean
 }
 
+// Levenshtein 거리 (퍼지 매칭용)
+function levenshtein(a: string, b: string): number {
+  const m = a.length, n = b.length
+  const dp: number[][] = Array.from({ length: m + 1 }, (_, i) =>
+    Array.from({ length: n + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0))
+  )
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i - 1] === b[j - 1]
+        ? dp[i - 1][j - 1]
+        : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+    }
+  }
+  return dp[m][n]
+}
+
 function compareWords(targetWords: string[], spokenText: string, blankIndices?: Set<number>): { results: WordResult[]; score: number } {
   const spokenWords = spokenText.toLowerCase().replace(/[.,!?;:'"()\-]/g, '').replace(/\s+/g, ' ').trim().split(' ').filter(w => w.length > 0)
 
@@ -83,7 +99,8 @@ function compareWords(targetWords: string[], spokenText: string, blankIndices?: 
   let matchCount = 0
   let totalScored = 0
 
-  // 간단한 단어별 매칭
+  // 순서 기반 매칭: spoken 단어를 순차적으로 소비
+  let spokenIdx = 0
   for (let i = 0; i < targetWords.length; i++) {
     const targetNorm = normalizeWord(targetWords[i])
     if (targetNorm.length === 0) continue
@@ -91,8 +108,17 @@ function compareWords(targetWords: string[], spokenText: string, blankIndices?: 
     const isBlank = blankIndices?.has(i) ?? false
     const shouldScore = blankIndices ? isBlank : true
 
-    // spoken 단어 중 해당 위치에 가장 가까운 매칭 찾기
-    const matched = spokenWords.includes(targetNorm)
+    // 현재 spoken 위치부터 가장 가까운 매칭 검색 (최대 2칸 앞까지)
+    let matched = false
+    for (let j = spokenIdx; j < Math.min(spokenIdx + 3, spokenWords.length); j++) {
+      const spokenNorm = spokenWords[j]
+      // 정확 매칭 또는 퍼지 매칭 (Levenshtein 거리 <= 1, 3글자 이상 단어)
+      if (spokenNorm === targetNorm || (targetNorm.length >= 3 && levenshtein(spokenNorm, targetNorm) <= 1)) {
+        matched = true
+        spokenIdx = j + 1
+        break
+      }
+    }
 
     results.push({
       word: targetWords[i],
@@ -132,23 +158,11 @@ export default function PronunciationPracticeSheet({ isOpen, onClose, targetText
   const { speakWithCallback, stop: stopTTS, isSpeaking } = useTTS()
   const audioLevelMonitor = useAudioLevel()
 
-  // 단어 분리
-  const targetWords = targetText.split(/\s+/).filter(w => w.length > 0)
-  const blankIndices = selectBlankIndices(targetWords)
+  // 단어 분리 (targetText 변경 시만 재계산)
+  const targetWords = useMemo(() => targetText.split(/\s+/).filter(w => w.length > 0), [targetText])
+  const blankIndices = useMemo(() => selectBlankIndices(targetWords), [targetWords])
 
   // 시트 열릴 때 상태 리셋 + 번역 로드
-  useEffect(() => {
-    if (isOpen) {
-      setStatus('idle')
-      setInterimTranscript('')
-      setWordResults([])
-      setScore(0)
-      setPracticeMode('full')
-      loadTranslation(targetText)
-    }
-  }, [isOpen, targetText])
-
-  // 시트 닫힐 때 정리
   useEffect(() => {
     if (!isOpen) {
       voiceRecorderRef.current?.stopRecording()
@@ -158,41 +172,54 @@ export default function PronunciationPracticeSheet({ isOpen, onClose, targetText
         streamRef.current.getTracks().forEach(track => track.stop())
         streamRef.current = null
       }
+      return
     }
-  }, [isOpen])
 
-  // 번역 로드
-  const loadTranslation = async (text: string) => {
-    try {
-      const encodedText = encodeURIComponent(text)
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|ko`
-      )
-      if (response.ok) {
-        const data = await response.json()
-        if (data.responseStatus === 200 && data.responseData?.translatedText) {
-          setTranslation(data.responseData.translatedText)
-          return
+    setStatus('idle')
+    setInterimTranscript('')
+    setWordResults([])
+    setScore(0)
+    setPracticeMode('full')
+
+    const controller = new AbortController()
+    const loadTranslation = async () => {
+      try {
+        const encodedText = encodeURIComponent(targetText)
+        const response = await fetch(
+          `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=en|ko`,
+          { signal: controller.signal }
+        )
+        if (response.ok) {
+          const data = await response.json()
+          if (data.responseStatus === 200 && data.responseData?.translatedText) {
+            setTranslation(data.responseData.translatedText)
+            return
+          }
         }
+      } catch (e) {
+        if ((e as Error).name === 'AbortError') return
       }
-    } catch {
-      // MyMemory 실패 시 백엔드 폴백
+
+      try {
+        const backendResponse = await fetch(`${API_BASE}/api/translate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: targetText, target_lang: 'ko' }),
+          signal: controller.signal,
+        })
+        if (backendResponse.ok) {
+          const data = await backendResponse.json()
+          setTranslation(data.translation)
+        }
+      } catch {
+        // 번역 실패 - 무시
+      }
     }
 
-    try {
-      const backendResponse = await fetch(`${API_BASE}/api/translate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, target_lang: 'ko' }),
-      })
-      if (backendResponse.ok) {
-        const data = await backendResponse.json()
-        setTranslation(data.translation)
-      }
-    } catch {
-      // 번역 실패 - 무시
-    }
-  }
+    loadTranslation()
+    return () => controller.abort()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, targetText])
 
   // TTS 재생
   const playTargetAudio = useCallback(() => {
@@ -241,8 +268,17 @@ export default function PronunciationPracticeSheet({ isOpen, onClose, targetText
     audioLevelMonitor.startMonitoring(stream)
   }, [audioLevelMonitor])
 
-  // 녹음 상태 변경
-  const handleRecordingChange = useCallback((_recording: boolean) => {}, [])
+  // 녹음 상태 변경 - VoiceRecorder에서 녹음이 끝나면 status를 idle로 복원
+  const handleRecordingChange = useCallback((recording: boolean) => {
+    if (!recording) {
+      setStatus(prev => prev === 'listening' ? 'idle' : prev)
+      audioLevelMonitor.stopMonitoring()
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop())
+        streamRef.current = null
+      }
+    }
+  }, [audioLevelMonitor])
 
   // 다시 시도
   const handleRetry = useCallback(() => {
@@ -451,7 +487,7 @@ export default function PronunciationPracticeSheet({ isOpen, onClose, targetText
               </button>
               <button
                 onClick={handleRecord}
-                className="flex items-center gap-2 px-5 py-2.5 bg-[#1a1a1a] text-white rounded-full text-base font-medium hover:bg-[#333] transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#0D9488] text-white rounded-full text-base font-medium hover:bg-[#0F766E] transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
@@ -487,7 +523,7 @@ export default function PronunciationPracticeSheet({ isOpen, onClose, targetText
               </button>
               <button
                 onClick={handleRetry}
-                className="flex items-center gap-2 px-5 py-2.5 bg-[#1a1a1a] text-white rounded-full text-base font-medium hover:bg-[#333] transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#0D9488] text-white rounded-full text-base font-medium hover:bg-[#0F766E] transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />

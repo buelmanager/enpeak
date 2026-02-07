@@ -121,7 +121,7 @@ body {
 }
 
 .btn-minimal-primary {
-  @apply bg-[#1a1a1a] text-white;
+  @apply bg-[#0D9488] text-white;
 }
 
 .btn-minimal-secondary {

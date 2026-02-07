@@ -106,7 +106,7 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
       >
         {loading ? (
           <div className="flex items-center justify-center py-4">
-            <div className="w-5 h-5 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : wordInfo ? (
           <div>
@@ -138,7 +138,7 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
               className={`w-full py-2 rounded-xl text-sm font-medium transition-colors ${
                 saved 
                   ? 'bg-green-500 text-white' 
-                  : 'bg-[#1a1a1a] text-white hover:bg-[#333]'
+                  : 'bg-[#0D9488] text-white hover:bg-[#0F766E]'
               }`}
             >
               {saved ? '저장됨' : '단어장에 추가'}

@@ -118,6 +118,8 @@ export default function ChatWindow({
   const sharedStreamRef = useRef<MediaStream | null>(null)
   // 자동 녹음 타이머 (cleanup 시 취소용)
   const autoRecordTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // free chat fetch AbortController (이전 요청 취소용)
+  const chatAbortRef = useRef<AbortController | null>(null)
 
   // STT 확인 배너 상태
   const [pendingSTT, setPendingSTT] = useState<{ transcript: string; confidence: number; audioBlob: Blob | null } | null>(null)
@@ -175,7 +177,7 @@ export default function ChatWindow({
   // voiceCycleActive 상태와 ref 동기화
   useEffect(() => {
     voiceCycleActiveRef.current = voiceCycleActive
-    console.log('[VoiceCycle] voiceCycleActive changed to:', voiceCycleActive)
+
   }, [voiceCycleActive])
 
   // isSpeaking 상태와 ref 동기화
@@ -259,39 +261,21 @@ export default function ChatWindow({
 
   // AI 응답에 대해 TTS 재생 (사이클 활성화 시 녹음도 시작)
   const speakAndStartRecording = useCallback((text: string, forceAutoRecord = false, lang?: string) => {
-    console.log('[VoiceCycle] speakAndStartRecording called')
-    console.log('[VoiceCycle]   text:', text.substring(0, 80))
-    console.log('[VoiceCycle]   forceAutoRecord:', forceAutoRecord)
-    console.log('[VoiceCycle]   isVoiceMode:', isVoiceMode)
-    console.log('[VoiceCycle]   voiceCycleActiveRef:', voiceCycleActiveRef.current)
-    console.log('[VoiceCycle]   shouldAutoRecordRef:', shouldAutoRecordRef.current)
-
-    if (!isVoiceMode) {
-      console.log('[VoiceCycle] Not in voice mode, skipping TTS')
-      return
-    }
+    if (!isVoiceMode) return
 
     shouldAutoRecordRef.current = true
-    console.log('[VoiceCycle] Set shouldAutoRecordRef=true, calling speakWithCallback...')
 
     speakWithCallback(text, () => {
       const shouldAutoRecord = shouldAutoRecordRef.current && (voiceCycleActiveRef.current || forceAutoRecord)
-      console.log('[VoiceCycle] TTS ended callback fired')
-      console.log('[VoiceCycle]   shouldAutoRecordRef.current:', shouldAutoRecordRef.current)
-      console.log('[VoiceCycle]   voiceCycleActiveRef.current:', voiceCycleActiveRef.current)
-      console.log('[VoiceCycle]   forceAutoRecord:', forceAutoRecord)
-      console.log('[VoiceCycle]   => shouldAutoRecord:', shouldAutoRecord)
 
       if (shouldAutoRecord) {
-        console.log('[VoiceCycle] Will start recording in 500ms...')
         if (autoRecordTimerRef.current) clearTimeout(autoRecordTimerRef.current)
         autoRecordTimerRef.current = setTimeout(() => {
           autoRecordTimerRef.current = null
-          console.log('[VoiceCycle] Starting recording now, voiceRecorderRef exists:', !!voiceRecorderRef.current)
-          voiceRecorderRef.current?.startRecording()
+          if (voiceCycleActiveRef.current && !isSpeakingRef.current) {
+            voiceRecorderRef.current?.startRecording()
+          }
         }, 500)
-      } else {
-        console.log('[VoiceCycle] Not starting auto recording')
       }
     }, lang)
   }, [isVoiceMode, speakWithCallback])
@@ -305,7 +289,6 @@ export default function ChatWindow({
   // 음성 모드 변경 시 사이클 처리
   useEffect(() => {
     if (!isVoiceMode) {
-      console.log('[VoiceCycle] Switched to text mode, stopping cycle')
       cleanupRef.current()
     }
   }, [isVoiceMode])
@@ -335,7 +318,6 @@ export default function ChatWindow({
         setMessages(prev => [...prev, situationMessage])
 
         if (isVoiceMode) {
-          console.log('[VoiceCycle] Expression mode: activating cycle and starting TTS')
           voiceCycleActiveRef.current = true
           setVoiceCycleActive(true)
           speakAndStartRecordingRef.current(situationContent, true)
@@ -352,13 +334,14 @@ export default function ChatWindow({
       setConversationStarted(true)
       setLoading(true)
 
-      const startMessage = `[Situation: ${situation}] Hello, I'd like to start a conversation in this scenario.`
+      const startMessage = "Hello, I'd like to start a conversation in this scenario."
 
       fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: startMessage,
+          situation: situation,
         }),
       })
         .then(res => res.json())
@@ -376,7 +359,6 @@ export default function ChatWindow({
           setMessages([assistantMessage])
 
           if (isVoiceMode && responseContent) {
-            console.log('[VoiceCycle] Situation mode: activating cycle and starting TTS')
             voiceCycleActiveRef.current = true
             setVoiceCycleActive(true)
             speakAndStartRecordingRef.current(responseContent, true)
@@ -392,7 +374,6 @@ export default function ChatWindow({
           setMessages([fallbackMessage])
 
           if (isVoiceMode) {
-            console.log('[VoiceCycle] Fallback mode: activating cycle and starting TTS')
             voiceCycleActiveRef.current = true
             setVoiceCycleActive(true)
             speakAndStartRecordingRef.current(fallbackContent, true)
@@ -417,7 +398,6 @@ export default function ChatWindow({
   // 백엔드 Whisper STT 폴백 호출
   const fallbackToWhisper = useCallback(async (audioBlob: Blob): Promise<string | null> => {
     if (!canUseFallback()) {
-      console.log('[STT Fallback] Rate limit reached, skipping')
       return null
     }
 
@@ -429,8 +409,6 @@ export default function ChatWindow({
       const base64 = btoa(
         new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
       )
-
-      console.log('[STT Fallback] Sending to backend, size:', audioBlob.size)
 
       const response = await fetch(`${API_BASE}/api/speech/stt`, {
         method: 'POST',
@@ -448,7 +426,6 @@ export default function ChatWindow({
       }
 
       const data = await response.json()
-      console.log('[STT Fallback] Result:', data.text, 'confidence:', data.confidence)
       return data.text || null
     } catch (e) {
       console.error('[STT Fallback] Error:', e)
@@ -462,6 +439,8 @@ export default function ChatWindow({
     setConversationStarted(true)
     setupMessagesRef.current = []
     setSetupUserMsgCount(0)
+    // 상황 설정용 별도 conversation_id 생성 (연속 대화 히스토리 유지)
+    setConversationId(`setup-${Date.now()}`)
 
     const aiMessage: Message = {
       id: 'setup-start',
@@ -498,6 +477,7 @@ export default function ChatWindow({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
+          conversation_id: conversationId,
           system_prompt: setupSystemPrompt,
         }),
       })
@@ -530,7 +510,7 @@ export default function ChatWindow({
     } finally {
       setLoading(false)
     }
-  }, [isVoiceMode, speakAndStartRecording])
+  }, [isVoiceMode, speakAndStartRecording, conversationId])
 
   // 상황 설정 완료
   const completeSituationSetup = useCallback(async () => {
@@ -595,14 +575,11 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
       return
     }
 
-    console.log('[SendMessage] Called with text:', text.substring(0, 50), 'mode:', mode, 'isVoiceMode:', isVoiceMode, 'voiceCycleActive:', voiceCycleActive)
-
     // 확인 배너 닫기
     setPendingSTT(null)
     setSttError(null)
 
     // TTS 중이면 중지
-    console.log('[SendMessage] Stopping TTS before sending')
     stopTTS()
 
     const userMessage: Message = {
@@ -641,9 +618,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
           setMessages(prev => [...prev, assistantMessage])
 
-          console.log('[SendMessage] Roleplay start - isVoiceMode:', isVoiceMode, 'ai_message:', data.ai_message?.substring(0, 50))
           if (isVoiceMode && data.ai_message) {
-            console.log('[SendMessage] Calling speakAndStartRecording for roleplay start')
             speakAndStartRecording(data.ai_message)
           }
 
@@ -674,9 +649,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
           setMessages(prev => [...prev, assistantMessage])
 
-          console.log('[SendMessage] Roleplay turn - isVoiceMode:', isVoiceMode, 'ai_message:', data.ai_message?.substring(0, 50))
           if (isVoiceMode && data.ai_message) {
-            console.log('[SendMessage] Calling speakAndStartRecording for roleplay turn')
             speakAndStartRecording(data.ai_message)
           }
 
@@ -685,6 +658,11 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
           }
         }
       } else {
+        // 이전 요청 취소
+        chatAbortRef.current?.abort()
+        const controller = new AbortController()
+        chatAbortRef.current = controller
+
         const response = await fetch(`${API_BASE}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -693,15 +671,14 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
             conversation_id: conversationId,
             situation: situation,
           }),
+          signal: controller.signal,
         })
 
         if (!response.ok) {
-          console.error('[SendMessage] API response not ok:', response.status, response.statusText)
           throw new Error('Failed to get response')
         }
 
         const data = await response.json()
-        console.log('[SendMessage] Free chat API response keys:', Object.keys(data), 'message:', data.message?.substring(0, 50), 'response:', data.response?.substring(0, 50))
 
         if (!conversationId) {
           setConversationId(data.conversation_id)
@@ -731,16 +708,12 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
         setMessages(prev => [...prev, assistantMessage])
 
-        console.log('[SendMessage] Free chat - isVoiceMode:', isVoiceMode, 'data.message:', !!data.message, 'data.response:', !!data.response)
         if (isVoiceMode && data.message) {
-          console.log('[SendMessage] Calling speakAndStartRecording for free chat, text:', data.message.substring(0, 50))
           speakAndStartRecording(data.message)
-        } else if (isVoiceMode && !data.message) {
-          console.warn('[SendMessage] isVoiceMode but data.message is falsy! Full data keys:', Object.keys(data))
         }
       }
     } catch (error) {
-      console.error('[SendMessage] Chat error:', error)
+      if ((error as Error).name === 'AbortError') return
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -761,8 +734,6 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
   const handleVoiceResult = useCallback(async (text: string, metadata?: STTResultMetadata) => {
     const confidence = metadata?.confidence ?? 0
 
-    console.log('[STT] handleVoiceResult:', text.substring(0, 50), 'confidence:', confidence)
-
     // MediaRecorder 녹음 중지 (폴백용 오디오 확보)
     const audioBlob = await audioRecorder.stopRecording()
     audioLevelMonitor.stopMonitoring()
@@ -771,13 +742,11 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
     if (confidence === 0) {
       // 텍스트 길이가 3자 초과이면 수용 (Chrome 특수 케이스)
       if (text.trim().length > 3) {
-        console.log('[STT] Chrome special case: confidence=0 but text length ok, sending directly')
         sendMessage(text)
         return
       }
       // 짧은 텍스트 + confidence 0: 폴백 시도
       if (audioBlob && canUseFallback()) {
-        console.log('[STT] Short text with confidence=0, trying Whisper fallback')
         const whisperResult = await fallbackToWhisper(audioBlob)
         if (whisperResult && whisperResult.trim().length > 0) {
           sendMessage(whisperResult)
@@ -793,20 +762,17 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
     // 높은 confidence (>= 0.8): 바로 전송
     if (confidence >= 0.8) {
-      console.log('[STT] High confidence, sending directly')
       sendMessage(text)
       return
     }
 
     // 중간 confidence (0.4 ~ 0.8): 확인 UI 표시
     if (confidence >= 0.4) {
-      console.log('[STT] Medium confidence, showing confirmation banner')
       setPendingSTT({ transcript: text, confidence, audioBlob })
       return
     }
 
     // 낮은 confidence (< 0.4): Whisper 폴백 시도
-    console.log('[STT] Low confidence, trying Whisper fallback')
     if (audioBlob && canUseFallback()) {
       const whisperResult = await fallbackToWhisper(audioBlob)
       if (whisperResult && whisperResult.trim().length > 0) {
@@ -823,8 +789,6 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
   // STT 에러 처리
   const handleSTTError = useCallback((type: string, message: string) => {
-    console.log('[STT Error]', type, message)
-
     setSttError(message)
 
     // 권한 관련 에러는 사용자가 직접 해결해야 하므로 유지
@@ -885,7 +849,6 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
   // VoiceRecorder가 getUserMedia로 확보한 스트림을 받아 audioRecorder/audioLevel에 공유
   const handleStreamReady = useCallback((stream: MediaStream) => {
-    console.log('[VoiceCycle] Stream received from VoiceRecorder')
     sharedStreamRef.current = stream
 
     if (!isIOSRef.current) {
@@ -898,10 +861,8 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
   const handleRecordingChange = useCallback((recording: boolean) => {
     setIsRecording(recording)
-    console.log('[VoiceCycle] Recording changed to:', recording)
 
     if (recording && isVoiceMode) {
-      console.log('[VoiceCycle] User started recording, activating cycle')
       voiceCycleActiveRef.current = true
       setVoiceCycleActive(true)
       setConversationStarted(true)
@@ -920,7 +881,6 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
   }, [isVoiceMode, audioRecorder, audioLevelMonitor])
 
   const handleCancelRecording = () => {
-    console.log('[VoiceCycle] Recording cancelled, stopping cycle')
     voiceRecorderRef.current?.stopRecording()
     audioRecorder.stopRecording()
     audioLevelMonitor.stopMonitoring()
@@ -987,7 +947,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
             <div className="relative mb-8">
               <div className="w-32 h-32 rounded-full border border-[#e5e5e5] flex items-center justify-center">
                 <div className="w-24 h-24 rounded-full border border-[#d5d5d5] flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#1a1a1a] flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#0D9488] flex items-center justify-center">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
@@ -1005,7 +965,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
             {mode === 'free' && !situation && onSituationSet && (
               <button
                 onClick={startSituationSetup}
-                className="mt-6 px-5 py-2.5 bg-[#1a1a1a] text-white rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
+                className="mt-6 px-5 py-2.5 bg-[#0D9488] text-white rounded-full text-sm font-medium hover:bg-[#0F766E] transition-colors"
               >
                 원하는 상황을 설정하세요
               </button>
@@ -1016,7 +976,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
                 <button
                   key={suggestion}
                   onClick={() => sendMessage(suggestion)}
-                  className="px-4 py-2 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:border-[#1a1a1a] transition-colors"
+                  className="px-4 py-2 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] hover:border-[#0D9488] transition-colors"
                 >
                   {suggestion}
                 </button>
@@ -1043,9 +1003,9 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
         {isSpeaking && (
           <div className="flex items-center gap-3 text-[#8a8a8a]">
             <div className="flex gap-1">
-              <div className="w-2 h-2 bg-[#1a1a1a] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <div className="w-2 h-2 bg-[#1a1a1a] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <div className="w-2 h-2 bg-[#1a1a1a] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div className="w-2 h-2 bg-[#0D9488] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-2 h-2 bg-[#0D9488] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <div className="w-2 h-2 bg-[#0D9488] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
             <span className="text-xs tracking-wide">읽는 중...</span>
             <button
@@ -1077,7 +1037,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
           <button
             onClick={completeSituationSetup}
             disabled={loading || setupUserMsgCount === 0}
-            className="w-full py-2.5 bg-[#1a1a1a] text-white rounded-full text-sm font-medium hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-2.5 bg-[#0D9488] text-white rounded-full text-sm font-medium hover:bg-[#0F766E] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             설정 완료
           </button>
@@ -1120,7 +1080,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
               onClick={() => setInputMode('voice')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                 isVoiceMode
-                  ? 'bg-[#1a1a1a] text-white'
+                  ? 'bg-[#0D9488] text-white'
                   : 'text-[#8a8a8a] hover:text-[#1a1a1a]'
               }`}
             >
@@ -1134,7 +1094,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
               onClick={() => setInputMode('text')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                 !isVoiceMode
-                  ? 'bg-[#1a1a1a] text-white'
+                  ? 'bg-[#0D9488] text-white'
                   : 'text-[#8a8a8a] hover:text-[#1a1a1a]'
               }`}
             >
@@ -1152,7 +1112,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
               onClick={() => setPronunciationMode(prev => !prev)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                 pronunciationMode
-                  ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
+                  ? 'bg-[#0D9488] text-white border-[#0D9488]'
                   : 'bg-white text-[#8a8a8a] border-[#e5e5e5] hover:text-[#1a1a1a]'
               }`}
             >
@@ -1171,7 +1131,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
               <button
                 onClick={handlePronunciationSend}
                 disabled={loading}
-                className="flex items-center gap-2 px-6 py-3 bg-[#1a1a1a] text-white rounded-full text-sm hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="flex items-center gap-2 px-6 py-3 bg-[#0D9488] text-white rounded-full text-sm hover:bg-[#0F766E] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
@@ -1201,13 +1161,13 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
               value={input}
               onChange={e => setInput(e.target.value)}
               placeholder={situationSetupPhase ? "원하는 상황을 한국어로 입력하세요..." : "영어로 입력하세요..."}
-              className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#1a1a1a] transition-colors"
+              className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm text-[#1a1a1a] placeholder-[#c5c5c5] focus:outline-none focus:border-[#0D9488] transition-colors"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="w-12 h-12 bg-[#1a1a1a] text-white rounded-full flex items-center justify-center hover:bg-[#333] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="w-12 h-12 bg-[#0D9488] text-white rounded-full flex items-center justify-center hover:bg-[#0F766E] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

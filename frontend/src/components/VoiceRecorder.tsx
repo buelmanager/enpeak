@@ -435,7 +435,7 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
               ? 'bg-red-500 text-white animate-pulse'
               : permissionDenied
                 ? 'bg-white border border-red-300 text-red-400 hover:border-red-500 hover:text-red-500'
-                : 'bg-white border border-[#e5e5e5] text-[#8a8a8a] hover:border-[#1a1a1a] hover:text-[#1a1a1a]'
+                : 'bg-white border border-[#e5e5e5] text-[#8a8a8a] hover:border-[#0D9488] hover:text-[#0D9488]'
           } ${disabled ? 'opacity-30 cursor-not-allowed' : ''}`}
           title={
             permissionDenied

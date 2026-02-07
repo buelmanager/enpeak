@@ -55,7 +55,7 @@ export default function Error({
         <div className="flex gap-3 justify-center">
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-[#1a1a1a] text-white rounded-xl font-medium hover:bg-[#333]"
+            className="px-6 py-3 bg-[#0D9488] text-white rounded-xl font-medium hover:bg-[#0F766E]"
           >
             새로고침
           </button>

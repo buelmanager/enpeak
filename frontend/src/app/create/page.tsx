@@ -241,9 +241,9 @@ export default function CreateScenarioPage() {
 
         {/* Progress */}
         <div className="flex items-center gap-2 mt-4">
-          <div className={`flex-1 h-1 rounded-full ${step === 'context' || step === 'chat' || step === 'review' ? 'bg-[#1a1a1a]' : 'bg-[#e5e5e5]'}`} />
-          <div className={`flex-1 h-1 rounded-full ${step === 'chat' || step === 'review' ? 'bg-[#1a1a1a]' : 'bg-[#e5e5e5]'}`} />
-          <div className={`flex-1 h-1 rounded-full ${step === 'review' ? 'bg-[#1a1a1a]' : 'bg-[#e5e5e5]'}`} />
+          <div className={`flex-1 h-1 rounded-full ${step === 'context' || step === 'chat' || step === 'review' ? 'bg-[#0D9488]' : 'bg-[#e5e5e5]'}`} />
+          <div className={`flex-1 h-1 rounded-full ${step === 'chat' || step === 'review' ? 'bg-[#0D9488]' : 'bg-[#e5e5e5]'}`} />
+          <div className={`flex-1 h-1 rounded-full ${step === 'review' ? 'bg-[#0D9488]' : 'bg-[#e5e5e5]'}`} />
         </div>
       </header>
 
@@ -268,8 +268,8 @@ export default function CreateScenarioPage() {
                   onClick={() => setContext(prev => ({ ...prev, place }))}
                   className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
                     context.place === place
-                      ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
-                      : 'bg-white border-[#e5e5e5] hover:border-[#1a1a1a]'
+                      ? 'bg-[#0D9488] text-white border-[#0D9488]'
+                      : 'bg-white border-[#e5e5e5] hover:border-[#0D9488]'
                   }`}
                 >
                   {place}
@@ -281,7 +281,7 @@ export default function CreateScenarioPage() {
               value={context.place}
               onChange={e => setContext(prev => ({ ...prev, place: e.target.value }))}
               placeholder="또는 직접 입력..."
-              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#1a1a1a]"
+              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#0D9488]"
             />
           </div>
 
@@ -295,8 +295,8 @@ export default function CreateScenarioPage() {
                   onClick={() => setContext(prev => ({ ...prev, time }))}
                   className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
                     context.time === time
-                      ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
-                      : 'bg-white border-[#e5e5e5] hover:border-[#1a1a1a]'
+                      ? 'bg-[#0D9488] text-white border-[#0D9488]'
+                      : 'bg-white border-[#e5e5e5] hover:border-[#0D9488]'
                   }`}
                 >
                   {time}
@@ -315,8 +315,8 @@ export default function CreateScenarioPage() {
                   onClick={() => setContext(prev => ({ ...prev, situation }))}
                   className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
                     context.situation === situation
-                      ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]'
-                      : 'bg-white border-[#e5e5e5] hover:border-[#1a1a1a]'
+                      ? 'bg-[#0D9488] text-white border-[#0D9488]'
+                      : 'bg-white border-[#e5e5e5] hover:border-[#0D9488]'
                   }`}
                 >
                   {situation}
@@ -328,7 +328,7 @@ export default function CreateScenarioPage() {
               value={context.situation}
               onChange={e => setContext(prev => ({ ...prev, situation: e.target.value }))}
               placeholder="또는 직접 입력..."
-              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#1a1a1a]"
+              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#0D9488]"
             />
           </div>
 
@@ -339,14 +339,14 @@ export default function CreateScenarioPage() {
               value={context.additionalInfo}
               onChange={e => setContext(prev => ({ ...prev, additionalInfo: e.target.value }))}
               placeholder="예: 알레르기가 있어서 특별 요청을 해야 하는 상황, 예약이 안 되어있는 상황..."
-              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#1a1a1a] resize-none h-24"
+              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#0D9488] resize-none h-24"
             />
           </div>
 
           <button
             onClick={handleContextSubmit}
             disabled={!context.place || !context.situation}
-            className="w-full py-4 bg-[#1a1a1a] text-white rounded-xl font-medium disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-[#0D9488] text-white rounded-xl font-medium disabled:opacity-30 disabled:cursor-not-allowed"
           >
             AI와 시나리오 만들기
           </button>
@@ -371,7 +371,7 @@ export default function CreateScenarioPage() {
               <div key={message.id} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[85%] px-4 py-3 rounded-2xl ${
                   message.role === 'user'
-                    ? 'bg-[#1a1a1a] text-white rounded-br-sm'
+                    ? 'bg-[#0D9488] text-white rounded-br-sm'
                     : 'bg-white border border-[#e5e5e5] rounded-bl-sm'
                 }`}>
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
@@ -397,13 +397,13 @@ export default function CreateScenarioPage() {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && sendMessage()}
                 placeholder="시나리오에 대해 더 설명해주세요..."
-                className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm focus:outline-none focus:border-[#1a1a1a]"
+                className="flex-1 px-4 py-3 bg-white border border-[#e5e5e5] rounded-full text-sm focus:outline-none focus:border-[#0D9488]"
                 disabled={loading}
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || loading}
-                className="w-12 h-12 bg-[#1a1a1a] text-white rounded-full flex items-center justify-center disabled:opacity-30"
+                className="w-12 h-12 bg-[#0D9488] text-white rounded-full flex items-center justify-center disabled:opacity-30"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -415,7 +415,7 @@ export default function CreateScenarioPage() {
             {messages.length >= 2 && (
               <button
                 onClick={handleFinalize}
-                className="w-full mt-3 py-3 border border-[#1a1a1a] rounded-xl text-sm font-medium hover:bg-[#1a1a1a] hover:text-white transition-colors"
+                className="w-full mt-3 py-3 border border-[#0D9488] rounded-xl text-sm font-medium hover:bg-[#0D9488] hover:text-white transition-colors"
               >
                 시나리오 완성하기
               </button>
@@ -440,7 +440,7 @@ export default function CreateScenarioPage() {
               value={scenarioTitle}
               onChange={e => setScenarioTitle(e.target.value)}
               placeholder={`${context.place}에서 ${context.situation}`}
-              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#1a1a1a]"
+              className="w-full px-4 py-3 bg-white border border-[#e5e5e5] rounded-xl text-sm focus:outline-none focus:border-[#0D9488]"
             />
           </div>
 
@@ -455,7 +455,7 @@ export default function CreateScenarioPage() {
             <div className="space-y-3">
               {generatedScenario.stages?.map((stage: any, idx: number) => (
                 <div key={idx} className="flex gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0">
                     {idx + 1}
                   </div>
                   <div>
@@ -479,7 +479,7 @@ export default function CreateScenarioPage() {
               <button
                 onClick={handlePublish}
                 disabled={loading}
-                className="flex-1 py-4 bg-[#1a1a1a] text-white rounded-xl font-medium disabled:opacity-50"
+                className="flex-1 py-4 bg-[#0D9488] text-white rounded-xl font-medium disabled:opacity-50"
               >
                 {loading ? '저장 중...' : '커뮤니티에 공유'}
               </button>
@@ -504,7 +504,7 @@ export default function CreateScenarioPage() {
               </button>
               <button
                 onClick={() => router.push('/login?redirect=/create')}
-                className="flex-1 py-3 bg-[#1a1a1a] text-white rounded-xl text-sm font-medium"
+                className="flex-1 py-3 bg-[#0D9488] text-white rounded-xl text-sm font-medium"
               >
                 로그인하기
               </button>

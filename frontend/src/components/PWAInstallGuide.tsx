@@ -252,10 +252,10 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
         {/* App Info */}
         <div className="flex items-center gap-4 mb-6 p-4 bg-[#f5f5f5] rounded-2xl">
           <div className="w-14 h-14 rounded-xl overflow-hidden flex items-center justify-center border border-[#e5e5e5] bg-white">
-            <img src="/icons/icon-192.png" alt="EnPeak" className="w-12 h-12" />
+            <img src="/icons/icon-192.png" alt="Flu" className="w-12 h-12" />
           </div>
           <div>
-            <h3 className="font-medium">EnPeak</h3>
+            <h3 className="font-medium">Flu</h3>
             <p className="text-sm text-[#8a8a8a]">AI 영어 학습 앱</p>
           </div>
         </div>
@@ -287,7 +287,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
               {browserType === 'ios-webview' ? (
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                       1
                     </div>
                     <div className="flex-1">
@@ -299,7 +299,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                       2
                     </div>
                     <div className="flex-1">
@@ -311,7 +311,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                       3
                     </div>
                     <div className="flex-1">
@@ -325,7 +325,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
               ) : (
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                       1
                     </div>
                     <div className="flex-1">
@@ -343,7 +343,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                       2
                     </div>
                     <div className="flex-1">
@@ -355,7 +355,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                       3
                     </div>
                     <div className="flex-1">
@@ -374,7 +374,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                 <>
                   <button
                     onClick={handleOpenInBrowser}
-                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                    className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -395,7 +395,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                 <>
                   <button
                     onClick={handleCopyUrl}
-                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                    className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -428,7 +428,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
 
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">하단 공유 버튼 탭</p>
                   <p className="text-xs text-[#8a8a8a] mt-1">
@@ -442,7 +442,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
                   <p className="text-xs text-[#8a8a8a] mt-1">
@@ -456,7 +456,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">"추가" 버튼 탭</p>
                   <p className="text-xs text-[#8a8a8a] mt-1">
@@ -504,7 +504,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
 
             <button
               onClick={handleDismiss}
-              className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+              className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium"
             >
               확인했어요
             </button>
@@ -528,7 +528,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">공유 버튼 탭</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
@@ -541,7 +541,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
@@ -550,7 +550,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">"추가" 확인</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
@@ -561,7 +561,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
                   <button
                     onClick={handleDismiss}
-                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+                    className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium"
                   >
                     확인했어요
                   </button>
@@ -575,19 +575,19 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">아래 URL 복사</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">Safari 앱 열기</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">주소창에 붙여넣기 후 홈 화면에 추가</p>
                       </div>
@@ -595,7 +595,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                   </div>
                   <button
                     onClick={handleCopyUrl}
-                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                    className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -623,7 +623,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                 onClick={() => setActiveTab('install')}
                 className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                   activeTab === 'install'
-                    ? 'bg-[#1a1a1a] text-white'
+                    ? 'bg-[#0D9488] text-white'
                     : 'bg-[#f5f5f5] text-[#8a8a8a]'
                 }`}
               >
@@ -633,7 +633,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                 onClick={() => setActiveTab('homescreen')}
                 className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                   activeTab === 'homescreen'
-                    ? 'bg-[#1a1a1a] text-white'
+                    ? 'bg-[#0D9488] text-white'
                     : 'bg-[#f5f5f5] text-[#8a8a8a]'
                 }`}
               >
@@ -653,14 +653,14 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                 {deferredPrompt ? (
                   <button
                     onClick={handleInstallClick}
-                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+                    className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium"
                   >
                     바로 설치하기
                   </button>
                 ) : (
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">메뉴 열기</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
@@ -675,7 +675,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">"앱 설치" 선택</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
@@ -684,7 +684,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">"설치" 확인</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
@@ -708,7 +708,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
 
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">메뉴 열기</p>
                       <p className="text-xs text-[#8a8a8a] mt-1">
@@ -723,7 +723,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
                       <p className="text-xs text-[#8a8a8a] mt-1">
@@ -732,7 +732,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                    <div className="w-7 h-7 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">"추가" 확인</p>
                       <p className="text-xs text-[#8a8a8a] mt-1">
@@ -746,7 +746,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
 
             <button
               onClick={handleDismiss}
-              className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+              className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium"
             >
               확인했어요
             </button>
@@ -769,7 +769,7 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
 
             <button
               onClick={handleDismiss}
-              className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+              className="w-full py-3 bg-[#0D9488] text-white rounded-xl font-medium"
             >
               확인
             </button>

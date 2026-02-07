@@ -179,8 +179,8 @@ export function ScenarioSelector({ onSelect, onSelectCommunity }: ScenarioSelect
           onClick={() => setActiveTab('builtin')}
           className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all ${
             activeTab === 'builtin'
-              ? 'bg-[#1a1a1a] text-white'
-              : 'bg-white border border-[#e5e5e5] text-[#666] hover:border-[#1a1a1a]'
+              ? 'bg-[#0D9488] text-white'
+              : 'bg-white border border-[#e5e5e5] text-[#666] hover:border-[#0D9488]'
           }`}
           data-testid="tab-builtin"
         >
@@ -190,8 +190,8 @@ export function ScenarioSelector({ onSelect, onSelectCommunity }: ScenarioSelect
           onClick={() => setActiveTab('community')}
           className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all ${
             activeTab === 'community'
-              ? 'bg-[#1a1a1a] text-white'
-              : 'bg-white border border-[#e5e5e5] text-[#666] hover:border-[#1a1a1a]'
+              ? 'bg-[#0D9488] text-white'
+              : 'bg-white border border-[#e5e5e5] text-[#666] hover:border-[#0D9488]'
           }`}
           data-testid="tab-community"
         >
@@ -205,7 +205,7 @@ export function ScenarioSelector({ onSelect, onSelectCommunity }: ScenarioSelect
             <button
               key={scenario.id}
               onClick={() => onSelect(scenario)}
-              className="w-full text-left p-4 bg-white rounded-xl border border-[#e5e5e5] hover:border-[#1a1a1a] hover:shadow-sm transition-all active:scale-[0.99]"
+              className="w-full text-left p-4 bg-white rounded-xl border border-[#e5e5e5] hover:border-[#0D9488] hover:shadow-sm transition-all active:scale-[0.99]"
               data-testid={`scenario-${scenario.id}`}
             >
               <div className="flex items-center justify-between">
@@ -277,7 +277,7 @@ export function ScenarioSelector({ onSelect, onSelectCommunity }: ScenarioSelect
                 <button
                   key={scenario.id}
                   onClick={() => handleCommunitySelect(scenario)}
-                  className="w-full text-left p-4 bg-white rounded-xl border border-[#e5e5e5] hover:border-[#1a1a1a] hover:shadow-sm transition-all active:scale-[0.99]"
+                  className="w-full text-left p-4 bg-white rounded-xl border border-[#e5e5e5] hover:border-[#0D9488] hover:shadow-sm transition-all active:scale-[0.99]"
                   data-testid={`community-scenario-${scenario.id}`}
                 >
                   <div className="flex items-start justify-between mb-2">

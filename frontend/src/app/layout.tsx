@@ -11,7 +11,7 @@ import AppShell from '@/components/AppShell'
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
-  title: 'EnPeak - AI English Learning',
+  title: 'Flu - AI English Learning',
   description: 'AI와 함께하는 영어 회화 연습 앱',
   manifest: '/manifest.json',
   icons: {
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     apple: '/icons/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'EnPeak - AI English Learning',
+    title: 'Flu - AI English Learning',
     description: 'AI와 함께하는 영어 회화 연습 앱',
     images: ['/icon.png'],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'EnPeak',
+    title: 'Flu',
   },
   formatDetection: {
     telephone: false,
@@ -62,9 +62,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="EnPeak" />
-        <meta name="application-name" content="EnPeak" />
-        <meta name="msapplication-TileColor" content="#1a1a1a" />
+        <meta name="apple-mobile-web-app-title" content="Flu" />
+        <meta name="application-name" content="Flu" />
+        <meta name="msapplication-TileColor" content="#0D9488" />
         <meta name="msapplication-TileImage" content="/icons/icon-144.png" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>

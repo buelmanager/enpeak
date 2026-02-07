@@ -93,11 +93,12 @@ export default function CardsPage() {
             currentLevel: level,
             revealed: false,
           }))
+          setLoading(false)
           return
         }
       }
-    } catch {
-      // 정적 파일 실패 시 API 폴백
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') return
     }
 
     try {
@@ -113,11 +114,12 @@ export default function CardsPage() {
             currentLevel: level,
             revealed: false,
           }))
+          setLoading(false)
           return
         }
       }
-    } catch {
-      // API도 실패
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') return
     }
 
     // 최종 폴백
@@ -135,10 +137,8 @@ export default function CardsPage() {
       currentLevel: level,
       revealed: false,
     }))
+    setLoading(false)
   }, [])
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { setLoading(false) }, [state.words])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -360,7 +360,7 @@ export default function CardsPage() {
             onClick={() => setMode('hide-meaning')}
             className={`flex-1 py-3 rounded-xl text-sm transition-colors ${
               mode === 'hide-meaning'
-                ? 'bg-[#1a1a1a] text-white'
+                ? 'bg-[#0D9488] text-white'
                 : 'bg-white border border-[#e5e5e5]'
             }`}
           >
@@ -370,7 +370,7 @@ export default function CardsPage() {
             onClick={() => setMode('hide-word')}
             className={`flex-1 py-3 rounded-xl text-sm transition-colors ${
               mode === 'hide-word'
-                ? 'bg-[#1a1a1a] text-white'
+                ? 'bg-[#0D9488] text-white'
                 : 'bg-white border border-[#e5e5e5]'
             }`}
           >
@@ -470,7 +470,7 @@ export default function CardsPage() {
                 </button>
                 <button
                   onClick={() => nextWord(true)}
-                  className="flex-1 py-4 bg-[#1a1a1a] text-white rounded-xl font-medium"
+                  className="flex-1 py-4 bg-[#0D9488] text-white rounded-xl font-medium"
                   data-testid="know-button"
                 >
                   알아요
@@ -481,12 +481,12 @@ export default function CardsPage() {
               <button
                 onClick={expandWord}
                 disabled={loadingExpand}
-                className="w-full py-3 border border-[#1a1a1a] rounded-xl text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3 border border-[#0D9488] rounded-xl text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50"
                 data-testid="expand-button"
               >
                 {loadingExpand ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
                     불러오는 중...
                   </>
                 ) : (
@@ -546,7 +546,7 @@ export default function CardsPage() {
               {/* Practice Button */}
                <Link
                  href={`/talk?context=vocabulary&word=${expandedWord}`}
-                 className="block w-full py-3 bg-[#1a1a1a] text-white rounded-xl text-sm text-center font-medium"
+                 className="block w-full py-3 bg-[#0D9488] text-white rounded-xl text-sm text-center font-medium"
                >
                  이 단어로 대화 연습하기
                </Link>

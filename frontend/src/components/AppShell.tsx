@@ -98,7 +98,7 @@ export default function AppShell({ children }: AppShellProps) {
     return (
       <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
           <p className="text-sm text-[#8a8a8a]">Loading...</p>
         </div>
       </div>

@@ -8,7 +8,12 @@ from typing import Optional, List
 import logging
 import uuid
 
-from backend.core.prompts import SYSTEM_PROMPT_ENGLISH_TUTOR, FREE_CONVERSATION_PROMPT, RESPONSE_SUGGESTIONS_PROMPT, BETTER_EXPRESSION_PROMPT
+from backend.core.prompts import (
+    SYSTEM_PROMPT_ENGLISH_TUTOR,
+    FREE_CONVERSATION_PROMPT,
+    RESPONSE_SUGGESTIONS_PROMPT,
+    BETTER_EXPRESSION_PROMPT,
+)
 import json
 
 logger = logging.getLogger(__name__)
@@ -18,8 +23,12 @@ router = APIRouter()
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2000, description="User message")
     conversation_id: Optional[str] = Field(None, description="Conversation session ID")
-    user_level: Optional[str] = Field("intermediate", description="beginner/intermediate/advanced")
-    system_prompt: Optional[str] = Field(None, description="Custom system prompt override")
+    user_level: Optional[str] = Field(
+        "intermediate", description="beginner/intermediate/advanced"
+    )
+    system_prompt: Optional[str] = Field(
+        None, description="Custom system prompt override"
+    )
 
 
 class ChatResponse(BaseModel):
@@ -63,10 +72,33 @@ async def chat(request: ChatRequest, req: Request):
             context += f"{role}: {msg['content']}\n"
 
         # 프롬프트 구성
-        prompt = FREE_CONVERSATION_PROMPT.format(
-            context=context if context else "This is the start of the conversation.",
-            user_message=request.message
-        )
+        if request.system_prompt:
+            # Custom system_prompt provided (e.g., Korean setup phase)
+            # Use user message directly without English-only FREE_CONVERSATION_PROMPT wrapper
+            # Detect Korean system prompt and wrap user message with Korean instruction
+            is_korean_prompt = any(
+                kw in request.system_prompt
+                for kw in ["한국어", "Korean", "한글"]
+            )
+            if is_korean_prompt:
+                prompt = (
+                    f"이전 대화:\n{context}\n\n사용자: {request.message}\n\n반드시 한국어로만 답변하세요."
+                    if context
+                    else f"사용자: {request.message}\n\n반드시 한국어로만 답변하세요."
+                )
+            else:
+                prompt = (
+                    f"Previous conversation:\n{context}\n\nUser: {request.message}"
+                    if context
+                    else request.message
+                )
+        else:
+            prompt = FREE_CONVERSATION_PROMPT.format(
+                context=context
+                if context
+                else "This is the start of the conversation.",
+                user_message=request.message,
+            )
 
         # LLM 응답 생성
         response = llm.generate(
@@ -93,7 +125,9 @@ async def chat(request: ChatRequest, req: Request):
         # 학습 팁 생성 (사용자 메시지에 개선점이 있을 때만)
         learning_tip = await generate_learning_tip(llm, request.message, response)
 
-        logger.info(f"Chat response generated for conversation {conversation_id[:8]}...")
+        logger.info(
+            f"Chat response generated for conversation {conversation_id[:8]}..."
+        )
 
         return ChatResponse(
             conversation_id=conversation_id,
@@ -106,7 +140,9 @@ async def chat(request: ChatRequest, req: Request):
 
     except Exception as e:
         logger.error(f"Chat error: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate response: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to generate response: {str(e)}"
+        )
 
 
 async def generate_better_expressions(llm, user_message: str) -> List[str]:
@@ -149,7 +185,7 @@ async def generate_suggestions(llm, context: str, ai_message: str) -> List[str]:
     try:
         prompt = RESPONSE_SUGGESTIONS_PROMPT.format(
             context=context if context else "This is a new conversation.",
-            ai_message=ai_message
+            ai_message=ai_message,
         )
 
         result = llm.generate(
@@ -178,7 +214,9 @@ async def generate_suggestions(llm, context: str, ai_message: str) -> List[str]:
         return ["I see!", "That sounds great!", "Can you tell me more?"]
 
 
-async def generate_learning_tip(llm, user_message: str, ai_response: str) -> Optional[str]:
+async def generate_learning_tip(
+    llm, user_message: str, ai_response: str
+) -> Optional[str]:
     """사용자 메시지에 대한 학습 팁 생성 (개선점이 있을 때만)"""
     try:
         # 너무 짧은 메시지는 스킵
@@ -218,7 +256,9 @@ Output ONLY the tip in Korean, or the word "null" if no tip needed:"""
 
 
 class TranslateRequest(BaseModel):
-    text: str = Field(..., min_length=1, max_length=2000, description="Text to translate")
+    text: str = Field(
+        ..., min_length=1, max_length=2000, description="Text to translate"
+    )
     target_lang: Optional[str] = Field("ko", description="Target language (ko/en)")
 
 

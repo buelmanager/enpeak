@@ -19,7 +19,7 @@ export function ModeSelector({ currentMode, onModeChange }: ModeSelectorProps) {
           onClick={() => onModeChange(mode.key)}
           className={`flex-1 py-3 rounded-xl text-sm transition-colors ${
             currentMode === mode.key
-              ? 'bg-[#1a1a1a] text-white'
+              ? 'bg-[#0D9488] text-white'
               : 'bg-white border border-[#e5e5e5]'
           }`}
         >
