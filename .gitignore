@@ -38,6 +38,14 @@ vectordb/
 models/
 *.gguf
 
+# Auto-generated / Build artifacts
+frontend/.firebase/
+frontend/tsconfig.tsbuildinfo
+homepage/tsconfig.tsbuildinfo
+
+# Claude Code local settings
+.claude/settings.local.json
+
 # Misc
 .vercel/
 .cache/
