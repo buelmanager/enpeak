@@ -6,8 +6,12 @@ import HomepageFooter from '@/components/HomepageFooter'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }))
+  const slugs = getAllSlugs()
+  if (slugs.length === 0) return [{ slug: '_placeholder' }]
+  return slugs.map((slug) => ({ slug }))
 }
 
 export function generateMetadata({

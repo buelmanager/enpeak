@@ -160,68 +160,6 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
-export interface BlogPost {
-  id: string
-  title: string
-  excerpt: string
-  category: string
-  date: string
-  readTime: string
-  featured?: boolean
-}
-
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    id: 'english-conversation-tips',
-    title: '영어 회화 실력을 빠르게 늘리는 5가지 방법',
-    excerpt: '매일 조금씩 꾸준히 연습하는 것이 핵심입니다. AI와 대화하며 실전 감각을 키우는 구체적인 방법을 알려드립니다.',
-    category: '학습 팁',
-    date: '2026-02-05',
-    readTime: '5분',
-    featured: true,
-  },
-  {
-    id: 'daily-expressions-guide',
-    title: '원어민이 매일 쓰는 영어 표현 TOP 20',
-    excerpt: '"Break the ice"부터 "Piece of cake"까지, 일상에서 자주 쓰이는 표현들을 정리했습니다.',
-    category: '표현 모음',
-    date: '2026-02-03',
-    readTime: '7분',
-  },
-  {
-    id: 'roleplay-benefits',
-    title: '롤플레이로 영어 회화 연습하면 좋은 이유',
-    excerpt: '실제 상황을 시뮬레이션하면 단순 암기보다 2배 이상 기억에 남습니다. 효과적인 롤플레이 활용법을 소개합니다.',
-    category: '학습 방법',
-    date: '2026-02-01',
-    readTime: '4분',
-  },
-  {
-    id: 'grammar-common-mistakes',
-    title: '한국인이 자주 틀리는 영어 문법 실수 10가지',
-    excerpt: '시제, 관사, 전치사 등 한국어와 구조가 다른 부분에서 발생하는 대표적인 실수와 교정 방법입니다.',
-    category: '문법',
-    date: '2026-01-28',
-    readTime: '6분',
-  },
-  {
-    id: 'travel-english',
-    title: '해외여행 필수 영어 표현 모음',
-    excerpt: '공항, 호텔, 레스토랑, 쇼핑 등 여행 상황별로 꼭 알아야 할 표현들을 정리했습니다.',
-    category: '여행 영어',
-    date: '2026-01-25',
-    readTime: '8분',
-  },
-  {
-    id: 'ai-learning-future',
-    title: 'AI와 함께하는 영어 학습의 미래',
-    excerpt: 'AI 튜터는 24시간 연습 가능하고, 학습자 수준에 맞춰 대화를 조절합니다. AI 영어 학습의 장점을 알아보세요.',
-    category: '트렌드',
-    date: '2026-01-22',
-    readTime: '5분',
-  },
-]
-
 export const FOOTER_LINKS = {
   product: [
     { label: 'AI 대화', href: `${APP_URL}/talk` },
