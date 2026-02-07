@@ -1,17 +1,11 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getAllSlugs, getArticleBySlug } from '@/lib/blog'
-import { SITE_URL } from '@/lib/constants'
+import { getArticleBySlug } from '@/lib/blog'
+import { SITE_URL, TAG_COLORS } from '@/lib/constants'
 import HomepageNav from '@/components/HomepageNav'
 import HomepageFooter from '@/components/HomepageFooter'
 
-export const dynamicParams = false
-
-export function generateStaticParams() {
-  const slugs = getAllSlugs()
-  if (slugs.length === 0) return [{ slug: '_placeholder' }]
-  return slugs.map((slug) => ({ slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export function generateMetadata({
   params,
@@ -36,7 +30,7 @@ export function generateMetadata({
       url: `${SITE_URL}/blog/${article.slug}`,
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title: article.title,
       description: article.description,
     },
@@ -46,16 +40,8 @@ export function generateMetadata({
 function formatDate(dateStr: string) {
   if (!dateStr) return ''
   const d = new Date(dateStr)
+  if (isNaN(d.getTime())) return ''
   return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`
-}
-
-const TAG_COLORS: Record<string, string> = {
-  '학습 팁': 'bg-hp-indigo/10 text-hp-indigo',
-  '표현 모음': 'bg-hp-amber/10 text-hp-amber',
-  '학습 방법': 'bg-hp-emerald/10 text-hp-emerald',
-  '문법': 'bg-hp-rose/10 text-hp-rose',
-  '여행 영어': 'bg-hp-blue/10 text-hp-blue',
-  '트렌드': 'bg-hp-violet/10 text-hp-violet',
 }
 
 export default function BlogArticlePage({

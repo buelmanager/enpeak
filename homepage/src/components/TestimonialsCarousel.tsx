@@ -1,10 +1,25 @@
 'use client'
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useRef, useCallback } from 'react'
 import { TESTIMONIALS } from '@/lib/homepage-data'
 
 export default function TestimonialsCarousel() {
   const { ref, isVisible } = useScrollAnimation()
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    const container = scrollRef.current
+    if (!container) return
+    const scrollAmount = 360
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+    }
+  }, [])
 
   return (
     <section className="py-20 sm:py-28 bg-white px-4 sm:px-6" aria-label="학습자 후기">
@@ -27,7 +42,7 @@ export default function TestimonialsCarousel() {
         </div>
 
         <div className="relative -mx-4 sm:mx-0">
-          <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory px-4 sm:px-0 pb-4 scrollbar-hide" role="region" aria-label="후기 캐러셀" tabIndex={0}>
+          <div ref={scrollRef} onKeyDown={handleKeyDown} className="flex gap-5 overflow-x-auto snap-x snap-mandatory px-4 sm:px-0 pb-4 scrollbar-hide" role="region" aria-label="후기 캐러셀 - 좌우 화살표 키로 탐색" tabIndex={0}>
             {TESTIMONIALS.map((t, i) => (
               <div
                 key={t.name}

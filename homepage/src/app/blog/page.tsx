@@ -1,18 +1,14 @@
 import HomepageNav from '@/components/HomepageNav'
 import HomepageFooter from '@/components/HomepageFooter'
 import { getAllArticles } from '@/lib/blog'
+import { TAG_COLORS } from '@/lib/constants'
 
-const TAG_COLORS: Record<string, string> = {
-  '학습 팁': 'bg-hp-indigo/10 text-hp-indigo',
-  '표현 모음': 'bg-hp-amber/10 text-hp-amber',
-  '학습 방법': 'bg-hp-emerald/10 text-hp-emerald',
-  '문법': 'bg-hp-rose/10 text-hp-rose',
-  '여행 영어': 'bg-hp-blue/10 text-hp-blue',
-  '트렌드': 'bg-hp-violet/10 text-hp-violet',
-}
+export const dynamic = 'force-dynamic'
 
 function formatDate(dateStr: string) {
+  if (!dateStr) return ''
   const d = new Date(dateStr)
+  if (isNaN(d.getTime())) return ''
   return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`
 }
 

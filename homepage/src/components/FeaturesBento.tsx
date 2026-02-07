@@ -47,6 +47,7 @@ export default function FeaturesBento() {
 
   return (
     <section id="features" className="py-20 sm:py-28 bg-white px-4 sm:px-6" aria-label="주요 기능">
+      <div id="main-content" className="sr-only" tabIndex={-1} />
       <div className="max-w-7xl mx-auto">
         <div
           ref={ref}

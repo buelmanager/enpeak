@@ -2,7 +2,7 @@
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+import { APP_URL } from '@/lib/constants'
 
 export default function DailyChallengePreview() {
   const { ref, isVisible } = useScrollAnimation()
@@ -34,7 +34,20 @@ export default function DailyChallengePreview() {
 
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6 max-w-md mx-auto">
                 <p className="text-xl font-semibold mb-2">&ldquo;Break the ice&rdquo;</p>
-                <p className="text-white/60 text-sm blur-[2px] hover:blur-none focus:blur-none transition-all duration-300 cursor-pointer select-none" tabIndex={0}>
+                <p
+                  className="text-white/60 text-sm blur-[2px] hover:blur-none focus:blur-none transition-all duration-300 cursor-pointer select-none"
+                  tabIndex={0}
+                  role="button"
+                  aria-label="뜻 보기: 어색한 분위기를 깨다"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      const target = e.currentTarget
+                      target.classList.toggle('blur-[2px]')
+                      target.classList.toggle('blur-none')
+                    }
+                  }}
+                >
                   어색한 분위기를 깨다
                 </p>
                 <p className="text-xs text-white/40 mt-2">마우스를 올리거나 탭하여 뜻을 확인하세요</p>

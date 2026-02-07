@@ -3,7 +3,7 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { LEADERBOARD_DATA } from '@/lib/homepage-data'
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+import { APP_URL } from '@/lib/constants'
 
 export default function LeaderboardTeaser() {
   const { ref, isVisible } = useScrollAnimation()

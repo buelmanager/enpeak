@@ -46,6 +46,14 @@ homepage/tsconfig.tsbuildinfo
 # Claude Code local settings
 .claude/settings.local.json
 
+# Working docs (dev notes, reports, references)
+.reference/
+develop/
+report/
+
+# Blog workflow intermediate files
+homepage/blog/runs/
+
 # Misc
 .vercel/
 .cache/

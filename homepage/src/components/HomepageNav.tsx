@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+import { APP_URL } from '@/lib/constants'
 
 const NAV_LINKS = [
   { label: '기능 소개', href: '#features' },

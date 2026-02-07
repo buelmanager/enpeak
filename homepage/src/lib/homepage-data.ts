@@ -1,4 +1,4 @@
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+import { APP_URL } from './constants'
 
 export const STATS = [
   { label: '학습 리소스', value: 5375, suffix: '+' },

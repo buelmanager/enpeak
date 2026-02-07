@@ -1,13 +1,15 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import HomepageNav from '@/components/HomepageNav'
 import HeroSection from '@/components/HeroSection'
 import FeaturesBento from '@/components/FeaturesBento'
-import CommunityHighlights from '@/components/CommunityHighlights'
-import DailyChallengePreview from '@/components/DailyChallengePreview'
-import LeaderboardTeaser from '@/components/LeaderboardTeaser'
-import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import HomepageFooter from '@/components/HomepageFooter'
+
+const CommunityHighlights = dynamic(() => import('@/components/CommunityHighlights'))
+const DailyChallengePreview = dynamic(() => import('@/components/DailyChallengePreview'))
+const LeaderboardTeaser = dynamic(() => import('@/components/LeaderboardTeaser'))
+const TestimonialsCarousel = dynamic(() => import('@/components/TestimonialsCarousel'))
 
 export default function Homepage() {
   return (

@@ -4,8 +4,8 @@ import GradientBlob from './GradientBlob'
 import AnimatedCounter from './AnimatedCounter'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { STATS } from '@/lib/homepage-data'
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+import { APP_URL } from '@/lib/constants'
+import { trackEvent } from '@/lib/analytics'
 
 export default function HeroSection() {
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation({ threshold: 0.3 })
@@ -40,9 +40,10 @@ export default function HeroSection() {
           5,000+ 학습 리소스와 14가지 실생활 시나리오로 영어 실력을 키우세요.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <a
             href={`${APP_URL}/talk`}
+            onClick={() => trackEvent({ name: 'cta_click', label: 'hero_start_free', href: `${APP_URL}/talk` })}
             className="inline-flex items-center px-8 py-4 rounded-full text-base font-semibold text-white bg-gradient-to-r from-hp-indigo to-hp-violet hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/25"
           >
             무료로 시작하기
@@ -57,6 +58,32 @@ export default function HeroSection() {
           >
             기능 살펴보기
           </a>
+        </div>
+
+        <div className="w-full max-w-sm mx-auto mb-12" aria-hidden="true">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 space-y-3">
+            <div className="flex items-start gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-hp-indigo to-hp-violet flex-shrink-0 flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+              </div>
+              <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-sm text-hp-text max-w-[85%]">
+                Hi! How can I help you practice English today?
+              </div>
+            </div>
+            <div className="flex items-start gap-2.5 justify-end">
+              <div className="bg-hp-indigo/10 rounded-2xl rounded-tr-sm px-3.5 py-2.5 text-sm text-hp-text max-w-[85%]">
+                I&apos;d like to order a coffee, please.
+              </div>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-hp-indigo to-hp-violet flex-shrink-0 flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+              </div>
+              <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-sm text-hp-text max-w-[85%]">
+                Great! What size would you like? <span className="text-hp-muted text-xs">(어떤 사이즈로 드릴까요?)</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div ref={statsRef} className="flex items-center justify-center gap-8 sm:gap-16">

@@ -20,7 +20,7 @@ homepage/blog/runs/{YYYY-MM-DD}/     # 실행별 디렉토리
 ├── outlines/{slug}.yaml
 └── feedback/{slug}.yaml
 
-homepage/blog/release/{slug}.md      # 최종 완성된 글
+frontend/content/blog/{slug}.md      # 최종 완성된 글
 ```
 
 소스 데이터: `.reference/contents/` (youtube-collector가 수집)

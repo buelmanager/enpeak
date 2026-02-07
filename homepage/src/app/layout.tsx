@@ -1,6 +1,14 @@
 import type { Metadata, Viewport } from 'next'
+import { Playfair_Display } from 'next/font/google'
 import '../styles/globals.css'
 import { SITE_URL } from '@/lib/constants'
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700', '900'],
+  display: 'swap',
+  variable: '--font-playfair',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +36,7 @@ export const metadata: Metadata = {
     url: SITE_URL || undefined,
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'EnPeak - AI 영어 회화 학습 플랫폼',
     description:
       'AI와 함께하는 영어 회화 연습. 자유 대화, 롤플레이, 단어 카드까지 한곳에서.',
@@ -68,18 +76,20 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="ko">
+    <html lang="ko" className={playfair.variable}>
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="antialiased bg-hp-cream">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-hp-indigo focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold"
+        >
+          본문으로 건너뛰기
+        </a>
         {children}
       </body>
     </html>

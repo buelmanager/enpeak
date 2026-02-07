@@ -3,10 +3,6 @@ import path from 'path'
 import matter from 'gray-matter'
 import { marked } from 'marked'
 
-/**
- * Sanitize HTML output from marked to prevent XSS.
- * Strips dangerous tags (script, iframe, object, embed, form) and event handler attributes.
- */
 function sanitizeHtml(html: string): string {
   return html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
@@ -30,20 +26,17 @@ export interface BlogArticle {
   content: string
 }
 
-const BLOG_DIR = path.join(process.cwd(), 'blog', 'release')
+const BLOG_DIR = path.join(process.cwd(), 'content', 'blog')
 const CHARS_PER_MINUTE_KO = 500
 
 function calculateReadTime(text: string): string {
   const plain = text.replace(/[#*\->\[\]()_`~|]/g, '').replace(/\s+/g, ' ')
   const charCount = plain.replace(/\s/g, '').length
   const minutes = Math.max(1, Math.ceil(charCount / CHARS_PER_MINUTE_KO))
-  return `${minutes}분`
+  return `${minutes}min`
 }
 
-function parseFrontmatter(
-  data: Record<string, unknown>,
-  slug: string,
-) {
+function parseFrontmatter(data: Record<string, unknown>, slug: string) {
   const title = typeof data.title === 'string' ? data.title : slug
   const date = typeof data.date === 'string' ? data.date : ''
   const tags = Array.isArray(data.tags)

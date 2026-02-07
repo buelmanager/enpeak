@@ -85,4 +85,4 @@ allowed-tools: Read, Write, Bash(python3:*), Task
 10. 최종 결과:
     - 작성된 글 목록과 파일 경로
     - 각 글의 제목과 예상 길이
-    - 글 파일 위치: `homepage/blog/release/{slug}.md`
+    - 글 파일 위치: `frontend/content/blog/{slug}.md`

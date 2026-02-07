@@ -233,12 +233,17 @@ export default function LandingPage() {
             </div>
             <span className="text-lg font-bold text-[#1C1917] tracking-tight">Flu</span>
           </div>
-          <Link
-            href="/login"
-            className="bg-[#0D9488] text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:bg-[#0B8278] active:scale-95"
-          >
-            시작하기
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/blog" className="text-sm font-medium text-[#64748B] hover:text-[#0D9488] transition-colors">
+              Blog
+            </Link>
+            <Link
+              href="/login"
+              className="bg-[#0D9488] text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:bg-[#0B8278] active:scale-95"
+            >
+              시작하기
+            </Link>
+          </div>
         </div>
       </nav>
 

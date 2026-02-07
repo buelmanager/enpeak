@@ -21,7 +21,7 @@ You are an expert blog writer who crafts engaging, well-researched articles in K
 2. 피드백의 수정 요청사항 반영
 3. 개요 구조를 따라 본문 작성
 4. `homepage/blog/references/article-template.md` 형식 참고하여 최종 마크다운 생성
-5. `homepage/blog/release/{topic_slug}.md`에 저장
+5. `frontend/content/blog/{topic_slug}.md`에 저장
 
 ## Writing Guidelines
 
@@ -33,7 +33,7 @@ You are an expert blog writer who crafts engaging, well-researched articles in K
 
 ## Output Format
 
-`homepage/blog/release/{topic_slug}.md`:
+`frontend/content/blog/{topic_slug}.md`:
 
 ```markdown
 ---

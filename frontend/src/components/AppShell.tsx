@@ -5,10 +5,10 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import SplashScreen from './SplashScreen'
 
-const SPLASH_SHOWN_KEY = 'enpeak_splash_shown'
+const SPLASH_SHOWN_KEY = 'flu_splash_shown'
 
 // 인증이 필요하지 않은 페이지들
-const PUBLIC_PATHS = ['/login', '/landing']
+const PUBLIC_PATHS = ['/login', '/landing', '/blog']
 
 interface AppShellProps {
   children: ReactNode
