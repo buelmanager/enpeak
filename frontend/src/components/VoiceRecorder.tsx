@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react'
+import { useState, useRef, useEffect, useImperativeHandle, forwardRef, useCallback } from 'react'
 
 export interface STTAlternative {
   transcript: string
@@ -30,6 +30,8 @@ export interface VoiceRecorderRef {
 }
 
 const MAX_NO_SPEECH_RETRIES = 2
+// continuous 모드에서 발화 종료 판단을 위한 silence timeout (ms)
+const SILENCE_TIMEOUT_MS = 2000
 
 const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
   ({ onResult, onInterimResult, onError, onStreamReady, disabled, autoStart, onRecordingChange, lang = 'en-US' }, ref) => {
@@ -42,6 +44,66 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
     const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     // 마이크 권한이 이미 확보되었는지 (첫 getUserMedia 성공 후)
     const permissionGrantedRef = useRef(false)
+    // continuous 모드: 누적 transcript + silence 타이머
+    const accumulatedTranscriptRef = useRef('')
+    const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    const lastResultIndexRef = useRef(0)
+
+    // 콜백을 ref로 저장하여 useEffect 재실행 방지
+    const onResultRef = useRef(onResult)
+    const onInterimResultRef = useRef(onInterimResult)
+    const onRecordingChangeRef = useRef(onRecordingChange)
+    const onErrorRef = useRef(onError)
+    const onStreamReadyRef = useRef(onStreamReady)
+    useEffect(() => { onResultRef.current = onResult }, [onResult])
+    useEffect(() => { onInterimResultRef.current = onInterimResult }, [onInterimResult])
+    useEffect(() => { onRecordingChangeRef.current = onRecordingChange }, [onRecordingChange])
+    useEffect(() => { onErrorRef.current = onError }, [onError])
+    useEffect(() => { onStreamReadyRef.current = onStreamReady }, [onStreamReady])
+
+    // silence timeout 후 최종 결과를 전달하고 녹음 종료
+    const finishRecording = useCallback(() => {
+      if (silenceTimerRef.current) {
+        clearTimeout(silenceTimerRef.current)
+        silenceTimerRef.current = null
+      }
+
+      const transcript = accumulatedTranscriptRef.current.trim()
+      if (transcript.length > 0) {
+        const metadata: STTResultMetadata = {
+          confidence: 0,
+          alternatives: [{ transcript, confidence: 0 }],
+        }
+        onResultRef.current(transcript, metadata)
+      }
+
+      accumulatedTranscriptRef.current = ''
+      lastResultIndexRef.current = 0
+
+      // recognition 정지
+      if (recognitionRef.current) {
+        manualStopRef.current = true
+        try {
+          recognitionRef.current.stop()
+        } catch {
+          // already stopped
+        }
+      }
+
+      setIsRecording(false)
+      onRecordingChangeRef.current?.(false)
+    }, [])
+
+    // silence 타이머 리셋 (발화 감지 시마다 호출)
+    const resetSilenceTimer = useCallback(() => {
+      if (silenceTimerRef.current) {
+        clearTimeout(silenceTimerRef.current)
+      }
+      silenceTimerRef.current = setTimeout(() => {
+        silenceTimerRef.current = null
+        finishRecording()
+      }, SILENCE_TIMEOUT_MS)
+    }, [finishRecording])
 
     useEffect(() => {
       if (typeof window !== 'undefined') {
@@ -52,54 +114,53 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
         }
 
         const recognition = new SpeechRecognition()
-        recognition.continuous = false
+        recognition.continuous = true
         recognition.interimResults = true
         recognition.lang = lang
         recognition.maxAlternatives = 3
 
         recognition.onresult = (event: any) => {
-          const result = event.results[0]
+          retryCountRef.current = 0
 
-          if (result.isFinal) {
-            retryCountRef.current = 0
+          // 모든 결과를 조합 (final + interim)
+          let finalTranscript = ''
+          let interimTranscript = ''
 
-            const alternatives: STTAlternative[] = []
-            for (let i = 0; i < result.length; i++) {
-              alternatives.push({
-                transcript: result[i].transcript,
-                confidence: result[i].confidence,
-              })
+          for (let i = 0; i < event.results.length; i++) {
+            const result = event.results[i]
+            if (result.isFinal) {
+              finalTranscript += result[0].transcript
+            } else {
+              interimTranscript += result[0].transcript
             }
-
-            const bestTranscript = result[0].transcript
-            const bestConfidence = result[0].confidence
-
-            console.log('[STT] Final result:', bestTranscript)
-            console.log('[STT] Confidence:', bestConfidence)
-            console.log('[STT] Alternatives:', alternatives.map(a => `${a.transcript} (${a.confidence})`))
-
-            const metadata: STTResultMetadata = {
-              confidence: bestConfidence,
-              alternatives,
-            }
-
-            onResult(bestTranscript, metadata)
-            setIsRecording(false)
-            onRecordingChange?.(false)
-          } else {
-            onInterimResult?.(result[0].transcript)
           }
+
+          accumulatedTranscriptRef.current = finalTranscript
+
+          // interim을 포함한 전체 텍스트를 실시간 표시
+          const displayText = (finalTranscript + interimTranscript).trim()
+          if (displayText) {
+            onInterimResultRef.current?.(displayText)
+          }
+
+          // 발화 감지 시 silence 타이머 리셋
+          resetSilenceTimer()
         }
 
         recognition.onerror = (event: any) => {
           const errorType = event.error as string
+
+          // abort()에 의한 정상 종료 - 에러 처리 불필요
+          if (errorType === 'aborted') {
+            return
+          }
+
           console.error('[STT] Recognition error:', errorType)
 
           switch (errorType) {
             case 'no-speech':
               if (retryCountRef.current < MAX_NO_SPEECH_RETRIES) {
                 retryCountRef.current++
-                console.log(`[STT] no-speech retry ${retryCountRef.current}/${MAX_NO_SPEECH_RETRIES}`)
                 retryTimeoutRef.current = setTimeout(() => {
                   retryTimeoutRef.current = null
                   if (manualStopRef.current) return
@@ -108,46 +169,72 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
                   } catch (e) {
                     console.error('[STT] Retry start failed:', e)
                     setIsRecording(false)
-                    onRecordingChange?.(false)
+                    onRecordingChangeRef.current?.(false)
                   }
                 }, 300)
                 return
               }
               retryCountRef.current = 0
-              onError?.('no-speech', '말씀을 듣지 못했어요. 다시 시도해주세요.')
+              onErrorRef.current?.('no-speech', '말씀을 듣지 못했어요. 다시 시도해주세요.')
               break
 
             case 'network':
-              onError?.('network', '네트워크 오류가 발생했어요.')
+              onErrorRef.current?.('network', '네트워크 오류가 발생했어요.')
               break
 
             case 'audio-capture':
               setPermissionDenied(true)
               permissionGrantedRef.current = false
-              onError?.('audio-capture', '마이크를 사용할 수 없어요. 브라우저 설정에서 마이크 권한을 확인해주세요.')
+              onErrorRef.current?.('audio-capture', '마이크를 사용할 수 없어요. 브라우저 설정에서 마이크 권한을 확인해주세요.')
               break
 
             case 'not-allowed':
               setPermissionDenied(true)
               permissionGrantedRef.current = false
-              onError?.('not-allowed', '마이크 권한이 차단되어 있어요. 브라우저 주소창 왼쪽의 자물쇠 아이콘을 눌러 마이크를 허용해주세요.')
+              onErrorRef.current?.('not-allowed', '마이크 권한이 차단되어 있어요. 브라우저 주소창 왼쪽의 자물쇠 아이콘을 눌러 마이크를 허용해주세요.')
               break
 
             default:
-              onError?.(errorType, '음성 인식 오류가 발생했어요.')
+              onErrorRef.current?.(errorType, '음성 인식 오류가 발생했어요.')
               break
           }
 
+          if (silenceTimerRef.current) {
+            clearTimeout(silenceTimerRef.current)
+            silenceTimerRef.current = null
+          }
+          accumulatedTranscriptRef.current = ''
+          lastResultIndexRef.current = 0
           setIsRecording(false)
-          onRecordingChange?.(false)
+          onRecordingChangeRef.current?.(false)
         }
 
         recognition.onend = () => {
+          // no-speech 재시도 중이면 무시
           if (retryCountRef.current > 0 && retryCountRef.current <= MAX_NO_SPEECH_RETRIES) {
             return
           }
-          setIsRecording(false)
-          onRecordingChange?.(false)
+          // manualStop이 아닌 예상치 못한 종료: 아직 녹음 중이면 재시작
+          if (!manualStopRef.current && accumulatedTranscriptRef.current.trim().length === 0) {
+            // 누적된 텍스트 없이 끝남 - 그냥 종료
+            if (silenceTimerRef.current) {
+              clearTimeout(silenceTimerRef.current)
+              silenceTimerRef.current = null
+            }
+            setIsRecording(false)
+            onRecordingChangeRef.current?.(false)
+            return
+          }
+          if (!manualStopRef.current) {
+            // continuous 모드에서 브라우저가 자체적으로 끊는 경우 재시작
+            try {
+              recognition.start()
+              return
+            } catch {
+              // 재시작 실패 시 현재까지 누적된 결과 전달
+            }
+          }
+          // 수동 중지이거나 재시작 실패: 결과 처리는 finishRecording/stopRecording에서 담당
         }
 
         recognitionRef.current = recognition
@@ -155,6 +242,10 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
       return () => {
         // unmount 시 SpeechRecognition 정리
+        if (silenceTimerRef.current) {
+          clearTimeout(silenceTimerRef.current)
+          silenceTimerRef.current = null
+        }
         if (retryTimeoutRef.current) {
           clearTimeout(retryTimeoutRef.current)
           retryTimeoutRef.current = null
@@ -167,8 +258,10 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
           }
           recognitionRef.current = null
         }
+        accumulatedTranscriptRef.current = ''
+        lastResultIndexRef.current = 0
       }
-    }, [onResult, onInterimResult, onRecordingChange, onError, lang])
+    }, [lang, resetSilenceTimer])
 
     // getUserMedia로 먼저 권한 확보 후 recognition 시작
     // -> 권한 프롬프트가 1회만 뜸 (Safari 대응)
@@ -195,7 +288,7 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
         setPermissionDenied(false)
 
         // 스트림을 부모에게 전달 (audioRecorder/audioLevel용)
-        onStreamReady?.(stream)
+        onStreamReadyRef.current?.(stream)
 
         // recognition 시작 (권한이 이미 캐시되어 프롬프트 안 뜸)
         recognitionRef.current.start()
@@ -204,7 +297,7 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
         console.error('[STT] Permission denied:', e)
         setPermissionDenied(true)
         permissionGrantedRef.current = false
-        onError?.('not-allowed', '마이크 권한이 차단되어 있어요. 브라우저 주소창 왼쪽의 자물쇠 아이콘을 눌러 마이크를 허용해주세요.')
+        onErrorRef.current?.('not-allowed', '마이크 권한이 차단되어 있어요. 브라우저 주소창 왼쪽의 자물쇠 아이콘을 눌러 마이크를 허용해주세요.')
         return false
       }
     }
@@ -217,17 +310,36 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
         manualStopRef.current = false
         retryCountRef.current = 0
+        accumulatedTranscriptRef.current = ''
+        lastResultIndexRef.current = 0
         const started = await startWithPermission()
         if (started) {
           setIsRecording(true)
-          onRecordingChange?.(true)
+          onRecordingChangeRef.current?.(true)
         }
       },
       stopRecording: () => {
+        if (silenceTimerRef.current) {
+          clearTimeout(silenceTimerRef.current)
+          silenceTimerRef.current = null
+        }
         if (retryTimeoutRef.current) {
           clearTimeout(retryTimeoutRef.current)
           retryTimeoutRef.current = null
         }
+
+        // 누적된 텍스트가 있으면 결과 전달
+        const transcript = accumulatedTranscriptRef.current.trim()
+        if (transcript.length > 0) {
+          const metadata: STTResultMetadata = {
+            confidence: 0,
+            alternatives: [{ transcript, confidence: 0 }],
+          }
+          onResultRef.current(transcript, metadata)
+        }
+        accumulatedTranscriptRef.current = ''
+        lastResultIndexRef.current = 0
+
         if (recognitionRef.current) {
           manualStopRef.current = true
           retryCountRef.current = 0
@@ -238,7 +350,7 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
           }
         }
         setIsRecording(false)
-        onRecordingChange?.(false)
+        onRecordingChangeRef.current?.(false)
       },
       isRecording,
     }))
@@ -249,10 +361,12 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
         (async () => {
           manualStopRef.current = false
           retryCountRef.current = 0
+          accumulatedTranscriptRef.current = ''
+          lastResultIndexRef.current = 0
           const started = await startWithPermission()
           if (started) {
             setIsRecording(true)
-            onRecordingChange?.(true)
+            onRecordingChangeRef.current?.(true)
           }
         })()
       }
@@ -262,11 +376,32 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
       if (!recognitionRef.current) return
 
       if (isRecording) {
+        // 수동 중지: 누적된 텍스트 결과 전달
+        if (silenceTimerRef.current) {
+          clearTimeout(silenceTimerRef.current)
+          silenceTimerRef.current = null
+        }
+
+        const transcript = accumulatedTranscriptRef.current.trim()
+        if (transcript.length > 0) {
+          const metadata: STTResultMetadata = {
+            confidence: 0,
+            alternatives: [{ transcript, confidence: 0 }],
+          }
+          onResultRef.current(transcript, metadata)
+        }
+        accumulatedTranscriptRef.current = ''
+        lastResultIndexRef.current = 0
+
         manualStopRef.current = true
         retryCountRef.current = 0
-        recognitionRef.current.stop()
+        try {
+          recognitionRef.current.stop()
+        } catch {
+          // already stopped
+        }
         setIsRecording(false)
-        onRecordingChange?.(false)
+        onRecordingChangeRef.current?.(false)
       } else {
         // 권한 차단 상태에서도 재시도 가능
         if (permissionDenied) {
@@ -275,10 +410,12 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
         manualStopRef.current = false
         retryCountRef.current = 0
+        accumulatedTranscriptRef.current = ''
+        lastResultIndexRef.current = 0
         const started = await startWithPermission()
         if (started) {
           setIsRecording(true)
-          onRecordingChange?.(true)
+          onRecordingChangeRef.current?.(true)
         }
       }
     }
