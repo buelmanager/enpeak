@@ -32,7 +32,11 @@ const STATS_KEY = 'enpeak_learning_stats'
 
 // 오늘 날짜 문자열 (YYYY-MM-DD)
 function getTodayString(): string {
-  return new Date().toISOString().split('T')[0]
+  const d = new Date()
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 // 모든 학습 기록 가져오기
@@ -55,7 +59,9 @@ export function addLearningRecord(record: Omit<LearningRecord, 'id' | 'completed
   const records = getAllRecords()
   const newRecord: LearningRecord = {
     ...record,
-    id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     completedAt: new Date().toISOString(),
   }
   records.unshift(newRecord) // 최신 기록을 앞에

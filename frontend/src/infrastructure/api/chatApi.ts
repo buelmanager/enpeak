@@ -6,15 +6,20 @@ import { ok } from '@/shared/types/Result'
 export class ChatApi extends BaseApi {
   async sendMessage(
     message: string,
-    conversationId?: string
+    conversationId?: string,
+    timeoutMs = 30000
   ): Promise<Result<ChatResponse>> {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), timeoutMs)
+
     const result = await this.request<any>('/api/chat', {
       method: 'POST',
       body: JSON.stringify({
         message,
         conversation_id: conversationId,
       }),
-    })
+      signal: controller.signal,
+    }).finally(() => clearTimeout(timeout))
 
     if (!result.success) return result
 

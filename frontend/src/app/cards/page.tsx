@@ -68,11 +68,11 @@ export default function CardsPage() {
     setSavedWords(getSavedWords())
   }, [tab])
 
-  const fetchWords = useCallback(async (level: string) => {
+  const fetchWords = useCallback(async (level: string, signal?: AbortSignal) => {
     setLoading(true)
     try {
       // 정적 파일에서 전체 단어 로드
-      const response = await fetch('/data/vocabulary.json')
+      const response = await fetch('/data/vocabulary.json', { signal })
       if (response.ok) {
         const data = await response.json()
         const levelWords: { w: string; m: string; e: string }[] = data[level] || []
@@ -101,7 +101,7 @@ export default function CardsPage() {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/vocabulary/level/${level}?limit=500`)
+      const response = await fetch(`${API_BASE}/api/vocabulary/level/${level}?limit=500`, { signal })
       if (response.ok) {
         const data = await response.json()
         if (data.words?.length > 0) {
@@ -141,7 +141,9 @@ export default function CardsPage() {
   useEffect(() => { setLoading(false) }, [state.words])
 
   useEffect(() => {
-    fetchWords('A1')
+    const controller = new AbortController()
+    fetchWords('A1', controller.signal)
+    return () => controller.abort()
   }, [fetchWords])
 
   const revealAnswer = () => {
@@ -202,6 +204,7 @@ export default function CardsPage() {
         idioms: [],
         sentences: [],
         related_words: [],
+        error: '관련 콘텐츠를 불러올 수 없습니다.',
       })
     } finally {
       setLoadingExpand(false)
@@ -536,7 +539,7 @@ export default function CardsPage() {
               {/* No content message */}
               {(!relatedContent.idioms?.length && !relatedContent.sentences?.length) && (
                 <p className="text-sm text-[#8a8a8a] text-center py-4">
-                  관련 숙어와 예문을 찾는 중...
+                  {relatedContent.error || '관련 숙어와 예문을 찾는 중...'}
                 </p>
               )}
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { useTTS } from '@/contexts/TTSContext'
 import WordPopup from './WordPopup'
 
@@ -92,6 +92,15 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
       longPressTimer.current = null
     }
     pressedWord.current = null
+  }, [])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (longPressTimer.current) {
+        clearTimeout(longPressTimer.current)
+      }
+    }
   }, [])
 
   const renderInteractiveText = (text: string) => {
@@ -228,6 +237,22 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
                 </span>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* 사용자 메시지 - 발음 연습 버튼 */}
+        {isUser && onPronunciationPractice && (
+          <div className="flex items-center gap-1 mt-1.5 mr-1 justify-end">
+            <button
+              onClick={() => onPronunciationPractice(english)}
+              className="p-1.5 text-[#c5c5c5] hover:text-[#1a1a1a] transition-colors"
+              title="발음 연습"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 4l-4 4m4 0l-4-4" />
+              </svg>
+            </button>
           </div>
         )}
 

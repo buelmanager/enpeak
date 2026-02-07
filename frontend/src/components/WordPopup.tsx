@@ -24,11 +24,14 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
   const [saved, setSaved] = useState(() => isWordSaved(word))
 
   useEffect(() => {
+    const controller = new AbortController()
+    const { signal } = controller
+
     const fetchWordInfo = async () => {
       setLoading(true)
       try {
         // 1. 백엔드 lookup 시도
-        const response = await fetch(`${API_BASE}/api/vocabulary/lookup?word=${encodeURIComponent(word)}`)
+        const response = await fetch(`${API_BASE}/api/vocabulary/lookup?word=${encodeURIComponent(word)}`, { signal })
         if (response.ok) {
           const data = await response.json()
           if (data.meaning && data.meaning !== '뜻을 찾을 수 없습니다') {
@@ -36,7 +39,8 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
             return
           }
         }
-      } catch {
+      } catch (e) {
+        if ((e as Error).name === 'AbortError') return
         // 백엔드 실패 - 폴백 시도
       }
 
@@ -46,6 +50,7 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: word, target_lang: 'ko' }),
+          signal,
         })
         if (translateRes.ok) {
           const data = await translateRes.json()
@@ -54,14 +59,19 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
             return
           }
         }
-      } catch {
+      } catch (e) {
+        if ((e as Error).name === 'AbortError') return
         // 번역 API도 실패
       }
 
       setWordInfo({ word, meaning: '뜻을 찾을 수 없습니다' })
     }
 
-    fetchWordInfo().finally(() => setLoading(false))
+    fetchWordInfo().finally(() => {
+      if (!signal.aborted) setLoading(false)
+    })
+
+    return () => controller.abort()
   }, [word])
 
   const handleSaveWord = () => {

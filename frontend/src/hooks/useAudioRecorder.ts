@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 
 interface UseAudioRecorderOptions {
   mimeType?: string
@@ -44,6 +44,8 @@ export function useAudioRecorder(options?: UseAudioRecorderOptions): UseAudioRec
     return ''
   }, [options?.mimeType])
 
+  const resolveStopRef = useRef<((blob: Blob | null) => void) | null>(null)
+
   const startRecording = useCallback(async (existingStream?: MediaStream): Promise<boolean> => {
     if (!isSupported) return false
 
@@ -81,7 +83,22 @@ export function useAudioRecorder(options?: UseAudioRecorderOptions): UseAudioRec
 
       recorder.onstop = () => {
         const mType = recorder.mimeType || 'audio/webm'
-        audioBlobRef.current = new Blob(chunksRef.current, { type: mType })
+        const blob = new Blob(chunksRef.current, { type: mType })
+        audioBlobRef.current = blob
+        console.log('[AudioRecorder] Stopped, blob size:', blob.size)
+        setIsRecording(false)
+
+        // 직접 생성한 스트림만 정리
+        if (ownStreamRef.current && streamRef.current) {
+          streamRef.current.getTracks().forEach(track => track.stop())
+        }
+        streamRef.current = null
+
+        // stopRecording()의 Promise를 resolve
+        if (resolveStopRef.current) {
+          resolveStopRef.current(blob)
+          resolveStopRef.current = null
+        }
       }
 
       mediaRecorderRef.current = recorder
@@ -104,24 +121,29 @@ export function useAudioRecorder(options?: UseAudioRecorderOptions): UseAudioRec
         return
       }
 
-      recorder.onstop = () => {
-        const mType = recorder.mimeType || 'audio/webm'
-        const blob = new Blob(chunksRef.current, { type: mType })
-        audioBlobRef.current = blob
-        console.log('[AudioRecorder] Stopped, blob size:', blob.size)
-        setIsRecording(false)
-
-        // 직접 생성한 스트림만 정리
-        if (ownStreamRef.current && streamRef.current) {
-          streamRef.current.getTracks().forEach(track => track.stop())
-        }
-        streamRef.current = null
-
-        resolve(blob)
-      }
-
+      // onstop 핸들러에서 resolve를 호출하도록 ref에 저장
+      resolveStopRef.current = resolve
       recorder.stop()
     })
+  }, [])
+
+  // 컴포넌트 unmount 시 방어적 cleanup
+  useEffect(() => {
+    return () => {
+      const recorder = mediaRecorderRef.current
+      if (recorder && recorder.state !== 'inactive') {
+        try {
+          recorder.stop()
+        } catch {
+          // already stopped
+        }
+      }
+      if (ownStreamRef.current && streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop())
+      }
+      mediaRecorderRef.current = null
+      streamRef.current = null
+    }
   }, [])
 
   const getAudioBlob = useCallback(() => {

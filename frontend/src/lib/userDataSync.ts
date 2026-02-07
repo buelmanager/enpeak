@@ -240,7 +240,7 @@ function mergeStats(
   let todayStats = DEFAULT_USER_DATA.learningStats.todayStats
 
   if (existingStats.todayStats.date === today && localStats.todayStats.date === today) {
-    // 둘 다 오늘 데이터면 합산
+    // 둘 다 오늘 데이터면 더 큰 값 선택 (같은 세션 데이터가 양쪽에 있을 수 있으므로 합산 대신 max 유지)
     todayStats = {
       date: today,
       totalSessions: Math.max(existingStats.todayStats.totalSessions, localStats.todayStats.totalSessions),

@@ -1,3 +1,4 @@
+// TODO: Add Firebase sync for saved words (currently localStorage only)
 const STORAGE_KEY = 'enpeak-saved-words'
 
 export interface SavedWord {

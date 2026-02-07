@@ -39,7 +39,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function CreateScenarioPage() {
   const router = useRouter()
-  const { user, loading: authLoading } = useAuth()
+  const { user } = useAuth()
   const [step, setStep] = useState<'context' | 'chat' | 'review'>('context')
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [context, setContext] = useState<ScenarioContext>({
@@ -209,14 +209,14 @@ export default function CreateScenarioPage() {
       })
 
       if (response.ok) {
-        router.push('/community?published=true')
+        router.push('/talk?mode=roleplay')
       } else {
         alert('시나리오가 저장되었습니다!')
-        router.push('/community')
+        router.push('/talk?mode=roleplay')
       }
     } catch {
       alert('시나리오가 저장되었습니다!')
-      router.push('/community')
+      router.push('/talk?mode=roleplay')
     } finally {
       setLoading(false)
     }

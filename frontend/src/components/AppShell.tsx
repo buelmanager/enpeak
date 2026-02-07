@@ -37,6 +37,18 @@ export default function AppShell({ children }: AppShellProps) {
     }
   }, [])
 
+  // Firebase 인증 타임아웃 (5초)
+  useEffect(() => {
+    if (!splashComplete || isReady) return
+    const timeout = setTimeout(() => {
+      if (!isReady) {
+        console.warn('[AppShell] Firebase auth timeout, proceeding without auth')
+        setAppReady(true)
+      }
+    }, 5000)
+    return () => clearTimeout(timeout)
+  }, [splashComplete, isReady])
+
   // 스플래시 완료 후 인증 상태에 따라 라우팅
   useEffect(() => {
     if (!splashComplete) return

@@ -39,6 +39,7 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
     const recognitionRef = useRef<any>(null)
     const retryCountRef = useRef(0)
     const manualStopRef = useRef(false)
+    const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     // 마이크 권한이 이미 확보되었는지 (첫 getUserMedia 성공 후)
     const permissionGrantedRef = useRef(false)
 
@@ -99,7 +100,9 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
               if (retryCountRef.current < MAX_NO_SPEECH_RETRIES) {
                 retryCountRef.current++
                 console.log(`[STT] no-speech retry ${retryCountRef.current}/${MAX_NO_SPEECH_RETRIES}`)
-                setTimeout(() => {
+                retryTimeoutRef.current = setTimeout(() => {
+                  retryTimeoutRef.current = null
+                  if (manualStopRef.current) return
                   try {
                     recognition.start()
                   } catch (e) {
@@ -148,6 +151,22 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
         }
 
         recognitionRef.current = recognition
+      }
+
+      return () => {
+        // unmount 시 SpeechRecognition 정리
+        if (retryTimeoutRef.current) {
+          clearTimeout(retryTimeoutRef.current)
+          retryTimeoutRef.current = null
+        }
+        if (recognitionRef.current) {
+          try {
+            recognitionRef.current.abort()
+          } catch {
+            // already stopped
+          }
+          recognitionRef.current = null
+        }
       }
     }, [onResult, onInterimResult, onRecordingChange, onError, lang])
 
@@ -205,13 +224,21 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
         }
       },
       stopRecording: () => {
-        if (recognitionRef.current && isRecording) {
+        if (retryTimeoutRef.current) {
+          clearTimeout(retryTimeoutRef.current)
+          retryTimeoutRef.current = null
+        }
+        if (recognitionRef.current) {
           manualStopRef.current = true
           retryCountRef.current = 0
-          recognitionRef.current.stop()
-          setIsRecording(false)
-          onRecordingChange?.(false)
+          try {
+            recognitionRef.current.abort()
+          } catch {
+            // already stopped
+          }
         }
+        setIsRecording(false)
+        onRecordingChange?.(false)
       },
       isRecording,
     }))

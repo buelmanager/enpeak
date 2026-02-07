@@ -40,7 +40,7 @@ export default function STTConfirmationBanner({
       const elapsed = Date.now() - startTime
       const remaining = Math.max(0, (autoSendDelay - elapsed) / 1000)
       setCountdown(Math.ceil(remaining))
-    }, 100)
+    }, 1000)
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current)

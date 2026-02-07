@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import BottomNav from '@/components/BottomNav'
 import TTSSettingsModal from '@/components/TTSSettingsModal'
+import PWAInstallGuide from '@/components/PWAInstallGuide'
 import { APP_VERSION, BUILD_DATE } from '@/lib/version'
+import { forceCheckForUpdates } from '@/lib/versionCheck'
+import { forceRefresh } from '@/lib/cacheUtils'
 import { useAuth } from '@/contexts/AuthContext'
 import { logOut } from '@/lib/firebase'
 
@@ -23,6 +26,18 @@ const RELEASE_NOTES: Record<string, string[]> = {
   ],
 }
 
+function isNewerVersion(server: string, current: string): boolean {
+  const s = server.split('.').map(Number)
+  const c = current.split('.').map(Number)
+  for (let i = 0; i < Math.max(s.length, c.length); i++) {
+    const sv = s[i] || 0
+    const cv = c[i] || 0
+    if (sv > cv) return true
+    if (sv < cv) return false
+  }
+  return false
+}
+
 export default function MyPage() {
   const [showReleaseNotes, setShowReleaseNotes] = useState(false)
   const router = useRouter()
@@ -36,6 +51,17 @@ export default function MyPage() {
   const [updateResult, setUpdateResult] = useState<'latest' | 'available' | 'error' | null>(null)
   const [serverVersion, setServerVersion] = useState<string | null>(null)
 
+  // 앱 설치 관련
+  const [isStandalone, setIsStandalone] = useState(false)
+  const [showInstallGuide, setShowInstallGuide] = useState(false)
+
+  useEffect(() => {
+    const standalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as any).standalone === true
+    setIsStandalone(standalone)
+  }, [])
+
   const handleLogout = async () => {
     setIsLoggingOut(true)
     await logOut()
@@ -47,41 +73,27 @@ export default function MyPage() {
     setIsUpdating(true)
     setUpdateResult(null)
 
-    try {
-      // 서버 버전 확인
-      const res = await fetch(`/version.json?t=${Date.now()}`)
-      if (res.ok) {
-        const data = await res.json()
-        setServerVersion(data.version)
+    const result = await forceCheckForUpdates()
 
-        if (data.version === APP_VERSION) {
-          setUpdateResult('latest')
-          setIsUpdating(false)
-          return
-        }
-
-        setUpdateResult('available')
-      }
-
-      // 서비스 워커 업데이트
-      if ('serviceWorker' in navigator) {
-        const registration = await navigator.serviceWorker.ready
-        await registration.update()
-      }
-
-      // 캐시 삭제
-      if ('caches' in window) {
-        const cacheNames = await caches.keys()
-        await Promise.all(cacheNames.map(name => caches.delete(name)))
-      }
-
-      // 새 버전이 있으면 새로고침
-      setTimeout(() => window.location.reload(), 1000)
-    } catch (error) {
-      console.error('Update failed:', error)
+    if (result.error) {
       setUpdateResult('error')
       setIsUpdating(false)
+      return
     }
+
+    setServerVersion(result.serverVersion)
+
+    if (!result.hasUpdate) {
+      setUpdateResult('latest')
+      setIsUpdating(false)
+      return
+    }
+
+    setUpdateResult('available')
+    // 업데이트 발견 시 2초 후 강제 새로고침
+    setTimeout(() => {
+      forceRefresh()
+    }, 2000)
   }
 
   return (
@@ -137,6 +149,7 @@ export default function MyPage() {
           <section className="bg-white rounded-2xl p-4 shadow-sm">
             <h2 className="text-sm font-medium text-[#8a8a8a] mb-3">설정</h2>
 
+            {/* 음성 설정 */}
             <button
               onClick={() => setShowTTSSettings(true)}
               className="w-full flex items-center justify-between py-3 border-b border-[#f0f0f0]"
@@ -157,6 +170,41 @@ export default function MyPage() {
               </svg>
             </button>
 
+            {/* 앱 설치 */}
+            <button
+              onClick={() => !isStandalone && setShowInstallGuide(true)}
+              disabled={isStandalone}
+              className="w-full flex items-center justify-between py-3 border-b border-[#f0f0f0]"
+            >
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  isStandalone ? 'bg-green-50' : 'bg-[#f5f5f5]'
+                }`}>
+                  {isStandalone ? (
+                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5 text-[#8a8a8a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                  )}
+                </div>
+                <div className="text-left">
+                  <p className="text-[#1a1a1a] font-medium">
+                    {isStandalone ? '설치 완료' : '앱 설치 / 홈에 추가'}
+                  </p>
+                  <p className="text-xs text-[#8a8a8a]">
+                    {isStandalone ? '앱이 설치되어 있습니다' : '홈 화면에 추가하면 앱처럼 사용해요'}
+                  </p>
+                </div>
+              </div>
+              <svg className="w-5 h-5 text-[#c0c0c0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* 업데이트 확인 */}
             <button
               onClick={handleUpdate}
               disabled={isUpdating}
@@ -237,7 +285,7 @@ export default function MyPage() {
                 <span className="text-[#1a1a1a]">현재 버전</span>
                 <span className="text-[#8a8a8a]">v{APP_VERSION}</span>
               </div>
-              {serverVersion && serverVersion !== APP_VERSION && (
+              {serverVersion && isNewerVersion(serverVersion, APP_VERSION) && (
                 <div className="flex items-center justify-between py-2">
                   <span className="text-[#1a1a1a]">최신 버전</span>
                   <span className="text-blue-500 font-medium">v{serverVersion}</span>
@@ -319,6 +367,13 @@ export default function MyPage() {
         isOpen={showTTSSettings}
         onClose={() => setShowTTSSettings(false)}
       />
+
+      {showInstallGuide && (
+        <PWAInstallGuide
+          isOpen={showInstallGuide}
+          onClose={() => setShowInstallGuide(false)}
+        />
+      )}
     </div>
   )
 }

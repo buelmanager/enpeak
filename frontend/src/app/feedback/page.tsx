@@ -155,13 +155,17 @@ export default function FeedbackPage() {
   }
 
   // 좋아요 토글
+  const [likingPostId, setLikingPostId] = useState<string | null>(null)
+
   const handleLike = async (post: FeedbackPost, e: React.MouseEvent) => {
     e.stopPropagation()
     if (!user) {
       router.push('/login?redirect=/feedback')
       return
     }
+    if (likingPostId) return // 중복 클릭 방지
 
+    setLikingPostId(post.id)
     const postRef = doc(db, 'feedback', post.id)
     const isLiked = post.likes.includes(user.uid)
 
@@ -177,6 +181,8 @@ export default function FeedbackPage() {
       }
     } catch (error) {
       console.error('Error updating like:', error)
+    } finally {
+      setLikingPostId(null)
     }
   }
 

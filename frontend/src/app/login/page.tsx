@@ -26,6 +26,7 @@ function LoginContent() {
   // 로그인 성공 후 인증 상태가 준비되면 리다이렉트
   useEffect(() => {
     if (waitingForAuth && isReady && isAuthenticated) {
+      setWaitingForAuth(false)
       router.replace(redirectTo)
     }
   }, [waitingForAuth, isReady, isAuthenticated, redirectTo, router])

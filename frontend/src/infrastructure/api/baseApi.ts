@@ -22,7 +22,15 @@ export class BaseApi {
       })
 
       if (!response.ok) {
-        return err(new Error(`API Error: ${response.status}`))
+        let errorMessage = `API Error: ${response.status}`
+        try {
+          const errorBody = await response.json()
+          if (errorBody.detail) errorMessage += ` - ${errorBody.detail}`
+          else if (errorBody.message) errorMessage += ` - ${errorBody.message}`
+        } catch {
+          // Response body not parseable
+        }
+        return err(new Error(errorMessage))
       }
 
       const data = await response.json()

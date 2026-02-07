@@ -212,6 +212,14 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // Cleanup blob URLs on unmount
+  useEffect(() => {
+    return () => {
+      audioCache.forEach(url => URL.revokeObjectURL(url))
+      audioCache.clear()
+    }
+  }, [])
+
   // 설정 저장
   const setSettings = (newSettings: TTSSettings) => {
     setSettingsState(newSettings)
@@ -292,17 +300,29 @@ export function TTSProvider({ children }: { children: ReactNode }) {
     const synth = window.speechSynthesis
     synth.cancel()
 
-    const utterance = createUtterance(text, onEnd, lang)
+    let ended = false
+    const safeOnEnd = onEnd ? () => {
+      if (ended) return
+      ended = true
+      onEnd()
+    } : undefined
+
+    const utterance = createUtterance(text, safeOnEnd, lang)
     synth.speak(utterance)
 
     // Chrome에서 TTS가 시작되지 않을 경우를 위한 타임아웃
-    setTimeout(() => {
+    const fallbackTimer = setTimeout(() => {
       if (!synth.speaking && !synth.pending) {
         console.warn('[TTS] Speech did not start after 500ms, calling onEnd')
         setIsSpeaking(false)
-        onEnd?.()
+        safeOnEnd?.()
       }
     }, 500)
+
+    // 정상 시작 시 fallback 타이머 취소
+    utterance.addEventListener('start', () => {
+      clearTimeout(fallbackTimer)
+    }, { once: true })
   }
 
   // ===== HD TTS (Edge TTS via backend) =====

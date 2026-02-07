@@ -200,7 +200,7 @@ export default function TTSSettingsModal({ isOpen, onClose }: TTSSettingsModalPr
                       <div>
                         <p className="text-xs text-[#8a8a8a] mb-2">기타</p>
                         <div className="space-y-1">
-                          {otherVoices.slice(0, 5).map(voice => (
+                          {otherVoices.map(voice => (
                             <button
                               key={voice.voiceURI}
                               onClick={() => handleVoiceChange(voice.voiceURI)}

@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 
 export function ServiceWorkerRegister() {
   useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval> | null = null
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
@@ -25,7 +27,7 @@ export function ServiceWorkerRegister() {
           })
 
           // 주기적으로 업데이트 확인 (1시간마다)
-          setInterval(() => {
+          intervalId = setInterval(() => {
             registration.update()
           }, 60 * 60 * 1000)
         })
@@ -41,6 +43,10 @@ export function ServiceWorkerRegister() {
           window.location.reload()
         }
       })
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId)
     }
   }, [])
 

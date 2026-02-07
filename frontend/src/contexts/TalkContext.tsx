@@ -52,13 +52,7 @@ function getInitialMode(): TalkMode {
 }
 
 export function TalkProvider({ children }: { children: ReactNode }) {
-  const [mode, setModeState] = useState<TalkMode>(() => {
-    // 클라이언트에서 초기값을 바로 sessionStorage에서 읽어옴
-    if (typeof window !== 'undefined') {
-      return getInitialMode()
-    }
-    return DEFAULT_MODE
-  })
+  const [mode, setModeState] = useState<TalkMode>(DEFAULT_MODE)
   const [expressionData, setExpressionState] = useState<ExpressionData | null>(null)
   const [scenarioData, setScenarioState] = useState<ScenarioData | null>(null)
   const [situationData, setSituationState] = useState<SituationData | null>(null)

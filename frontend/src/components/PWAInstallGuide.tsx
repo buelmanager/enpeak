@@ -68,15 +68,33 @@ function getWebViewName(): string {
   return '인앱 브라우저'
 }
 
-export default function PWAInstallGuide() {
+interface PWAInstallGuideProps {
+  isOpen?: boolean       // 외부에서 강제 열기
+  onClose?: () => void   // 닫기 콜백
+}
+
+export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProps = {}) {
   const [showGuide, setShowGuide] = useState(false)
   const [browserType, setBrowserType] = useState<BrowserType>('unknown')
   const [webViewName, setWebViewName] = useState('')
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [isInstalled, setIsInstalled] = useState(false)
-  const [currentStep, setCurrentStep] = useState(0)
+  const [activeTab, setActiveTab] = useState<'install' | 'homescreen'>('install')
+
+  // 외부 isOpen prop으로 열기
+  useEffect(() => {
+    if (isOpen) {
+      const detected = detectBrowser()
+      setBrowserType(detected)
+      setWebViewName(getWebViewName())
+      setShowGuide(true)
+    }
+  }, [isOpen])
 
   useEffect(() => {
+    // 외부에서 제어하는 경우 자동 팝업 로직 스킵
+    if (isOpen !== undefined) return
+
     // 이미 PWA로 설치된 경우 감지
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true)
@@ -116,8 +134,9 @@ export default function PWAInstallGuide() {
     window.addEventListener('beforeinstallprompt', handleBeforeInstall)
 
     // 모바일에서 가이드 표시 (2초 후) - 세션에 표시 기록
+    let showTimer: ReturnType<typeof setTimeout> | null = null
     if (detected !== 'desktop') {
-      setTimeout(() => {
+      showTimer = setTimeout(() => {
         setShowGuide(true)
         sessionStorage.setItem('pwa-guide-shown', 'true')
       }, 2000)
@@ -125,16 +144,21 @@ export default function PWAInstallGuide() {
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
+      if (showTimer) clearTimeout(showTimer)
     }
-  }, [])
+  }, [isOpen])
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
-      await deferredPrompt.prompt()
-      const { outcome } = await deferredPrompt.userChoice
-      if (outcome === 'accepted') {
-        setShowGuide(false)
-        setIsInstalled(true)
+      try {
+        await deferredPrompt.prompt()
+        const { outcome } = await deferredPrompt.userChoice
+        if (outcome === 'accepted') {
+          setShowGuide(false)
+          setIsInstalled(true)
+        }
+      } catch {
+        // prompt already used or dismissed
       }
       setDeferredPrompt(null)
     }
@@ -142,14 +166,32 @@ export default function PWAInstallGuide() {
 
   const handleDismiss = () => {
     setShowGuide(false)
-    localStorage.setItem('pwa-guide-dismissed', Date.now().toString())
+    if (onClose) {
+      onClose()
+    } else {
+      // 자동 팝업 모드에서만 localStorage에 기록
+      localStorage.setItem('pwa-guide-dismissed', Date.now().toString())
+    }
   }
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://enpeak.web.app'
 
-  const handleCopyUrl = () => {
-    navigator.clipboard.writeText(appUrl)
-    alert('URL이 복사되었습니다. 브라우저에 붙여넣기 하세요!')
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(appUrl)
+      alert('URL이 복사되었습니다. 브라우저에 붙여넣기 하세요!')
+    } catch {
+      // clipboard API 실패 시 fallback
+      const textarea = document.createElement('textarea')
+      textarea.value = appUrl
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy') // deprecated but kept as clipboard API fallback
+      document.body.removeChild(textarea)
+      alert('URL이 복사되었습니다. 브라우저에 붙여넣기 하세요!')
+    }
   }
 
   const handleOpenInBrowser = () => {
@@ -179,18 +221,26 @@ export default function PWAInstallGuide() {
     handleCopyUrl()
   }
 
-  if (isInstalled || !showGuide) {
+  if (!showGuide) {
+    return null
+  }
+
+  // 자동 팝업 모드에서 이미 설치된 경우 숨김
+  if (isInstalled && isOpen === undefined) {
     return null
   }
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/50 flex items-end justify-center">
-      <div className="bg-white rounded-t-3xl w-full max-w-lg p-6 animate-slide-up max-h-[85vh] overflow-y-auto" style={{ paddingBottom: 'max(32px, calc(env(safe-area-inset-bottom, 0px) + 24px))' }}>
+    <div className="fixed inset-0 z-[100] bg-black/50 flex items-end justify-center" onClick={handleDismiss}>
+      <div className="bg-white rounded-t-3xl w-full max-w-lg p-6 animate-slide-up max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()} style={{ paddingBottom: 'max(32px, calc(env(safe-area-inset-bottom, 0px) + 24px))' }}>
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium">앱 설치하기</h2>
+          <h2 className="text-lg font-medium">
+            {browserType.startsWith('ios') ? '홈 화면에 추가하기' : '앱 설치하기'}
+          </h2>
           <button
             onClick={handleDismiss}
+            aria-label="닫기"
             className="p-2 -mr-2 text-[#8a8a8a] hover:text-[#1a1a1a]"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -320,7 +370,7 @@ export default function PWAInstallGuide() {
             </div>
 
             <div className="flex flex-col gap-2">
-              {(browserType === 'android-webview' || /kakaotalk|\bline\b/i.test(typeof window !== 'undefined' ? window.navigator.userAgent : '')) ? (
+              {browserType === 'android-webview' ? (
                 <>
                   <button
                     onClick={handleOpenInBrowser}
@@ -370,17 +420,17 @@ export default function PWAInstallGuide() {
         {/* iOS Safari */}
         {browserType === 'ios-safari' && (
           <div className="space-y-4">
-            <p className="text-sm text-[#666]">
-              홈 화면에 추가하면 앱처럼 사용할 수 있어요
-            </p>
+            <div className="bg-blue-50 border border-blue-100 rounded-xl p-3">
+              <p className="text-xs text-blue-700">
+                홈 화면에 추가하면 앱처럼 사용할 수 있어요
+              </p>
+            </div>
 
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  1
-                </div>
+                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium">공유 버튼 탭</p>
+                  <p className="text-sm font-medium">하단 공유 버튼 탭</p>
                   <p className="text-xs text-[#8a8a8a] mt-1">
                     화면 하단의 <span className="inline-flex items-center mx-1">
                       <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -392,9 +442,7 @@ export default function PWAInstallGuide() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  2
-                </div>
+                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
                   <p className="text-xs text-[#8a8a8a] mt-1">
@@ -408,9 +456,7 @@ export default function PWAInstallGuide() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                  3
-                </div>
+                <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">"추가" 버튼 탭</p>
                   <p className="text-xs text-[#8a8a8a] mt-1">
@@ -420,7 +466,7 @@ export default function PWAInstallGuide() {
               </div>
             </div>
 
-            {/* 시각적 가이드 이미지 */}
+            {/* 시각적 가이드 */}
             <div className="bg-[#f8f8f8] rounded-xl p-4 flex items-center justify-center">
               <div className="flex items-center gap-6">
                 <div className="text-center">
@@ -467,7 +513,7 @@ export default function PWAInstallGuide() {
 
         {/* iOS Chrome */}
         {browserType === 'ios-chrome' && (() => {
-          const iosMatch = navigator.userAgent.match(/OS (\d+)_(\d+)/)
+          const iosMatch = typeof navigator !== 'undefined' ? navigator.userAgent.match(/OS (\d+)_(\d+)/) : null
           const iosVersion = iosMatch ? parseFloat(`${iosMatch[1]}.${iosMatch[2]}`) : 0
           const canShareInstall = iosVersion >= 16.4
 
@@ -475,16 +521,22 @@ export default function PWAInstallGuide() {
             <div className="space-y-4">
               {canShareInstall ? (
                 <>
-                  <p className="text-sm text-[#666]">
-                    Chrome에서도 홈 화면에 추가할 수 있어요
-                  </p>
+                  <div className="bg-blue-50 border border-blue-100 rounded-xl p-3">
+                    <p className="text-xs text-blue-700">
+                      Chrome에서도 홈 화면에 추가할 수 있어요
+                    </p>
+                  </div>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                       <div className="flex-1">
                         <p className="text-sm font-medium">공유 버튼 탭</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
-                          브라우저 우측 상단의 공유 버튼을 탭하세요
+                          브라우저 우측 상단의 <span className="inline-flex items-center mx-1">
+                            <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                          </span> 공유 버튼을 탭하세요
                         </p>
                       </div>
                     </div>
@@ -494,6 +546,15 @@ export default function PWAInstallGuide() {
                         <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
                         <p className="text-xs text-[#8a8a8a] mt-1">
                           목록에서 <span className="font-medium">홈 화면에 추가</span>를 탭하세요
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">"추가" 확인</p>
+                        <p className="text-xs text-[#8a8a8a] mt-1">
+                          <span className="font-medium text-blue-500">추가</span>를 탭하면 완료!
                         </p>
                       </div>
                     </div>
@@ -507,24 +568,29 @@ export default function PWAInstallGuide() {
                 </>
               ) : (
                 <>
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                    <p className="text-sm text-blue-800">
-                      iOS에서는 Safari에서만 앱 설치가 가능해요.
-                      Safari로 열어주세요!
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                    <p className="text-sm text-amber-800">
+                      홈 화면 추가는 Safari에서 가능해요
                     </p>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
-                      <div className="flex-1"><p className="text-sm font-medium">아래 URL 복사</p></div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">아래 URL 복사</p>
+                      </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
-                      <div className="flex-1"><p className="text-sm font-medium">Safari 앱 열기</p></div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">Safari 앱 열기</p>
+                      </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
-                      <div className="flex-1"><p className="text-sm font-medium">주소창에 붙여넣기</p></div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">주소창에 붙여넣기 후 홈 화면에 추가</p>
+                      </div>
                     </div>
                   </div>
                   <button
@@ -551,32 +617,98 @@ export default function PWAInstallGuide() {
         {/* Android Chrome / Samsung */}
         {(browserType === 'android-chrome' || browserType === 'android-samsung') && (
           <div className="space-y-4">
-            <p className="text-sm text-[#666]">
-              홈 화면에 추가하면 앱처럼 빠르게 접속할 수 있어요
-            </p>
+            {/* Tab selector */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setActiveTab('install')}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  activeTab === 'install'
+                    ? 'bg-[#1a1a1a] text-white'
+                    : 'bg-[#f5f5f5] text-[#8a8a8a]'
+                }`}
+              >
+                앱 설치하기
+              </button>
+              <button
+                onClick={() => setActiveTab('homescreen')}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  activeTab === 'homescreen'
+                    ? 'bg-[#1a1a1a] text-white'
+                    : 'bg-[#f5f5f5] text-[#8a8a8a]'
+                }`}
+              >
+                홈 화면에 추가
+              </button>
+            </div>
 
-            {deferredPrompt ? (
-              <>
-                <button
-                  onClick={handleInstallClick}
-                  className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
-                >
-                  앱 설치하기
-                </button>
-                <button
-                  onClick={handleDismiss}
-                  className="w-full py-3 border border-[#e5e5e5] rounded-xl text-sm"
-                >
-                  나중에
-                </button>
-              </>
-            ) : (
-              <>
+            {/* 앱 설치하기 탭 */}
+            {activeTab === 'install' && (
+              <div className="space-y-4">
+                <div className="bg-blue-50 border border-blue-100 rounded-xl p-3">
+                  <p className="text-xs text-blue-700">
+                    앱으로 설치하면 독립 앱처럼 실행돼요
+                  </p>
+                </div>
+
+                {deferredPrompt ? (
+                  <button
+                    onClick={handleInstallClick}
+                    className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+                  >
+                    바로 설치하기
+                  </button>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">메뉴 열기</p>
+                        <p className="text-xs text-[#8a8a8a] mt-1">
+                          브라우저 우측 상단의 <span className="inline-flex items-center mx-1">
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                              <circle cx="12" cy="5" r="2"/>
+                              <circle cx="12" cy="12" r="2"/>
+                              <circle cx="12" cy="19" r="2"/>
+                            </svg>
+                          </span> 버튼을 탭하세요
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">"앱 설치" 선택</p>
+                        <p className="text-xs text-[#8a8a8a] mt-1">
+                          메뉴에서 <span className="font-medium">"앱 설치"</span>를 찾아 탭하세요
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">"설치" 확인</p>
+                        <p className="text-xs text-[#8a8a8a] mt-1">
+                          확인 팝업에서 <span className="font-medium">"설치"</span>를 탭하세요
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 홈 화면에 추가 탭 */}
+            {activeTab === 'homescreen' && (
+              <div className="space-y-4">
+                <div className="bg-blue-50 border border-blue-100 rounded-xl p-3">
+                  <p className="text-xs text-blue-700">
+                    홈 화면에 바로가기를 추가하면 빠르게 접속할 수 있어요
+                  </p>
+                </div>
+
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                      1
-                    </div>
+                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">메뉴 열기</p>
                       <p className="text-xs text-[#8a8a8a] mt-1">
@@ -590,33 +722,39 @@ export default function PWAInstallGuide() {
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
-                      2
-                    </div>
+                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium">"앱 설치" 또는 "홈 화면에 추가"</p>
+                      <p className="text-sm font-medium">"홈 화면에 추가" 선택</p>
                       <p className="text-xs text-[#8a8a8a] mt-1">
-                        메뉴에서 해당 옵션을 찾아 탭하세요
+                        메뉴에서 <span className="font-medium">"홈 화면에 추가"</span>를 찾아 탭하세요
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-7 h-7 rounded-full bg-[#1a1a1a] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">"추가" 확인</p>
+                      <p className="text-xs text-[#8a8a8a] mt-1">
+                        확인 팝업에서 <span className="font-medium">"추가"</span>를 탭하면 완료!
                       </p>
                     </div>
                   </div>
                 </div>
-
-                <button
-                  onClick={handleDismiss}
-                  className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
-                >
-                  확인했어요
-                </button>
-              </>
+              </div>
             )}
+
+            <button
+              onClick={handleDismiss}
+              className="w-full py-3 bg-[#1a1a1a] text-white rounded-xl font-medium"
+            >
+              확인했어요
+            </button>
           </div>
         )}
 
-        {/* Desktop */}
-        {browserType === 'desktop' && (
+        {/* Desktop / Unknown fallback */}
+        {(browserType === 'desktop' || browserType === 'unknown') && (
           <div className="space-y-4">
             <p className="text-sm text-[#666]">
               모바일 기기에서 접속하시면 앱으로 설치하실 수 있어요

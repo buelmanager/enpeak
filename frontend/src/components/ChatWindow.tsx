@@ -7,6 +7,7 @@ import VoiceRecorder, { VoiceRecorderRef, STTResultMetadata } from './VoiceRecor
 import ListeningIndicator from './ListeningIndicator'
 import STTConfirmationBanner from './STTConfirmationBanner'
 import PronunciationModal from './PronunciationModal'
+import PronunciationPracticeSheet from './PronunciationPracticeSheet'
 import { useTTS } from '@/contexts/TTSContext'
 import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 import { useAudioRecorder } from '@/hooks/useAudioRecorder'
@@ -115,6 +116,8 @@ export default function ChatWindow({
   const shouldAutoRecordRef = useRef(false)
   // 공유 스트림 ref (audioRecorder + audioLevel이 공유)
   const sharedStreamRef = useRef<MediaStream | null>(null)
+  // 자동 녹음 타이머 (cleanup 시 취소용)
+  const autoRecordTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // STT 확인 배너 상태
   const [pendingSTT, setPendingSTT] = useState<{ transcript: string; confidence: number; audioBlob: Blob | null } | null>(null)
@@ -127,6 +130,9 @@ export default function ChatWindow({
   const [pronunciationMode, setPronunciationMode] = useState(false)
   // 모달이 어디서 열렸는지: practice (따라하기) vs send (발음 입력)
   const [pronunciationSource, setPronunciationSource] = useState<'practice' | 'send'>('practice')
+  // 발음 연습 시트
+  const [showPracticeSheet, setShowPracticeSheet] = useState(false)
+  const [practiceSheetText, setPracticeSheetText] = useState('')
   // 상황 설정 phase 관련 상태
   const [situationSetupPhase, setSituationSetupPhase] = useState(false)
   const setupMessagesRef = useRef<{ role: string; content: string }[]>([])
@@ -163,12 +169,19 @@ export default function ChatWindow({
 
   // 사이클 활성화 상태를 ref로 관리 (콜백에서 최신 값 참조)
   const voiceCycleActiveRef = useRef(false)
+  // isSpeaking을 ref로 관리 (setTimeout 콜백에서 최신 값 참조)
+  const isSpeakingRef = useRef(false)
 
   // voiceCycleActive 상태와 ref 동기화
   useEffect(() => {
     voiceCycleActiveRef.current = voiceCycleActive
     console.log('[VoiceCycle] voiceCycleActive changed to:', voiceCycleActive)
   }, [voiceCycleActive])
+
+  // isSpeaking 상태와 ref 동기화
+  useEffect(() => {
+    isSpeakingRef.current = isSpeaking
+  }, [isSpeaking])
 
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
@@ -180,27 +193,64 @@ export default function ChatWindow({
     scrollToBottom()
   }, [messages])
 
+  // 모든 녹음 리소스 정리 함수
+  const cleanupAllRecording = useCallback(() => {
+    if (autoRecordTimerRef.current) {
+      clearTimeout(autoRecordTimerRef.current)
+      autoRecordTimerRef.current = null
+    }
+    voiceRecorderRef.current?.stopRecording()
+    audioRecorder.stopRecording()
+    audioLevelMonitor.stopMonitoring()
+    if (sharedStreamRef.current) {
+      sharedStreamRef.current.getTracks().forEach(track => track.stop())
+      sharedStreamRef.current = null
+    }
+    stopTTS()
+    setVoiceCycleActive(false)
+    voiceCycleActiveRef.current = false
+    shouldAutoRecordRef.current = false
+  }, [audioRecorder, audioLevelMonitor, stopTTS])
+
+  // cleanupAllRecording을 ref로 저장 (이벤트 핸들러에서 최신 참조)
+  const cleanupRef = useRef(cleanupAllRecording)
+  useEffect(() => {
+    cleanupRef.current = cleanupAllRecording
+  }, [cleanupAllRecording])
+
   // 페이지 이동 시 녹음 중지
   useEffect(() => {
     return () => {
-      voiceRecorderRef.current?.stopRecording()
-      audioRecorder.stopRecording()
-      audioLevelMonitor.stopMonitoring()
-      if (sharedStreamRef.current) {
-        sharedStreamRef.current.getTracks().forEach(track => track.stop())
-        sharedStreamRef.current = null
-      }
-      stopTTS()
-      setVoiceCycleActive(false)
-      shouldAutoRecordRef.current = false
+      cleanupRef.current()
     }
   }, [pathname])
+
+  // 탭 닫기/전환/백그라운드 시 녹음 중지
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      cleanupRef.current()
+    }
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        cleanupRef.current()
+      }
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
 
   // 자동 녹음 시작 함수
   const startAutoRecording = useCallback(() => {
     if (isVoiceMode && voiceCycleActive && !loading && !isSpeaking) {
-      setTimeout(() => {
-        if (voiceCycleActive && isVoiceMode) {
+      if (autoRecordTimerRef.current) clearTimeout(autoRecordTimerRef.current)
+      autoRecordTimerRef.current = setTimeout(() => {
+        autoRecordTimerRef.current = null
+        // 상태 재검증 (타이머 지연 동안 상태가 변경되었을 수 있음)
+        if (voiceCycleActiveRef.current && isVoiceMode && !isSpeakingRef.current) {
           voiceRecorderRef.current?.startRecording()
         }
       }, 500)
@@ -234,7 +284,9 @@ export default function ChatWindow({
 
       if (shouldAutoRecord) {
         console.log('[VoiceCycle] Will start recording in 500ms...')
-        setTimeout(() => {
+        if (autoRecordTimerRef.current) clearTimeout(autoRecordTimerRef.current)
+        autoRecordTimerRef.current = setTimeout(() => {
+          autoRecordTimerRef.current = null
           console.log('[VoiceCycle] Starting recording now, voiceRecorderRef exists:', !!voiceRecorderRef.current)
           voiceRecorderRef.current?.startRecording()
         }, 500)
@@ -254,16 +306,7 @@ export default function ChatWindow({
   useEffect(() => {
     if (!isVoiceMode) {
       console.log('[VoiceCycle] Switched to text mode, stopping cycle')
-      voiceCycleActiveRef.current = false
-      setVoiceCycleActive(false)
-      shouldAutoRecordRef.current = false
-      voiceRecorderRef.current?.stopRecording()
-      audioRecorder.stopRecording()
-      audioLevelMonitor.stopMonitoring()
-      if (sharedStreamRef.current) {
-        sharedStreamRef.current.getTracks().forEach(track => track.stop())
-        sharedStreamRef.current = null
-      }
+      cleanupRef.current()
     }
   }, [isVoiceMode])
 
@@ -363,10 +406,11 @@ export default function ChatWindow({
   const canUseFallback = useCallback(() => {
     if (!sttFallbackEnabled) return false
     const now = Date.now()
-    // 오래된 타임스탬프 제거
-    fallbackTimestampsRef.current = fallbackTimestampsRef.current.filter(
+    // 오래된 타임스탬프 제거 + 최대 크기 제한
+    const filtered = fallbackTimestampsRef.current.filter(
       ts => now - ts < FALLBACK_RATE_WINDOW_MS
     )
+    fallbackTimestampsRef.current = filtered.slice(-FALLBACK_RATE_LIMIT)
     return fallbackTimestampsRef.current.length < FALLBACK_RATE_LIMIT
   }, [sttFallbackEnabled])
 
@@ -829,6 +873,12 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
     sendMessage(text)
   }, [sendMessage])
 
+  // 발음 연습 시트 열기 (user/AI 메시지 공용)
+  const handleOpenPracticeSheet = useCallback((text: string) => {
+    setPracticeSheetText(text)
+    setShowPracticeSheet(true)
+  }, [])
+
   const handleSuggestionClick = (suggestion: string) => {
     sendMessage(suggestion)
   }
@@ -859,6 +909,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
     }
 
     if (!recording) {
+      audioRecorder.stopRecording()
       audioLevelMonitor.stopMonitoring()
       // 공유 스트림 정리
       if (sharedStreamRef.current) {
@@ -866,7 +917,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
         sharedStreamRef.current = null
       }
     }
-  }, [isVoiceMode, audioLevelMonitor])
+  }, [isVoiceMode, audioRecorder, audioLevelMonitor])
 
   const handleCancelRecording = () => {
     console.log('[VoiceCycle] Recording cancelled, stopping cycle')
@@ -978,7 +1029,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
               key={message.id}
               message={message}
               onSuggestionClick={handleSuggestionClick}
-              onPronunciationPractice={message.role === 'assistant' ? handlePronunciationPractice : undefined}
+              onPronunciationPractice={handleOpenPracticeSheet}
               onWordLookup={() => {
                 sessionStorage.setItem('word-tip-dismissed', '1')
                 setShowWordTip(false)
@@ -1174,6 +1225,15 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
           onConfirm={handlePronunciationConfirm}
           autoRecord={true}
           {...(pronunciationTargetText ? { targetText: pronunciationTargetText } : {})}
+        />
+      )}
+
+      {/* 발음 연습 시트 */}
+      {showPracticeSheet && (
+        <PronunciationPracticeSheet
+          isOpen={showPracticeSheet}
+          onClose={() => setShowPracticeSheet(false)}
+          targetText={practiceSheetText}
         />
       )}
     </div>
