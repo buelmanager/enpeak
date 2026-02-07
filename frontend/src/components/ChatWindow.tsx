@@ -71,6 +71,18 @@ interface PracticeExpression {
   meaning: string
 }
 
+interface ScenarioMetadata {
+  id: string
+  title: string
+  title_ko: string
+  roles: { ai: string; user: string }
+  difficulty: string
+  stages: { stage: number; name: string; learning_tip: string; suggested_responses: string[] }[]
+  total_stages: number
+  key_vocabulary: { word: string; meaning: string; example?: string }[]
+  completion_message: string
+}
+
 interface ChatWindowProps {
   practiceExpression?: PracticeExpression
   onExpressionComplete?: () => void
@@ -104,6 +116,11 @@ export default function ChatWindow({
   const [conversationId, setConversationId] = useState<string | null>(null)
   const [roleplaySessionId, setRoleplaySessionId] = useState<string | null>(null)
   const [initialized, setInitialized] = useState(false)
+  // 시나리오 메타데이터 (stage 진행 UI용)
+  const [scenarioMeta, setScenarioMeta] = useState<ScenarioMetadata | null>(null)
+  const [currentStage, setCurrentStage] = useState(1)
+  const [showVocab, setShowVocab] = useState(false)
+  const [scenarioComplete, setScenarioComplete] = useState(false)
   const initializedRef = useRef(false)
   const [isRecording, setIsRecording] = useState(false)
   // 자동 음성 사이클 활성화 여부 (음성 모드일 때만)
@@ -387,6 +404,69 @@ export default function ChatWindow({
     }
   }, [situation, initialized, mode, isVoiceMode])
 
+  // 시나리오 모드: 메타데이터 로드 + 첫 AI 메시지 생성
+  useEffect(() => {
+    if (mode === 'roleplay' && scenarioId && !initializedRef.current) {
+      initializedRef.current = true
+      setInitialized(true)
+      setConversationStarted(true)
+      setLoading(true)
+
+      apiFetch(`${API_BASE}/api/roleplay/scenarios/${scenarioId}/metadata`)
+        .then(res => res.json())
+        .then((meta: ScenarioMetadata) => {
+          setScenarioMeta(meta)
+          setCurrentStage(1)
+
+          // 첫 stage의 AI 오프닝을 /api/chat으로 생성
+          const startMsg = `[SCENARIO START] Please begin the conversation with your opening line as the ${meta.roles.ai}.`
+          return apiFetch(`${API_BASE}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: startMsg,
+              scenario_id: scenarioId,
+              current_stage: 1,
+            }),
+          }).then(res => res.json()).then(data => ({ data, meta }))
+        })
+        .then(({ data, meta }) => {
+          if (data.conversation_id) {
+            setConversationId(data.conversation_id)
+          }
+          const responseContent = data.message || "Hello! Let's get started."
+          // 초기 suggestions: 시나리오의 suggested_responses와 LLM suggestions 병합
+          const stageSuggestions = meta.stages[0]?.suggested_responses || []
+          const llmSuggestions = data.suggestions || []
+          const mergedSuggestions = Array.from(new Set([...stageSuggestions.slice(0, 2), ...llmSuggestions.slice(0, 1)]))
+
+          const assistantMessage: Message = {
+            id: 'scenario-start',
+            role: 'assistant',
+            content: responseContent,
+            suggestions: mergedSuggestions.length > 0 ? mergedSuggestions : undefined,
+            learningTip: meta.stages[0]?.learning_tip || data.learning_tip,
+          }
+          setMessages([assistantMessage])
+
+          if (isVoiceMode && responseContent) {
+            voiceCycleActiveRef.current = true
+            setVoiceCycleActive(true)
+            speakAndStartRecordingRef.current(responseContent, true)
+          }
+        })
+        .catch(() => {
+          const fallbackContent = "Hello! Let's start the conversation."
+          setMessages([{
+            id: 'scenario-start',
+            role: 'assistant',
+            content: fallbackContent,
+          }])
+        })
+        .finally(() => setLoading(false))
+    }
+  }, [mode, scenarioId, initialized, isVoiceMode])
+
   // 폴백 요청 레이트 체크
   const canUseFallback = useCallback(() => {
     if (!sttFallbackEnabled) return false
@@ -575,7 +655,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
       return
     }
 
-    if (mode === 'roleplay' && !scenarioId && !roleplaySessionId) {
+    if (mode === 'roleplay' && !scenarioId && !roleplaySessionId && !situation) {
       return
     }
 
@@ -597,69 +677,78 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
     setLoading(true)
 
     try {
-      if (mode === 'roleplay') {
-        if (!roleplaySessionId) {
-          const response = await apiFetch(`${API_BASE}/api/roleplay/start`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              scenario_id: scenarioId,
-            }),
+      if (mode === 'roleplay' && scenarioId) {
+        // 시나리오 롤플레이: /api/chat + scenario_id 사용
+        chatAbortRef.current?.abort()
+        const controller = new AbortController()
+        chatAbortRef.current = controller
+
+        const response = await apiFetch(`${API_BASE}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            conversation_id: conversationId,
+            scenario_id: scenarioId,
+            current_stage: currentStage,
+          }),
+          signal: controller.signal,
+        })
+
+        if (!response.ok) throw new Error('Failed to get response')
+        const data = await response.json()
+
+        if (!conversationId && data.conversation_id) {
+          setConversationId(data.conversation_id)
+        }
+
+        // better expressions 반영
+        if (data.better_expressions && data.better_expressions.length > 0) {
+          setMessages(prev => {
+            const updated = [...prev]
+            const lastUserIdx = updated.length - 1
+            if (lastUserIdx >= 0 && updated[lastUserIdx].role === 'user') {
+              updated[lastUserIdx] = {
+                ...updated[lastUserIdx],
+                betterExpressions: data.better_expressions,
+              }
+            }
+            return updated
           })
+        }
 
-          if (!response.ok) throw new Error('Failed to start roleplay')
-
-          const data = await response.json()
-          setRoleplaySessionId(data.session_id)
-
-          const assistantMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            role: 'assistant',
-            content: data.ai_message,
-            suggestions: data.suggested_responses?.slice(0, 2),
-            learningTip: data.learning_tip,
+        // stage 완료 처리
+        if (data.stage_completed && scenarioMeta) {
+          const nextStage = currentStage + 1
+          if (nextStage > scenarioMeta.total_stages) {
+            setScenarioComplete(true)
+          } else {
+            setCurrentStage(nextStage)
           }
+        }
 
-          setMessages(prev => [...prev, assistantMessage])
-
-          if (isVoiceMode && data.ai_message) {
-            speakAndStartRecording(data.ai_message)
+        // suggestions: 다음 stage의 suggested_responses와 LLM suggestions 병합
+        let mergedSuggestions = data.suggestions?.slice(0, 2) || []
+        if (data.stage_completed && scenarioMeta) {
+          const nextIdx = currentStage // currentStage is 0-indexed after increment
+          if (nextIdx < scenarioMeta.stages.length) {
+            const stageSugg = scenarioMeta.stages[nextIdx]?.suggested_responses || []
+            mergedSuggestions = Array.from(new Set([...stageSugg.slice(0, 2), ...mergedSuggestions.slice(0, 1)]))
           }
+        }
 
-          if (data.is_complete) {
-            onReset?.()
-          }
-        } else {
-          const response = await apiFetch(`${API_BASE}/api/roleplay/turn`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              session_id: roleplaySessionId,
-              user_message: text,
-            }),
-          })
+        const assistantMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: data.message,
+          suggestions: mergedSuggestions.length > 0 ? mergedSuggestions : undefined,
+          learningTip: data.learning_tip,
+        }
 
-          if (!response.ok) throw new Error('Failed to continue roleplay')
+        setMessages(prev => [...prev, assistantMessage])
 
-          const data = await response.json()
-
-          const assistantMessage: Message = {
-            id: (Date.now() + 1).toString(),
-            role: 'assistant',
-            content: data.ai_message,
-            suggestions: data.suggested_responses?.slice(0, 2),
-            learningTip: data.learning_tip,
-          }
-
-          setMessages(prev => [...prev, assistantMessage])
-
-          if (isVoiceMode && data.ai_message) {
-            speakAndStartRecording(data.ai_message)
-          }
-
-          if (data.is_complete) {
-            onReset?.()
-          }
+        if (isVoiceMode && data.message) {
+          speakAndStartRecording(data.message)
         }
       } else {
         // 이전 요청 취소
@@ -929,6 +1018,51 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
           >
             해제
           </button>
+        </div>
+      )}
+
+      {/* Scenario Progress Bar */}
+      {scenarioMeta && mode === 'roleplay' && (
+        <div className="px-6 py-2 bg-white border-b border-[#f0f0f0] flex-shrink-0">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-xs font-medium text-[#1a1a1a]">
+              {scenarioComplete
+                ? scenarioMeta.completion_message
+                : `Stage ${currentStage}/${scenarioMeta.total_stages}: ${scenarioMeta.stages[currentStage - 1]?.name || ''}`
+              }
+            </span>
+            {scenarioMeta.key_vocabulary.length > 0 && (
+              <button
+                onClick={() => setShowVocab(v => !v)}
+                className="text-[10px] text-[#0D9488] hover:underline"
+              >
+                {showVocab ? '접기' : '핵심 단어'}
+              </button>
+            )}
+          </div>
+          {/* Progress bar */}
+          <div className="w-full h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
+            <div
+              className="h-full bg-[#0D9488] rounded-full transition-all duration-500"
+              style={{ width: `${scenarioComplete ? 100 : ((currentStage - 1) / scenarioMeta.total_stages) * 100}%` }}
+            />
+          </div>
+          {/* Learning tip */}
+          {!scenarioComplete && scenarioMeta.stages[currentStage - 1]?.learning_tip && (
+            <p className="text-[10px] text-[#8a8a8a] mt-1.5">
+              Tip: {scenarioMeta.stages[currentStage - 1].learning_tip}
+            </p>
+          )}
+          {/* Key vocabulary panel */}
+          {showVocab && (
+            <div className="mt-2 space-y-1">
+              {scenarioMeta.key_vocabulary.map((v, i) => (
+                <div key={i} className="text-[10px] text-[#666]">
+                  <span className="font-medium">{v.word}</span> - {v.meaning}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

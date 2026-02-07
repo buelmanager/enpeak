@@ -138,6 +138,31 @@ async def list_scenarios():
     return get_all_scenarios()
 
 
+@router.get("/scenarios/{scenario_id}/metadata")
+async def get_scenario_metadata(scenario_id: str):
+    """시나리오 메타데이터 반환 (프론트엔드 stage UI용)"""
+    scenario = load_scenario(scenario_id)
+    stages = []
+    for s in scenario.get("stages", []):
+        stages.append({
+            "stage": s.get("stage", 0),
+            "name": s.get("name", ""),
+            "learning_tip": s.get("learning_tip", ""),
+            "suggested_responses": s.get("suggested_responses", []),
+        })
+    return {
+        "id": scenario["id"],
+        "title": scenario["title"],
+        "title_ko": scenario.get("title_ko", scenario["title"]),
+        "roles": scenario.get("roles", {}),
+        "difficulty": scenario.get("difficulty", "intermediate"),
+        "stages": stages,
+        "total_stages": len(stages),
+        "key_vocabulary": scenario.get("key_vocabulary", []),
+        "completion_message": scenario.get("completion_message", "Great job!"),
+    }
+
+
 @router.get("/debug/paths")
 async def debug_paths():
     """디버그: 경로 확인"""

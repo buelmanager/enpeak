@@ -13,7 +13,9 @@ from backend.core.prompts import (
     FREE_CONVERSATION_PROMPT,
     RESPONSE_SUGGESTIONS_PROMPT,
     BETTER_EXPRESSION_PROMPT,
+    build_scenario_system_prompt,
 )
+from backend.api.roleplay import load_scenario
 import json
 
 logger = logging.getLogger(__name__)
@@ -29,6 +31,8 @@ class ChatRequest(BaseModel):
     system_prompt: Optional[str] = Field(
         None, description="Custom system prompt override"
     )
+    scenario_id: Optional[str] = Field(None, description="Scenario ID for roleplay")
+    current_stage: Optional[int] = Field(None, description="Current stage number")
 
 
 class ChatResponse(BaseModel):
@@ -38,6 +42,7 @@ class ChatResponse(BaseModel):
     better_expressions: Optional[List[str]] = None
     grammar_feedback: Optional[str] = None
     learning_tip: Optional[str] = None
+    stage_completed: bool = False
 
 
 # 간단한 인메모리 대화 저장소 (프로덕션에서는 Redis 등 사용)
@@ -71,8 +76,27 @@ async def chat(request: ChatRequest, req: Request):
             role = "User" if msg["role"] == "user" else "AI"
             context += f"{role}: {msg['content']}\n"
 
+        # 시나리오 모드 처리
+        scenario_system_prompt = None
+        if request.scenario_id:
+            try:
+                scenario_data = load_scenario(request.scenario_id)
+                stage = request.current_stage or 1
+                scenario_system_prompt = build_scenario_system_prompt(
+                    scenario_data, stage
+                )
+            except Exception as e:
+                logger.warning(f"Failed to load scenario {request.scenario_id}: {e}")
+
         # 프롬프트 구성
-        if request.system_prompt:
+        if scenario_system_prompt:
+            # 시나리오 롤플레이 모드: LLM 가이드 방식
+            prompt = (
+                f"Previous conversation:\n{context}\n\nUser: {request.message}"
+                if context
+                else f"User: {request.message}"
+            )
+        elif request.system_prompt:
             # Custom system_prompt provided (e.g., Korean setup phase)
             # Use user message directly without English-only FREE_CONVERSATION_PROMPT wrapper
             # Detect Korean system prompt and wrap user message with Korean instruction
@@ -102,12 +126,23 @@ async def chat(request: ChatRequest, req: Request):
             )
 
         # LLM 응답 생성
+        effective_system_prompt = (
+            scenario_system_prompt
+            or request.system_prompt
+            or SYSTEM_PROMPT_ENGLISH_TUTOR
+        )
         response = llm.generate(
             prompt=prompt,
-            system_prompt=request.system_prompt or SYSTEM_PROMPT_ENGLISH_TUTOR,
+            system_prompt=effective_system_prompt,
             max_tokens=300,
             temperature=0.8,
         )
+
+        # [STAGE_COMPLETE] 마커 감지 및 제거
+        stage_completed = False
+        if "[STAGE_COMPLETE]" in response:
+            stage_completed = True
+            response = response.replace("[STAGE_COMPLETE]", "").strip()
 
         # 대화 히스토리 저장
         history.append({"role": "user", "content": request.message})
@@ -137,6 +172,7 @@ async def chat(request: ChatRequest, req: Request):
             better_expressions=better_expressions,
             grammar_feedback=None,  # TODO: 별도 분석
             learning_tip=learning_tip,
+            stage_completed=stage_completed,
         )
 
     except Exception as e:

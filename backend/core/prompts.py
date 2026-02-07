@@ -161,6 +161,56 @@ Requirements:
 Output ONLY a JSON array with 3 suggestions, no explanation:
 ["suggestion 1", "suggestion 2", "suggestion 3"]"""
 
+# 시나리오 기반 롤플레이 프롬프트 빌더
+def build_scenario_system_prompt(scenario: dict, current_stage: int = 1) -> str:
+    """시나리오 JSON에서 LLM 시스템 프롬프트 생성"""
+    roles = scenario.get("roles", {})
+    ai_role = roles.get("ai", "Assistant")
+    user_role = roles.get("user", "User")
+    title = scenario.get("title", "Conversation Practice")
+    difficulty = scenario.get("difficulty", "intermediate")
+    stages = scenario.get("stages", [])
+    total_stages = len(stages)
+
+    # 현재 stage 정보
+    stage_info = ""
+    if stages and 1 <= current_stage <= total_stages:
+        stage = stages[current_stage - 1]
+        stage_name = stage.get("name", f"Stage {current_stage}")
+        learning_tip = stage.get("learning_tip", "")
+        stage_info = f"""
+Current Stage {current_stage}/{total_stages}: {stage_name}
+{f'Learning focus: {learning_tip}' if learning_tip else ''}"""
+
+    # key vocabulary
+    vocab_list = ""
+    key_vocab = scenario.get("key_vocabulary", [])
+    if key_vocab:
+        vocab_items = [f'- {v.get("word", "")} ({v.get("meaning", "")})' for v in key_vocab[:6]]
+        vocab_list = "\nKey vocabulary:\n" + "\n".join(vocab_items)
+
+    # 난이도별 언어 복잡도
+    complexity = {
+        "beginner": "Use simple words and short sentences. Speak slowly and clearly.",
+        "intermediate": "Use natural conversational English. Moderate complexity.",
+        "advanced": "Use natural, fluent English with idioms and complex structures.",
+    }.get(difficulty, "Use natural conversational English.")
+
+    return f"""You are a {ai_role} in the scenario: "{title}".
+The user is playing the role of: {user_role}.
+{stage_info}
+{vocab_list}
+
+Rules:
+- Stay in character as the {ai_role} at all times.
+- Keep responses concise (1-3 sentences).
+- {complexity}
+- When the user has successfully achieved the current stage's goal, include the marker [STAGE_COMPLETE] at the very end of your response (after your dialogue).
+- Do NOT include [STAGE_COMPLETE] if the user hasn't addressed the stage goal yet.
+- Never mention stages, markers, or game mechanics in your dialogue.
+- Respond naturally as a real {ai_role} would."""
+
+
 # 발음 피드백 (placeholder - 실제 발음 분석은 별도 서비스 필요)
 PRONUNCIATION_TIP = """
 Common pronunciation tips for Korean English learners:

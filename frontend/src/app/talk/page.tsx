@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import ChatWindow from '@/components/ChatWindow'
 import { ModeSelector, TalkMode } from '@/components/ModeSelector'
+import RoleplayPicker from '@/components/RoleplayPicker'
 import { useTalk } from '@/contexts/TalkContext'
 import { API_BASE, apiFetch } from '@/shared/constants/api'
 
@@ -58,10 +59,11 @@ const FALLBACK_EXPRESSIONS: DailyExpression[] = [
 
 function TalkContent() {
   const searchParams = useSearchParams()
-  const { mode, setMode, expressionData, setExpression, situationData, setSituation, clearConversation } = useTalk()
+  const { mode, setMode, expressionData, setExpression, scenarioData, setScenario, situationData, setSituation, clearConversation } = useTalk()
   const initializedRef = useRef(false)
   const chatKeyRef = useRef(0)
   const [expressionLoading, setExpressionLoading] = useState(false)
+  const [showRoleplayPicker, setShowRoleplayPicker] = useState(false)
 
   const fetchExpression = useCallback(async (forceRandom = false) => {
     setExpressionLoading(true)
@@ -104,6 +106,9 @@ function TalkContent() {
         setMode('expression')
         setExpression({ expression, meaning: meaning || '' })
       }
+    } else if (urlMode === 'roleplay') {
+      setMode('roleplay')
+      setShowRoleplayPicker(true)
     }
   }, [searchParams, setMode, setExpression])
 
@@ -116,6 +121,17 @@ function TalkContent() {
       if (newMode === 'expression') {
         fetchExpression()
       }
+      if (newMode === 'roleplay') {
+        setShowRoleplayPicker(true)
+      } else {
+        setShowRoleplayPicker(false)
+      }
+    } else if (newMode === 'roleplay') {
+      // 이미 롤플레이 모드에서 다시 탭 클릭 → picker 재표시
+      setShowRoleplayPicker(true)
+      setScenario(null)
+      setSituation(null)
+      chatKeyRef.current += 1
     }
   }
 
@@ -126,12 +142,27 @@ function TalkContent() {
 
   const handleSituationSet = (situation: string, label: string) => {
     setSituation({ situation, label })
+    setShowRoleplayPicker(false)
     chatKeyRef.current += 1
   }
 
   const handleSituationClear = () => {
     setSituation(null)
+    if (mode === 'roleplay') {
+      setShowRoleplayPicker(true)
+    }
     chatKeyRef.current += 1
+  }
+
+  const handleScenarioSelect = (scenarioId: string, title: string) => {
+    setScenario({ id: scenarioId, title })
+    setShowRoleplayPicker(false)
+    chatKeyRef.current += 1
+  }
+
+  const handleRoleplayCustomSetup = () => {
+    setShowRoleplayPicker(false)
+    // ChatWindow will handle the custom setup flow
   }
 
   return (
@@ -187,15 +218,35 @@ function TalkContent() {
 
       {/* Chat Area */}
       <div className="max-w-2xl mx-auto w-full flex-1 overflow-hidden">
-        <ChatWindow
-          key={chatKeyRef.current}
-          mode={mode}
-          practiceExpression={mode === 'expression' && expressionData ? expressionData : undefined}
-          situation={mode === 'free' && situationData ? situationData.situation : undefined}
-          situationLabel={mode === 'free' && situationData ? situationData.label : undefined}
-          onSituationSet={handleSituationSet}
-          onSituationClear={handleSituationClear}
-        />
+        {mode === 'roleplay' && showRoleplayPicker && !scenarioData && !situationData ? (
+          <RoleplayPicker
+            onSituationSelect={handleSituationSet}
+            onScenarioSelect={handleScenarioSelect}
+            onCustomSetup={handleRoleplayCustomSetup}
+            onClose={() => {
+              setShowRoleplayPicker(false)
+              setMode('free')
+              chatKeyRef.current += 1
+            }}
+          />
+        ) : (
+          <ChatWindow
+            key={chatKeyRef.current}
+            mode={mode}
+            practiceExpression={mode === 'expression' && expressionData ? expressionData : undefined}
+            scenarioId={mode === 'roleplay' && scenarioData ? scenarioData.id : undefined}
+            situation={
+              (mode === 'free' && situationData ? situationData.situation : undefined)
+              || (mode === 'roleplay' && situationData ? situationData.situation : undefined)
+            }
+            situationLabel={
+              (mode === 'free' && situationData ? situationData.label : undefined)
+              || (mode === 'roleplay' && situationData ? situationData.label : undefined)
+            }
+            onSituationSet={handleSituationSet}
+            onSituationClear={handleSituationClear}
+          />
+        )}
       </div>
 
       <div className="h-[env(safe-area-inset-bottom)] bg-[#faf9f7] flex-shrink-0" />
