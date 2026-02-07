@@ -8,7 +8,7 @@ import SplashScreen from './SplashScreen'
 const SPLASH_SHOWN_KEY = 'enpeak_splash_shown'
 
 // 인증이 필요하지 않은 페이지들
-const PUBLIC_PATHS = ['/login']
+const PUBLIC_PATHS = ['/login', '/landing']
 
 interface AppShellProps {
   children: ReactNode
@@ -22,7 +22,7 @@ export default function AppShell({ children }: AppShellProps) {
   const pathname = usePathname()
   const router = useRouter()
 
-  const isPublicPath = PUBLIC_PATHS.includes(pathname)
+  const isPublicPath = PUBLIC_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'))
 
   useEffect(() => {
     // 이번 세션에서 이미 Splash를 보여줬는지 확인
@@ -40,18 +40,19 @@ export default function AppShell({ children }: AppShellProps) {
   // 스플래시 완료 후 인증 상태에 따라 라우팅
   useEffect(() => {
     if (!splashComplete) return
-    if (!isReady) return // Firebase 검증이 완료될 때까지 대기
 
-    // 로그인 페이지는 항상 접근 가능
+    // 공개 페이지는 Firebase 인증 완료를 기다리지 않고 즉시 표시
     if (isPublicPath) {
-      // 이미 로그인된 상태에서 로그인 페이지 접근 시 홈으로
-      if (isAuthenticated) {
+      // isReady가 되었고 이미 로그인된 상태에서 로그인 페이지 접근 시 홈으로
+      if (isReady && isAuthenticated && pathname === '/login') {
         router.replace('/')
         return
       }
       setAppReady(true)
       return
     }
+
+    if (!isReady) return // Firebase 검증이 완료될 때까지 대기
 
     // 비로그인 상태에서 보호된 페이지 접근 시
     if (!isAuthenticated) {
