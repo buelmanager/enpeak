@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { useTTS } from '@/contexts/TTSContext'
 import WordPopup from './WordPopup'
 import { API_BASE, apiFetch } from '@/shared/constants/api'
+import { saveSentence, isSentenceSaved } from '@/lib/savedSentences'
 
 interface Message {
   id: string
@@ -62,7 +63,9 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
   const [translatedText, setTranslatedText] = useState<string | null>(null)
   const [isTranslating, setIsTranslating] = useState(false)
   const [selectedWord, setSelectedWord] = useState<{ word: string; position: { x: number; y: number } } | null>(null)
-  
+  const [sentenceSaved, setSentenceSaved] = useState(false)
+  const [showSaveToast, setShowSaveToast] = useState(false)
+
   const longPressTimer = useRef<NodeJS.Timeout | null>(null)
   const pressedWord = useRef<string | null>(null)
 
@@ -102,6 +105,13 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
       }
     }
   }, [])
+
+  // 문장 저장 상태 확인
+  useEffect(() => {
+    if (!isUser && english) {
+      setSentenceSaved(isSentenceSaved(english))
+    }
+  }, [isUser, english])
 
   const renderInteractiveText = (text: string) => {
     const words = text.split(/(\s+)/)
@@ -305,6 +315,29 @@ export default function MessageBubble({ message, onSpeak, onSuggestionClick, onP
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 4l-4 4m4 0l-4-4" />
                 </svg>
               </button>
+            )}
+
+            {/* 문장 저장 버튼 */}
+            <button
+              onClick={() => {
+                if (!sentenceSaved) {
+                  saveSentence({ sentence: english, translation: translatedText || korean || '' })
+                  setSentenceSaved(true)
+                  setShowSaveToast(true)
+                  setTimeout(() => setShowSaveToast(false), 1500)
+                }
+              }}
+              className={`p-1.5 transition-colors ${
+                sentenceSaved ? 'text-[#1a1a1a]' : 'text-[#c5c5c5] hover:text-[#1a1a1a]'
+              }`}
+              title={sentenceSaved ? '저장됨' : '문장 저장'}
+            >
+              <svg className="w-4 h-4" fill={sentenceSaved ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            </button>
+            {showSaveToast && (
+              <span className="text-[11px] text-[#0D9488] ml-0.5 animate-pulse">저장됨</span>
             )}
           </div>
         )}

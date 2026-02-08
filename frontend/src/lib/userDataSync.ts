@@ -1,6 +1,8 @@
 // Firebase 사용자 데이터 동기화 유틸리티
 import { db, doc, getDoc, setDoc, updateDoc, serverTimestamp } from './firebase'
 import type { LearningRecord } from './learningHistory'
+import type { SavedWord } from './savedWords'
+import type { SavedSentence } from './savedSentences'
 
 // localStorage 키
 const STORAGE_KEYS = {
@@ -8,6 +10,8 @@ const STORAGE_KEYS = {
   LEARNING_STATS: 'enpeak_learning_stats',
   TTS_SETTINGS: 'tts-settings',
   PWA_DISMISSED: 'pwa-guide-dismissed',
+  SAVED_WORDS: 'enpeak-saved-words',
+  SAVED_SENTENCES: 'enpeak-saved-sentences',
 }
 
 // Firestore 사용자 데이터 구조
@@ -43,7 +47,8 @@ export interface UserData {
   conversationSettings?: {
     inputMode: 'voice' | 'text'
   }
-  savedWords?: any[]
+  savedWords?: SavedWord[]
+  savedSentences?: SavedSentence[]
   achievements?: Record<string, string>
   createdAt?: any
   updatedAt?: any
@@ -96,6 +101,22 @@ function getLocalData(): Partial<UserData> {
     } catch {}
   }
 
+  // 저장 단어
+  const wordsStr = localStorage.getItem(STORAGE_KEYS.SAVED_WORDS)
+  if (wordsStr) {
+    try {
+      data.savedWords = JSON.parse(wordsStr)
+    } catch {}
+  }
+
+  // 저장 문장
+  const sentencesStr = localStorage.getItem(STORAGE_KEYS.SAVED_SENTENCES)
+  if (sentencesStr) {
+    try {
+      data.savedSentences = JSON.parse(sentencesStr)
+    } catch {}
+  }
+
   return data
 }
 
@@ -113,6 +134,14 @@ function setLocalData(data: Partial<UserData>) {
 
   if (data.ttsSettings !== undefined) {
     localStorage.setItem(STORAGE_KEYS.TTS_SETTINGS, JSON.stringify(data.ttsSettings))
+  }
+
+  if (data.savedWords !== undefined) {
+    localStorage.setItem(STORAGE_KEYS.SAVED_WORDS, JSON.stringify(data.savedWords))
+  }
+
+  if (data.savedSentences !== undefined) {
+    localStorage.setItem(STORAGE_KEYS.SAVED_SENTENCES, JSON.stringify(data.savedSentences))
   }
 }
 
@@ -164,7 +193,7 @@ export async function migrateLocalDataToFirebase(userId: string): Promise<boolea
     const localData = getLocalData()
 
     // 로컬에 데이터가 없으면 마이그레이션 불필요
-    if (!localData.learningHistory?.length && !localData.learningStats && !localData.ttsSettings) {
+    if (!localData.learningHistory?.length && !localData.learningStats && !localData.ttsSettings && !localData.savedWords?.length && !localData.savedSentences?.length) {
       return true
     }
 
@@ -186,10 +215,24 @@ export async function migrateLocalDataToFirebase(userId: string): Promise<boolea
       // TTS 설정은 로컬 우선 (최신 설정)
       const mergedTTS = localData.ttsSettings || existingData.ttsSettings
 
+      // 저장 단어 병합
+      const mergedWords = mergeWords(
+        existingData.savedWords || [],
+        localData.savedWords || []
+      )
+
+      // 저장 문장 병합
+      const mergedSentences = mergeSentences(
+        existingData.savedSentences || [],
+        localData.savedSentences || []
+      )
+
       await saveUserDataToFirebase(userId, {
         learningHistory: mergedHistory,
         learningStats: mergedStats,
         ttsSettings: mergedTTS,
+        savedWords: mergedWords,
+        savedSentences: mergedSentences,
       })
 
       // 로컬에도 병합된 데이터 저장
@@ -197,6 +240,8 @@ export async function migrateLocalDataToFirebase(userId: string): Promise<boolea
         learningHistory: mergedHistory,
         learningStats: mergedStats,
         ttsSettings: mergedTTS,
+        savedWords: mergedWords,
+        savedSentences: mergedSentences,
       })
     } else {
       // 기존 데이터가 없으면 로컬 데이터를 그대로 저장
@@ -304,6 +349,48 @@ function mergeStats(
   }
 }
 
+// 저장 단어 병합 (word 키 기반, 높은 mastery 또는 최근 복습 우선)
+function mergeWords(existing: SavedWord[], local: SavedWord[]): SavedWord[] {
+  const map = new Map<string, SavedWord>()
+  // Add existing
+  existing.forEach(w => map.set(w.word.toLowerCase(), w))
+  // Merge local (prefer higher mastery, more recent review)
+  local.forEach(w => {
+    const key = w.word.toLowerCase()
+    const ex = map.get(key)
+    if (!ex) {
+      map.set(key, w)
+    } else {
+      // Keep the one with higher mastery, or more recent review
+      if (w.mastery > ex.mastery ||
+          (w.mastery === ex.mastery && (w.lastReviewedAt || 0) > (ex.lastReviewedAt || 0))) {
+        map.set(key, w)
+      }
+    }
+  })
+  return Array.from(map.values()).sort((a, b) => b.savedAt - a.savedAt)
+}
+
+// 저장 문장 병합 (id 키 기반, 높은 mastery 또는 최근 복습 우선)
+function mergeSentences(existing: SavedSentence[], local: SavedSentence[]): SavedSentence[] {
+  const map = new Map<string, SavedSentence>()
+  // Add existing
+  existing.forEach(s => map.set(s.id, s))
+  // Merge local (prefer higher mastery, more recent review)
+  local.forEach(s => {
+    const ex = map.get(s.id)
+    if (!ex) {
+      map.set(s.id, s)
+    } else {
+      if (s.mastery > ex.mastery ||
+          (s.mastery === ex.mastery && (s.lastReviewedAt || 0) > (ex.lastReviewedAt || 0))) {
+        map.set(s.id, s)
+      }
+    }
+  })
+  return Array.from(map.values()).sort((a, b) => b.savedAt - a.savedAt)
+}
+
 // Firebase에서 로컬로 데이터 동기화 (로그인 후)
 export async function syncDataFromFirebase(userId: string): Promise<boolean> {
   try {
@@ -313,6 +400,8 @@ export async function syncDataFromFirebase(userId: string): Promise<boolean> {
         learningHistory: firebaseData.learningHistory,
         learningStats: firebaseData.learningStats,
         ttsSettings: firebaseData.ttsSettings,
+        savedWords: firebaseData.savedWords,
+        savedSentences: firebaseData.savedSentences,
       })
       return true
     }
