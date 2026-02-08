@@ -1,5 +1,20 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllArticles } from '@/lib/blog'
+
+export const metadata: Metadata = {
+  title: '영어 학습 블로그',
+  description: '한국인을 위한 영어 학습 팁, 표현, 문법 가이드. 실전에서 바로 쓰는 영어 학습 콘텐츠.',
+  alternates: {
+    canonical: 'https://enpeak.web.app/blog',
+  },
+  openGraph: {
+    title: '영어 학습 블로그 | EnPeak',
+    description: '한국인을 위한 영어 학습 팁, 표현, 문법 가이드.',
+    url: 'https://enpeak.web.app/blog',
+    type: 'website',
+  },
+}
 
 function formatDate(dateStr: string) {
   if (!dateStr) return ''
@@ -37,7 +52,7 @@ export default function BlogListPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-[#1C1917] tracking-tight">Flu</span>
+            <span className="text-lg font-bold text-[#1C1917] tracking-tight">EnPeak</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/blog" className="text-sm font-medium text-[#0D9488]">
@@ -47,7 +62,7 @@ export default function BlogListPage() {
               href="/landing"
               className="bg-[#0D9488] text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:bg-[#0B8278] active:scale-95"
             >
-              Flu 자세히 보기
+              EnPeak 자세히 보기
             </Link>
           </div>
         </div>
@@ -146,7 +161,7 @@ export default function BlogListPage() {
             href="/landing"
             className="inline-flex bg-white text-[#0D9488] font-semibold px-8 py-3.5 rounded-2xl text-base transition-all hover:bg-[#FAFAF8] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
           >
-            Flu 자세히 보기
+            EnPeak 자세히 보기
           </Link>
         </div>
       </section>
@@ -160,9 +175,9 @@ export default function BlogListPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-sm font-semibold text-[#1C1917]">Flu</span>
+            <span className="text-sm font-semibold text-[#1C1917]">EnPeak</span>
           </div>
-          <p className="text-xs text-[#94A3B8]">2026 Flu. All rights reserved.</p>
+          <p className="text-xs text-[#94A3B8]">2026 EnPeak. All rights reserved.</p>
         </div>
       </footer>
     </div>

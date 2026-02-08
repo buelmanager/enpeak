@@ -301,7 +301,7 @@ export default function Home() {
         <div className="flex items-center justify-between mb-6">
           <div>
             <p className="text-[13px] text-[#8a8a8a] tracking-wide">{greeting}</p>
-            <h1 className="text-[22px] font-semibold tracking-tight mt-0.5">Flu</h1>
+            <h1 className="text-[22px] font-semibold tracking-tight mt-0.5">EnPeak</h1>
           </div>
           {displayUser ? (
             <Link

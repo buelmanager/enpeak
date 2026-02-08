@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
-// ─── Flu Brand Colors ───
+// ─── EnPeak Brand Colors ───
 // Primary Teal: #0D9488
 // Secondary Warm White: #FAFAF8
 // Accent Coral: #F87171
@@ -80,7 +80,7 @@ function MockupHomeScreen() {
       <div className="flex justify-between items-center mb-3">
         <div>
           <p className="text-[8px] text-[#8a8a8a]">Good morning</p>
-          <p className="text-[13px] font-semibold text-[#1C1917]">Flu</p>
+          <p className="text-[13px] font-semibold text-[#1C1917]">EnPeak</p>
         </div>
         <div className="w-6 h-6 rounded-full bg-[#0D9488]" />
       </div>
@@ -231,7 +231,7 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-[#1C1917] tracking-tight">Flu</span>
+            <span className="text-lg font-bold text-[#1C1917] tracking-tight">EnPeak</span>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/blog" className="text-sm font-medium text-[#64748B] hover:text-[#0D9488] transition-colors">
@@ -276,7 +276,7 @@ export default function LandingPage() {
                   <svg className="w-4 h-4 text-[#0D9488]" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  <span className="text-sm text-[#0D9488] font-semibold">Flu Crew 50명 한정 평생 무료</span>
+                  <span className="text-sm text-[#0D9488] font-semibold">EnPeak Crew 50명 한정 평생 무료</span>
                 </div>
               </FadeInSection>
 
@@ -292,7 +292,7 @@ export default function LandingPage() {
                     href="#flu-crew"
                     className="bg-white text-[#1C1917] font-medium px-8 py-4 rounded-2xl text-base border border-[#E2E8F0] transition-all hover:bg-[#F8FAFC] active:scale-[0.97] inline-flex items-center gap-2"
                   >
-                    Flu Crew 자세히 보기
+                    EnPeak Crew 자세히 보기
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
@@ -359,7 +359,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ─── Flu Crew Early Bird ─── */}
+      {/* ─── EnPeak Crew Early Bird ─── */}
       <section id="flu-crew" className="py-20 px-6 bg-gradient-to-br from-[#0D9488] to-[#0B8278] relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-10">
@@ -374,7 +374,7 @@ export default function LandingPage() {
               <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span className="text-sm text-white font-semibold">Flu Crew 모집</span>
+              <span className="text-sm text-white font-semibold">EnPeak Crew 모집</span>
             </div>
           </FadeInSection>
 
@@ -387,9 +387,9 @@ export default function LandingPage() {
 
           <FadeInSection delay={200}>
             <p className="text-lg text-white/90 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Flu Crew가 되어주세요.<br />
+              EnPeak Crew가 되어주세요.<br />
               AI와 영어로 대화하며 실력을 키우는 새로운 방법,<br />
-              <span className="font-semibold text-white">Flu Crew 50명</span>에게 평생 무료 이용권을 드립니다.
+              <span className="font-semibold text-white">EnPeak Crew 50명</span>에게 평생 무료 이용권을 드립니다.
             </p>
           </FadeInSection>
 
@@ -401,7 +401,7 @@ export default function LandingPage() {
                     <svg className="w-5 h-5 text-[#FAFAF8]" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    Flu Crew 혜택
+                    EnPeak Crew 혜택
                   </h3>
                   <ul className="space-y-2 text-sm text-white/80">
                     <li className="flex items-start gap-2">
@@ -457,7 +457,7 @@ export default function LandingPage() {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                 </svg>
-                Flu Crew 참여하기
+                EnPeak Crew 참여하기
               </Link>
               <div className="text-white/80 text-sm">
                 <p className="font-semibold">남은 자리: <span className="text-[#FAFAF8] text-lg">50</span>명</p>
@@ -467,7 +467,7 @@ export default function LandingPage() {
 
           <FadeInSection delay={500}>
             <p className="text-white/60 text-xs mt-6">
-              * 평생 무료 혜택은 Flu Crew 50명에게만 제공됩니다
+              * 평생 무료 혜택은 EnPeak Crew 50명에게만 제공됩니다
             </p>
           </FadeInSection>
         </div>
@@ -631,7 +631,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <FadeInSection>
             <div className="text-center mb-14">
-              <p className="text-[#0D9488] text-sm font-medium uppercase tracking-wider mb-3">Why Flu</p>
+              <p className="text-[#0D9488] text-sm font-medium uppercase tracking-wider mb-3">Why EnPeak</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1917] tracking-tight">
                 다른 앱과 무엇이 다른가요?
               </h2>
@@ -645,7 +645,7 @@ export default function LandingPage() {
                   <thead>
                     <tr className="border-b border-[#E2E8F0]">
                       <th className="text-left px-6 py-4 text-sm text-[#94A3B8] font-medium">기능</th>
-                      <th className="px-6 py-4 text-sm font-bold text-[#0D9488] bg-[#F0FDFA]">Flu</th>
+                      <th className="px-6 py-4 text-sm font-bold text-[#0D9488] bg-[#F0FDFA]">EnPeak</th>
                       <th className="px-6 py-4 text-sm text-[#94A3B8] font-medium">S사</th>
                       <th className="px-6 py-4 text-sm text-[#94A3B8] font-medium">D사</th>
                     </tr>
@@ -843,9 +843,9 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-sm font-semibold text-white">Flu</span>
+            <span className="text-sm font-semibold text-white">EnPeak</span>
           </div>
-          <p className="text-xs text-[#64748B]">2026 Flu. All rights reserved.</p>
+          <p className="text-xs text-[#64748B]">2026 EnPeak. All rights reserved.</p>
         </div>
       </footer>
     </div>

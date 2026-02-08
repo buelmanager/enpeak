@@ -1,6 +1,6 @@
 {
-  "name": "Flu - AI English Learning",
-  "short_name": "Flu",
+  "name": "EnPeak - AI English Learning",
+  "short_name": "EnPeak",
   "description": "AI와 함께하는 영어 회화 연습",
   "start_url": "/talk",
   "display": "standalone",

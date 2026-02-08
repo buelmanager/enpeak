@@ -43,6 +43,7 @@ export interface UserData {
   conversationSettings?: {
     inputMode: 'voice' | 'text'
   }
+  savedWords?: any[]
   achievements?: Record<string, string>
   createdAt?: any
   updatedAt?: any

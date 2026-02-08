@@ -1,0 +1,51 @@
+# EnPeak - AI English Learning App
+# https://enpeak.web.app
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /feedback
+Disallow: /stats
+
+# Naver
+User-agent: Yeti
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /feedback
+Disallow: /stats
+
+# Daum
+User-agent: Daum
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /feedback
+Disallow: /stats
+
+User-agent: Daumoa
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /feedback
+Disallow: /stats
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /feedback
+Disallow: /stats
+
+# All other bots
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /feedback
+Disallow: /stats
+
+Sitemap: https://enpeak.web.app/sitemap.xml

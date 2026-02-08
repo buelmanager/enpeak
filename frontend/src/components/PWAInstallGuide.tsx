@@ -252,10 +252,10 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
         {/* App Info */}
         <div className="flex items-center gap-4 mb-6 p-4 bg-[#f5f5f5] rounded-2xl">
           <div className="w-14 h-14 rounded-xl overflow-hidden flex items-center justify-center border border-[#e5e5e5] bg-white">
-            <img src="/icons/icon-192.png" alt="Flu" className="w-12 h-12" />
+            <img src="/icons/icon-192.png" alt="EnPeak" className="w-12 h-12" />
           </div>
           <div>
-            <h3 className="font-medium">Flu</h3>
+            <h3 className="font-medium">EnPeak</h3>
             <p className="text-sm text-[#8a8a8a]">AI 영어 학습 앱</p>
           </div>
         </div>

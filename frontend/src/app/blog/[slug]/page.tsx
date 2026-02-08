@@ -29,9 +29,12 @@ export function generateMetadata({
   if (!article) return {}
 
   return {
-    title: `${article.title} | Flu Blog`,
+    title: `${article.title} | EnPeak Blog`,
     description: article.description,
     keywords: article.tags,
+    alternates: {
+      canonical: `https://enpeak.web.app/blog/${params.slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.description,
@@ -39,7 +42,7 @@ export function generateMetadata({
       publishedTime: article.date,
       tags: article.tags,
       locale: 'ko_KR',
-      siteName: 'Flu',
+      siteName: 'EnPeak',
     },
     twitter: {
       card: 'summary_large_image',
@@ -70,8 +73,8 @@ export default function BlogArticlePage({
     headline: article.title,
     description: article.description,
     datePublished: article.date,
-    author: { '@type': 'Organization', name: 'Flu' },
-    publisher: { '@type': 'Organization', name: 'Flu' },
+    author: { '@type': 'Organization', name: 'EnPeak' },
+    publisher: { '@type': 'Organization', name: 'EnPeak' },
     keywords: article.tags.join(', '),
   }
 
@@ -86,7 +89,7 @@ export default function BlogArticlePage({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-[#1C1917] tracking-tight">Flu</span>
+            <span className="text-lg font-bold text-[#1C1917] tracking-tight">EnPeak</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/blog" className="text-sm font-medium text-[#0D9488]">
@@ -96,7 +99,7 @@ export default function BlogArticlePage({
               href="/landing"
               className="bg-[#0D9488] text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:bg-[#0B8278] active:scale-95"
             >
-              Flu 자세히 보기
+              EnPeak 자세히 보기
             </Link>
           </div>
         </div>
@@ -161,7 +164,7 @@ export default function BlogArticlePage({
               href="/landing"
               className="inline-flex bg-white text-[#0D9488] font-semibold px-7 py-3 rounded-xl text-sm transition-all hover:bg-[#FAFAF8] active:scale-[0.97] shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
             >
-              Flu 자세히 보기
+              EnPeak 자세히 보기
             </Link>
           </div>
         </div>
@@ -176,9 +179,9 @@ export default function BlogArticlePage({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span className="text-sm font-semibold text-[#1C1917]">Flu</span>
+            <span className="text-sm font-semibold text-[#1C1917]">EnPeak</span>
           </div>
-          <p className="text-xs text-[#94A3B8]">2026 Flu. All rights reserved.</p>
+          <p className="text-xs text-[#94A3B8]">2026 EnPeak. All rights reserved.</p>
         </div>
       </footer>
     </div>
