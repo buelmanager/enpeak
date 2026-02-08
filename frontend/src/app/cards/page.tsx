@@ -235,7 +235,7 @@ export default function CardsPage() {
   const cleanWord = (word: string) => word.replace(/:/g, '').trim()
 
   return (
-    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-32">
+    <main className="min-h-screen bg-[#faf9f7] text-[#1a1a1a] pb-32 overflow-y-auto">
       {/* Top safe area */}
       <div className="bg-[#faf9f7] fixed top-0 left-0 right-0 z-20" style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 

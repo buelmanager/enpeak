@@ -1,115 +1,128 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import dynamic from 'next/dynamic'
 import BottomNav from '@/components/BottomNav'
-import { getWeeklyActivity, getWeeklyStats, getStats, WeeklyStats, TodayStats } from '@/lib/learningHistory'
+import InsightCard from '@/components/stats/InsightCard'
+import StreakHero from '@/components/stats/StreakHero'
+import DailyGoals from '@/components/stats/DailyGoals'
+import MonthlyHeatmap from '@/components/stats/MonthlyHeatmap'
+import WeekComparisonCard from '@/components/stats/WeekComparison'
+import RecentTimeline from '@/components/stats/RecentTimeline'
+import AchievementBadges from '@/components/stats/AchievementBadges'
+import {
+  getStats,
+  getExtendedStats,
+  getAllRecords,
+  getWeeklyChartData,
+  getMonthlyActivity,
+  getTypeDistribution,
+  getHourlyPattern,
+  getLevelDistribution,
+  getWeekOverWeekComparison,
+  generateInsightMessages,
+  checkAchievements,
+} from '@/lib/learningHistory'
+import type {
+  TodayStats,
+  ExtendedStats,
+  LearningRecord,
+  WeeklyChartDataPoint,
+  MonthlyActivityDay,
+  TypeDistribution,
+  WeekComparison,
+  Achievement,
+} from '@/lib/learningHistory'
+
+// Recharts 컴포넌트는 SSR 비활성화 (dynamic import)
+const WeeklyBarChart = dynamic(() => import('@/components/stats/WeeklyBarChart'), { ssr: false })
+const TypeDonutChart = dynamic(() => import('@/components/stats/TypeDonutChart'), { ssr: false })
+const HourlyPatternChart = dynamic(() => import('@/components/stats/HourlyPatternChart'), { ssr: false })
+const LevelRadarChart = dynamic(() => import('@/components/stats/LevelRadarChart'), { ssr: false })
 
 export default function StatsPage() {
-  const [weeklyActivity, setWeeklyActivity] = useState<boolean[]>([false, false, false, false, false, false, false])
-  const [weeklyStats, setWeeklyStats] = useState<WeeklyStats>({
-    totalSessions: 0,
-    totalDays: 0,
-    vocabularyWords: 0,
-    conversations: 0,
-    chatSessions: 0,
-  })
   const [todayStats, setTodayStats] = useState<TodayStats>({
-    totalSessions: 0,
-    totalMinutes: 0,
-    vocabularyWords: 0,
-    conversationScenarios: 0,
-    streak: 0,
+    totalSessions: 0, totalMinutes: 0, vocabularyWords: 0, conversationScenarios: 0, streak: 0,
   })
+  const [extendedStats, setExtendedStats] = useState<ExtendedStats>({
+    totalSessions: 0, totalMinutes: 0, vocabularyWords: 0, conversationScenarios: 0, streak: 0,
+    bestStreak: 0, totalLifetimeWords: 0, totalLifetimeSessions: 0, totalLifetimeMinutes: 0,
+    levelProgress: {}, firstLearningDate: null, daysSinceStart: 0,
+  })
+  const [records, setRecords] = useState<LearningRecord[]>([])
+  const [weeklyChartData, setWeeklyChartData] = useState<WeeklyChartDataPoint[]>([])
+  const [monthlyActivity, setMonthlyActivity] = useState<MonthlyActivityDay[]>([])
+  const [typeDistribution, setTypeDistribution] = useState<TypeDistribution>({
+    vocabulary: 0, conversation: 0, chat: 0, community: 0, total: 0,
+  })
+  const [hourlyPattern, setHourlyPattern] = useState<number[]>(new Array(24).fill(0))
+  const [levelDistribution, setLevelDistribution] = useState<Record<string, number>>({})
+  const [weekComparison, setWeekComparison] = useState<WeekComparison>({
+    thisWeek: { days: 0, words: 0, conversations: 0, sessions: 0 },
+    lastWeek: { days: 0, words: 0, conversations: 0, sessions: 0 },
+    changes: { days: 0, words: 0, conversations: 0, sessions: 0 },
+  })
+  const [achievements, setAchievements] = useState<Achievement[]>([])
 
   useEffect(() => {
-    setWeeklyActivity(getWeeklyActivity())
-    setWeeklyStats(getWeeklyStats())
     setTodayStats(getStats())
+    setExtendedStats(getExtendedStats())
+    setRecords(getAllRecords())
+    setWeeklyChartData(getWeeklyChartData())
+    setMonthlyActivity(getMonthlyActivity())
+    setTypeDistribution(getTypeDistribution())
+    setHourlyPattern(getHourlyPattern())
+    setLevelDistribution(getLevelDistribution())
+    setWeekComparison(getWeekOverWeekComparison())
+
+    const stats = getExtendedStats()
+    setAchievements(checkAchievements(stats))
   }, [])
 
-  const todayIndex = new Date().getDay()
-  const adjustedTodayIndex = todayIndex === 0 ? 6 : todayIndex - 1
+  // 인사이트 메시지 (메모이제이션)
+  const insightMessages = useMemo(() => {
+    return generateInsightMessages(extendedStats, weekComparison, hourlyPattern)
+  }, [extendedStats, weekComparison, hourlyPattern])
 
   return (
     <div className="min-h-screen bg-[#faf9f7] pb-32">
       <div style={{ height: 'env(safe-area-inset-top, 0px)' }} />
 
-      <div className="px-6 pt-6">
-        <h1 className="text-2xl font-bold text-[#1a1a1a] mb-6">통계</h1>
+      <div className="px-5 pt-6">
+        <h1 className="text-2xl font-bold text-[#1a1a1a] mb-5">통계</h1>
 
-        {todayStats.streak > 0 && (
-          <div className="bg-[#0D9488] rounded-2xl p-5 mb-4 text-white text-center">
-            <p className="text-4xl font-bold mb-1">{todayStats.streak}</p>
-            <p className="text-sm text-white/70">일 연속 학습</p>
-          </div>
-        )}
+        {/* 1. 개인 맞춤 인사이트 */}
+        <InsightCard messages={insightMessages} />
 
-        <section className="bg-white rounded-2xl p-5 shadow-sm mb-4">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
-            <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">This Week</span>
-          </div>
-          
-          <div className="flex justify-between mb-5">
-            {['월', '화', '수', '목', '금', '토', '일'].map((day, idx) => (
-              <div key={day} className="flex flex-col items-center gap-2">
-                <span className={`text-xs ${idx === adjustedTodayIndex ? 'text-[#1a1a1a] font-medium' : 'text-[#8a8a8a]'}`}>
-                  {day}
-                </span>
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center ${
-                  weeklyActivity[idx] 
-                    ? 'bg-[#0D9488]' 
-                    : idx === adjustedTodayIndex 
-                      ? 'bg-[#f0f0f0] ring-2 ring-[#1a1a1a] ring-offset-2' 
-                      : 'bg-[#f0f0f0]'
-                }`}>
-                  {weeklyActivity[idx] && (
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* 2. 스트릭 & 요약 히어로 */}
+        <StreakHero stats={extendedStats} />
 
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-[#f5f5f5] rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#1a1a1a]">{weeklyStats.totalDays}</p>
-              <p className="text-xs text-[#8a8a8a] mt-1">학습일</p>
-            </div>
-            <div className="bg-[#f5f5f5] rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#1a1a1a]">{weeklyStats.vocabularyWords}</p>
-              <p className="text-xs text-[#8a8a8a] mt-1">단어</p>
-            </div>
-            <div className="bg-[#f5f5f5] rounded-xl p-4 text-center">
-              <p className="text-3xl font-bold text-[#1a1a1a]">{weeklyStats.conversations + weeklyStats.chatSessions}</p>
-              <p className="text-xs text-[#8a8a8a] mt-1">회화</p>
-            </div>
-          </div>
-        </section>
+        {/* 3. 오늘의 목표 진행률 */}
+        <DailyGoals todayStats={todayStats} />
 
-        <section className="bg-white rounded-2xl p-5 shadow-sm">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-1 h-4 bg-[#0D9488] rounded-full" />
-            <span className="text-[11px] font-medium text-[#8a8a8a] uppercase tracking-wider">Today</span>
-          </div>
+        {/* 4. 주간 활동 차트 */}
+        <WeeklyBarChart data={weeklyChartData} />
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between py-2">
-              <span className="text-[#666]">학습 세션</span>
-              <span className="font-semibold text-[#1a1a1a]">{todayStats.totalSessions}회</span>
-            </div>
-            <div className="flex items-center justify-between py-2 border-t border-[#f0f0f0]">
-              <span className="text-[#666]">학습 시간</span>
-              <span className="font-semibold text-[#1a1a1a]">{todayStats.totalMinutes}분</span>
-            </div>
-            <div className="flex items-center justify-between py-2 border-t border-[#f0f0f0]">
-              <span className="text-[#666]">회화</span>
-              <span className="font-semibold text-[#1a1a1a]">{todayStats.conversationScenarios}회</span>
-            </div>
-          </div>
-        </section>
+        {/* 5. 월간 히트맵 */}
+        <MonthlyHeatmap data={monthlyActivity} />
+
+        {/* 6. 학습 유형 분석 */}
+        <TypeDonutChart data={typeDistribution} />
+
+        {/* 7. 시간대별 학습 패턴 */}
+        <HourlyPatternChart data={hourlyPattern} />
+
+        {/* 8. 레벨별 진행도 */}
+        <LevelRadarChart data={levelDistribution} />
+
+        {/* 9. 주간 비교 */}
+        <WeekComparisonCard data={weekComparison} />
+
+        {/* 10. 최근 학습 타임라인 */}
+        <RecentTimeline records={records} />
+
+        {/* 11. 성취 배지 */}
+        <AchievementBadges achievements={achievements} />
       </div>
 
       <BottomNav />

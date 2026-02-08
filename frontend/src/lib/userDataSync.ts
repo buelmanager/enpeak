@@ -16,6 +16,12 @@ export interface UserData {
   learningStats: {
     lastActiveDate: string | null
     streak: number
+    bestStreak?: number
+    totalLifetimeWords?: number
+    totalLifetimeSessions?: number
+    totalLifetimeMinutes?: number
+    levelProgress?: Record<string, number>
+    firstLearningDate?: string | null
     todayStats: {
       date: string
       totalSessions: number
@@ -37,6 +43,7 @@ export interface UserData {
   conversationSettings?: {
     inputMode: 'voice' | 'text'
   }
+  achievements?: Record<string, string>
   createdAt?: any
   updatedAt?: any
 }
@@ -235,12 +242,36 @@ function mergeStats(
   // 더 높은 streak 선택
   const streak = Math.max(existingStats.streak, localStats.streak)
 
+  // 확장 필드 병합
+  const bestStreak = Math.max(existingStats.bestStreak || 0, localStats.bestStreak || 0)
+  const totalLifetimeWords = Math.max(existingStats.totalLifetimeWords || 0, localStats.totalLifetimeWords || 0)
+  const totalLifetimeSessions = Math.max(existingStats.totalLifetimeSessions || 0, localStats.totalLifetimeSessions || 0)
+  const totalLifetimeMinutes = Math.max(existingStats.totalLifetimeMinutes || 0, localStats.totalLifetimeMinutes || 0)
+
+  // levelProgress 병합 (각 레벨에서 더 큰 값)
+  const existingLevels = existingStats.levelProgress || {}
+  const localLevels = localStats.levelProgress || {}
+  const allLevelKeys = new Set([...Object.keys(existingLevels), ...Object.keys(localLevels)])
+  const levelProgress: Record<string, number> = {}
+  allLevelKeys.forEach(key => {
+    levelProgress[key] = Math.max(existingLevels[key] || 0, localLevels[key] || 0)
+  })
+
+  // firstLearningDate 병합 (더 이른 날짜)
+  const existingFirst = existingStats.firstLearningDate
+  const localFirst = localStats.firstLearningDate
+  let firstLearningDate: string | null = null
+  if (existingFirst && localFirst) {
+    firstLearningDate = existingFirst < localFirst ? existingFirst : localFirst
+  } else {
+    firstLearningDate = existingFirst || localFirst || null
+  }
+
   // 오늘 날짜 기준으로 todayStats 병합
   const today = new Date().toISOString().split('T')[0]
   let todayStats = DEFAULT_USER_DATA.learningStats.todayStats
 
   if (existingStats.todayStats.date === today && localStats.todayStats.date === today) {
-    // 둘 다 오늘 데이터면 더 큰 값 선택 (같은 세션 데이터가 양쪽에 있을 수 있으므로 합산 대신 max 유지)
     todayStats = {
       date: today,
       totalSessions: Math.max(existingStats.todayStats.totalSessions, localStats.todayStats.totalSessions),
@@ -262,6 +293,12 @@ function mergeStats(
   return {
     lastActiveDate,
     streak,
+    bestStreak,
+    totalLifetimeWords,
+    totalLifetimeSessions,
+    totalLifetimeMinutes,
+    levelProgress,
+    firstLearningDate,
     todayStats,
   }
 }

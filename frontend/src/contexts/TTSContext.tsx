@@ -1,6 +1,7 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react'
+import { usePathname } from 'next/navigation'
 import { syncToFirebaseIfLoggedIn } from '@/lib/userDataSync'
 import { API_BASE, apiFetch } from '@/shared/constants/api'
 
@@ -128,6 +129,22 @@ export function TTSProvider({ children }: { children: ReactNode }) {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const pathname = usePathname()
+
+  // 페이지 이동 시 TTS 자동 중지
+  useEffect(() => {
+    // HD Audio 중지
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+      audioRef.current = null
+    }
+    // Web Speech API 중지
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel()
+    }
+    setIsSpeaking(false)
+  }, [pathname])
 
   // 음성 목록 로드
   useEffect(() => {
