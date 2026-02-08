@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900613282617",
+    "project_id": "gothic-space-672",
+    "storage_bucket": "gothic-space-672.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900613282617:android:f57701ac3bae85893866e8",
+        "android_client_info": {
+          "package_name": "com.buelmanager.flu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900613282617-tic9qoec2165bn1fmtjlbfqqrp7udq24.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc7f2LGRfHrVxxhc_81hvOW7kOEeW6asE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900613282617-soh5pt5kl9qp1pn758p05eeihaqr5bgo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
