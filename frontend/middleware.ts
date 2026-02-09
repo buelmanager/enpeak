@@ -19,9 +19,21 @@ export function middleware(request: NextRequest) {
     })
   }
 
-  return NextResponse.next()
+  // Detect native app via User-Agent and set header for SSR
+  const userAgent = request.headers.get('user-agent') || ''
+  const isNativeApp = userAgent.includes('EnPeakApp/')
+  const response = NextResponse.next()
+
+  if (isNativeApp) {
+    response.headers.set('x-enpeak-platform', 'app')
+  }
+
+  return response
 }
 
 export const config = {
-  matcher: ['/vocabulary', '/chat', '/community', '/roleplay', '/conversations'],
+  matcher: [
+    '/vocabulary', '/chat', '/community', '/roleplay', '/conversations',
+    '/((?!_next/static|_next/image|favicon.ico|icons|manifest.json|sw.js).*)',
+  ],
 }

@@ -9,6 +9,13 @@ import {
   signUpWithEmail
 } from '@/lib/firebase'
 import { useAuth } from '@/contexts/AuthContext'
+import {
+  isNativeApp,
+  nativeSignInGoogle,
+  nativeSignInEmail,
+  nativeSignUpEmail
+} from '@/lib/nativeBridge'
+import { cacheUser } from '@/lib/firebase'
 
 function LoginContent() {
   const router = useRouter()
@@ -23,7 +30,6 @@ function LoginContent() {
   const [loading, setLoading] = useState(false)
   const [waitingForAuth, setWaitingForAuth] = useState(false)
 
-  // 로그인 성공 후 인증 상태가 준비되면 리다이렉트
   useEffect(() => {
     if (waitingForAuth && isReady && isAuthenticated) {
       setWaitingForAuth(false)
@@ -36,6 +42,33 @@ function LoginContent() {
     setError('')
     setLoading(true)
 
+    if (isNativeApp()) {
+      try {
+        const result = isSignUp
+          ? await nativeSignUpEmail(email, password)
+          : await nativeSignInEmail(email, password)
+        if (result.uid) {
+          // Cache native auth result for web AuthContext
+          localStorage.setItem('enpeak_auth_user', JSON.stringify({
+            uid: result.uid,
+            email: result.email || null,
+            displayName: result.displayName || null,
+            photoURL: result.photoURL || null,
+            cachedAt: Date.now()
+          }))
+          if (result.idToken) {
+            localStorage.setItem('enpeak_native_token', result.idToken)
+          }
+          // Reload to let AuthContext pick up the cached user
+          window.location.href = redirectTo
+        }
+      } catch (err: any) {
+        setError(err.message || 'Authentication failed')
+        setLoading(false)
+      }
+      return
+    }
+
     const { user, error } = isSignUp
       ? await signUpWithEmail(email, password)
       : await signInWithEmail(email, password)
@@ -44,7 +77,6 @@ function LoginContent() {
       setError(error)
       setLoading(false)
     } else if (user) {
-      // 로그인 성공 - 인증 상태 안정화 대기
       setWaitingForAuth(true)
     }
   }
@@ -52,18 +84,41 @@ function LoginContent() {
   const handleGoogleLogin = async () => {
     setError('')
     setLoading(true)
-    const { user, error } = await signInWithGoogle()
 
+    if (isNativeApp()) {
+      try {
+        const result = await nativeSignInGoogle()
+        if (result.uid) {
+          // Cache native auth result for web AuthContext
+          localStorage.setItem('enpeak_auth_user', JSON.stringify({
+            uid: result.uid,
+            email: result.email || null,
+            displayName: result.displayName || null,
+            photoURL: result.photoURL || null,
+            cachedAt: Date.now()
+          }))
+          if (result.idToken) {
+            localStorage.setItem('enpeak_native_token', result.idToken)
+          }
+          // Reload to let AuthContext pick up the cached user
+          window.location.href = redirectTo
+        }
+      } catch (err: any) {
+        setError(err.message || 'Google sign-in failed')
+        setLoading(false)
+      }
+      return
+    }
+
+    const { user, error } = await signInWithGoogle()
     if (error) {
       setError(error)
       setLoading(false)
     } else if (user) {
-      // 로그인 성공 - 인증 상태 안정화 대기
       setWaitingForAuth(true)
     }
   }
 
-  // 로그인 처리 중 로딩 화면
   if (waitingForAuth) {
     return (
       <main className="min-h-screen bg-[#faf9f7] flex items-center justify-center">

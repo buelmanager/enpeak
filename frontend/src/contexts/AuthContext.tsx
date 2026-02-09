@@ -7,6 +7,7 @@ import {
   migrateLocalDataToFirebase,
   syncDataFromFirebase
 } from '@/lib/userDataSync'
+import { isNativeApp, getNativeToken } from '@/lib/nativeBridge'
 
 // 빌드 타임스탬프 (청크 해시 변경용)
 const _buildTimestamp = process.env.BUILD_TIMESTAMP || ''
@@ -71,6 +72,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     }, 3000)
 
+    // Native app: listen for native auth completion via custom event
+    let removeNativeListener: (() => void) | undefined
+    if (isNativeApp()) {
+      const handleNativeAuth = async () => {
+        try {
+          // Native login succeeded - use signInWithCredential on web side
+          // The web Firebase SDK shares the same project, so we can use the idToken
+          const token = await getNativeToken(true)
+          if (token) {
+            // Import dynamically to avoid issues
+            const { signInWithCustomToken, getAuth } = await import('firebase/auth')
+            // Note: signInWithCustomToken needs a custom token from backend
+            // Instead, we'll just wait for onAuthStateChanged to pick it up
+            // since both native and web Firebase share the same auth state in some cases
+            console.log('[Auth] Native token available, waiting for auth state sync')
+          }
+        } catch (err) {
+          console.error('[Auth] Native auth sync failed:', err)
+        }
+      }
+      window.addEventListener('nativeAuthComplete', handleNativeAuth)
+      removeNativeListener = () => window.removeEventListener('nativeAuthComplete', handleNativeAuth)
+    }
+
     let unsubscribe: (() => void) | undefined
     try {
       unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -126,6 +151,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       clearTimeout(readyTimeout)
       unsubscribe?.()
+      removeNativeListener?.()
     }
   }, [])
 

@@ -15,6 +15,7 @@ import { useConversationSettings } from '@/contexts/ConversationSettingsContext'
 import { useAudioRecorder } from '@/hooks/useAudioRecorder'
 import { useAudioLevel } from '@/hooks/useAudioLevel'
 import { API_BASE, apiFetch } from '@/shared/constants/api'
+import { isNativeApp } from '@/lib/nativeBridge'
 
 interface Message {
   id: string
@@ -223,11 +224,14 @@ export default function ChatWindow({
       autoRecordTimerRef.current = null
     }
     voiceRecorderRef.current?.stopRecording()
-    audioRecorder.stopRecording()
-    audioLevelMonitor.stopMonitoring()
-    if (sharedStreamRef.current) {
-      sharedStreamRef.current.getTracks().forEach(track => track.stop())
-      sharedStreamRef.current = null
+    // Native app: skip web-only MediaStream cleanup
+    if (!isNativeApp()) {
+      audioRecorder.stopRecording()
+      audioLevelMonitor.stopMonitoring()
+      if (sharedStreamRef.current) {
+        sharedStreamRef.current.getTracks().forEach(track => track.stop())
+        sharedStreamRef.current = null
+      }
     }
     stopTTS()
     setVoiceCycleActive(false)
@@ -829,6 +833,19 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
   // confidence 기반 분기 처리
   const handleVoiceResult = useCallback(async (text: string, metadata?: STTResultMetadata) => {
+    // Native app: audio comes as blob via __NATIVE_AUDIO__ marker
+    if (text === '__NATIVE_AUDIO__' && isNativeApp()) {
+      const nativeBlob = (metadata as STTResultMetadata & { nativeAudioBlob?: Blob })?.nativeAudioBlob
+      if (nativeBlob) {
+        // Send directly to Whisper STT backend
+        const whisperResult = await fallbackToWhisper(nativeBlob)
+        if (whisperResult && whisperResult.trim().length > 0) {
+          sendMessage(whisperResult)
+        }
+      }
+      return
+    }
+
     const confidence = metadata?.confidence ?? 0
 
     // MediaRecorder 녹음 중지 (폴백용 오디오 확보)
@@ -946,6 +963,9 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
 
   // VoiceRecorder가 getUserMedia로 확보한 스트림을 받아 audioRecorder/audioLevel에 공유
   const handleStreamReady = useCallback((stream: MediaStream) => {
+    // Native app: recording handled by Flutter, skip MediaStream
+    if (isNativeApp()) return
+
     sharedStreamRef.current = stream
 
     if (!isIOSRef.current) {
@@ -966,7 +986,7 @@ PROMPT: <English system prompt for an AI to role-play this scenario with the use
       setSttError(null)
     }
 
-    if (!recording) {
+    if (!recording && !isNativeApp()) {
       audioRecorder.stopRecording()
       audioLevelMonitor.stopMonitoring()
       // 공유 스트림 정리

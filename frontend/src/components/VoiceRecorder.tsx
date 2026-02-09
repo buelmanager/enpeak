@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useImperativeHandle, forwardRef, useCallback } from 'react'
+import { isNativeApp, nativeRecordStart, nativeRecordStop, base64ToBlob } from '@/lib/nativeBridge'
 
 export interface STTAlternative {
   transcript: string
@@ -306,7 +307,22 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
     useImperativeHandle(ref, () => ({
       startRecording: async () => {
-        if (!recognitionRef.current || isRecording || isBlocked) return
+        if (isRecording || isBlocked) return
+
+        // Native app: use Flutter recording
+        if (isNativeApp()) {
+          try {
+            await nativeRecordStart()
+            setIsRecording(true)
+            onRecordingChangeRef.current?.(true)
+          } catch (e) {
+            console.error('[STT] Native record start failed:', e)
+            onErrorRef.current?.('native-error', 'Failed to start recording')
+          }
+          return
+        }
+
+        if (!recognitionRef.current) return
 
         manualStopRef.current = false
         retryCountRef.current = 0
@@ -318,7 +334,35 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
           onRecordingChangeRef.current?.(true)
         }
       },
-      stopRecording: () => {
+      stopRecording: async () => {
+        // Native app: stop Flutter recording, get base64, convert to blob
+        if (isNativeApp()) {
+          try {
+            const result = await nativeRecordStop()
+            setIsRecording(false)
+            onRecordingChangeRef.current?.(false)
+            if (result?.base64) {
+              const blob = base64ToBlob(result.base64, result.mimeType)
+              // Pass blob as metadata so ChatWindow can send to Whisper STT
+              onResultRef.current('__NATIVE_AUDIO__', {
+                confidence: 0,
+                alternatives: [],
+                nativeAudioBlob: blob,
+              } as STTResultMetadata & { nativeAudioBlob: Blob })
+            }
+          } catch (e) {
+            setIsRecording(false)
+            onRecordingChangeRef.current?.(false)
+            const errorMsg = (e as Error).message
+            if (errorMsg === 'TOO_LONG') {
+              onErrorRef.current?.('too-long', '녹음이 너무 깁니다. 15초 이내로 녹음해주세요.')
+            } else {
+              onErrorRef.current?.('native-error', 'Failed to stop recording')
+            }
+          }
+          return
+        }
+
         if (silenceTimerRef.current) {
           clearTimeout(silenceTimerRef.current)
           silenceTimerRef.current = null
@@ -357,8 +401,23 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
 
     // autoStart prop으로 자동 녹음 시작
     useEffect(() => {
-      if (autoStart && recognitionRef.current && !isRecording && !isBlocked) {
-        (async () => {
+      if (autoStart && !isRecording && !isBlocked) {
+        // Native app: use Flutter recording
+        if (isNativeApp()) {
+          (async () => {
+            try {
+              await nativeRecordStart()
+              setIsRecording(true)
+              onRecordingChangeRef.current?.(true)
+            } catch (e) {
+              console.error('[STT] Native auto-start failed:', e)
+            }
+          })()
+          return
+        }
+
+        if (!recognitionRef.current) return
+        ;(async () => {
           manualStopRef.current = false
           retryCountRef.current = 0
           accumulatedTranscriptRef.current = ''
@@ -373,6 +432,42 @@ const VoiceRecorder = forwardRef<VoiceRecorderRef, VoiceRecorderProps>(
     }, [autoStart, isBlocked])
 
     const toggleRecording = async () => {
+      // Native app: delegate to imperative handle methods
+      if (isNativeApp()) {
+        if (isRecording) {
+          // Use the ref's stopRecording which handles native stop
+          try {
+            const result = await nativeRecordStop()
+            setIsRecording(false)
+            onRecordingChangeRef.current?.(false)
+            if (result?.base64) {
+              const blob = base64ToBlob(result.base64, result.mimeType)
+              onResultRef.current('__NATIVE_AUDIO__', {
+                confidence: 0,
+                alternatives: [],
+                nativeAudioBlob: blob,
+              } as STTResultMetadata & { nativeAudioBlob: Blob })
+            }
+          } catch (e) {
+            setIsRecording(false)
+            onRecordingChangeRef.current?.(false)
+            const errorMsg = (e as Error).message
+            if (errorMsg === 'TOO_LONG') {
+              onErrorRef.current?.('too-long', '녹음이 너무 깁니다. 15초 이내로 녹음해주세요.')
+            }
+          }
+        } else {
+          try {
+            await nativeRecordStart()
+            setIsRecording(true)
+            onRecordingChangeRef.current?.(true)
+          } catch {
+            onErrorRef.current?.('native-error', 'Failed to start recording')
+          }
+        }
+        return
+      }
+
       if (!recognitionRef.current) return
 
       if (isRecording) {

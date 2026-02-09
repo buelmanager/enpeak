@@ -1,11 +1,11 @@
 {
-    "name": "Flu - AI English Learning",
-    "short_name": "Flu",
+    "name": "flu",
+    "short_name": "flu",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#FAF9F7",
-    "theme_color": "#0D9488",
-    "description": "AI-powered English conversation practice app.",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

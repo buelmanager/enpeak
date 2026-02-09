@@ -81,6 +81,10 @@ export default function PWAInstallGuide({ isOpen, onClose }: PWAInstallGuideProp
   const [isInstalled, setIsInstalled] = useState(false)
   const [activeTab, setActiveTab] = useState<'install' | 'homescreen'>('install')
 
+  // Flutter native app inside WebView - PWA guide not needed
+  const isFlutterApp = typeof window !== 'undefined' && !!(window as any).flutter_inappwebview
+  if (isFlutterApp) return null
+
   // 외부 isOpen prop으로 열기
   useEffect(() => {
     if (isOpen) {

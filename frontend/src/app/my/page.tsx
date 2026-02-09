@@ -11,6 +11,7 @@ import { forceCheckForUpdates } from '@/lib/versionCheck'
 import { forceRefresh } from '@/lib/cacheUtils'
 import { useAuth } from '@/contexts/AuthContext'
 import { logOut } from '@/lib/firebase'
+import { isNativeApp, nativeSignOut } from '@/lib/nativeBridge'
 
 
 // 버전별 릴리스 노트
@@ -64,6 +65,11 @@ export default function MyPage() {
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
+    if (isNativeApp()) {
+      try { await nativeSignOut() } catch {}
+      localStorage.removeItem('enpeak_auth_user')
+      localStorage.removeItem('enpeak_native_token')
+    }
     await logOut()
     setIsLoggingOut(false)
     router.push('/')
